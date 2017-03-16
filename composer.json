@@ -1,0 +1,6 @@
+{
+    "name": "dotmailer/wp-email-marketing",
+    "require": {
+        "squizlabs/php_codesniffer": "*"
+    }
+}
