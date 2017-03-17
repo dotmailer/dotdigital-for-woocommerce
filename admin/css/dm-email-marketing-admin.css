@@ -2,3 +2,31 @@
  * All of the CSS for your admin-specific functionality should be
  * included in this file.
  */
+
+html, body {
+    height: 100%; 
+    overflow: hidden;
+}
+
+#wpwrap {
+    height: 100%;
+}
+
+#wpbody {
+    height: 100%;
+}
+
+#wpbody-content {
+    height: 100%;
+}
+
+.rhino {
+    height: 96%;
+    width: 100%;
+}
+
+iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+}

@@ -13,8 +13,7 @@
  *
  * @wordpress-plugin
  * Plugin Name:       dotmailer Email Marketing
- * Plugin URI:        https://en-gb.wordpress.org/plugins/dotmailer-email-marketing/
- * Description:       This is a short description of what the plugin does. It's displayed in the WordPress admin area.
+ * Description:       dotmailer Integration for WordPress ecommerce platforms
  * Version:           1.0.0
  * Author:            dotmailer
  * Author URI:        https://www.dotmailer.com/
