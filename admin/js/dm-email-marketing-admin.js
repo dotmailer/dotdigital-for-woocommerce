@@ -1,32 +1,44 @@
-(function( $ ) {
+(function ($) {
 	'use strict';
 
-	/**
-	 * All of the code for your admin-facing JavaScript source
-	 * should reside in this file.
-	 *
-	 * Note: It has been assumed you will write jQuery code here, so the
-	 * $ function reference has been prepared for usage within the scope
-	 * of this function.
-	 *
-	 * This enables you to define handlers, for when the DOM is ready:
-	 *
-	 * $(function() {
-	 *
-	 * });
-	 *
-	 * When the window is loaded:
-	 *
-	 * $( window ).load(function() {
-	 *
-	 * });
-	 *
-	 * ...and/or other possibilities.
-	 *
-	 * Ideally, it is not considered best practise to attach more than a
-	 * single DOM-ready or window-load handler for a particular page.
-	 * Although scripts in the WordPress core, Plugins and Themes may be
-	 * practising this, we should strive to set a better example in our own work.
-	 */
+	$(function () {
+		var iframe = $('#wcSettings');
+		if (!iframe.length)
+			return;
 
-})( jQuery );
+		var resizeTimeout = false,
+			win = $(window),
+			header = $('#wpadminbar'),
+			footer = $('#wpfooter').filter(':visible');
+
+		function setIframeHeight() {
+			var winHeight = $(window).height();
+			var docHeight = $(document).height();
+			var menuHeight = $('#adminmenuwrap').outerHeight(true);
+
+			var headerHeight = header.outerHeight(true);
+			var footerHeight = footer.length
+				? footer.outerHeight(true)
+				: 4;
+
+			if (winHeight < (headerHeight + menuHeight))
+				iframe.height(menuHeight - footerHeight);
+			else
+				iframe.height(winHeight - headerHeight - footerHeight);
+		}
+
+		function setIframeHeightOnResize(){
+			if (resizeTimeout !== false)
+                clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(setIframeHeight, 100);
+		}
+
+		win.on('resize', setIframeHeightOnResize);
+		win.on('unload', function () {
+			win.off('resize', setIframeHeightOnResize);
+		});
+
+		setIframeHeight();
+	});
+
+})(jQuery);
