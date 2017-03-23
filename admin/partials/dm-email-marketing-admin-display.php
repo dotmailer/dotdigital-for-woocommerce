@@ -16,9 +16,4 @@ $store_url = get_bloginfo( 'wpurl' );
 
 ?>
 
-<!-- This file should primarily consist of HTML with a little bit of PHP. -->
-
-<div class="rhino">
-	<iframe src="https://debug-webapp.dotmailer.internal/woocommerce/connect?storename=<?php $store_name ?>&storeurl=<?php $store_url ?>"></iframe>
-</div>
-
+<iframe id="wcSettings" src="https://debug-webapp.dotmailer.internal/woocommerce/connect?storename=<?php echo rawurlencode( $store_name ); ?>&amp;storeurl=<?php echo rawurlencode( $store_url ); ?>"></iframe>
