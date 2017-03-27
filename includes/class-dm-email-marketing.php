@@ -1,5 +1,4 @@
 <?php
-
 /**
  * The file that defines the core plugin class
  *
@@ -211,5 +210,4 @@ class Dm_Email_Marketing {
 	public function get_version() {
 		return $this->version;
 	}
-
 }

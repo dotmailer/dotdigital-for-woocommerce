@@ -27,12 +27,6 @@ class Dm_Email_Marketing_Activator {
 	 * @since    1.0.0
 	 */
 	public static function activate() {
-		$cart_id;
 
-		if ( class_exists( 'WooCommerce' ) ) {
-			$cart_id = 'Woocommerce';
-		} else {
-			die();
-		}
 	}
 }

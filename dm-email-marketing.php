@@ -23,6 +23,8 @@
  * Domain Path:       /languages
  */
 
+$plugin_name = 'dm-email-marketing';
+
 // If this file is called directly, abort.
 if ( ! defined( 'WPINC' ) ) {
 	die;
@@ -64,10 +66,63 @@ require plugin_dir_path( __FILE__ ) . 'includes/class-dm-email-marketing.php';
  *
  * @since    1.0.0
  */
-function run_dm_email_marketing() {
-
-	$plugin = new Dm_Email_Marketing();
+function run_dm_email_marketing( $plugin_name ) {
+	require_once( ABSPATH . 'wp-admin/includes/plugin.php' );
+	$plugin = new Dm_Email_Marketing( $plugin_name );
 	$plugin->run();
 
+	if ( is_plugin_active( plugin_basename( __FILE__ ) ) ) {
+		validate_dm_email_marketing( $plugin_name );
+	}
 }
-run_dm_email_marketing();
+
+/**
+ * Validates if one of the supported ecommerce platform plugins are active.
+ *
+ * @since    1.0.0
+ */
+function validate_dm_email_marketing( $plugin_name ) {
+	if ( ! in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ), true ) ) {
+		add_action( 'admin_init', 'self_deactivate' );
+		add_action( 'admin_menu', 'remove_admin_menu_page' );
+		add_action( 'admin_notices', 'plugin_activation_failure_message' );
+
+		/**
+	 	 * Short Description. (use period)
+	 	 *
+	 	 * Long Description.
+	 	 *
+	 	 * @since    1.0.0
+	 	 */
+		function self_deactivate() {
+			deactivate_plugins( plugin_basename( __FILE__ ) );
+		}
+		/**
+	 	 * Short Description. (use period)
+	 	 *
+	 	 * Long Description.
+	 	 *
+	 	 * @since    1.0.0
+	 	 */
+		function remove_admin_menu_page() {
+			global $plugin_name;
+			remove_menu_page( $plugin_name );
+		}
+		/**
+	 	 * Short Description. (use period)
+	 	 *
+		 * Long Description.
+	 	 *
+	 	 * @since    1.0.0
+	 	 */
+		function plugin_activation_failure_message() {
+		?>
+			<div class="notice notice-error is-dismissible">
+				<p><?php esc_html_e( 'dotmailer has been deactivated as no supported ecommerce platform has been found.' ); ?></p>
+			</div>
+		<?php
+		}
+	}
+}
+
+run_dm_email_marketing( $plugin_name );
