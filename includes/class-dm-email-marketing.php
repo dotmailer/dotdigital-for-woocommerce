@@ -74,7 +74,6 @@ class Dm_Email_Marketing {
 		$this->set_locale();
 		$this->define_admin_hooks();
 		$this->define_public_hooks();
-
 	}
 
 	/**
@@ -136,7 +135,6 @@ class Dm_Email_Marketing {
 		$plugin_i18n = new Dm_Email_Marketing_i18n();
 
 		$this->loader->add_action( 'plugins_loaded', $plugin_i18n, 'load_plugin_textdomain' );
-
 	}
 
 	/**

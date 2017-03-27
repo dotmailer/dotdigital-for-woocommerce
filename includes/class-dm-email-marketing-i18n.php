@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Define the internationalization functionality
  *
@@ -41,7 +40,4 @@ class Dm_Email_Marketing_i18n {
 		);
 
 	}
-
-
-
 }

@@ -79,7 +79,7 @@ function run_dm_email_marketing( $plugin_name ) {
 /**
  * Validates if one of the supported ecommerce platform plugins are active.
  *
- * @since    1.0.0
+ * @since   1.0.0
  */
 function validate_dm_email_marketing( $plugin_name ) {
 	if ( ! in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ), true ) ) {
@@ -118,7 +118,7 @@ function validate_dm_email_marketing( $plugin_name ) {
 		function plugin_activation_failure_message() {
 		?>
 			<div class="notice notice-error is-dismissible">
-				<p><?php esc_html_e( 'dotmailer has been deactivated as no supported ecommerce platform has been found.' ); ?></p>
+				<p><?php esc_html_e( 'dotmailer has been deactivated as no supported ecommerce platform has been found.', 'dm-email-marketing' ); ?></p>
 			</div>
 		<?php
 		}

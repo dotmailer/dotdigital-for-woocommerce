@@ -114,7 +114,7 @@ class Dm_Email_Marketing_Admin {
 		*        Administration Menus: http://codex.wordpress.org/Administration_Menus
 		*
 		*/
-		add_menu_page( 'dotmailer', 'dotmailer', 'manage_options', $this->plugin_name, array( $this, 'display_plugin_setup_page' ), 'https://d1nca6q8ghann3.cloudfront.net/themeitems/1/files/c2334.ico' );
+		add_menu_page( 'dotmailer', 'dotmailer', 'manage_options', $this->plugin_name, array( $this, 'display_plugin_setup_page' ), 'https://d1nca6q8ghann3.cloudfront.net/themeitems/1/files/c2334.ico', 55 );
 	}
 
 	/**
