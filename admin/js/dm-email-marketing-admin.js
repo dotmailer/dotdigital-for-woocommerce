@@ -2,24 +2,23 @@
 	'use strict';
 
 	$(function () {
-		var iframe = $('#wcSettings');
+		var iframe = $('#dm4WcSettings');
 		if (!iframe.length)
 			return;
 
 		var resizeTimeout = false,
 			win = $(window),
 			header = $('#wpadminbar'),
-			footer = $('#wpfooter').filter(':visible');
+			adminMenu = $('#adminmenuwrap'),
+			footer = $('#wpfooter');
 
 		function setIframeHeight() {
-			var winHeight = $(window).height();
-			var docHeight = $(document).height();
-			var menuHeight = $('#adminmenuwrap').outerHeight(true);
-
-			var headerHeight = header.outerHeight(true);
-			var footerHeight = footer.length
-				? footer.outerHeight(true)
-				: 4;
+			var winHeight = win.height(),
+				headerHeight = header.outerHeight(true),
+				menuHeight = adminMenu.outerHeight(true),
+				footerHeight = footer.length && footer.is(':visible')
+					? footer.outerHeight(true)
+					: 4;
 
 			if (winHeight < (headerHeight + menuHeight))
 				iframe.height(menuHeight - footerHeight);
