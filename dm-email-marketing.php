@@ -17,10 +17,23 @@
  * Version:           1.0.0
  * Author:            dotmailer
  * Author URI:        https://www.dotmailer.com/
- * License:           GPL-2.0+
- * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
+ * License:           GPLv3
+ * License URI:       http://www.gnu.org/licenses/gpl-3.0.txt
  * Text Domain:       dm-email-marketing
  * Domain Path:       /languages
+ *
+ * dotmailer Email Marketing for WordPress is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * any later version.
+ *
+ * dotmailer Email Marketing for WordPress is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with dotmailer Email Marketing for WordPress. If not, see https://www.gnu.org/licenses/gpl-3.0.txt.
  */
 
 $plugin_name = 'dm-email-marketing';
@@ -65,13 +78,15 @@ require plugin_dir_path( __FILE__ ) . 'includes/class-dm-email-marketing.php';
  * not affect the page life cycle.
  *
  * @since    1.0.0
+ *
+ * @param string $plugin_name The name of the plugin.
  */
 function run_dm_email_marketing( $plugin_name ) {
 	require_once( ABSPATH . 'wp-admin/includes/plugin.php' );
 	$plugin = new Dm_Email_Marketing( $plugin_name );
 	$plugin->run();
 
-	if ( is_plugin_active( plugin_basename( __FILE__ ) ) ) {
+	if ( is_admin() && is_plugin_active( plugin_basename( __FILE__ ) ) ) {
 		validate_dm_email_marketing( $plugin_name );
 	}
 }
@@ -80,6 +95,8 @@ function run_dm_email_marketing( $plugin_name ) {
  * Validates if one of the supported ecommerce platform plugins are active.
  *
  * @since   1.0.0
+ *
+ * @param string $plugin_name The name of the plugin.
  */
 function validate_dm_email_marketing( $plugin_name ) {
 	if ( ! in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ), true ) ) {
