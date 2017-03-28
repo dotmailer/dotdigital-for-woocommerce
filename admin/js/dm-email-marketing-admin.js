@@ -29,8 +29,8 @@
 
 		function setIframeHeightOnResize(){
 			if (resizeTimeout !== false)
-                clearTimeout(resizeTimeout);
-            resizeTimeout = setTimeout(setIframeHeight, 100);
+				clearTimeout(resizeTimeout);
+			resizeTimeout = setTimeout(setIframeHeight, 100);
 		}
 
 		win.on('resize', setIframeHeightOnResize);
