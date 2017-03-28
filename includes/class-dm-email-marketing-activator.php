@@ -27,20 +27,6 @@ class Dm_Email_Marketing_Activator {
 	 * @since    1.0.0
 	 */
 	public static function activate() {
-		global $wpdb;
 
-		$table_name = $wpdb->prefix . 'dotmailer';
-
-		$charset_collate = $wpdb->get_charset_collate();
-
-		$sql = "CREATE TABLE $table_name (
-  			id mediumint(9) NOT NULL AUTO_INCREMENT,
-			cart_type tinytext NOT NULL,
-			store_key tinytext NOT NULL,
- 			PRIMARY KEY  (id)
-		) $charset_collate;";
-
-		require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
-		dbDelta( $sql );
 	}
 }
