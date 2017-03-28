@@ -1,4 +1,8 @@
-/**
- * All of the CSS for your admin-specific functionality should be
- * included in this file.
- */
+#wpbody-content {
+    padding-bottom: 0;
+}
+
+iframe {
+    background-color: #fff;
+    width: 100%;
+}

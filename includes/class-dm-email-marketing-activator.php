@@ -27,18 +27,6 @@ class Dm_Email_Marketing_Activator {
 	 * @since    1.0.0
 	 */
 	public static function activate() {
-		$url = 'https://192.168.100.254/ecommerce/register-wp-plugin';
-		$cart_id;
-
-		if ( class_exists( 'WooCommerce' ) ) {
-			$cart_id = 'Woocommerce';
-		} else {
-			die();
-		}
-
-		echo 'Cart name: $cart_id';
-
-		//$response = wp_remote_post( $url );
 
 	}
 }

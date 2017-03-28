@@ -1,5 +1,4 @@
 <?php
-
 /**
  * The file that defines the core plugin class
  *
@@ -75,7 +74,6 @@ class Dm_Email_Marketing {
 		$this->set_locale();
 		$this->define_admin_hooks();
 		$this->define_public_hooks();
-
 	}
 
 	/**
@@ -137,7 +135,6 @@ class Dm_Email_Marketing {
 		$plugin_i18n = new Dm_Email_Marketing_i18n();
 
 		$this->loader->add_action( 'plugins_loaded', $plugin_i18n, 'load_plugin_textdomain' );
-
 	}
 
 	/**
@@ -153,7 +150,7 @@ class Dm_Email_Marketing {
 
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
-
+		$this->loader->add_action( 'admin_menu', $plugin_admin, 'add_plugin_admin_menu' );
 	}
 
 	/**
@@ -169,7 +166,6 @@ class Dm_Email_Marketing {
 
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
-
 	}
 
 	/**
@@ -211,5 +207,4 @@ class Dm_Email_Marketing {
 	public function get_version() {
 		return $this->version;
 	}
-
 }

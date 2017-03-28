@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Fired during plugin deactivation
  *
@@ -32,5 +31,4 @@ class Dm_Email_Marketing_Deactivator {
 	public static function deactivate() {
 
 	}
-
 }
