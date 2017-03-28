@@ -36,12 +36,12 @@
  * along with dotmailer Email Marketing for WordPress. If not, see https://www.gnu.org/licenses/gpl-3.0.txt.
  */
 
-$plugin_name = 'dm-email-marketing';
-
 // If this file is called directly, abort.
 if ( ! defined( 'WPINC' ) ) {
 	die;
 }
+
+$dotmailer_plugin_name = 'dm-email-marketing';
 
 /**
  * The code that runs during plugin activation.
@@ -122,8 +122,8 @@ function validate_dm_email_marketing( $plugin_name ) {
 	 	 * @since    1.0.0
 	 	 */
 		function remove_admin_menu_page() {
-			global $plugin_name;
-			remove_menu_page( $plugin_name );
+			global $dotmailer_plugin_name;
+			remove_menu_page( $dotmailer_plugin_name );
 		}
 		/**
 	 	 * Short Description. (use period)
@@ -135,11 +135,11 @@ function validate_dm_email_marketing( $plugin_name ) {
 		function plugin_activation_failure_message() {
 		?>
 			<div class="notice notice-error is-dismissible">
-				<p><?php esc_html_e( 'dotmailer has been deactivated as no supported ecommerce platform has been found.', 'dm-email-marketing' ); ?></p>
+				<p><?php esc_html_e( 'dotmailer plugin will remain deactivated until an ecommerce plugin is installed and activated.', 'dm-email-marketing' ); ?></p>
 			</div>
 		<?php
 		}
 	}
 }
 
-run_dm_email_marketing( $plugin_name );
+run_dm_email_marketing( $dotmailer_plugin_name );
