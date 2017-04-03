@@ -41,7 +41,7 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
-$dotmailer_plugin_name = 'dm-email-marketing';
+$dm_em_plugin_name = 'dotmailer-email-marketing';
 
 /**
  * The code that runs during plugin activation.
@@ -122,8 +122,8 @@ function validate_dm_email_marketing( $plugin_name ) {
 	 	 * @since    1.0.0
 	 	 */
 		function remove_admin_menu_page() {
-			global $dotmailer_plugin_name;
-			remove_menu_page( $dotmailer_plugin_name );
+			global $dm_em_plugin_name;
+			remove_menu_page( $dm_em_plugin_name );
 		}
 		/**
 	 	 * Short Description. (use period)
@@ -142,4 +142,4 @@ function validate_dm_email_marketing( $plugin_name ) {
 	}
 }
 
-run_dm_email_marketing( $dotmailer_plugin_name );
+run_dm_email_marketing( $dm_em_plugin_name );

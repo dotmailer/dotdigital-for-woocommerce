@@ -65,9 +65,9 @@ class Dm_Email_Marketing {
 	 *
 	 * @since    1.0.0
 	 */
-	public function __construct() {
+	public function __construct( $plugin_name ) {
 
-		$this->plugin_name = 'dm-email-marketing';
+		$this->plugin_name = $plugin_name;
 		$this->version = '1.0.0';
 
 		$this->load_dependencies();

@@ -11,9 +11,9 @@
  * @subpackage Dm_Email_Marketing/admin/partials
  */
 
-$store_name = get_bloginfo( 'name' );
-$store_url = get_bloginfo( 'wpurl' );
+$dotmailer_em_store_name = get_bloginfo( 'name' );
+$dotmailer_em_store_url = get_bloginfo( 'wpurl' );
 
 ?>
 
-<iframe id="dm4WcSettings" src="https://debug-webapp.dotmailer.internal/woocommerce/connect?storename=<?php echo rawurlencode( $store_name ); ?>&amp;storeurl=<?php echo rawurlencode( $store_url ); ?>"></iframe>
+<iframe id="dm4WcSettings" src="https://debug-webapp.dotmailer.internal/woocommerce/connect?storename=<?php echo rawurlencode( $dotmailer_em_store_name ); ?>&amp;storeurl=<?php echo rawurlencode( $dotmailer_em_store_url ); ?>"></iframe>
