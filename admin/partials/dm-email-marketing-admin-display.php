@@ -14,7 +14,7 @@
 $dotmailer_em_store_name = get_bloginfo( 'name' );
 $dotmailer_em_store_url = get_bloginfo( 'wpurl' );
 $dotmailer_em_bridge_url = $dotmailer_em_store_url . '/bridge2cart/bridge.php';
-$dotmailer_em_store_root = ABSPATH;
+$dotmailer_em_store_root = str_replace( '\\', '/', ABSPATH );
 
 ?>
 
