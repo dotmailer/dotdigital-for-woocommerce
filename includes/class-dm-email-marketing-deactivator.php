@@ -30,5 +30,24 @@ class Dm_Email_Marketing_Deactivator {
 	 */
 	public static function deactivate() {
 
+		$dotmailer_em_store_url = get_bloginfo( 'wpurl' );
+		$dotmailer_em_config_path = ABSPATH . '/bridge2cart/config.php';
+
+		if ( is_file( $dotmailer_em_config_path ) && is_readable( $dotmailer_em_config_path ) ) {
+
+			require $dotmailer_em_config_path;
+
+			wp_remote_post( "http://debug-tracking.dotmailer.internal/e/disable/woocommerce?storeurl=$dotmailer_em_store_url&storekey=" . M1_TOKEN );
+
+			add_action( 'admin_notices', 'plugin_deactivation_bridge_config_found_message' );
+		}
+	}
+
+	function plugin_deactivation_bridge_config_found_message() {
+		?>
+			<div class="notice notice-error is-dismissible">
+				<p><?php esc_html_e( 'dotmailer plugin has been deactivated and your syncs have been disabled.', 'dotmailer-email-marketing' ); ?></p>
+			</div>
+		<?php
 	}
 }

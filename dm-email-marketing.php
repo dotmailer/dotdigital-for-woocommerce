@@ -41,7 +41,7 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
-$dm_em_plugin_name = 'dotmailer-email-marketing';
+$dotmailer_em_plugin_name = 'dotmailer-email-marketing';
 
 /**
  * The code that runs during plugin activation.
@@ -122,8 +122,8 @@ function validate_dm_email_marketing( $plugin_name ) {
 	 	 * @since    1.0.0
 	 	 */
 		function remove_admin_menu_page() {
-			global $dm_em_plugin_name;
-			remove_menu_page( $dm_em_plugin_name );
+			global $dotmailer_em_plugin_name;
+			remove_menu_page( $dotmailer_em_plugin_name );
 		}
 		/**
 	 	 * Short Description. (use period)
@@ -135,11 +135,11 @@ function validate_dm_email_marketing( $plugin_name ) {
 		function plugin_activation_failure_message() {
 		?>
 			<div class="notice notice-error is-dismissible">
-				<p><?php esc_html_e( 'dotmailer plugin will remain deactivated until an ecommerce plugin is installed and activated.', 'dm-email-marketing' ); ?></p>
+				<p><?php esc_html_e( 'dotmailer plugin will remain deactivated until an ecommerce plugin is installed and activated.', $dotmailer_em_plugin_name ); ?></p>
 			</div>
 		<?php
 		}
 	}
 }
 
-run_dm_email_marketing( $dm_em_plugin_name );
+run_dm_email_marketing( $dotmailer_em_plugin_name );
