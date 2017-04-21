@@ -28,7 +28,6 @@ class Dm_Email_Marketing_Activator {
 	 */
 	public static function activate() {
 		global $wpdb;
-
 		$dotmailer_em_table_name = $wpdb->prefix . 'dotmailer_email_marketing';
 
 		// @codingStandardsIgnoreStart

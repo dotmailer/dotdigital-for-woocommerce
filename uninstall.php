@@ -28,6 +28,8 @@
 if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
 	exit;
 }
+global $wpdb;
+$dotmailer_em_table_name = $wpdb->prefix . 'dotmailer_email_marketing';
 
 // @codingStandardsIgnoreStart
 $uid = $wpdb->get_var( "SELECT UID FROM $dotmailer_em_table_name" );

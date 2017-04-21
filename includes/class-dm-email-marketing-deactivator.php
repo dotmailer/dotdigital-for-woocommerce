@@ -29,6 +29,9 @@ class Dm_Email_Marketing_Deactivator {
 	 * @since    1.0.0
 	 */
 	public static function deactivate() {
+		global $wpdb;
+		$dotmailer_em_table_name = $wpdb->prefix . 'dotmailer_email_marketing';
+
 		// @codingStandardsIgnoreStart
 		$uid = $wpdb->get_var( "SELECT UID FROM $dotmailer_em_table_name" );
 		// @codingStandardsIgnoreEnd
