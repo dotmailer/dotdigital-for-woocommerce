@@ -29,15 +29,9 @@ class Dm_Email_Marketing_Deactivator {
 	 * @since    1.0.0
 	 */
 	public static function deactivate() {
-
-		$dotmailer_em_store_url = get_bloginfo( 'wpurl' );
-		$dotmailer_em_config_path = ABSPATH . '/bridge2cart/config.php';
-
-		if ( is_file( $dotmailer_em_config_path ) && is_readable( $dotmailer_em_config_path ) ) {
-
-			require $dotmailer_em_config_path;
-
-			wp_remote_post( "http://debug-tracking.dotmailer.internal/e/disable/woocommerce?storeurl=$dotmailer_em_store_url&storekey=" . M1_TOKEN );
-		}
+		// @codingStandardsIgnoreStart
+		$uid = $wpdb->get_var( "SELECT UID FROM $dotmailer_em_table_name" );
+		// @codingStandardsIgnoreEnd
+		wp_remote_post( "http://debug-tracking.dotmailer.internal/e/disable/woocommerce?uuid=$uid" );
 	}
 }
