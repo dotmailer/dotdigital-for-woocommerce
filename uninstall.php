@@ -32,6 +32,6 @@ global $wpdb;
 $dotmailer_em_table_name = $wpdb->prefix . 'dotmailer_email_marketing';
 
 // @codingStandardsIgnoreStart
-$uid = $wpdb->get_var( "SELECT UID FROM $dotmailer_em_table_name" );
+$plugin_id = $wpdb->get_var( "SELECT PluginID FROM $dotmailer_em_table_name" );
 // @codingStandardsIgnoreEnd
-wp_remote_post( "http://debug-tracking.dotmailer.internal/e/uninstall/woocommerce?uuid=$uid" );
+wp_remote_post( "http://debug-tracking.dotmailer.internal/e/uninstall/woocommerce?pluginid=$plugin_id" );

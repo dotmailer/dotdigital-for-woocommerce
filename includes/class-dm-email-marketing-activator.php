@@ -36,7 +36,7 @@ class Dm_Email_Marketing_Activator {
 			$charset_collate = $wpdb -> get_charset_collate();
 
 			$sql = "CREATE TABLE $dotmailer_em_table_name (
-          		UID text NOT NULL
+          		PluginID text NOT NULL
      		) $charset_collate;";
 
 			require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
@@ -45,22 +45,22 @@ class Dm_Email_Marketing_Activator {
 			// @codingStandardsIgnoreStart
 			$wpdb->insert( $dotmailer_em_table_name, array( 
 				// @codingStandardsIgnoreEnd
-				'UID' => uniqid( 'dm_', true ),
+				'PluginID' => uniqid( 'dm_', true ),
 			));
 		} else {
 			// @codingStandardsIgnoreStart
-			$uid = $wpdb->get_var( "SELECT UID FROM $dotmailer_em_table_name" );
-			if ( null === $uid ) {
+			$plugin_id = $wpdb->get_var( "SELECT PluginID FROM $dotmailer_em_table_name" );
+			if ( null === $plugin_id ) {
 				
 				$wpdb->insert( $dotmailer_em_table_name, array(
-					'UID' => uniqid( 'dm_', true ),
+					'PluginID' => uniqid( 'dm_', true ),
 				));
 
-				$uid = $wpdb->get_var( "SELECT UID FROM $dotmailer_em_table_name" );
+				$plugin_id = $wpdb->get_var( "SELECT PluginID FROM $dotmailer_em_table_name" );
 				// @codingStandardsIgnoreEnd
 			}
 
-			wp_remote_post( "http://debug-tracking.dotmailer.internal/e/enable/woocommerce?uuid=$uid" );
+			wp_remote_post( "http://debug-tracking.dotmailer.internal/e/enable/woocommerce?pluginid=$plugin_id" );
 		}
 	}
 }
