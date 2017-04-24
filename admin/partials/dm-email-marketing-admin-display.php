@@ -10,6 +10,7 @@
  * @package    Dm_Email_Marketing
  * @subpackage Dm_Email_Marketing/admin/partials
  */
+
 global $wpdb;
 $dotmailer_em_table_name = $wpdb->prefix . 'dotmailer_email_marketing';
 
