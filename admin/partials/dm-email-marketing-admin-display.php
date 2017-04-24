@@ -10,6 +10,12 @@
  * @package    Dm_Email_Marketing
  * @subpackage Dm_Email_Marketing/admin/partials
  */
+global $wpdb;
+$dotmailer_em_table_name = $wpdb->prefix . 'dotmailer_email_marketing';
+
+// @codingStandardsIgnoreStart
+$dotmailer_em_plugin_id = $wpdb->get_var( "SELECT PluginID FROM $dotmailer_em_table_name" );
+// @codingStandardsIgnoreEnd
 
 $dotmailer_em_store_name = get_bloginfo( 'name' );
 $dotmailer_em_store_url = get_bloginfo( 'wpurl' );
@@ -22,4 +28,5 @@ $dotmailer_em_store_root = str_replace( '\\', '/', ABSPATH );
 	storename=<?php echo rawurlencode( $dotmailer_em_store_name ); ?>&amp;
 	storeurl=<?php echo rawurlencode( $dotmailer_em_store_url ); ?>&amp;
 	bridgeurl=<?php echo rawurlencode( $dotmailer_em_bridge_url ); ?>&amp;
-	storeroot=<?php echo rawurlencode( $dotmailer_em_store_root ); ?>"></iframe>
+	storeroot=<?php echo rawurlencode( $dotmailer_em_store_root ); ?>&amp;
+	pluginid=<?php echo rawurlencode( $dotmailer_em_plugin_id ); ?>"></iframe>
