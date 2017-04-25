@@ -36,31 +36,27 @@ class Dm_Email_Marketing_Activator {
 			$charset_collate = $wpdb -> get_charset_collate();
 
 			$sql = "CREATE TABLE $dotmailer_em_table_name (
-          		PluginID text NOT NULL
+          		PluginID VARCHAR(256) NOT NULL
      		) $charset_collate;";
 
 			require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
 			dbDelta( $sql );
-
-			// @codingStandardsIgnoreStart
-			$wpdb->insert( $dotmailer_em_table_name, array( 
-				// @codingStandardsIgnoreEnd
-				'PluginID' => uniqid( 'dm_', true ),
-			));
-		} else {
-			// @codingStandardsIgnoreStart
-			$plugin_id = $wpdb->get_var( "SELECT PluginID FROM $dotmailer_em_table_name" );
-			if ( null === $plugin_id ) {
-				
-				$wpdb->insert( $dotmailer_em_table_name, array(
-					'PluginID' => uniqid( 'dm_', true ),
-				));
-
-				$plugin_id = $wpdb->get_var( "SELECT PluginID FROM $dotmailer_em_table_name" );
-				// @codingStandardsIgnoreEnd
-			}
-
-			wp_remote_post( "http://debug-tracking.dotmailer.internal/e/enable/woocommerce?pluginid=$plugin_id" );
 		}
+		// @codingStandardsIgnoreStart
+		$plugin_id = $wpdb->get_var( "SELECT PluginID FROM $dotmailer_em_table_name" );
+
+		if ( null === $plugin_id ) {
+			$length = 128;
+			$crypto_strong = true;
+
+			$wpdb->insert( $dotmailer_em_table_name, array(
+				'PluginID' => bin2hex( openssl_random_pseudo_bytes( $length, $crypto_strong ) ),
+			));
+
+			$plugin_id = $wpdb->get_var( "SELECT PluginID FROM $dotmailer_em_table_name" );
+			// @codingStandardsIgnoreEnd
+		}
+
+		wp_remote_post( "http://debug-tracking.dotmailer.internal/e/enable/woocommerce?pluginid=$plugin_id" );
 	}
 }
