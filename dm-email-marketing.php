@@ -135,7 +135,7 @@ function validate_dm_email_marketing( $plugin_name ) {
 		function plugin_activation_failure_message() {
 		?>
 			<div class="notice notice-error is-dismissible">
-				<p><?php esc_html_e( 'dotmailer plugin will remain deactivated until an ecommerce plugin is installed and activated.', $dotmailer_em_plugin_name ); ?></p>
+				<p><?php esc_html_e( 'dotmailer plugin will remain deactivated until an ecommerce plugin is installed and activated.', 'dotmailer-email-marketing' ); ?></p>
 			</div>
 		<?php
 		}

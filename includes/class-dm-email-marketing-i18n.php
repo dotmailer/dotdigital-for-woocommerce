@@ -32,9 +32,10 @@ class Dm_Email_Marketing_i18n {
 	 * @since    1.0.0
 	 */
 	public function load_plugin_textdomain() {
+		global $dotmailer_em_plugin_name;
 
 		load_plugin_textdomain(
-			'dotmailer-email-marketing',
+			$dotmailer_em_plugin_name,
 			false,
 			dirname( dirname( plugin_basename( __FILE__ ) ) ) . '/languages/'
 		);

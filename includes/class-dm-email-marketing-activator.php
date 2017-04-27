@@ -42,6 +42,7 @@ class Dm_Email_Marketing_Activator {
 			require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
 			dbDelta( $sql );
 		}
+
 		// @codingStandardsIgnoreStart
 		$plugin_id = $wpdb->get_var( "SELECT PluginID FROM $dotmailer_em_table_name" );
 
