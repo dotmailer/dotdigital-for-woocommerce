@@ -28,9 +28,9 @@
 if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
 	exit;
 }
-global $wpdb;
-$dotmailer_plugin_name = 'dotmailer_email_marketing';
-$dotmailer_tracking_site_url = 'http://debug-tracking.dotmailer.internal';
+require_once plugin_dir_path( __FILE__ ) . 'dotmailer.php';
+
+global $wpdb, $dotmailer_plugin_name, $dotmailer_tracking_site_url;
 
 $dotmailer_table_name = $wpdb->prefix . $dotmailer_plugin_name;
 
