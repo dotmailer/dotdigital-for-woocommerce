@@ -2,7 +2,7 @@
 	'use strict';
 
 	$(function () {
-		var iframe = $('#dm4WcSettings');
+		var iframe = $('#dotmailer-settings');
 		if (!iframe.length)
 			return;
 

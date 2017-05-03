@@ -12,7 +12,7 @@
  */
 
 global $wpdb;
-$dotmailer_table_name = $wpdb->prefix . 'dotmailerail_marketing';
+$dotmailer_table_name = $wpdb->prefix . 'dotmailer';
 
 // @codingStandardsIgnoreStart
 $dotmailer_plugin_id = $wpdb->get_var( "SELECT PluginID FROM $dotmailer_table_name" );
@@ -23,11 +23,13 @@ $dotmailer_store_url = get_bloginfo( 'wpurl' );
 $dotmailer_bridge_url = $dotmailer_store_url . '/bridge2cart/bridge.php';
 $dotmailer_store_root = str_replace( '\\', '/', ABSPATH );
 
+$dotmailer_query = http_build_query( array(
+	'storename' => $dotmailer_store_name,
+	'storeurl' => $dotmailer_store_url,
+	'bridgeurl' => $dotmailer_bridge_url,
+	'storeroot' => $dotmailer_store_root,
+	'pluginid' => $dotmailer_plugin_id,
+) );
 ?>
 
-<iframe id="dm4WcSettings" src="https://debug-webapp.dotmailer.internal/woocommerce/connect?
-	storename=<?php echo rawurlencode( $dotmailer_store_name ); ?>&amp;
-	storeurl=<?php echo rawurlencode( $dotmailer_store_url ); ?>&amp;
-	bridgeurl=<?php echo rawurlencode( $dotmailer_bridge_url ); ?>&amp;
-	storeroot=<?php echo rawurlencode( $dotmailer_store_root ); ?>&amp;
-	pluginid=<?php echo rawurlencode( $dotmailer_plugin_id ); ?>"></iframe>
+<iframe id="dotmailer-settings" src="https://debug-webapp.dotmailer.internal/woocommerce/connect?<?php echo esc_html( $dotmailer_query ) ?>"></iframe>
