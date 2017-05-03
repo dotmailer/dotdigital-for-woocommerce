@@ -5,8 +5,8 @@
  * @link       https://www.dotmailer.com/
  * @since      1.0.0
  *
- * @package    Dm_Email_Marketing
- * @subpackage Dm_Email_Marketing/includes
+ * @package    Dotmailer
+ * @subpackage Dotmailer/includes
  */
 
 /**
@@ -15,11 +15,11 @@
  * This class defines all code necessary to run during the plugin's deactivation.
  *
  * @since      1.0.0
- * @package    Dm_Email_Marketing
- * @subpackage Dm_Email_Marketing/includes
+ * @package    Dotmailer
+ * @subpackage Dotmailer/includes
  * @author     dotmailer <integrations@dotmailer.com>
  */
-class Dm_Email_Marketing_Deactivator {
+class Dotmailer_Deactivator {
 
 	/**
 	 * Short Description. (use period)
@@ -30,10 +30,10 @@ class Dm_Email_Marketing_Deactivator {
 	 */
 	public static function deactivate() {
 		global $wpdb;
-		$dotmailer_em_table_name = $wpdb->prefix . 'dotmailer_email_marketing';
+		$dotmailer_table_name = $wpdb->prefix . 'dotmailer';
 
 		// @codingStandardsIgnoreStart
-		$plugin_id = $wpdb->get_var( "SELECT PluginID FROM $dotmailer_em_table_name" );
+		$plugin_id = $wpdb->get_var( "SELECT PluginID FROM $dotmailer_table_name" );
 		// @codingStandardsIgnoreEnd
 		wp_remote_post( "http://debug-tracking.dotmailer.internal/e/disable/woocommerce?pluginid=$plugin_id" );
 	}

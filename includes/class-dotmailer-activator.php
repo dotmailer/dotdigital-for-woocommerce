@@ -5,8 +5,8 @@
  * @link       https://www.dotmailer.com/
  * @since      1.0.0
  *
- * @package    Dm_Email_Marketing
- * @subpackage Dm_Email_Marketing/includes
+ * @package    Dotmailer
+ * @subpackage Dotmailer/includes
  */
 
 /**
@@ -15,10 +15,10 @@
  * This class defines all code necessary to run during the plugin's activation.
  *
  * @since      1.0.0
- * @subpackage Dm_Email_Marketing/includes
+ * @subpackage Dotmailer/includes
  * @author     dotmailer <integrations@dotmailer.com>
  */
-class Dm_Email_Marketing_Activator {
+class Dotmailer_Activator {
 	/**
 	 * Short Description. (use period)
 	 *
@@ -28,14 +28,14 @@ class Dm_Email_Marketing_Activator {
 	 */
 	public static function activate() {
 		global $wpdb;
-		$dotmailer_em_table_name = $wpdb->prefix . 'dotmailer_email_marketing';
+		$dotmailer_table_name = $wpdb->prefix . 'dotmailer';
 
 		// @codingStandardsIgnoreStart
-		if ( $wpdb->get_var( $wpdb->prepare( "SHOW TABLES LIKE %s", $dotmailer_em_table_name ) ) != $dotmailer_em_table_name ) {
+		if ( $wpdb->get_var( $wpdb->prepare( 'SHOW TABLES LIKE %s', $dotmailer_table_name ) ) !== $dotmailer_table_name ) {
 			// @codingStandardsIgnoreEnd
 			$charset_collate = $wpdb -> get_charset_collate();
 
-			$sql = "CREATE TABLE $dotmailer_em_table_name (
+			$sql = "CREATE TABLE $dotmailer_table_name (
           		PluginID VARCHAR(256) NOT NULL
      		) $charset_collate;";
 
@@ -44,17 +44,17 @@ class Dm_Email_Marketing_Activator {
 		}
 
 		// @codingStandardsIgnoreStart
-		$plugin_id = $wpdb->get_var( "SELECT PluginID FROM $dotmailer_em_table_name" );
+		$plugin_id = $wpdb->get_var( "SELECT PluginID FROM $dotmailer_table_name" );
 
 		if ( null === $plugin_id ) {
 			$length = 128;
 			$crypto_strong = true;
 
-			$wpdb->insert( $dotmailer_em_table_name, array(
+			$wpdb->insert( $dotmailer_table_name, array(
 				'PluginID' => bin2hex( openssl_random_pseudo_bytes( $length, $crypto_strong ) ),
 			));
 
-			$plugin_id = $wpdb->get_var( "SELECT PluginID FROM $dotmailer_em_table_name" );
+			$plugin_id = $wpdb->get_var( "SELECT PluginID FROM $dotmailer_table_name" );
 			// @codingStandardsIgnoreEnd
 		}
 

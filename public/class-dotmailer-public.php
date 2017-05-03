@@ -5,8 +5,8 @@
  * @link       https://www.dotmailer.com/
  * @since      1.0.0
  *
- * @package    Dm_Email_Marketing
- * @subpackage Dm_Email_Marketing/public
+ * @package    Dotmailer
+ * @subpackage Dotmailer/public
  */
 
 /**
@@ -15,11 +15,11 @@
  * Defines the plugin name, version, and two examples hooks for how to
  * enqueue the admin-specific stylesheet and JavaScript.
  *
- * @package    Dm_Email_Marketing
- * @subpackage Dm_Email_Marketing/public
+ * @package    Dotmailer
+ * @subpackage Dotmailer/public
  * @author     dotmailer <integrations@dotmailer.com>
  */
-class Dm_Email_Marketing_Public {
+class Dotmailer_Public {
 
 	/**
 	 * The ID of this plugin.
@@ -64,15 +64,15 @@ class Dm_Email_Marketing_Public {
 		 * This function is provided for demonstration purposes only.
 		 *
 		 * An instance of this class should be passed to the run() function
-		 * defined in Dm_Email_Marketing_Loader as all of the hooks are defined
+		 * defined in Dotmailer_Loader as all of the hooks are defined
 		 * in that particular class.
 		 *
-		 * The Dm_Email_Marketing_Loader will then create the relationship
+		 * The Dotmailer_Loader will then create the relationship
 		 * between the defined hooks and the functions defined in this
 		 * class.
 		 */
 
-		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/dm-email-marketing-public.css', array(), $this->version, 'all' );
+		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/dotmailer-public.css', array(), $this->version, 'all' );
 
 	}
 
@@ -87,15 +87,15 @@ class Dm_Email_Marketing_Public {
 		 * This function is provided for demonstration purposes only.
 		 *
 		 * An instance of this class should be passed to the run() function
-		 * defined in Dm_Email_Marketing_Loader as all of the hooks are defined
+		 * defined in Dotmailer_Loader as all of the hooks are defined
 		 * in that particular class.
 		 *
-		 * The Dm_Email_Marketing_Loader will then create the relationship
+		 * The Dotmailer_Loader will then create the relationship
 		 * between the defined hooks and the functions defined in this
 		 * class.
 		 */
 
-		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/dm-email-marketing-public.js', array( 'jquery' ), $this->version, false );
+		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/dotmailer-public.js', array( 'jquery' ), $this->version, false );
 
 	}
 

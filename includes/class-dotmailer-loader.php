@@ -5,8 +5,8 @@
  * @link       https://www.dotmailer.com/
  * @since      1.0.0
  *
- * @package    Dm_Email_Marketing
- * @subpackage Dm_Email_Marketing/includes
+ * @package    Dotmailer
+ * @subpackage Dotmailer/includes
  */
 
 /**
@@ -16,11 +16,11 @@
  * the plugin, and register them with the WordPress API. Call the
  * run function to execute the list of actions and filters.
  *
- * @package    Dm_Email_Marketing
- * @subpackage Dm_Email_Marketing/includes
+ * @package    Dotmailer
+ * @subpackage Dotmailer/includes
  * @author     dotmailer <integrations@dotmailer.com>
  */
-class Dm_Email_Marketing_Loader {
+class Dotmailer_Loader {
 
 	/**
 	 * The array of actions registered with WordPress.

@@ -8,8 +8,8 @@
  * @link       https://www.dotmailer.com/
  * @since      1.0.0
  *
- * @package    Dm_Email_Marketing
- * @subpackage Dm_Email_Marketing/includes
+ * @package    Dotmailer
+ * @subpackage Dotmailer/includes
  */
 
 /**
@@ -19,11 +19,11 @@
  * so that it is ready for translation.
  *
  * @since      1.0.0
- * @package    Dm_Email_Marketing
- * @subpackage Dm_Email_Marketing/includes
+ * @package    Dotmailer
+ * @subpackage Dotmailer/includes
  * @author     dotmailer <integrations@dotmailer.com>
  */
-class Dm_Email_Marketing_i18n {
+class Dotmailer_i18n {
 
 
 	/**
@@ -32,10 +32,10 @@ class Dm_Email_Marketing_i18n {
 	 * @since    1.0.0
 	 */
 	public function load_plugin_textdomain() {
-		global $dotmailer_em_plugin_name;
+		global $dotmailer_plugin_name;
 
 		load_plugin_textdomain(
-			$dotmailer_em_plugin_name,
+			$dotmailer_plugin_name,
 			false,
 			dirname( dirname( plugin_basename( __FILE__ ) ) ) . '/languages/'
 		);

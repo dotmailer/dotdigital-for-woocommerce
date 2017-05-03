@@ -9,7 +9,7 @@
  *
  * @link              https://www.dotmailer.com/
  * @since             1.0.0
- * @package           Dm_Email_Marketing
+ * @package           Dotmailer
  *
  * @wordpress-plugin
  * Plugin Name:       dotmailer Email Marketing
@@ -17,9 +17,9 @@
  * Version:           1.0.0
  * Author:            dotmailer
  * Author URI:        https://www.dotmailer.com/
- * License:           GPLv3
+ * License:           MIT
  * License URI:       http://www.gnu.org/licenses/gpl-3.0.txt
- * Text Domain:       dm-email-marketing
+ * Text Domain:       dotmailer-email-marketing
  * Domain Path:       /languages
  *
  * dotmailer Email Marketing for WordPress is free software: you can redistribute it and/or modify
@@ -41,34 +41,34 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
-$dotmailer_em_plugin_name = 'dotmailer-email-marketing';
+$dotmailer_plugin_name = 'dotmailer-email-marketing';
 
 /**
  * The code that runs during plugin activation.
- * This action is documented in includes/class-dm-email-marketing-activator.php
+ * This action is documented in includes/class-dotmailer-activator.php
  */
-function activate_dm_email_marketing() {
-	require_once plugin_dir_path( __FILE__ ) . 'includes/class-dm-email-marketing-activator.php';
-	Dm_Email_Marketing_Activator::activate();
+function activate_dotmailer() {
+	require_once plugin_dir_path( __FILE__ ) . 'includes/class-dotmailer-activator.php';
+	Dotmailer_Activator::activate();
 }
 
 /**
  * The code that runs during plugin deactivation.
- * This action is documented in includes/class-dm-email-marketing-deactivator.php
+ * This action is documented in includes/class-dotmailer-deactivator.php
  */
-function deactivate_dm_email_marketing() {
-	require_once plugin_dir_path( __FILE__ ) . 'includes/class-dm-email-marketing-deactivator.php';
-	Dm_Email_Marketing_Deactivator::deactivate();
+function deactivate_dotmailer() {
+	require_once plugin_dir_path( __FILE__ ) . 'includes/class-dotmailer-deactivator.php';
+	Dotmailer_Deactivator::deactivate();
 }
 
-register_activation_hook( __FILE__, 'activate_dm_email_marketing' );
-register_deactivation_hook( __FILE__, 'deactivate_dm_email_marketing' );
+register_activation_hook( __FILE__, 'activate_dotmailer' );
+register_deactivation_hook( __FILE__, 'deactivate_dotmailer' );
 
 /**
  * The core plugin class that is used to define internationalization,
  * admin-specific hooks, and public-facing site hooks.
  */
-require plugin_dir_path( __FILE__ ) . 'includes/class-dm-email-marketing.php';
+require plugin_dir_path( __FILE__ ) . 'includes/class-dotmailer.php';
 
 /**
  * Begins execution of the plugin.
@@ -81,13 +81,13 @@ require plugin_dir_path( __FILE__ ) . 'includes/class-dm-email-marketing.php';
  *
  * @param string $plugin_name The name of the plugin.
  */
-function run_dm_email_marketing( $plugin_name ) {
+function run_dotmailer( $plugin_name ) {
 	require_once( ABSPATH . 'wp-admin/includes/plugin.php' );
-	$plugin = new Dm_Email_Marketing( $plugin_name );
+	$plugin = new Dotmailer( $plugin_name );
 	$plugin->run();
 
 	if ( is_admin() && is_plugin_active( plugin_basename( __FILE__ ) ) ) {
-		validate_dm_email_marketing( $plugin_name );
+		validate_dotmailer( $plugin_name );
 	}
 }
 
@@ -98,7 +98,7 @@ function run_dm_email_marketing( $plugin_name ) {
  *
  * @param string $plugin_name The name of the plugin.
  */
-function validate_dm_email_marketing( $plugin_name ) {
+function validate_dotmailer( $plugin_name ) {
 	if ( ! in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ), true ) ) {
 		add_action( 'admin_init', 'self_deactivate' );
 		add_action( 'admin_menu', 'remove_admin_menu_page' );
@@ -122,8 +122,8 @@ function validate_dm_email_marketing( $plugin_name ) {
 	 	 * @since    1.0.0
 	 	 */
 		function remove_admin_menu_page() {
-			global $dotmailer_em_plugin_name;
-			remove_menu_page( $dotmailer_em_plugin_name );
+			global $dotmailer_plugin_name;
+			remove_menu_page( $dotmailer_plugin_name );
 		}
 		/**
 	 	 * Short Description. (use period)
@@ -142,4 +142,4 @@ function validate_dm_email_marketing( $plugin_name ) {
 	}
 }
 
-run_dm_email_marketing( $dotmailer_em_plugin_name );
+run_dotmailer( $dotmailer_plugin_name );
