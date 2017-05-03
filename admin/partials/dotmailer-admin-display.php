@@ -11,8 +11,8 @@
  * @subpackage Dotmailer/admin/partials
  */
 
-global $wpdb;
-$dotmailer_table_name = $wpdb->prefix . 'dotmailer';
+global $wpdb, $dotmailer_plugin_name, $dotmailer_webapp_url;
+$dotmailer_table_name = $wpdb->prefix . $dotmailer_plugin_name;
 
 // @codingStandardsIgnoreStart
 $dotmailer_plugin_id = $wpdb->get_var( "SELECT PluginID FROM $dotmailer_table_name" );
@@ -32,4 +32,4 @@ $dotmailer_query = http_build_query( array(
 ) );
 ?>
 
-<iframe id="dotmailer-settings" src="https://debug-webapp.dotmailer.internal/woocommerce/connect?<?php echo esc_html( $dotmailer_query ) ?>"></iframe>
+<iframe id="dotmailer-settings" src="<?php echo esc_html( $dotmailer_webapp_url ) ?>/woocommerce/connect?<?php echo esc_html( $dotmailer_query ) ?>"></iframe>

@@ -19,6 +19,44 @@
  * @author     dotmailer <integrations@dotmailer.com>
  */
 class Dotmailer_Activator {
+
+	/**
+	 * The name of the plugin.
+	 *
+	 * @since    1.0.0
+	 * @access   private
+	 * @var      string    $plugin_name    The name of the plugin.
+	 */
+	private $plugin_name;
+
+	/**
+	 * The URL of the dotmailer tracking site.
+	 *
+	 * @since    1.0.0
+	 * @access   private
+	 * @var      string    $tracking_site_url    The URL of the dotmailer tracking site.
+	 */
+	private $tracking_site_url;
+
+	/**
+	 * Define the core functionality of the plugin.
+	 *
+	 * Set the plugin name and the plugin version that can be used throughout the plugin.
+	 * Load the dependencies, define the locale, and set the hooks for the admin area and
+	 * the public-facing side of the site.
+	 *
+	 * @since    1.0.0
+	 *
+	 * @param string $plugin_name The name of the plugin.
+	 * @param string $tracking_site_url The URL of the dotmailer tracking site.
+	 */
+	public function __construct( $plugin_name, $tracking_site_url ) {
+
+		$this->plugin_name = $plugin_name;
+		$this->tracking_site_url = $tracking_site_url;
+
+	}
+
 	/**
 	 * Short Description. (use period)
 	 *
@@ -26,9 +64,9 @@ class Dotmailer_Activator {
 	 *
 	 * @since    1.0.0
 	 */
-	public static function activate() {
+	public function activate() {
 		global $wpdb;
-		$dotmailer_table_name = $wpdb->prefix . 'dotmailer';
+		$dotmailer_table_name = $wpdb->prefix . $this->plugin_name;
 
 		// @codingStandardsIgnoreStart
 		if ( $wpdb->get_var( $wpdb->prepare( 'SHOW TABLES LIKE %s', $dotmailer_table_name ) ) !== $dotmailer_table_name ) {
@@ -58,6 +96,6 @@ class Dotmailer_Activator {
 			// @codingStandardsIgnoreEnd
 		}
 
-		wp_remote_post( "http://debug-tracking.dotmailer.internal/e/enable/woocommerce?pluginid=$plugin_id" );
+		wp_remote_post( "$this->tracking_site_url/e/woocommerce/enable?pluginid=$plugin_id" );
 	}
 }

@@ -41,15 +41,25 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
-$dotmailer_plugin_name = 'dotmailer-email-marketing';
+global $dotmailer_plugin_name;
+$dotmailer_plugin_name = 'dotmailer_email_marketing';
+
+global $dotmailer_webapp_url;
+$dotmailer_webapp_url = 'https://debug-webapp.dotmailer.internal';
+
+global $dotmailer_tracking_site_url;
+$dotmailer_tracking_site_url = 'http://debug-tracking.dotmailer.internal';
 
 /**
  * The code that runs during plugin activation.
  * This action is documented in includes/class-dotmailer-activator.php
  */
 function activate_dotmailer() {
+	global $dotmailer_plugin_name, $dotmailer_tracking_site_url;
+
 	require_once plugin_dir_path( __FILE__ ) . 'includes/class-dotmailer-activator.php';
-	Dotmailer_Activator::activate();
+	$plugin_activator = new Dotmailer_Activator( $dotmailer_plugin_name, $dotmailer_tracking_site_url );
+	$plugin_activator->activate();
 }
 
 /**
@@ -57,8 +67,11 @@ function activate_dotmailer() {
  * This action is documented in includes/class-dotmailer-deactivator.php
  */
 function deactivate_dotmailer() {
+	global $dotmailer_plugin_name, $dotmailer_tracking_site_url;
+
 	require_once plugin_dir_path( __FILE__ ) . 'includes/class-dotmailer-deactivator.php';
-	Dotmailer_Deactivator::deactivate();
+	$plugin_deactivator = new Dotmailer_Deactivator( $dotmailer_plugin_name, $dotmailer_tracking_site_url );
+	$plugin_deactivator->deactivate();
 }
 
 register_activation_hook( __FILE__, 'activate_dotmailer' );
