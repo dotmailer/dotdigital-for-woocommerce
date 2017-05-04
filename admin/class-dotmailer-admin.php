@@ -5,8 +5,8 @@
  * @link       https://www.dotmailer.com/
  * @since      1.0.0
  *
- * @package    Dm_Email_Marketing
- * @subpackage Dm_Email_Marketing/admin
+ * @package    Dotmailer
+ * @subpackage Dotmailer/admin
  */
 
 /**
@@ -15,11 +15,11 @@
  * Defines the plugin name, version, and two examples hooks for how to
  * enqueue the admin-specific stylesheet and JavaScript.
  *
- * @package    Dm_Email_Marketing
- * @subpackage Dm_Email_Marketing/admin
+ * @package    Dotmailer
+ * @subpackage Dotmailer/admin
  * @author     dotmailer <integrations@dotmailer.com>
  */
-class Dm_Email_Marketing_Admin {
+class Dotmailer_Admin {
 
 	/**
 	 * The ID of this plugin.
@@ -64,15 +64,15 @@ class Dm_Email_Marketing_Admin {
 		 * This function is provided for demonstration purposes only.
 		 *
 		 * An instance of this class should be passed to the run() function
-		 * defined in Dm_Email_Marketing_Loader as all of the hooks are defined
+		 * defined in Dotmailer_Loader as all of the hooks are defined
 		 * in that particular class.
 		 *
-		 * The Dm_Email_Marketing_Loader will then create the relationship
+		 * The Dotmailer_Loader will then create the relationship
 		 * between the defined hooks and the functions defined in this
 		 * class.
 		 */
 
-		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/dm-email-marketing-admin.css', array(), $this->version, 'all' );
+		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/dotmailer-admin.css', array(), $this->version, 'all' );
 
 	}
 
@@ -87,15 +87,15 @@ class Dm_Email_Marketing_Admin {
 		 * This function is provided for demonstration purposes only.
 		 *
 		 * An instance of this class should be passed to the run() function
-		 * defined in Dm_Email_Marketing_Loader as all of the hooks are defined
+		 * defined in Dotmailer_Loader as all of the hooks are defined
 		 * in that particular class.
 		 *
-		 * The Dm_Email_Marketing_Loader will then create the relationship
+		 * The Dotmailer_Loader will then create the relationship
 		 * between the defined hooks and the functions defined in this
 		 * class.
 		 */
 
-		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/dm-email-marketing-admin.js', array( 'jquery' ), $this->version, false );
+		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/dotmailer-admin.js', array( 'jquery' ), $this->version, false );
 
 	}
 
@@ -135,7 +135,7 @@ class Dm_Email_Marketing_Admin {
 		/*
 		*  Documentation : https://codex.wordpress.org/Plugin_API/Filter_Reference/plugin_action_links_(plugin_file_name)
     	*/
-		$settings_link = array( '<a href="' . admin_url( 'options-general.php?page=' . $this->plugin_name ) . '">' . __( 'Settings', 'dm-email-marketing' ) . '</a>' );
+		$settings_link = array( '<a href="' . admin_url( 'options-general.php?page=' . $this->plugin_name ) . '">' . __( 'Settings', 'dotmailer' ) . '</a>' );
 		return array_merge( $settings_link, $links );
 	}
 
@@ -145,7 +145,7 @@ class Dm_Email_Marketing_Admin {
 	 * @since    1.0.0
 	 */
 	public function display_plugin_setup_page() {
-		include_once( 'partials/dm-email-marketing-admin-display.php' );
+		include_once( 'partials/dotmailer-admin-display.php' );
 	}
 
 }

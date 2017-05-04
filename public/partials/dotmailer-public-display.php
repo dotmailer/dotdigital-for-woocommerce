@@ -7,8 +7,8 @@
  * @link       https://www.dotmailer.com/
  * @since      1.0.0
  *
- * @package    Dm_Email_Marketing
- * @subpackage Dm_Email_Marketing/public/partials
+ * @package    Dotmailer
+ * @subpackage Dotmailer/public/partials
  */
 
 ?>

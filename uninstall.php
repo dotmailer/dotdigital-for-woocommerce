@@ -21,10 +21,21 @@
  * @link       https://www.dotmailer.com/
  * @since      1.0.0
  *
- * @package    Dm_Email_Marketing
+ * @package    Dotmailer
  */
 
 // If uninstall not called from WordPress, then exit.
 if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
 	exit;
 }
+require_once plugin_dir_path( __FILE__ ) . 'dotmailer.php';
+
+global $wpdb, $dotmailer_plugin_name, $dotmailer_tracking_site_url;
+
+$dotmailer_table_name = $wpdb->prefix . $dotmailer_plugin_name;
+
+// @codingStandardsIgnoreStart
+$plugin_id = $wpdb->get_var( "SELECT PluginID FROM $dotmailer_table_name" );
+$wpdb->query("DROP TABLE IF EXISTS $dotmailer_table_name");
+// @codingStandardsIgnoreEnd
+wp_remote_post( "$dotmailer_tracking_site_url/e/woocommerce/uninstall?pluginid=$plugin_id" );

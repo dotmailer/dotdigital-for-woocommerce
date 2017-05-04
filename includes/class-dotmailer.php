@@ -8,8 +8,8 @@
  * @link       https://www.dotmailer.com/
  * @since      1.0.0
  *
- * @package    Dm_Email_Marketing
- * @subpackage Dm_Email_Marketing/includes
+ * @package    Dotmailer
+ * @subpackage Dotmailer/includes
  */
 
 /**
@@ -22,11 +22,11 @@
  * version of the plugin.
  *
  * @since      1.0.0
- * @package    Dm_Email_Marketing
- * @subpackage Dm_Email_Marketing/includes
+ * @package    Dotmailer
+ * @subpackage Dotmailer/includes
  * @author     dotmailer <integrations@dotmailer.com>
  */
-class Dm_Email_Marketing {
+class Dotmailer {
 
 	/**
 	 * The loader that's responsible for maintaining and registering all hooks that power
@@ -34,7 +34,7 @@ class Dm_Email_Marketing {
 	 *
 	 * @since    1.0.0
 	 * @access   protected
-	 * @var      Dm_Email_Marketing_Loader    $loader    Maintains and registers all hooks for the plugin.
+	 * @var      Dotmailer_Loader    $loader    Maintains and registers all hooks for the plugin.
 	 */
 	protected $loader;
 
@@ -64,6 +64,8 @@ class Dm_Email_Marketing {
 	 * the public-facing side of the site.
 	 *
 	 * @since    1.0.0
+	 *
+	 * @param string $plugin_name The name of the plugin.
 	 */
 	public function __construct( $plugin_name ) {
 
@@ -81,10 +83,10 @@ class Dm_Email_Marketing {
 	 *
 	 * Include the following files that make up the plugin:
 	 *
-	 * - Dm_Email_Marketing_Loader. Orchestrates the hooks of the plugin.
-	 * - Dm_Email_Marketing_i18n. Defines internationalization functionality.
-	 * - Dm_Email_Marketing_Admin. Defines all hooks for the admin area.
-	 * - Dm_Email_Marketing_Public. Defines all hooks for the public side of the site.
+	 * - Dotmailer_Loader. Orchestrates the hooks of the plugin.
+	 * - Dotmailer_i18n. Defines internationalization functionality.
+	 * - Dotmailer_Admin. Defines all hooks for the admin area.
+	 * - Dotmailer_Public. Defines all hooks for the public side of the site.
 	 *
 	 * Create an instance of the loader which will be used to register the hooks
 	 * with WordPress.
@@ -98,33 +100,33 @@ class Dm_Email_Marketing {
 		 * The class responsible for orchestrating the actions and filters of the
 		 * core plugin.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-dm-email-marketing-loader.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-dotmailer-loader.php';
 
 		/**
 		 * The class responsible for defining internationalization functionality
 		 * of the plugin.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-dm-email-marketing-i18n.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-dotmailer-i18n.php';
 
 		/**
 		 * The class responsible for defining all actions that occur in the admin area.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-dm-email-marketing-admin.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-dotmailer-admin.php';
 
 		/**
 		 * The class responsible for defining all actions that occur in the public-facing
 		 * side of the site.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-dm-email-marketing-public.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-dotmailer-public.php';
 
-		$this->loader = new Dm_Email_Marketing_Loader();
+		$this->loader = new Dotmailer_Loader();
 
 	}
 
 	/**
 	 * Define the locale for this plugin for internationalization.
 	 *
-	 * Uses the Dm_Email_Marketing_i18n class in order to set the domain and to register the hook
+	 * Uses the Dotmailer_i18n class in order to set the domain and to register the hook
 	 * with WordPress.
 	 *
 	 * @since    1.0.0
@@ -132,7 +134,7 @@ class Dm_Email_Marketing {
 	 */
 	private function set_locale() {
 
-		$plugin_i18n = new Dm_Email_Marketing_i18n();
+		$plugin_i18n = new Dotmailer_i18n();
 
 		$this->loader->add_action( 'plugins_loaded', $plugin_i18n, 'load_plugin_textdomain' );
 	}
@@ -146,7 +148,7 @@ class Dm_Email_Marketing {
 	 */
 	private function define_admin_hooks() {
 
-		$plugin_admin = new Dm_Email_Marketing_Admin( $this->get_plugin_name(), $this->get_version() );
+		$plugin_admin = new Dotmailer_Admin( $this->get_plugin_name(), $this->get_version() );
 
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
@@ -162,7 +164,7 @@ class Dm_Email_Marketing {
 	 */
 	private function define_public_hooks() {
 
-		$plugin_public = new Dm_Email_Marketing_Public( $this->get_plugin_name(), $this->get_version() );
+		$plugin_public = new Dotmailer_Public( $this->get_plugin_name(), $this->get_version() );
 
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
@@ -192,7 +194,7 @@ class Dm_Email_Marketing {
 	 * The reference to the class that orchestrates the hooks with the plugin.
 	 *
 	 * @since     1.0.0
-	 * @return    Dm_Email_Marketing_Loader    Orchestrates the hooks of the plugin.
+	 * @return    Dotmailer_Loader    Orchestrates the hooks of the plugin.
 	 */
 	public function get_loader() {
 		return $this->loader;
