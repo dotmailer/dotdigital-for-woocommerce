@@ -76,6 +76,8 @@ class Dotmailer {
 		$this->set_locale();
 		$this->define_admin_hooks();
 		$this->define_public_hooks();
+
+		$this->define_woocommerce_hooks();
 	}
 
 	/**
@@ -118,6 +120,12 @@ class Dotmailer {
 		 * side of the site.
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-dotmailer-public.php';
+
+		/**
+		 * The class responsible for defining all actions that occur in woocommerce related
+		 * side of the site.
+		 */
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/woocommerce/class-dotmailer-woocommerce.php';
 
 		$this->loader = new Dotmailer_Loader();
 
@@ -168,6 +176,22 @@ class Dotmailer {
 
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
+	}
+
+	/**
+	 * Register all of the hooks related to the public-facing functionality
+	 * of the plugin.
+	 *
+	 * @since    1.0.0
+	 * @access   private
+	 */
+	private function define_woocommerce_hooks() {
+
+		$plugin_woocommerce = new Dotmailer_WooCommerce();
+
+		// Possible checkout page hooks: https://businessbloomer.com/woocommerce-visual-hook-guide-checkout-page/ .
+		$this->loader->add_action( 'woocommerce_checkout_after_customer_details', $plugin_woocommerce, 'dotmailer_render_accepts_marketing_input' );
+		$this->loader->add_action( 'woocommerce_checkout_update_order_meta', $plugin_woocommerce, 'dotmailer_handle_accepts_marketing_input' );
 	}
 
 	/**
