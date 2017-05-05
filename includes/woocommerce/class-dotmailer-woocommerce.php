@@ -1,18 +1,18 @@
 <?php
 /**
- * Fired during plugin deactivation
+ * Used for WooCommerce hooks.
  *
  * @link       https://www.dotmailer.com/
  * @since      1.0.0
  *
  * @package    Dotmailer
- * @subpackage Dotmailer/includes
+ * @subpackage Dotmailer/includes/woocommerce
  */
 
 /**
- * Fired during plugin deactivation.
+ * Used for WooCommerce hooks.
  *
- * This class defines all code necessary to run during the plugin's deactivation.
+ * This class defines all code necessary to use WooCommerce hooks.
  *
  * @since      1.0.0
  * @package    Dotmailer
@@ -27,10 +27,8 @@ class Dotmailer_WooCommerce {
 	 * Long Description.
 	 *
 	 * @since    1.0.0
-	 *
-	 * @param string $checkout The $checkout object.
 	 */
-	function dotmailer_render_checkout_marketing_checkbox( $checkout ) {
+	function dotmailer_render_checkout_marketing_checkbox() {
 		if ( is_user_logged_in( ) ) {
 			echo '<div id="dotmailer_checkout_marketing_field">';
 
@@ -89,7 +87,7 @@ class Dotmailer_WooCommerce {
 	 *
 	 * @since    1.0.0
 	 *
-	 * @param string $username The ID of new registree.
+	 * @param string $user_id The ID of new registree.
 	 */
 	function dotmailer_handle_register_marketing_checkbox( $user_id ) {
 		$accepts_marketing = 0;
