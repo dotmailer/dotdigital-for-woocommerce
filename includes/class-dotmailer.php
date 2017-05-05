@@ -189,9 +189,11 @@ class Dotmailer {
 
 		$plugin_woocommerce = new Dotmailer_WooCommerce();
 
-		// Possible checkout page hooks: https://businessbloomer.com/woocommerce-visual-hook-guide-checkout-page/ .
-		$this->loader->add_action( 'woocommerce_checkout_after_customer_details', $plugin_woocommerce, 'dotmailer_render_accepts_marketing_input' );
-		$this->loader->add_action( 'woocommerce_checkout_update_order_meta', $plugin_woocommerce, 'dotmailer_handle_accepts_marketing_input' );
+		$this->loader->add_action( 'woocommerce_register_form', $plugin_woocommerce, 'dotmailer_render_register_marketing_checkbox', 5 );
+		$this->loader->add_action( 'user_register', $plugin_woocommerce, 'dotmailer_handle_register_marketing_checkbox', 5 );
+
+		$this->loader->add_action( 'woocommerce_checkout_after_customer_details', $plugin_woocommerce, 'dotmailer_render_checkout_marketing_checkbox', 5 );
+		$this->loader->add_action( 'woocommerce_checkout_order_processed', $plugin_woocommerce, 'dotmailer_handle_checkout_marketing_checkbox', 5 );
 	}
 
 	/**
