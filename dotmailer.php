@@ -96,8 +96,7 @@ class Dotmailer_Bootstrapper {
 	 */
 	public static function activate_dotmailer() {
 		require_once plugin_dir_path( __FILE__ ) . 'includes/class-dotmailer-activator.php';
-		$plugin_activator = new Dotmailer_Activator( self::$plugin_name, self::$tracking_site_url );
-		$plugin_activator->activate();
+		( new Dotmailer_Activator( self::$plugin_name, self::$tracking_site_url ) )->activate();
 	}
 
 	/**
@@ -106,8 +105,7 @@ class Dotmailer_Bootstrapper {
 	 */
 	public static function deactivate_dotmailer() {
 		require_once plugin_dir_path( __FILE__ ) . 'includes/class-dotmailer-deactivator.php';
-		$plugin_deactivator = new Dotmailer_Deactivator( self::$plugin_name, self::$tracking_site_url );
-		$plugin_deactivator->deactivate();
+		( new Dotmailer_Deactivator( self::$plugin_name, self::$tracking_site_url ) )->deactivate();
 	}
 
 	/**
@@ -126,7 +124,7 @@ class Dotmailer_Bootstrapper {
 		 */
 		require plugin_dir_path( __FILE__ ) . 'includes/class-dotmailer.php';
 
-		(new Dotmailer( self::$plugin_name, plugin_basename( __FILE__ ) ))->run();
+		( new Dotmailer( self::$plugin_name, plugin_basename( __FILE__ ), self::$webapp_url ) )->run();
 	}
 }
 

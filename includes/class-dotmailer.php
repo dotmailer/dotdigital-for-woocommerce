@@ -56,6 +56,15 @@ class Dotmailer {
 	protected $plugin_path;
 
 	/**
+	 * The path of the plugin.
+	 *
+	 * @since    1.0.0
+	 * @access   protected
+	 * @var      string    $webapp_url    The path of the plugin.
+	 */
+	protected $webapp_url;
+
+	/**
 	 * The loader that's responsible for maintaining and registering all hooks that power
 	 * the plugin.
 	 *
@@ -77,11 +86,13 @@ class Dotmailer {
 	 * @param string $plugin_name 	The name of the plugin.
 	 * @param string $plugin_path   The path of the plugin.
 	 */
-	public function __construct( $plugin_name, $plugin_path ) {
+	public function __construct( $plugin_name, $plugin_path, $webapp_url ) {
+
+		$this->version = '1.0.0';
 
 		$this->plugin_name = $plugin_name;
 		$this->plugin_path = $plugin_path;
-		$this->version = '1.0.0';
+		$this->webapp_url = $webapp_url;
 
 		$this->load_dependencies();
 		$this->set_locale();
@@ -176,7 +187,7 @@ class Dotmailer {
 	 */
 	private function define_admin_hooks() {
 
-		$plugin_admin = new Dotmailer_Admin( $this->get_plugin_name(), $this->get_version() );
+		$plugin_admin = new Dotmailer_Admin( $this->get_plugin_name(), $this->get_version(), $this->webapp_url );
 
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
