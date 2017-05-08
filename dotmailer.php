@@ -13,7 +13,7 @@
  *
  * @wordpress-plugin
  * Plugin Name:       dotmailer Email Marketing
- * Description:       dotmailer Integration for WordPress ecommerce platforms
+ * Description:       dotmailer Integration for WordPress ecommerce platforms.
  * Version:           1.0.0
  * Author:            dotmailer
  * Author URI:        https://www.dotmailer.com/
@@ -102,64 +102,8 @@ require plugin_dir_path( __FILE__ ) . 'includes/class-dotmailer.php';
  * @param string $plugin_name The name of the plugin.
  */
 function run_dotmailer( $plugin_name ) {
-	require_once( ABSPATH . 'wp-admin/includes/plugin.php' );
-	$plugin = new Dotmailer( $plugin_name );
+	$plugin = new Dotmailer( $plugin_name, plugin_basename( __FILE__ ) );
 	$plugin->run();
-
-	if ( is_admin() && is_plugin_active( plugin_basename( __FILE__ ) ) ) {
-		validate_dotmailer( $plugin_name );
-	}
-}
-
-/**
- * Validates if one of the supported ecommerce platform plugins are active.
- *
- * @since   1.0.0
- *
- * @param string $plugin_name The name of the plugin.
- */
-function validate_dotmailer( $plugin_name ) {
-	if ( ! in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ), true ) ) {
-		add_action( 'admin_init', 'self_deactivate' );
-		add_action( 'admin_menu', 'remove_admin_menu_page' );
-		add_action( 'admin_notices', 'plugin_activation_failure_message' );
-
-		/**
-	 	 * Short Description. (use period)
-	 	 *
-	 	 * Long Description.
-	 	 *
-	 	 * @since    1.0.0
-	 	 */
-		function self_deactivate() {
-			deactivate_plugins( plugin_basename( __FILE__ ) );
-		}
-		/**
-	 	 * Short Description. (use period)
-	 	 *
-	 	 * Long Description.
-	 	 *
-	 	 * @since    1.0.0
-	 	 */
-		function remove_admin_menu_page() {
-			global $dotmailer_plugin_name;
-			remove_menu_page( $dotmailer_plugin_name );
-		}
-		/**
-	 	 * Short Description. (use period)
-	 	 *
-		 * Long Description.
-	 	 *
-	 	 * @since    1.0.0
-	 	 */
-		function plugin_activation_failure_message() {
-		?>
-			<div class="notice notice-error is-dismissible">
-				<p><?php esc_html_e( 'dotmailer plugin will remain deactivated until an ecommerce plugin is installed and activated.', 'dotmailer-email-marketing' ); ?></p>
-			</div>
-		<?php
-		}
-	}
 }
 
 run_dotmailer( $dotmailer_plugin_name );

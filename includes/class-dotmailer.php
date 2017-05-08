@@ -29,14 +29,13 @@
 class Dotmailer {
 
 	/**
-	 * The loader that's responsible for maintaining and registering all hooks that power
-	 * the plugin.
+	 * The current version of the plugin.
 	 *
 	 * @since    1.0.0
 	 * @access   protected
-	 * @var      Dotmailer_Loader    $loader    Maintains and registers all hooks for the plugin.
+	 * @var      string    $version    The current version of the plugin.
 	 */
-	protected $loader;
+	protected $version;
 
 	/**
 	 * The unique identifier of this plugin.
@@ -48,13 +47,23 @@ class Dotmailer {
 	protected $plugin_name;
 
 	/**
-	 * The current version of the plugin.
+	 * The path of the plugin.
 	 *
 	 * @since    1.0.0
 	 * @access   protected
-	 * @var      string    $version    The current version of the plugin.
+	 * @var      string    $plugin_path    The path of the plugin.
 	 */
-	protected $version;
+	protected $plugin_path;
+
+	/**
+	 * The loader that's responsible for maintaining and registering all hooks that power
+	 * the plugin.
+	 *
+	 * @since    1.0.0
+	 * @access   protected
+	 * @var      Dotmailer_Loader    $loader    Maintains and registers all hooks for the plugin.
+	 */
+	protected $loader;
 
 	/**
 	 * Define the core functionality of the plugin.
@@ -65,11 +74,13 @@ class Dotmailer {
 	 *
 	 * @since    1.0.0
 	 *
-	 * @param string $plugin_name The name of the plugin.
+	 * @param string $plugin_name 	The name of the plugin.
+	 * @param string $plugin_path   The path of the plugin.
 	 */
-	public function __construct( $plugin_name ) {
+	public function __construct( $plugin_name, $plugin_path ) {
 
 		$this->plugin_name = $plugin_name;
+		$this->plugin_path = $plugin_path;
 		$this->version = '1.0.0';
 
 		$this->load_dependencies();
@@ -77,7 +88,11 @@ class Dotmailer {
 		$this->define_admin_hooks();
 		$this->define_public_hooks();
 
-		$this->define_woocommerce_hooks();
+		if ( ! in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ), true ) ) {
+			$this->define_validation_hooks();
+		} else {
+			$this->define_woocommerce_hooks();
+		}
 	}
 
 	/**
@@ -122,10 +137,15 @@ class Dotmailer {
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-dotmailer-public.php';
 
 		/**
+		 * The class responsible for defining all actions that occur during plugin requirement validation.
+		 */
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-dotmailer-validator.php';
+
+		/**
 		 * The class responsible for defining all actions that occur in woocommerce related
 		 * side of the site.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/woocommerce/class-dotmailer-woocommerce.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/platforms/class-dotmailer-woocommerce.php';
 
 		$this->loader = new Dotmailer_Loader();
 
@@ -161,6 +181,22 @@ class Dotmailer {
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
 		$this->loader->add_action( 'admin_menu', $plugin_admin, 'add_plugin_admin_menu' );
+	}
+
+	/**
+	 * Register all of the hooks related to the admin area functionality
+	 * of the plugin.
+	 *
+	 * @since    1.0.0
+	 * @access   private
+	 */
+	private function define_validation_hooks() {
+
+		$plugin_validator = new Dotmailer_Validator( $this->plugin_name, $this->plugin_path );
+
+		$this->loader->add_action( 'admin_init', $plugin_validator, 'self_deactivate' );
+		$this->loader->add_action( 'admin_menu', $plugin_validator, 'remove_admin_menu_page' );
+		$this->loader->add_action( 'admin_notices', $plugin_validator, 'plugin_activation_failure_message' );
 	}
 
 	/**

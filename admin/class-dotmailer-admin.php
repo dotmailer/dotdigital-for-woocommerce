@@ -147,5 +147,4 @@ class Dotmailer_Admin {
 	public function display_plugin_setup_page() {
 		include_once( 'partials/dotmailer-admin-display.php' );
 	}
-
 }
