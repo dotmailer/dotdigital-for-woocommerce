@@ -62,7 +62,6 @@ class Dotmailer_WooCommerce {
 		if ( is_user_logged_in( ) ) {
 			woocommerce_form_field( $this->checkbox_name, array(
 				'type'          => 'checkbox',
-				'class'         => array( $this->checkbox_name ),
 				'label'         => __( $this->checkbox_label ),
 			), get_user_meta( get_current_user_id(), $this->meta_key, true ) );
 		}
@@ -95,8 +94,7 @@ class Dotmailer_WooCommerce {
 	function dotmailer_render_register_marketing_checkbox() {
 		woocommerce_form_field( $this->checkbox_name, array(
 			'type'          => 'checkbox',
-			'class'         => array( $this->checkbox_name ),
-			'label'         => __( $this->checkbox_name ),
+			'label'         => __( $this->checkbox_label ),
 		) );
 	}
 

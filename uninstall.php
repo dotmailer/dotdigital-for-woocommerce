@@ -36,6 +36,6 @@ $dotmailer_table_name = $wpdb->prefix . Dotmailer_Bootstrapper::$plugin_name;
 
 // @codingStandardsIgnoreStart
 $plugin_id = $wpdb->get_var( "SELECT PluginID FROM $dotmailer_table_name" );
-$wpdb->query("DROP TABLE IF EXISTS $dotmailer_table_name");
+$wpdb->query( "DROP TABLE IF EXISTS $dotmailer_table_name" );
 // @codingStandardsIgnoreEnd
 wp_remote_post( Dotmailer_Bootstrapper::$tracking_site_url . "/e/woocommerce/uninstall?pluginid=$plugin_id" );
