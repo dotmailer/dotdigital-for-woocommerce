@@ -48,62 +48,89 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
-global $dotmailer_plugin_name;
-$dotmailer_plugin_name = 'dotmailer_email_marketing';
-
-global $dotmailer_webapp_url;
-$dotmailer_webapp_url = 'https://debug-webapp.dotmailer.internal';
-
-global $dotmailer_tracking_site_url;
-$dotmailer_tracking_site_url = 'http://debug-tracking.dotmailer.internal';
-
 /**
- * The code that runs during plugin activation.
- * This action is documented in includes/class-dotmailer-activator.php
+ * Used for WooCommerce hooks.
+ *
+ * This class defines all code necessary to use WooCommerce hooks.
+ *
+ * @since      1.0.0
+ * @package    Dotmailer
+ * @subpackage Dotmailer/includes
+ * @author     dotmailer <integrations@dotmailer.com>
  */
-function activate_dotmailer() {
-	global $dotmailer_plugin_name, $dotmailer_tracking_site_url;
+class Dotmailer_Bootstrapper {
 
-	require_once plugin_dir_path( __FILE__ ) . 'includes/class-dotmailer-activator.php';
-	$plugin_activator = new Dotmailer_Activator( $dotmailer_plugin_name, $dotmailer_tracking_site_url );
-	$plugin_activator->activate();
+	/**
+	 * The loader that's responsible for maintaining and registering all hooks that power
+	 * the plugin.
+	 *
+	 * @since    1.0.0
+	 * @access   protected
+	 * @var      Dotmailer_Loader    $loader    Maintains and registers all hooks for the plugin.
+	 */
+	private static $plugin_name = 'dotmailer_email_marketing';
+
+	/**
+	 * The loader that's responsible for maintaining and registering all hooks that power
+	 * the plugin.
+	 *
+	 * @since    1.0.0
+	 * @access   protected
+	 * @var      Dotmailer_Loader    $loader    Maintains and registers all hooks for the plugin.
+	 */
+	private static $webapp_url = 'https://debug-webapp.dotmailer.internal';
+
+	/**
+	 * The loader that's responsible for maintaining and registering all hooks that power
+	 * the plugin.
+	 *
+	 * @since    1.0.0
+	 * @access   protected
+	 * @var      Dotmailer_Loader    $loader    Maintains and registers all hooks for the plugin.
+	 */
+	private static $tracking_site_url = 'http://debug-tracking.dotmailer.internal';
+
+	/**
+	 * The code that runs during plugin activation.
+	 * This action is documented in includes/class-dotmailer-activator.php
+	 */
+	public static function activate_dotmailer() {
+		require_once plugin_dir_path( __FILE__ ) . 'includes/class-dotmailer-activator.php';
+		$plugin_activator = new Dotmailer_Activator( self::$plugin_name, self::$tracking_site_url );
+		$plugin_activator->activate();
+	}
+
+	/**
+	 * The code that runs during plugin deactivation.
+	 * This action is documented in includes/class-dotmailer-deactivator.php
+	 */
+	public static function deactivate_dotmailer() {
+		require_once plugin_dir_path( __FILE__ ) . 'includes/class-dotmailer-deactivator.php';
+		$plugin_deactivator = new Dotmailer_Deactivator( self::$plugin_name, self::$tracking_site_url );
+		$plugin_deactivator->deactivate();
+	}
+
+	/**
+	 * Begins execution of the plugin.
+	 *
+	 * Since everything within the plugin is registered via hooks,
+	 * then kicking off the plugin from this point in the file does
+	 * not affect the page life cycle.
+	 *
+	 * @since    1.0.0
+	 */
+	public static function run_dotmailer() {
+		/**
+		 * The core plugin class that is used to define internationalization,
+		 * admin-specific hooks, and public-facing site hooks.
+		 */
+		require plugin_dir_path( __FILE__ ) . 'includes/class-dotmailer.php';
+
+		(new Dotmailer( self::$plugin_name, plugin_basename( __FILE__ ) ))->run();
+	}
 }
 
-/**
- * The code that runs during plugin deactivation.
- * This action is documented in includes/class-dotmailer-deactivator.php
- */
-function deactivate_dotmailer() {
-	global $dotmailer_plugin_name, $dotmailer_tracking_site_url;
+register_activation_hook( __FILE__, array( 'Dotmailer_Bootstrapper', 'activate_dotmailer' ) );
+register_deactivation_hook( __FILE__, array( 'Dotmailer_Bootstrapper', 'deactivate_dotmailer' ) );
 
-	require_once plugin_dir_path( __FILE__ ) . 'includes/class-dotmailer-deactivator.php';
-	$plugin_deactivator = new Dotmailer_Deactivator( $dotmailer_plugin_name, $dotmailer_tracking_site_url );
-	$plugin_deactivator->deactivate();
-}
-
-register_activation_hook( __FILE__, 'activate_dotmailer' );
-register_deactivation_hook( __FILE__, 'deactivate_dotmailer' );
-
-/**
- * The core plugin class that is used to define internationalization,
- * admin-specific hooks, and public-facing site hooks.
- */
-require plugin_dir_path( __FILE__ ) . 'includes/class-dotmailer.php';
-
-/**
- * Begins execution of the plugin.
- *
- * Since everything within the plugin is registered via hooks,
- * then kicking off the plugin from this point in the file does
- * not affect the page life cycle.
- *
- * @since    1.0.0
- *
- * @param string $plugin_name The name of the plugin.
- */
-function run_dotmailer( $plugin_name ) {
-	$plugin = new Dotmailer( $plugin_name, plugin_basename( __FILE__ ) );
-	$plugin->run();
-}
-
-run_dotmailer( $dotmailer_plugin_name );
+Dotmailer_Bootstrapper::run_dotmailer();

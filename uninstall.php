@@ -30,12 +30,12 @@ if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
 }
 require_once plugin_dir_path( __FILE__ ) . 'dotmailer.php';
 
-global $wpdb, $dotmailer_plugin_name, $dotmailer_tracking_site_url;
+global $wpdb;
 
-$dotmailer_table_name = $wpdb->prefix . $dotmailer_plugin_name;
+$dotmailer_table_name = $wpdb->prefix . Dotmailer_Bootsrapper::$dotmailer_plugin_name;
 
 // @codingStandardsIgnoreStart
 $plugin_id = $wpdb->get_var( "SELECT PluginID FROM $dotmailer_table_name" );
 $wpdb->query("DROP TABLE IF EXISTS $dotmailer_table_name");
 // @codingStandardsIgnoreEnd
-wp_remote_post( "$dotmailer_tracking_site_url/e/woocommerce/uninstall?pluginid=$plugin_id" );
+wp_remote_post( "{${Dotmailer_Bootsrapper::$dotmailer_tracking_site_url}}/e/woocommerce/uninstall?pluginid=$plugin_id" );
