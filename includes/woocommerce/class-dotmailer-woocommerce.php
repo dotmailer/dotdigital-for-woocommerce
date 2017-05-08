@@ -94,6 +94,6 @@ class Dotmailer_WooCommerce {
 		if ( isset( $_POST['dotmailer_marketing_checkbox'] ) ) {
 			$accepts_marketing = 1;
 		}
-		update_user_meta( get_user_by( 'ID', $user_id )->ID, '_wc_subscribed_to_newsletter', $accepts_marketing );
+		update_user_meta( $user_id, '_wc_subscribed_to_newsletter', $accepts_marketing );
 	}
 }
