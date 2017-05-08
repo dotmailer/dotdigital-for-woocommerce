@@ -68,7 +68,7 @@ class Dotmailer_Bootstrapper {
 	 * @access   protected
 	 * @var      Dotmailer_Loader    $loader    Maintains and registers all hooks for the plugin.
 	 */
-	private static $plugin_name = 'dotmailer_email_marketing';
+	public static $plugin_name = 'dotmailer_email_marketing';
 
 	/**
 	 * The loader that's responsible for maintaining and registering all hooks that power
@@ -78,7 +78,7 @@ class Dotmailer_Bootstrapper {
 	 * @access   protected
 	 * @var      Dotmailer_Loader    $loader    Maintains and registers all hooks for the plugin.
 	 */
-	private static $webapp_url = 'https://debug-webapp.dotmailer.internal';
+	public static $webapp_url = 'https://debug-webapp.dotmailer.internal';
 
 	/**
 	 * The loader that's responsible for maintaining and registering all hooks that power
@@ -88,7 +88,7 @@ class Dotmailer_Bootstrapper {
 	 * @access   protected
 	 * @var      Dotmailer_Loader    $loader    Maintains and registers all hooks for the plugin.
 	 */
-	private static $tracking_site_url = 'http://debug-tracking.dotmailer.internal';
+	public static $tracking_site_url = 'http://debug-tracking.dotmailer.internal';
 
 	/**
 	 * The code that runs during plugin activation.
