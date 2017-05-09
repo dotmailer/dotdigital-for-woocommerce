@@ -21,20 +21,20 @@
 class Dotmailer_Activator {
 
 	/**
-	 * The name of the plugin.
+	 * The unique identifier of this plugin.
 	 *
 	 * @since    1.0.0
 	 * @access   private
-	 * @var      string    $plugin_name    The name of the plugin.
+	 * @var      string    $plugin_name    The string used to uniquely identify this plugin.
 	 */
 	private $plugin_name;
 
 	/**
-	 * The URL of the dotmailer tracking site.
+	 * The URL of the dotmailer's tracking site.
 	 *
 	 * @since    1.0.0
 	 * @access   private
-	 * @var      string    $tracking_site_url    The URL of the dotmailer tracking site.
+	 * @var      string    $tracking_site_url    The URL of the dotmailer's tracking site.
 	 */
 	private $tracking_site_url;
 
@@ -48,7 +48,7 @@ class Dotmailer_Activator {
 	 * @since    1.0.0
 	 *
 	 * @param string $plugin_name The name of the plugin.
-	 * @param string $tracking_site_url The URL of the dotmailer tracking site.
+	 * @param string $tracking_site_url The URL of the dotmailer's tracking site.
 	 */
 	public function __construct( $plugin_name, $tracking_site_url ) {
 
@@ -58,9 +58,10 @@ class Dotmailer_Activator {
 	}
 
 	/**
-	 * Short Description. (use period)
+	 * Executed upon plugin activation.
 	 *
-	 * Long Description.
+	 * Executed upon plugin activation and posts to dotmailer's
+	 * tracking site to notify that the plugin has been activated.
 	 *
 	 * @since    1.0.0
 	 */

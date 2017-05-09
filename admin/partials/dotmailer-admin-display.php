@@ -23,11 +23,11 @@
 class Dotmailer_Admin_Display {
 
 	/**
-	 * The version of this plugin.
+	 * The name of this plugin.
 	 *
 	 * @since    1.0.0
 	 * @access   private
-	 * @var      string    $version    The current version of this plugin.
+	 * @var      string    $plugin_name   The name of this plugin.
 	 */
 	private $plugin_name;
 
@@ -36,7 +36,7 @@ class Dotmailer_Admin_Display {
 	 *
 	 * @since    1.0.0
 	 * @access   private
-	 * @var      string    $version    The current version of this plugin.
+	 * @var      string    $webapp_url    The name of this plugin.
 	 */
 	private $webapp_url;
 
@@ -49,8 +49,8 @@ class Dotmailer_Admin_Display {
 	 *
 	 * @since    1.0.0
 	 *
-	 * @param string $plugin_name The name of the plugin.
-	 * @param string $webapp_url The URL of the dotmailer tracking site.
+	 * @param string $plugin_name 	The name of the plugin.
+	 * @param string $webapp_url 	The URL of the dotmailer web app.
 	 */
 	public function __construct( $plugin_name, $webapp_url ) {
 

@@ -56,11 +56,11 @@ class Dotmailer {
 	protected $plugin_path;
 
 	/**
-	 * The path of the plugin.
+	 * The URL of dotmailer's web app.
 	 *
 	 * @since    1.0.0
-	 * @access   protected
-	 * @var      string    $webapp_url    The path of the plugin.
+	 * @access   public
+	 * @var      string    $webapp_url    The URL of dotmailer's web app.
 	 */
 	protected $webapp_url;
 
@@ -85,6 +85,7 @@ class Dotmailer {
 	 *
 	 * @param string $plugin_name 	The name of the plugin.
 	 * @param string $plugin_path   The path of the plugin.
+	 * @param string $webapp_url   	The URL of dotmailer's web app.
 	 */
 	public function __construct( $plugin_name, $plugin_path, $webapp_url ) {
 
@@ -148,7 +149,7 @@ class Dotmailer {
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-dotmailer-public.php';
 
 		/**
-		 * The class responsible for defining all actions that occur during plugin requirement validation.
+		 * The class responsible for defining all actions that occur during plugin's requirement validation.
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-dotmailer-validator.php';
 
@@ -187,7 +188,7 @@ class Dotmailer {
 	 */
 	private function define_admin_hooks() {
 
-		$plugin_admin = new Dotmailer_Admin( $this->get_plugin_name(), $this->get_version(), $this->webapp_url );
+		$plugin_admin = new Dotmailer_Admin( $this->plugin_name, $this->version, $this->webapp_url );
 
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
@@ -195,8 +196,7 @@ class Dotmailer {
 	}
 
 	/**
-	 * Register all of the hooks related to the admin area functionality
-	 * of the plugin.
+	 * Register all of the hooks related to the verification of the plugin.
 	 *
 	 * @since    1.0.0
 	 * @access   private
@@ -219,15 +219,14 @@ class Dotmailer {
 	 */
 	private function define_public_hooks() {
 
-		$plugin_public = new Dotmailer_Public( $this->get_plugin_name(), $this->get_version() );
+		$plugin_public = new Dotmailer_Public( $this->plugin_name, $this->version );
 
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
 	}
 
 	/**
-	 * Register all of the hooks related to the public-facing functionality
-	 * of the plugin.
+	 * Register all of the hooks related to the WooCommerce plugin.
 	 *
 	 * @since    1.0.0
 	 * @access   private
@@ -250,36 +249,5 @@ class Dotmailer {
 	 */
 	public function run() {
 		$this->loader->run();
-	}
-
-	/**
-	 * The name of the plugin used to uniquely identify it within the context of
-	 * WordPress and to define internationalization functionality.
-	 *
-	 * @since     1.0.0
-	 * @return    string    The name of the plugin.
-	 */
-	public function get_plugin_name() {
-		return $this->plugin_name;
-	}
-
-	/**
-	 * The reference to the class that orchestrates the hooks with the plugin.
-	 *
-	 * @since     1.0.0
-	 * @return    Dotmailer_Loader    Orchestrates the hooks of the plugin.
-	 */
-	public function get_loader() {
-		return $this->loader;
-	}
-
-	/**
-	 * Retrieve the version number of the plugin.
-	 *
-	 * @since     1.0.0
-	 * @return    string    The version number of the plugin.
-	 */
-	public function get_version() {
-		return $this->version;
 	}
 }

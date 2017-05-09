@@ -49,44 +49,40 @@ if ( ! defined( 'WPINC' ) ) {
 }
 
 /**
- * Used for WooCommerce hooks.
+ * Used to bootstrap the dotmailer plugin.
  *
- * This class defines all code necessary to use WooCommerce hooks.
+ * This class defines all code necessary to register and run the plugin.
  *
  * @since      1.0.0
  * @package    Dotmailer
- * @subpackage Dotmailer/includes
  * @author     dotmailer <integrations@dotmailer.com>
  */
 class Dotmailer_Bootstrapper {
 
 	/**
-	 * The loader that's responsible for maintaining and registering all hooks that power
-	 * the plugin.
+	 * The unique identifier of this plugin.
 	 *
 	 * @since    1.0.0
-	 * @access   protected
-	 * @var      Dotmailer_Loader    $loader    Maintains and registers all hooks for the plugin.
+	 * @access   private
+	 * @var      string    $plugin_name    The string used to uniquely identify this plugin.
 	 */
 	public static $plugin_name = 'dotmailer_email_marketing';
 
 	/**
-	 * The loader that's responsible for maintaining and registering all hooks that power
-	 * the plugin.
+	 * The URL of dotmailer's web app.
 	 *
 	 * @since    1.0.0
-	 * @access   protected
-	 * @var      Dotmailer_Loader    $loader    Maintains and registers all hooks for the plugin.
+	 * @access   public
+	 * @var      string    $webapp_url    The URL of dotmailer's web app.
 	 */
 	public static $webapp_url = 'https://debug-webapp.dotmailer.internal';
 
 	/**
-	 * The loader that's responsible for maintaining and registering all hooks that power
-	 * the plugin.
+	 * The URL of dotmailer tracking site.
 	 *
 	 * @since    1.0.0
-	 * @access   protected
-	 * @var      Dotmailer_Loader    $loader    Maintains and registers all hooks for the plugin.
+	 * @access   public
+	 * @var      string    $tracking_site_url    The URL of dotmailer's tracking site.
 	 */
 	public static $tracking_site_url = 'http://debug-tracking.dotmailer.internal';
 

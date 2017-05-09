@@ -22,11 +22,11 @@
 class Dotmailer_Admin {
 
 	/**
-	 * The ID of this plugin.
+	 * The unique identifier of this plugin.
 	 *
 	 * @since    1.0.0
 	 * @access   private
-	 * @var      string    $plugin_name    The ID of this plugin.
+	 * @var      string    $plugin_name    The string used to uniquely identify this plugin.
 	 */
 	private $plugin_name;
 
@@ -40,11 +40,11 @@ class Dotmailer_Admin {
 	private $version;
 
 	/**
-	 * The version of this plugin.
+	 * The URL of dotmailer's web app.
 	 *
 	 * @since    1.0.0
 	 * @access   private
-	 * @var      string    $webapp_url    The current version of this plugin.
+	 * @var      string    $webapp_url    The URL of dotmailer's web app.
 	 */
 	private $webapp_url;
 
@@ -54,7 +54,7 @@ class Dotmailer_Admin {
 	 * @since    1.0.0
 	 * @param    string $plugin_name 	The name of this plugin.
 	 * @param    string $version    	The version of this plugin.
-	 * @param    string $webapp_url    	The version of this plugin.
+	 * @param    string $webapp_url    	The URL of dotmailer web app.
 	 */
 	public function __construct( $plugin_name, $version, $webapp_url ) {
 

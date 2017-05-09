@@ -21,11 +21,11 @@
  */
 class Dotmailer_Deactivator {
 	/**
-	 * The name of the plugin.
+	 * The unique identifier of this plugin.
 	 *
 	 * @since    1.0.0
 	 * @access   private
-	 * @var      string    $plugin_name    The name of the plugin.
+	 * @var      string    $plugin_name    The string used to uniquely identify this plugin.
 	 */
 	private $plugin_name;
 
@@ -58,9 +58,10 @@ class Dotmailer_Deactivator {
 	}
 
 	/**
-	 * Short Description. (use period)
+	 * Executed upon plugin deactivation.
 	 *
-	 * Long Description.
+	 * Executed upon plugin deactivation and posts to dotmailer's
+	 * tracking site to notify that the plugin has been deactivated.
 	 *
 	 * @since    1.0.0
 	 */

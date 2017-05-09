@@ -53,9 +53,9 @@ class Dotmailer_Validator {
 	}
 
 	/**
-	 * Short Description. (use period)
+	 * Deactivates the plugin.
 	 *
-	 * Long Description.
+	 * Deactivates this plugin if the environment doesn't meet requirements.
 	 *
 	 * @since    1.0.0
 	 */
@@ -63,9 +63,9 @@ class Dotmailer_Validator {
 		deactivate_plugins( $this->plugin_path );
 	}
 	/**
-	 * Short Description. (use period)
+	 * Removes the dotmailer admin page from WordPress.
 	 *
-	 * Long Description.
+	 * Removes the dotmailer admin page from WordPress upon deactivation.
 	 *
 	 * @since    1.0.0
 	 */
@@ -73,9 +73,9 @@ class Dotmailer_Validator {
 		remove_menu_page( $this->plugin_name );
 	}
 	/**
-	 * Short Description. (use period)
+	 * Displays activation failure/deactivation message.
 	 *
-	 * Long Description.
+	 * Displays activation failure/deactivation message if the environment doesn't meet requirements.
 	 *
 	 * @since    1.0.0
 	 */

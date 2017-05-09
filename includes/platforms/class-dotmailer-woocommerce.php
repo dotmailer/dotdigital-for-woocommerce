@@ -6,7 +6,7 @@
  * @since      1.0.0
  *
  * @package    Dotmailer
- * @subpackage Dotmailer/includes/woocommerce
+ * @subpackage Dotmailer/includes/platforms
  */
 
 /**
@@ -16,45 +16,40 @@
  *
  * @since      1.0.0
  * @package    Dotmailer
- * @subpackage Dotmailer/includes
+ * @subpackage Dotmailer/includes/platforms
  * @author     dotmailer <integrations@dotmailer.com>
  */
 class Dotmailer_WooCommerce {
 
 	/**
-	 * The loader that's responsible for maintaining and registering all hooks that power
-	 * the plugin.
+	 * Used to identify the checkbox.
 	 *
 	 * @since    1.0.0
-	 * @access   protected
-	 * @var      Dotmailer_Loader    $loader    Maintains and registers all hooks for the plugin.
+	 * @access   private
+	 * @var      string    $checkbox_name    Used to identify the checkbox.
 	 */
 	private $checkbox_name = 'dotmailer_marketing_checkbox';
 
 	/**
-	 * The loader that's responsible for maintaining and registering all hooks that power
-	 * the plugin.
+	 * Text for the checkbox's label.
 	 *
 	 * @since    1.0.0
-	 * @access   protected
-	 * @var      Dotmailer_Loader    $loader    Maintains and registers all hooks for the plugin.
+	 * @access   private
+	 * @var      string    $checkbox_label    Text for the checkbox's label.
 	 */
 	private $checkbox_label = 'Subscribe to our newsletter';
 
 	/**
-	 * The loader that's responsible for maintaining and registering all hooks that power
-	 * the plugin.
+	 * Key used to identify the value in the meta table.
 	 *
 	 * @since    1.0.0
-	 * @access   protected
-	 * @var      Dotmailer_Loader    $loader    Maintains and registers all hooks for the plugin.
+	 * @access   private
+	 * @var      string    $meta_key    Key used to identify the value in the meta table.
 	 */
 	private $meta_key = '_wc_subscribed_to_newsletter';
 
 	/**
-	 * Short Description. (use period)
-	 *
-	 * Long Description.
+	 * Renders the checkbox in checkout page.
 	 *
 	 * @since    1.0.0
 	 */
@@ -68,9 +63,7 @@ class Dotmailer_WooCommerce {
 	}
 
 	/**
-	 * Short Description. (use period)
-	 *
-	 * Long Description.
+	 * Handles the checkoutbox in checkout page.
 	 *
 	 * @since    1.0.0
 	 */
@@ -85,9 +78,7 @@ class Dotmailer_WooCommerce {
 	}
 
 	/**
-	 * Short Description. (use period)
-	 *
-	 * Long Description.
+	 * Renders the checkoutbox in registration page.
 	 *
 	 * @since    1.0.0
 	 */
@@ -99,9 +90,7 @@ class Dotmailer_WooCommerce {
 	}
 
 	/**
-	 * Short Description. (use period)
-	 *
-	 * Long Description.
+	 * Handles the checkoutbox in registration page.
 	 *
 	 * @since    1.0.0
 	 *
