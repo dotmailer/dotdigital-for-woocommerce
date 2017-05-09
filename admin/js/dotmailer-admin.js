@@ -10,20 +10,22 @@
 			win = $(window),
 			header = $('#wpadminbar'),
 			adminMenu = $('#adminmenuwrap'),
+			message = $('#message'),
 			footer = $('#wpfooter');
 
 		function setIframeHeight() {
 			var winHeight = win.height(),
 				headerHeight = header.outerHeight(true),
 				menuHeight = adminMenu.outerHeight(true),
+				messageHeight = message.length ? message.outerHeight(true) : 0,
 				footerHeight = footer.length && footer.is(':visible')
 					? footer.outerHeight(true)
 					: 4;
 
 			if (winHeight < (headerHeight + menuHeight))
-				iframe.height(menuHeight - footerHeight);
+				iframe.height(menuHeight - messageHeight - footerHeight);
 			else
-				iframe.height(winHeight - headerHeight - footerHeight);
+				iframe.height(winHeight - headerHeight - messageHeight - footerHeight);
 		}
 
 		function setIframeHeightOnResize(){
