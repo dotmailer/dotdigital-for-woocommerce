@@ -75,16 +75,16 @@ class Dotmailer_Bootstrapper {
 	 * @access   public
 	 * @var      string    $webapp_url    The URL of dotmailer's web app.
 	 */
-	public static $webapp_url = 'https://debug-webapp.dotmailer.internal';
+	public static $webapp_url = 'https://login.dotmailer.com';
 
 	/**
-	 * The URL of dotmailer tracking site.
+	 * dotmailer's callback URL.
 	 *
 	 * @since    1.0.0
 	 * @access   public
-	 * @var      string    $tracking_site_url    The URL of dotmailer's tracking site.
+	 * @var      string    $callback_url    dotmailer's callback URL.
 	 */
-	public static $tracking_site_url = 'http://debug-tracking.dotmailer.internal';
+	public static $callback_url = 'https://t.trackedlink.net';
 
 	/**
 	 * The code that runs during plugin activation.
@@ -92,7 +92,7 @@ class Dotmailer_Bootstrapper {
 	 */
 	public static function activate_dotmailer() {
 		require_once plugin_dir_path( __FILE__ ) . 'includes/class-dotmailer-activator.php';
-		( new Dotmailer_Activator( self::$plugin_name, self::$tracking_site_url ) )->activate();
+		( new Dotmailer_Activator( self::$plugin_name, self::$callback_url ) )->activate();
 	}
 
 	/**
@@ -101,7 +101,7 @@ class Dotmailer_Bootstrapper {
 	 */
 	public static function deactivate_dotmailer() {
 		require_once plugin_dir_path( __FILE__ ) . 'includes/class-dotmailer-deactivator.php';
-		( new Dotmailer_Deactivator( self::$plugin_name, self::$tracking_site_url ) )->deactivate();
+		( new Dotmailer_Deactivator( self::$plugin_name, self::$callback_url ) )->deactivate();
 	}
 
 	/**

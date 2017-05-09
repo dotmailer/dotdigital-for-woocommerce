@@ -32,11 +32,11 @@ class Dotmailer_Admin_Display {
 	private $plugin_name;
 
 	/**
-	 * The version of this plugin.
+	 * The URL of dotmailer's web app.
 	 *
 	 * @since    1.0.0
 	 * @access   private
-	 * @var      string    $webapp_url    The name of this plugin.
+	 * @var      string    $webapp_url    The URL of dotmailer's web app.
 	 */
 	private $webapp_url;
 
