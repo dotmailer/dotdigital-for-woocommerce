@@ -25,7 +25,6 @@
  */
 class Dotmailer_i18n {
 
-
 	/**
 	 * Load the plugin text domain for translation.
 	 *
@@ -39,6 +38,5 @@ class Dotmailer_i18n {
 			false,
 			dirname( dirname( plugin_basename( __FILE__ ) ) ) . '/languages/'
 		);
-
 	}
 }

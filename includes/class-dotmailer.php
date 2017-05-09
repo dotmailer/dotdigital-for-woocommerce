@@ -29,14 +29,13 @@
 class Dotmailer {
 
 	/**
-	 * The loader that's responsible for maintaining and registering all hooks that power
-	 * the plugin.
+	 * The current version of the plugin.
 	 *
 	 * @since    1.0.0
 	 * @access   protected
-	 * @var      Dotmailer_Loader    $loader    Maintains and registers all hooks for the plugin.
+	 * @var      string    $version    The current version of the plugin.
 	 */
-	protected $loader;
+	protected $version;
 
 	/**
 	 * The unique identifier of this plugin.
@@ -48,13 +47,32 @@ class Dotmailer {
 	protected $plugin_name;
 
 	/**
-	 * The current version of the plugin.
+	 * The path of the plugin.
 	 *
 	 * @since    1.0.0
 	 * @access   protected
-	 * @var      string    $version    The current version of the plugin.
+	 * @var      string    $plugin_path    The path of the plugin.
 	 */
-	protected $version;
+	protected $plugin_path;
+
+	/**
+	 * dotmailer's Web App URL.
+	 *
+	 * @since    1.0.0
+	 * @access   public
+	 * @var      string    $webapp_url    dotmailer's Web App URL.
+	 */
+	protected $webapp_url;
+
+	/**
+	 * The loader that's responsible for maintaining and registering all hooks that power
+	 * the plugin.
+	 *
+	 * @since    1.0.0
+	 * @access   protected
+	 * @var      Dotmailer_Loader    $loader    Maintains and registers all hooks for the plugin.
+	 */
+	protected $loader;
 
 	/**
 	 * Define the core functionality of the plugin.
@@ -65,17 +83,25 @@ class Dotmailer {
 	 *
 	 * @since    1.0.0
 	 *
-	 * @param string $plugin_name The name of the plugin.
+	 * @param string $plugin_name 	The name of the plugin.
+	 * @param string $plugin_path   The path of the plugin.
+	 * @param string $webapp_url   	dotmailer's Web App URL.
 	 */
-	public function __construct( $plugin_name ) {
+	public function __construct( $plugin_name, $plugin_path, $webapp_url ) {
+
+		$this->version = '1.0.0';
 
 		$this->plugin_name = $plugin_name;
-		$this->version = '1.0.0';
+		$this->plugin_path = $plugin_path;
+		$this->webapp_url = $webapp_url;
 
 		$this->load_dependencies();
 		$this->set_locale();
 		$this->define_admin_hooks();
 		$this->define_public_hooks();
+
+		$this->define_validation_hooks();
+		$this->define_woocommerce_hooks();
 	}
 
 	/**
@@ -119,6 +145,17 @@ class Dotmailer {
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-dotmailer-public.php';
 
+		/**
+		 * The class responsible for defining all actions that occur during plugin's requirement validation.
+		 */
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-dotmailer-validator.php';
+
+		/**
+		 * The class responsible for defining all actions that occur in woocommerce related
+		 * side of the site.
+		 */
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/platforms/class-dotmailer-woocommerce.php';
+
 		$this->loader = new Dotmailer_Loader();
 
 	}
@@ -148,11 +185,28 @@ class Dotmailer {
 	 */
 	private function define_admin_hooks() {
 
-		$plugin_admin = new Dotmailer_Admin( $this->get_plugin_name(), $this->get_version() );
+		$plugin_admin = new Dotmailer_Admin( $this->plugin_name, $this->version, $this->webapp_url );
 
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
 		$this->loader->add_action( 'admin_menu', $plugin_admin, 'add_plugin_admin_menu' );
+	}
+
+	/**
+	 * Register all of the hooks related to the verification of the plugin.
+	 *
+	 * @since    1.0.0
+	 * @access   private
+	 */
+	private function define_validation_hooks() {
+
+		if ( ! in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ), true ) ) {
+			$plugin_validator = new Dotmailer_Validator( $this->plugin_name, $this->plugin_path );
+
+			$this->loader->add_action( 'admin_init', $plugin_validator, 'self_deactivate' );
+			$this->loader->add_action( 'admin_menu', $plugin_validator, 'remove_admin_menu_page' );
+			$this->loader->add_action( 'admin_notices', $plugin_validator, 'plugin_activation_failure_message' );
+		}
 	}
 
 	/**
@@ -164,10 +218,27 @@ class Dotmailer {
 	 */
 	private function define_public_hooks() {
 
-		$plugin_public = new Dotmailer_Public( $this->get_plugin_name(), $this->get_version() );
+		$plugin_public = new Dotmailer_Public( $this->plugin_name, $this->version );
 
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
+	}
+
+	/**
+	 * Register all of the hooks related to the WooCommerce plugin.
+	 *
+	 * @since    1.0.0
+	 * @access   private
+	 */
+	private function define_woocommerce_hooks() {
+
+		$plugin_woocommerce = new Dotmailer_WooCommerce();
+
+		$this->loader->add_action( 'woocommerce_register_form', $plugin_woocommerce, 'dotmailer_render_register_marketing_checkbox', 5 );
+		$this->loader->add_action( 'user_register', $plugin_woocommerce, 'dotmailer_handle_register_marketing_checkbox', 5 );
+
+		$this->loader->add_action( 'woocommerce_checkout_after_customer_details', $plugin_woocommerce, 'dotmailer_render_checkout_marketing_checkbox', 5 );
+		$this->loader->add_action( 'woocommerce_checkout_order_processed', $plugin_woocommerce, 'dotmailer_handle_checkout_marketing_checkbox', 5 );
 	}
 
 	/**
@@ -177,36 +248,5 @@ class Dotmailer {
 	 */
 	public function run() {
 		$this->loader->run();
-	}
-
-	/**
-	 * The name of the plugin used to uniquely identify it within the context of
-	 * WordPress and to define internationalization functionality.
-	 *
-	 * @since     1.0.0
-	 * @return    string    The name of the plugin.
-	 */
-	public function get_plugin_name() {
-		return $this->plugin_name;
-	}
-
-	/**
-	 * The reference to the class that orchestrates the hooks with the plugin.
-	 *
-	 * @since     1.0.0
-	 * @return    Dotmailer_Loader    Orchestrates the hooks of the plugin.
-	 */
-	public function get_loader() {
-		return $this->loader;
-	}
-
-	/**
-	 * Retrieve the version number of the plugin.
-	 *
-	 * @since     1.0.0
-	 * @return    string    The version number of the plugin.
-	 */
-	public function get_version() {
-		return $this->version;
 	}
 }

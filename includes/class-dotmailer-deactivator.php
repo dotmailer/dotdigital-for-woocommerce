@@ -21,22 +21,22 @@
  */
 class Dotmailer_Deactivator {
 	/**
-	 * The name of the plugin.
+	 * The unique identifier of this plugin.
 	 *
 	 * @since    1.0.0
 	 * @access   private
-	 * @var      string    $plugin_name    The name of the plugin.
+	 * @var      string    $plugin_name    The string used to uniquely identify this plugin.
 	 */
 	private $plugin_name;
 
 	/**
-	 * The URL of the dotmailer tracking site.
+	 * dotmailer's callback URL.
 	 *
 	 * @since    1.0.0
 	 * @access   private
-	 * @var      string    $tracking_site_url    The URL of the dotmailer tracking site.
+	 * @var      string    $callback_url    dotmailer's callback URL.
 	 */
-	private $tracking_site_url;
+	private $callback_url;
 
 	/**
 	 * Define the core functionality of the plugin.
@@ -48,19 +48,20 @@ class Dotmailer_Deactivator {
 	 * @since    1.0.0
 	 *
 	 * @param string $plugin_name The name of the plugin.
-	 * @param string $tracking_site_url The URL of the dotmailer tracking site.
+	 * @param string $callback_url dotmailer's callback URL.
 	 */
-	public function __construct( $plugin_name, $tracking_site_url ) {
+	public function __construct( $plugin_name, $callback_url ) {
 
 		$this->plugin_name = $plugin_name;
-		$this->tracking_site_url = $tracking_site_url;
+		$this->callback_url = $callback_url;
 
 	}
 
 	/**
-	 * Short Description. (use period)
+	 * Executed upon plugin deactivation.
 	 *
-	 * Long Description.
+	 * Executed upon plugin deactivation and posts to dotmailer's
+	 * tracking site to notify that the plugin has been deactivated.
 	 *
 	 * @since    1.0.0
 	 */
@@ -71,6 +72,6 @@ class Dotmailer_Deactivator {
 		// @codingStandardsIgnoreStart
 		$plugin_id = $wpdb->get_var( "SELECT PluginID FROM $dotmailer_table_name" );
 		// @codingStandardsIgnoreEnd
-		wp_remote_post( "$this->tracking_site_url/e/woocommerce/disable?pluginid=$plugin_id" );
+		wp_remote_post( "$this->callback_url/e/woocommerce/disable?pluginid=$plugin_id" );
 	}
 }

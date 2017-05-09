@@ -22,11 +22,11 @@
 class Dotmailer_Admin {
 
 	/**
-	 * The ID of this plugin.
+	 * The unique identifier of this plugin.
 	 *
 	 * @since    1.0.0
 	 * @access   private
-	 * @var      string    $plugin_name    The ID of this plugin.
+	 * @var      string    $plugin_name    The string used to uniquely identify this plugin.
 	 */
 	private $plugin_name;
 
@@ -40,16 +40,27 @@ class Dotmailer_Admin {
 	private $version;
 
 	/**
+	 * dotmailer's Web App URL.
+	 *
+	 * @since    1.0.0
+	 * @access   private
+	 * @var      string    $webapp_url    dotmailer's Web App URL.
+	 */
+	private $webapp_url;
+
+	/**
 	 * Initialize the class and set its properties.
 	 *
 	 * @since    1.0.0
 	 * @param    string $plugin_name 	The name of this plugin.
 	 * @param    string $version    	The version of this plugin.
+	 * @param    string $webapp_url    	dotmailer's Web App URL.
 	 */
-	public function __construct( $plugin_name, $version ) {
+	public function __construct( $plugin_name, $version, $webapp_url ) {
 
 		$this->plugin_name = $plugin_name;
 		$this->version = $version;
+		$this->webapp_url = $webapp_url;
 
 	}
 
@@ -113,12 +124,15 @@ class Dotmailer_Admin {
 		*        Administration Menus: http://codex.wordpress.org/Administration_Menus
 		*
 		*/
+		require_once( 'partials/dotmailer-admin-display.php' );
+		$admin_display = new Dotmailer_Admin_Display( $this->plugin_name, $this->webapp_url );
+
 		add_menu_page(
 			'dotmailer',
 			'dotmailer',
 			'manage_options',
 			$this->plugin_name,
-			array( $this, 'display_plugin_setup_page' ),
+			array( $admin_display, 'display_plugin_setup_page' ),
 			'https://d1nca6q8ghann3.cloudfront.net/themeitems/1/files/c2334.ico',
 			55.5
 		);
@@ -138,14 +152,4 @@ class Dotmailer_Admin {
 		$settings_link = array( '<a href="' . admin_url( 'options-general.php?page=' . $this->plugin_name ) . '">' . __( 'Settings', 'dotmailer' ) . '</a>' );
 		return array_merge( $settings_link, $links );
 	}
-
-	/**
-	 * Render the settings page for this plugin.
-	 *
-	 * @since    1.0.0
-	 */
-	public function display_plugin_setup_page() {
-		include_once( 'partials/dotmailer-admin-display.php' );
-	}
-
 }
