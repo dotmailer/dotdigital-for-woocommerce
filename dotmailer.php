@@ -69,11 +69,11 @@ class Dotmailer_Bootstrapper {
 	public static $plugin_name = 'dotmailer_email_marketing';
 
 	/**
-	 * The URL of dotmailer's web app.
+	 * dotmailer's Web App URL.
 	 *
 	 * @since    1.0.0
 	 * @access   public
-	 * @var      string    $webapp_url    The URL of dotmailer's web app.
+	 * @var      string    $webapp_url    dotmailer's Web App URL.
 	 */
 	public static $webapp_url = 'https://login.dotmailer.com';
 

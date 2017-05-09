@@ -30,11 +30,11 @@ class Dotmailer_Activator {
 	private $plugin_name;
 
 	/**
-	 * The URL of the dotmailer's tracking site.
+	 * dotmailer's callback URL.
 	 *
 	 * @since    1.0.0
 	 * @access   private
-	 * @var      string    $callback_url    The URL of the dotmailer's tracking site.
+	 * @var      string    $callback_url    dotmailer's callback URL.
 	 */
 	private $callback_url;
 

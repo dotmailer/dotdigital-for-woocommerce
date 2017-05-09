@@ -56,11 +56,11 @@ class Dotmailer {
 	protected $plugin_path;
 
 	/**
-	 * The URL of dotmailer's web app.
+	 * dotmailer's Web App URL.
 	 *
 	 * @since    1.0.0
 	 * @access   public
-	 * @var      string    $webapp_url    The URL of dotmailer's web app.
+	 * @var      string    $webapp_url    dotmailer's Web App URL.
 	 */
 	protected $webapp_url;
 
@@ -85,7 +85,7 @@ class Dotmailer {
 	 *
 	 * @param string $plugin_name 	The name of the plugin.
 	 * @param string $plugin_path   The path of the plugin.
-	 * @param string $webapp_url   	The URL of dotmailer's web app.
+	 * @param string $webapp_url   	dotmailer's Web App URL.
 	 */
 	public function __construct( $plugin_name, $plugin_path, $webapp_url ) {
 
@@ -100,11 +100,8 @@ class Dotmailer {
 		$this->define_admin_hooks();
 		$this->define_public_hooks();
 
-		if ( ! in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ), true ) ) {
-			$this->define_validation_hooks();
-		} else {
-			$this->define_woocommerce_hooks();
-		}
+		$this->define_validation_hooks();
+		$this->define_woocommerce_hooks();
 	}
 
 	/**
@@ -203,11 +200,13 @@ class Dotmailer {
 	 */
 	private function define_validation_hooks() {
 
-		$plugin_validator = new Dotmailer_Validator( $this->plugin_name, $this->plugin_path );
+		if ( ! in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ), true ) ) {
+			$plugin_validator = new Dotmailer_Validator( $this->plugin_name, $this->plugin_path );
 
-		$this->loader->add_action( 'admin_init', $plugin_validator, 'self_deactivate' );
-		$this->loader->add_action( 'admin_menu', $plugin_validator, 'remove_admin_menu_page' );
-		$this->loader->add_action( 'admin_notices', $plugin_validator, 'plugin_activation_failure_message' );
+			$this->loader->add_action( 'admin_init', $plugin_validator, 'self_deactivate' );
+			$this->loader->add_action( 'admin_menu', $plugin_validator, 'remove_admin_menu_page' );
+			$this->loader->add_action( 'admin_notices', $plugin_validator, 'plugin_activation_failure_message' );
+		}
 	}
 
 	/**

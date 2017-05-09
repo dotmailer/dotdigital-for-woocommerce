@@ -40,11 +40,11 @@ class Dotmailer_Admin {
 	private $version;
 
 	/**
-	 * The URL of dotmailer's web app.
+	 * dotmailer's Web App URL.
 	 *
 	 * @since    1.0.0
 	 * @access   private
-	 * @var      string    $webapp_url    The URL of dotmailer's web app.
+	 * @var      string    $webapp_url    dotmailer's Web App URL.
 	 */
 	private $webapp_url;
 
@@ -54,7 +54,7 @@ class Dotmailer_Admin {
 	 * @since    1.0.0
 	 * @param    string $plugin_name 	The name of this plugin.
 	 * @param    string $version    	The version of this plugin.
-	 * @param    string $webapp_url    	The URL of dotmailer web app.
+	 * @param    string $webapp_url    	dotmailer's Web App URL.
 	 */
 	public function __construct( $plugin_name, $version, $webapp_url ) {
 
