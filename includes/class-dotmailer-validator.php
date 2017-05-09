@@ -62,6 +62,7 @@ class Dotmailer_Validator {
 	function self_deactivate() {
 		deactivate_plugins( $this->plugin_path );
 	}
+
 	/**
 	 * Removes the dotmailer admin page from WordPress.
 	 *
@@ -72,6 +73,7 @@ class Dotmailer_Validator {
 	function remove_admin_menu_page() {
 		remove_menu_page( $this->plugin_name );
 	}
+
 	/**
 	 * Displays activation failure/deactivation message.
 	 *
