@@ -7,107 +7,70 @@ Stable tag: 4.3
 License: MIT
 License URI: https://opensource.org/licenses/MIT
 
-Here is a short description of the plugin.  This should be no more than 150 characters.  No markup here.
-
 == Description ==
 
-This is the long description.  No limit, and you can use Markdown (as well as in the following sections).
+Connect your WooCommerce store to dotmailer.
+Email is a proven way to drive ecommerce growth. Our plug and play connector lets you sync your data from your store to your dotmailer account to empower your email marketing. dotmailer gives you all the the tools you need to send on brand emails, automate campaigns, manage mailing lists to engage with your audience.
+* Sync all your contacts to dotmailer, and segment them for your email campaigns
+* Use customerâ€™s order history to better target your audience
+* Build and automate email programs to engage your customers and drive revenue
 
-For backwards compatibility, if this section is missing, the full length of the short description will be used, and
-Markdown parsed.
-
-A few notes about the sections above:
-
-*   "Contributors" is a comma separated list of wp.org/wp-plugins.org usernames
-*   "Tags" is a comma separated list of tags that apply to the plugin
-*   "Requires at least" is the lowest version that the plugin will work on
-*   "Tested up to" is the highest version that you've *successfully used to test the plugin*. Note that it might work on
-higher versions... this is just the highest one you've verified.
-*   Stable tag should indicate the Subversion "tag" of the latest stable version, or "trunk," if you use `/trunk/` for
-stable.
-
-    Note that the `readme.txt` of the stable tag is the one that is considered the defining one for the plugin, so
-if the `/trunk/readme.txt` file says that the stable tag is `4.3`, then it is `/tags/4.3/readme.txt` that'll be used
-for displaying information about the plugin.  In this situation, the only thing considered from the trunk `readme.txt`
-is the stable tag pointer.  Thus, if you develop in trunk, you can update the trunk `readme.txt` to reflect changes in
-your in-development version, without having that information incorrectly disclosed about the current stable version
-that lacks those changes -- as long as the trunk's `readme.txt` points to the correct stable tag.
-
-    If no stable tag is provided, it is assumed that trunk is stable, but you should specify "trunk" if that's where
-you put the stable version, in order to eliminate any doubt.
+If you're not already a dotmailer user you can find out more about us at https://www.dotmailer.com.
 
 == Installation ==
 
-This section describes how to install the plugin and get it working.
+This plugin requires to have WooCommerce (1.6.x - 3.x) installed in WordPress.
+Log into your WordPress account and follow these steps:
 
-e.g.
+1. Go to 'Plugins' in the left-hand menu
+2. Select 'Add New'
+3. Search for 'dotmailer email marketing'
+4. Click on 'Install Now'
+5. When installed, click on 'Activate Plugin'
+6. Click on 'dotmailer' in your left-hand menu
+7. Log in with your dotmailer credentials
+8. Download the bridge package, unzip and place in the WordPress root folder
+9. Click on 'Test connection'
 
-1. Upload `dotmailer.php` to the `/wp-content/plugins/` directory
-1. Activate the plugin through the 'Plugins' menu in WordPress
-1. Place `<?php do_action('plugin_name_hook'); ?>` in your templates
-
-== Frequently Asked Questions ==
-
-= A question that someone might have =
-
-An answer to that question.
-
-= What about foo bar? =
-
-Answer to foo bar dilemma.
+The store should be now connected and dotmailer will start syncing customers data automatically.
+For more detailed information on installation, find it at (https://support.dotmailer.com/hc/en-gb/categories/201643998-Integrations)
 
 == Screenshots ==
-
-1. This screen shot description corresponds to screenshot-1.(png|jpg|jpeg|gif). Note that the screenshot is taken from
-the /assets directory or the directory that contains the stable readme.txt (tags or trunk). Screenshots in the /assets
-directory take precedence. For example, `/assets/screenshot-1.png` would win over `/tags/4.3/screenshot-1.png`
-(or jpg, jpeg, gif).
-2. This is the second screen shot
+1. The plugin will appear as 'dotmailer' in your left-hand menu
+2. Use your dotmailer credentials to log in
+3. Download the bridge file to install in your Site root folder
 
 == Changelog ==
-
-= 1.0 =
-* A change since the previous version.
-* Another change.
-
-= 0.5 =
-* List versions from most recent at top to oldest at bottom.
+= 1.0.0 =
+* First release
+* Sync WooCommerce customers
+* Sync WooCommerce order history
+* Sync WooCommerce product catalog
+* Shows newsletter subscription checkbox (_wc_subscribed_to_newsletter) in checkout page
 
 == Upgrade Notice ==
+If you already have installed this plugin, a message will pop up in the admin area of your WordPress account informing you that a new version is available. Simply update from there.
 
-= 1.0 =
-Upgrade notices describe the reason a user should upgrade.  No more than 300 characters.
+== Copyright ==
 
-= 0.5 =
-This version fixes a security related bug.  Upgrade immediately.
+MIT License
 
-== Arbitrary section ==
+Copyright (c) 2017 dotDigital Group PLC
 
-You may provide arbitrary sections, in the same format as the ones above.  This may be of use for extremely complicated
-plugins where more information needs to be conveyed that doesn't fit into the categories of "description" or
-"installation."  Arbitrary sections will be shown below the built-in sections outlined above.
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
 
-== A brief Markdown Example ==
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
 
-Ordered list:
-
-1. Some feature
-1. Another feature
-1. Something else about the plugin
-
-Unordered list:
-
-* something
-* something else
-* third thing
-
-Here's a link to [WordPress](http://wordpress.org/ "Your favorite software") and one to [Markdown's Syntax Documentation][markdown syntax].
-Titles are optional, naturally.
-
-[markdown syntax]: http://daringfireball.net/projects/markdown/syntax
-            "Markdown is what the parser uses to process much of the readme file"
-
-Markdown uses email style notation for blockquotes and I've been told:
-> Asterisks for *emphasis*. Double it up  for **strong**.
-
-`<?php code(); // goes in backticks ?>`
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
