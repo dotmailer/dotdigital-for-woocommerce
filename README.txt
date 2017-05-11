@@ -46,7 +46,7 @@ For more detailed information on installation, find it at (https://support.dotma
 * Sync WooCommerce customers
 * Sync WooCommerce order history
 * Sync WooCommerce product catalog
-* Shows newsletter subscription checkbox (_wc_subscribed_to_newsletter) in checkout page
+* Shows newsletter subscription checkbox (_wc_subscribed_to_newsletter) in registration & checkout pages
 
 == Upgrade Notice ==
 If you already have installed this plugin, a message will pop up in the admin area of your WordPress account informing you that a new version is available. Simply update from there.
