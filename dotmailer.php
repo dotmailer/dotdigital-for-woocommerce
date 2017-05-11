@@ -22,7 +22,9 @@
  * Text Domain:       dotmailer_email_marketing
  * Domain Path:       /languages
  *
- * Copyright 2017 dotDigital Group PLC
+ * MIT License
+ *
+ * Copyright (c) 2017 dotDigital Group PLC
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
