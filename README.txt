@@ -1,9 +1,10 @@
-=== Plugin Name ===
-Contributors: (this should be a list of wordpress.org userid's)
-Tags: comments, spam
-Requires at least: 3.0.1
-Tested up to: 3.4
-Stable tag: 4.3
+=== dotmailer Email Marketing for WooCommerce ===
+Contributors: dotmailer
+Donate link: https://www.dotmailer.com
+Tags: email marketing, marketing automation, WooCommerce
+Requires at least: 4.0
+Tested up to: 4.7.4
+Stable tag: 4.7.4
 License: MIT
 License URI: https://opensource.org/licenses/MIT
 
