@@ -12,8 +12,8 @@
  * @package           Dotmailer
  *
  * @wordpress-plugin
- * Plugin Name:       dotmailer Email Marketing
- * Description:       dotmailer Integration for WordPress ecommerce platforms.
+ * Plugin Name:       dotmailer Email Marketing for WooCommerce
+ * Description:       dotmailer Integration for WooCommerce ecommerce platform.
  * Version:           1.0.0
  * Author:            dotmailer
  * Author URI:        https://www.dotmailer.com/
