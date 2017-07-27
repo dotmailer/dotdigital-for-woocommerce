@@ -68,7 +68,10 @@ class Dotmailer_Admin_Display {
 
 		$store_name = get_bloginfo( 'name' );
 		$store_url = get_bloginfo( 'wpurl' );
-		$store_root = str_replace( '\\', '/', ABSPATH );
+		$bridge_url = $store_url . '/bridge2cart/bridge.php';
+		$store_root = '\\' === DIRECTORY_SEPARATOR ?
+			str_replace( '/', '\\', ABSPATH ) :
+			ABSPATH;
 
 		global $wpdb;
 		$table_name = $wpdb->prefix . $this->plugin_name;
@@ -80,6 +83,7 @@ class Dotmailer_Admin_Display {
 		$connection_query = http_build_query( array(
 			'storename' => $store_name,
 			'storeurl' => $store_url,
+			'bridgeurl' => $bridge_url,
 			'storeroot' => $store_root,
 			'pluginid' => $plugin_id,
 		) );
