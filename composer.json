@@ -1,7 +1,7 @@
 {
     "name": "dotmailer/dotmailer-for-woocommerce",
     "version": "1.0.0",
-    "require": {
+    "require-dev": {
         "squizlabs/php_codesniffer": "*"
     }
 }
