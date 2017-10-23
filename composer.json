@@ -1,5 +1,6 @@
 {
-    "name": "dotmailer/wp-email-marketing",
+    "name": "dotmailer/dotmailer-for-woocommerce",
+    "version": "1.0.0",
     "require": {
         "squizlabs/php_codesniffer": "*"
     }
