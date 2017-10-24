@@ -20,15 +20,19 @@ The software made available to you is provided "as is" without warranty of any k
 This plugin requires you to have WooCommerce (1.6.x - 3.x) installed in WordPress.
 Log into your WordPress account and follow these steps:
 
-1. Go to 'Plugins' in the left-hand menu
-2. Select 'Add New'
-3. Search for 'dotmailer email marketing'
-4. Click on 'Install Now'
-5. When installed, click on 'Activate Plugin'
-6. Click on 'dotmailer' in your left-hand menu
-7. Log in with your dotmailer credentials
-8. Download the bridge package (see Disclaimer), unzip and place in the WordPress root folder
-9. Click on 'Test connection'
+1. Download the plugin
+2. Copy and unzip the downloaded plugin file into your WordPress root folder - wordpress-root\wp-content\plugins. After doing so, you should see 'dotmailer-for-woocommerce' files.
+3. Log into your WordPress admin console
+4. In the left-hand menu, go to Plugins > Installed Plugins and select Add New
+5. Search for 'dotmailer email marketing'
+6. Click on Install Now
+7. When installed, click on Activate Plugin
+8. In the left-hand menu, click on dotmailer
+9. Log into dotmailer
+  * You'll see the 'Almost there!' message, outlining the three final steps to complete:
+  * Download the bridge zip file (Disclaimer above also applies)
+  * Copy and unzip the bridge file into your WordPress root folder - wordpress-root\wp-content\plugins
+  * Click on 'Test connection' to check all's well
 
 The store should now be connected and dotmailer will start syncing customers data automatically.
 For more detailed information on installation, find it at (https://support.dotmailer.com/hc/en-gb/categories/201643998-Integrations)
