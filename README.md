@@ -1,17 +1,20 @@
 ### dotmailer for WooCommerce
 
-## Overview 
+## Overview
 Connect your WooCommerce store to dotmailer.
-Email is a proven way to drive ecommerce growth. Our plug and play connector lets you sync your data from your store to your dotmailer account to empower your email marketing. dotmailer gives you all the the tools you need to send on brand emails, automate campaigns, manage mailing lists to engage with your audience.
+Email is a proven way to drive ecommerce growth. Our plug and play connector lets you sync your data from your store to your dotmailer account to empower your email marketing. dotmailer gives you all the tools you need to send on-brand emails, automate campaigns, and manage mailing lists to engage with your audience.
 * Sync all your contacts to dotmailer, and segment them for your email campaigns
-* Use customer's order history to better target your audience
+* Use your customers' order history to better target your audience
 * Build and automate email programs to engage your customers and drive revenue
 
 If you're not a dotmailer user already you can find out more about us at https://www.dotmailer.com.
 
+## Disclaimer
+The software made available to you is provided "as is" without warranty of any kind, either expressed or implied and such software is to be used at your own risk and without modification.
+
 ## Installation
 
-This plugin requires to have WooCommerce (1.6.x - 3.x) installed in WordPress.
+This plugin requires you to have WooCommerce (1.6.x - 3.x) installed in WordPress.
 Log into your WordPress account and follow these steps:
 
 1. Go to 'Plugins' in the left-hand menu
@@ -21,10 +24,10 @@ Log into your WordPress account and follow these steps:
 5. When installed, click on 'Activate Plugin'
 6. Click on 'dotmailer' in your left-hand menu
 7. Log in with your dotmailer credentials
-8. Download the bridge package, unzip and place in the WordPress root folder
+8. Download the bridge package (see Disclaimer), unzip and place in the WordPress root folder
 9. Click on 'Test connection'
 
-The store should be now connected and dotmailer will start syncing customers data automatically.
+The store should now be connected and dotmailer will start syncing customers data automatically.
 For more detailed information on installation, find it at (https://support.dotmailer.com/hc/en-gb/categories/201643998-Integrations)
 
 ## Release Notes
@@ -36,22 +39,16 @@ For more detailed information on installation, find it at (https://support.dotma
 * Shows newsletter subscription checkbox (\_wc_subscribed_to_newsletter) in registration & checkout pages
 
 ## Upgrade Notice
-If you have already installed this plugin, a message will pop up in the admin area of your WordPress account informing you that a new version is available. Simply update from there.
-
-You are welcome to contribute to dotmailer for WooCommerce! You can either:
-
-* Report a bug: create a GitHub issue including description, repro steps, WooCommerce, WordPress and connector version numbers
-* Fix a bug: please clone and use our Testing branch to submit your Pull Request
-* Request a feature on our community forum
+If you have already installed this plugin, a message will pop up in the admin area of your WordPress account informing you that a new version is available.
+Simply update from there.
 
 ## Contribution
-
 You are welcome to contribute to dotmailer for WooCommerce! You can either:
 * Report a bug: create a GitHub issue including description, repro steps, WooCommerce/WordPress and connector version
 * Fix a bug: please clone this repo and submit your Pull Request
 * Request a feature on our [community forum](https://support.dotmailer.com/hc/en-gb/community/topics/200432508-Feedback-and-feature-requests)
 
-## Copyright 
+## Copyright
 
 MIT License
 
