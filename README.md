@@ -1,7 +1,7 @@
 dotmailer for WooCommerce
 ======
 
-[![license](https://img.shields.io/github/license/mashape/apistatus.svg)](LICENSE.md)
+[![license](https://img.shields.io/github/license/mashape/apistatus.svg)](LICENSE)
 
 ## Overview
 Connect your WooCommerce store to dotmailer.
