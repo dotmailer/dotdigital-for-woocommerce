@@ -83,9 +83,9 @@ class Dotmailer {
 	 *
 	 * @since    1.0.0
 	 *
-	 * @param string $plugin_name 	The name of the plugin.
+	 * @param string $plugin_name   The name of the plugin.
 	 * @param string $plugin_path   The path of the plugin.
-	 * @param string $webapp_url   	dotmailer's Web App URL.
+	 * @param string $webapp_url    dotmailer's Web App URL.
 	 */
 	public function __construct( $plugin_name, $plugin_path, $webapp_url ) {
 
@@ -93,7 +93,7 @@ class Dotmailer {
 
 		$this->plugin_name = $plugin_name;
 		$this->plugin_path = $plugin_path;
-		$this->webapp_url = $webapp_url;
+		$this->webapp_url  = $webapp_url;
 
 		$this->load_dependencies();
 		$this->set_locale();
@@ -200,7 +200,7 @@ class Dotmailer {
 	 */
 	private function define_validation_hooks() {
 
-		if ( ! in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ), true ) ) {
+		if ( ! class_exists( 'woocommerce' ) ) {
 			$plugin_validator = new Dotmailer_Validator( $this->plugin_name, $this->plugin_path );
 
 			$this->loader->add_action( 'admin_init', $plugin_validator, 'self_deactivate' );
