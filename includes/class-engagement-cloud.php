@@ -5,11 +5,11 @@
  * A class definition that includes attributes and functions used across both the
  * public-facing side of the site and the admin area.
  *
- * @link       https://www.dotmailer.com/
+ * @link       https://www.dotdigital.com/
  * @since      1.0.0
  *
- * @package    Dotmailer
- * @subpackage Dotmailer/includes
+ * @package    EngagementCloud
+ * @subpackage EngagementCloud/includes
  */
 
 /**
@@ -22,11 +22,11 @@
  * version of the plugin.
  *
  * @since      1.0.0
- * @package    Dotmailer
- * @subpackage Dotmailer/includes
- * @author     dotmailer <integrations@dotmailer.com>
+ * @package    EngagementCloud
+ * @subpackage EngagementCloud/includes
+ * @author     dotdigital <integrations@dotdigital.com>
  */
-class Dotmailer {
+class Engagement_Cloud {
 
 	/**
 	 * The current version of the plugin.
@@ -56,11 +56,11 @@ class Dotmailer {
 	protected $plugin_path;
 
 	/**
-	 * dotmailer's Web App URL.
+	 * Engagement Cloud URL.
 	 *
 	 * @since    1.0.0
 	 * @access   public
-	 * @var      string    $webapp_url    dotmailer's Web App URL.
+	 * @var      string    $webapp_url    Engagement Cloud URL.
 	 */
 	protected $webapp_url;
 
@@ -70,7 +70,7 @@ class Dotmailer {
 	 *
 	 * @since    1.0.0
 	 * @access   protected
-	 * @var      Dotmailer_Loader    $loader    Maintains and registers all hooks for the plugin.
+	 * @var      Engagement_Cloud_Loader    $loader    Maintains and registers all hooks for the plugin.
 	 */
 	protected $loader;
 
@@ -85,7 +85,7 @@ class Dotmailer {
 	 *
 	 * @param string $plugin_name 	The name of the plugin.
 	 * @param string $plugin_path   The path of the plugin.
-	 * @param string $webapp_url   	dotmailer's Web App URL.
+	 * @param string $webapp_url   	Engagement Cloud URL.
 	 */
 	public function __construct( $plugin_name, $plugin_path, $webapp_url ) {
 
@@ -109,10 +109,10 @@ class Dotmailer {
 	 *
 	 * Include the following files that make up the plugin:
 	 *
-	 * - Dotmailer_Loader. Orchestrates the hooks of the plugin.
-	 * - Dotmailer_i18n. Defines internationalization functionality.
-	 * - Dotmailer_Admin. Defines all hooks for the admin area.
-	 * - Dotmailer_Public. Defines all hooks for the public side of the site.
+	 * - Engagement_Cloud_Loader. Orchestrates the hooks of the plugin.
+	 * - Engagement_Cloud_i18n. Defines internationalization functionality.
+	 * - Engagement_Cloud_Admin. Defines all hooks for the admin area.
+	 * - Engagement_Cloud_Public. Defines all hooks for the public side of the site.
 	 *
 	 * Create an instance of the loader which will be used to register the hooks
 	 * with WordPress.
@@ -126,44 +126,44 @@ class Dotmailer {
 		 * The class responsible for orchestrating the actions and filters of the
 		 * core plugin.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-dotmailer-loader.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-engagement-cloud-loader.php';
 
 		/**
 		 * The class responsible for defining internationalization functionality
 		 * of the plugin.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-dotmailer-i18n.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-engagement-cloud-i18n.php';
 
 		/**
 		 * The class responsible for defining all actions that occur in the admin area.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-dotmailer-admin.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-engagement-cloud-admin.php';
 
 		/**
 		 * The class responsible for defining all actions that occur in the public-facing
 		 * side of the site.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-dotmailer-public.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-engagement-cloud-public.php';
 
 		/**
 		 * The class responsible for defining all actions that occur during plugin's requirement validation.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-dotmailer-validator.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-engagement-cloud-validator.php';
 
 		/**
 		 * The class responsible for defining all actions that occur in woocommerce related
 		 * side of the site.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/platforms/class-dotmailer-woocommerce.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/platforms/class-engagement-cloud-woocommerce.php';
 
-		$this->loader = new Dotmailer_Loader();
+		$this->loader = new Engagement_Cloud_Loader();
 
 	}
 
 	/**
 	 * Define the locale for this plugin for internationalization.
 	 *
-	 * Uses the Dotmailer_i18n class in order to set the domain and to register the hook
+	 * Uses the Engagement_Cloud_i18n class in order to set the domain and to register the hook
 	 * with WordPress.
 	 *
 	 * @since    1.0.0
@@ -171,7 +171,7 @@ class Dotmailer {
 	 */
 	private function set_locale() {
 
-		$plugin_i18n = new Dotmailer_i18n();
+	    $plugin_i18n = new Engagement_Cloud_i18n();
 
 		$this->loader->add_action( 'plugins_loaded', $plugin_i18n, 'load_plugin_textdomain' );
 	}
@@ -185,7 +185,7 @@ class Dotmailer {
 	 */
 	private function define_admin_hooks() {
 
-		$plugin_admin = new Dotmailer_Admin( $this->plugin_name, $this->version, $this->webapp_url );
+	    $plugin_admin = new Engagement_Cloud_Admin( $this->plugin_name, $this->version, $this->webapp_url );
 
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
@@ -201,7 +201,7 @@ class Dotmailer {
 	private function define_validation_hooks() {
 
 		if ( ! in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ), true ) ) {
-			$plugin_validator = new Dotmailer_Validator( $this->plugin_name, $this->plugin_path );
+		    $plugin_validator = new Engagement_Cloud_Validator( $this->plugin_name, $this->plugin_path );
 
 			$this->loader->add_action( 'admin_init', $plugin_validator, 'self_deactivate' );
 			$this->loader->add_action( 'admin_menu', $plugin_validator, 'remove_admin_menu_page' );
@@ -218,7 +218,7 @@ class Dotmailer {
 	 */
 	private function define_public_hooks() {
 
-		$plugin_public = new Dotmailer_Public( $this->plugin_name, $this->version );
+	    $plugin_public = new Engagement_Cloud_Public( $this->plugin_name, $this->version );
 
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
@@ -232,13 +232,13 @@ class Dotmailer {
 	 */
 	private function define_woocommerce_hooks() {
 
-		$plugin_woocommerce = new Dotmailer_WooCommerce();
+	    $plugin_woocommerce = new Engagement_Cloud_WooCommerce();
 
-		$this->loader->add_action( 'woocommerce_register_form', $plugin_woocommerce, 'dotmailer_render_register_marketing_checkbox', 5 );
-		$this->loader->add_action( 'user_register', $plugin_woocommerce, 'dotmailer_handle_register_marketing_checkbox', 5 );
+		$this->loader->add_action( 'woocommerce_register_form', $plugin_woocommerce, 'engagement_cloud_render_register_marketing_checkbox', 5 );
+		$this->loader->add_action( 'user_register', $plugin_woocommerce, 'engagement_cloud_handle_register_marketing_checkbox', 5 );
 
-		$this->loader->add_action( 'woocommerce_checkout_after_customer_details', $plugin_woocommerce, 'dotmailer_render_checkout_marketing_checkbox', 5 );
-		$this->loader->add_action( 'woocommerce_checkout_order_processed', $plugin_woocommerce, 'dotmailer_handle_checkout_marketing_checkbox', 5 );
+		$this->loader->add_action( 'woocommerce_checkout_after_customer_details', $plugin_woocommerce, 'engagement_cloud_render_checkout_marketing_checkbox', 5 );
+		$this->loader->add_action( 'woocommerce_checkout_order_processed', $plugin_woocommerce, 'engagement_cloud_handle_checkout_marketing_checkbox', 5 );
 	}
 
 	/**

@@ -2,11 +2,11 @@
 /**
  * Fired during plugin activation
  *
- * @link       https://www.dotmailer.com/
+ * @link       https://www.dotdigital.com/
  * @since      1.0.0
  *
- * @package    Dotmailer
- * @subpackage Dotmailer/includes
+ * @package    EngagementCloud
+ * @subpackage EngagementCloud/includes
  */
 
 /**
@@ -14,13 +14,13 @@
  *
  * This file is used to markup the admin-facing aspects of the plugin.
  *
- * @link       https://www.dotmailer.com/
+ * @link       https://www.dotdigital.com/
  * @since      1.0.0
  *
- * @package    Dotmailer
- * @subpackage Dotmailer/admin/partials
+ * @package    EngagementCloud
+ * @subpackage EngagementCloud/admin/partials
  */
-class Dotmailer_Admin_Display {
+class Engagement_Cloud_Admin_Display {
 
 	/**
 	 * The name of this plugin.
@@ -32,11 +32,11 @@ class Dotmailer_Admin_Display {
 	private $plugin_name;
 
 	/**
-	 * dotmailer's Web App URL.
+	 * Engagement Cloud URL.
 	 *
 	 * @since    1.0.0
 	 * @access   private
-	 * @var      string    $webapp_url    dotmailer's Web App URL.
+	 * @var      string    $webapp_url    Engagement Cloud URL.
 	 */
 	private $webapp_url;
 
@@ -50,7 +50,7 @@ class Dotmailer_Admin_Display {
 	 * @since    1.0.0
 	 *
 	 * @param string $plugin_name 	The name of this plugin.
-	 * @param string $webapp_url 	dotmailer's Web App URL.
+	 * @param string $webapp_url 	Engagement Cloud URL.
 	 */
 	public function __construct( $plugin_name, $webapp_url ) {
 
@@ -70,7 +70,7 @@ class Dotmailer_Admin_Display {
 		$store_url = get_bloginfo( 'wpurl' );
 		$bridge_url = $store_url . '/bridge2cart/bridge.php';
 		$store_root = '\\' === DIRECTORY_SEPARATOR ?
-			str_replace( '/', '\\', ABSPATH ) :
+			'/' . str_replace( '\\', '/', ABSPATH ) :
 			ABSPATH;
 
 		global $wpdb;
@@ -88,6 +88,6 @@ class Dotmailer_Admin_Display {
 			'pluginid' => $plugin_id,
 		) );
 
-		echo '<iframe id="dotmailer-settings" src="' . esc_html( $this->webapp_url ) . '/woocommerce/connect?' . esc_html( $connection_query ) . '"></iframe>';
+		echo '<iframe id="engagement-cloud-settings" src="' . esc_html( $this->webapp_url ) . '/woocommerce/connect?' . esc_html( $connection_query ) . '"></iframe>';
 	}
 }

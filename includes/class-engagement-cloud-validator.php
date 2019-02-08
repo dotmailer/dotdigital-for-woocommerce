@@ -2,11 +2,11 @@
 /**
  * Fired during plugin validation
  *
- * @link       https://www.dotmailer.com/
+ * @link       https://www.dotdigital.com/
  * @since      1.0.0
  *
- * @package    Dotmailer
- * @subpackage Dotmailer/includes
+ * @package    EngagementCloud
+ * @subpackage EngagementCloud/includes
  */
 
 /**
@@ -15,10 +15,10 @@
  * This class defines all code necessary to run during the plugin's validation.
  *
  * @since      1.0.0
- * @subpackage Dotmailer/includes
- * @author     dotmailer <integrations@dotmailer.com>
+ * @subpackage EngagementCloud/includes
+ * @author     dotdigital <integrations@dotdigital.com>
  */
-class Dotmailer_Validator {
+class Engagement_Cloud_Validator {
 
 	/**
 	 * The unique identifier of this plugin.
@@ -64,9 +64,9 @@ class Dotmailer_Validator {
 	}
 
 	/**
-	 * Removes the dotmailer admin page from WordPress.
+	 * Removes the Engagement Cloud admin page from WordPress.
 	 *
-	 * Removes the dotmailer admin page from WordPress upon deactivation.
+	 * Removes the Engagement Cloud admin page from WordPress upon deactivation.
 	 *
 	 * @since    1.0.0
 	 */
@@ -84,7 +84,7 @@ class Dotmailer_Validator {
 	function plugin_activation_failure_message() {
 	?>
 		<div class="notice notice-error is-dismissible">
-			<p><?php esc_html_e( 'dotmailer plugin will remain deactivated until an ecommerce plugin is installed and activated.', 'dotmailer-email-marketing' ); ?></p>
+			<p><?php esc_html_e( 'Engagement Cloud plugin will remain deactivated until an ecommerce plugin is installed and activated.', 'dotdigital-engagement-cloud' ); ?></p>
 		</div>
 	<?php
 	}

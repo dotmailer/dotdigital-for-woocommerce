@@ -4,11 +4,11 @@
  *
  * This file is used to markup the public-facing aspects of the plugin.
  *
- * @link       https://www.dotmailer.com/
+ * @link       https://www.dotdigital.com/
  * @since      1.0.0
  *
- * @package    Dotmailer
- * @subpackage Dotmailer/public/partials
+ * @package    EngagementCloud
+ * @subpackage EngagementCloud/public/partials
  */
 
 ?>

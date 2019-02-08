@@ -2,11 +2,11 @@
 /**
  * Used for WooCommerce hooks.
  *
- * @link       https://www.dotmailer.com/
+ * @link       https://www.dotdigital.com/
  * @since      1.0.0
  *
- * @package    Dotmailer
- * @subpackage Dotmailer/includes/platforms
+ * @package    EngagementCloud
+ * @subpackage EngagementCloud/includes/platforms
  */
 
 /**
@@ -15,11 +15,11 @@
  * This class defines all code necessary to use WooCommerce hooks.
  *
  * @since      1.0.0
- * @package    Dotmailer
- * @subpackage Dotmailer/includes/platforms
- * @author     dotmailer <integrations@dotmailer.com>
+ * @package    EngagementCloud
+ * @subpackage EngagementCloud/includes/platforms
+ * @author     dotdigital <integrations@dotdigital.com>
  */
-class Dotmailer_WooCommerce {
+class Engagement_Cloud_WooCommerce {
 
 	/**
 	 * Used to identify the checkbox.
@@ -28,7 +28,7 @@ class Dotmailer_WooCommerce {
 	 * @access   private
 	 * @var      string    $checkbox_name    Used to identify the checkbox.
 	 */
-	private $checkbox_name = 'dotmailer_marketing_checkbox';
+	private $checkbox_name = 'engagement_cloud_checkbox';
 
 	/**
 	 * Text for the checkbox's label.
@@ -53,7 +53,7 @@ class Dotmailer_WooCommerce {
 	 *
 	 * @since    1.0.0
 	 */
-	function dotmailer_render_checkout_marketing_checkbox() {
+	function engagement_cloud_render_checkout_marketing_checkbox() {
 		if ( is_user_logged_in( ) ) {
 			woocommerce_form_field( $this->checkbox_name, array(
 				'type'          => 'checkbox',
@@ -67,7 +67,7 @@ class Dotmailer_WooCommerce {
 	 *
 	 * @since    1.0.0
 	 */
-	function dotmailer_handle_checkout_marketing_checkbox() {
+	function engagement_cloud_handle_checkout_marketing_checkbox() {
 		if ( is_user_logged_in() ) {
 			$accepts_marketing = 0;
 			if ( isset( $_POST[ $this->checkbox_name ] ) ) {
@@ -82,7 +82,7 @@ class Dotmailer_WooCommerce {
 	 *
 	 * @since    1.0.0
 	 */
-	function dotmailer_render_register_marketing_checkbox() {
+	function engagement_cloud_render_register_marketing_checkbox() {
 		woocommerce_form_field( $this->checkbox_name, array(
 			'type'          => 'checkbox',
 			'label'         => __( $this->checkbox_label ),
@@ -96,7 +96,7 @@ class Dotmailer_WooCommerce {
 	 *
 	 * @param string $user_id The ID of new registree.
 	 */
-	function dotmailer_handle_register_marketing_checkbox( $user_id ) {
+	function engagement_cloud_handle_register_marketing_checkbox( $user_id ) {
 		$accepts_marketing = 0;
 		if ( isset( $_POST[ $this->checkbox_name ] ) ) {
 			$accepts_marketing = 1;

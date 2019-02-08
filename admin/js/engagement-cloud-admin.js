@@ -2,7 +2,7 @@
 	'use strict';
 
 	$(function () {
-		var iframe = $('#dotmailer-settings');
+		var iframe = $('#engagement-cloud-settings');
 		if (!iframe.length)
 			return;
 
