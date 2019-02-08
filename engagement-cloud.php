@@ -77,7 +77,7 @@ class Engagement_Cloud_Bootstrapper {
 	 * @access   public
 	 * @var      string    $webapp_url    Engagement Cloud URL.
 	 */
-	public static $webapp_url = 'https://www.dotdigital.com';
+	public static $webapp_url = 'https://login.dotdigital.com';
 
 	/**
 	 * Engagement Cloud callback URL.
