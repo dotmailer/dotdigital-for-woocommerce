@@ -67,7 +67,7 @@ class Engagement_Cloud_Deactivator {
 	 */
 	public function deactivate() {
 		global $wpdb;
-		$engagement_cloud_table_name = $wpdb->prefix . $this->plugin_name;
+		$engagement_cloud_table_name = $wpdb->prefix . "dotmailer_email_marketing";
 
 		// @codingStandardsIgnoreStart
 		$plugin_id = $wpdb->get_var( "SELECT PluginID FROM $engagement_cloud_table_name" );

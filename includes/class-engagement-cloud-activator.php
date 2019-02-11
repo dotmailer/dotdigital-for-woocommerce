@@ -67,7 +67,7 @@ class Engagement_Cloud_Activator {
 	 */
 	public function activate() {
 		global $wpdb;
-		$engagement_cloud_table_name = $wpdb->prefix . $this->plugin_name;
+		$engagement_cloud_table_name = $wpdb->prefix . "dotmailer_email_marketing";
 
 		// @codingStandardsIgnoreStart
 		if ( $wpdb->get_var( $wpdb->prepare( 'SHOW TABLES LIKE %s', $engagement_cloud_table_name ) ) !== $engagement_cloud_table_name ) {

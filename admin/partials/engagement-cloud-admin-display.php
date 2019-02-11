@@ -74,7 +74,7 @@ class Engagement_Cloud_Admin_Display {
 			ABSPATH;
 
 		global $wpdb;
-		$table_name = $wpdb->prefix . $this->plugin_name;
+		$table_name = $wpdb->prefix . "dotmailer_email_marketing";
 
 		// @codingStandardsIgnoreStart
 		$plugin_id = $wpdb->get_var( "SELECT PluginID FROM $table_name" );
