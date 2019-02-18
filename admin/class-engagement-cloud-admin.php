@@ -139,19 +139,4 @@ class Engagement_Cloud_Admin {
 			55.5
 		);
 	}
-
-	/**
-	 * Add settings action link to the plugins page.
-	 *
-	 * @since    1.0.0
-	 *
-	 * @param array $links Array of links.
-	 */
-	public function add_action_links( $links ) {
-		/*
-		*  Documentation : https://codex.wordpress.org/Plugin_API/Filter_Reference/plugin_action_links_(plugin_file_name)
-    	*/
-		$settings_link = array( '<a href="' . admin_url( 'options-general.php?page=' . $this->plugin_name ) . '">' . __( 'Settings', 'dotdigitalEC' ) . '</a>' );
-		return array_merge( $settings_link, $links );
-	}
 }
