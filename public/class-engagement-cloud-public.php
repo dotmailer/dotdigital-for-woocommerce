@@ -2,11 +2,11 @@
 /**
  * The public-facing functionality of the plugin.
  *
- * @link       https://www.dotmailer.com/
+ * @link       https://www.dotdigital.com/
  * @since      1.0.0
  *
- * @package    Dotmailer
- * @subpackage Dotmailer/public
+ * @package    EngagementCloud
+ * @subpackage EngagementCloud/public
  */
 
 /**
@@ -15,11 +15,12 @@
  * Defines the plugin name, version, and two examples hooks for how to
  * enqueue the admin-specific stylesheet and JavaScript.
  *
- * @package    Dotmailer
- * @subpackage Dotmailer/public
- * @author     dotmailer <integrations@dotmailer.com>
+ *
+ * @package    EngagementCloud
+ * @subpackage EngagementCloud/public
+ * @author     dotdigital <integrations@dotigital.com>
  */
-class Dotmailer_Public {
+class Engagement_Cloud_Public {
 
 	/**
 	 * The ID of this plugin.
@@ -64,15 +65,15 @@ class Dotmailer_Public {
 		 * This function is provided for demonstration purposes only.
 		 *
 		 * An instance of this class should be passed to the run() function
-		 * defined in Dotmailer_Loader as all of the hooks are defined
+		 * defined in Engagement_Cloud_Loader as all of the hooks are defined
 		 * in that particular class.
 		 *
-		 * The Dotmailer_Loader will then create the relationship
+		 * The Engagement_Cloud_Loader will then create the relationship
 		 * between the defined hooks and the functions defined in this
 		 * class.
 		 */
 
-		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/dotmailer-public.css', array(), $this->version, 'all' );
+		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/engagement-cloud-public.css', array(), $this->version, 'all' );
 
 	}
 
@@ -87,15 +88,15 @@ class Dotmailer_Public {
 		 * This function is provided for demonstration purposes only.
 		 *
 		 * An instance of this class should be passed to the run() function
-		 * defined in Dotmailer_Loader as all of the hooks are defined
+		 * defined in Engagement_Cloud_Loader as all of the hooks are defined
 		 * in that particular class.
 		 *
-		 * The Dotmailer_Loader will then create the relationship
+		 * The Engagement_Cloud_Loader will then create the relationship
 		 * between the defined hooks and the functions defined in this
 		 * class.
 		 */
 
-		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/dotmailer-public.js', array( 'jquery' ), $this->version, false );
+		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/engagement-cloud-public.js', array( 'jquery' ), $this->version, false );
 
 	}
 

@@ -2,11 +2,11 @@
 /**
  * Fired during plugin deactivation
  *
- * @link       https://www.dotmailer.com/
+ * @link       https://www.dotdigital.com/
  * @since      1.0.0
  *
- * @package    Dotmailer
- * @subpackage Dotmailer/includes
+ * @package    EngagementCloud
+ * @subpackage EngagementCloud/includes/includes
  */
 
 /**
@@ -15,11 +15,11 @@
  * This class defines all code necessary to run during the plugin's deactivation.
  *
  * @since      1.0.0
- * @package    Dotmailer
- * @subpackage Dotmailer/includes
- * @author     dotmailer <integrations@dotmailer.com>
+ * @package    EngagementCloud
+ * @subpackage EngagementCloud/includes/includes
+ * @author     dotdigital <integrations@dotdigital.com>
  */
-class Dotmailer_Deactivator {
+class Engagement_Cloud_Deactivator {
 	/**
 	 * The unique identifier of this plugin.
 	 *
@@ -30,11 +30,11 @@ class Dotmailer_Deactivator {
 	private $plugin_name;
 
 	/**
-	 * dotmailer's callback URL.
+	 * Engagement Cloud callback URL.
 	 *
 	 * @since    1.0.0
 	 * @access   private
-	 * @var      string    $callback_url    dotmailer's callback URL.
+	 * @var      string    $callback_url    Engagement Cloud callback URL.
 	 */
 	private $callback_url;
 
@@ -48,7 +48,7 @@ class Dotmailer_Deactivator {
 	 * @since    1.0.0
 	 *
 	 * @param string $plugin_name The name of the plugin.
-	 * @param string $callback_url dotmailer's callback URL.
+	 * @param string $callback_url Engagement Cloud callback URL.
 	 */
 	public function __construct( $plugin_name, $callback_url ) {
 
@@ -60,17 +60,17 @@ class Dotmailer_Deactivator {
 	/**
 	 * Executed upon plugin deactivation.
 	 *
-	 * Executed upon plugin deactivation and posts to dotmailer's
+	 * Executed upon plugin deactivation and posts to Engagament Cloud
 	 * tracking site to notify that the plugin has been deactivated.
 	 *
 	 * @since    1.0.0
 	 */
 	public function deactivate() {
 		global $wpdb;
-		$dotmailer_table_name = $wpdb->prefix . $this->plugin_name;
+		$engagement_cloud_table_name = $wpdb->prefix . "dotmailer_email_marketing";
 
 		// @codingStandardsIgnoreStart
-		$plugin_id = $wpdb->get_var( "SELECT PluginID FROM $dotmailer_table_name" );
+		$plugin_id = $wpdb->get_var( "SELECT PluginID FROM $engagement_cloud_table_name" );
 		// @codingStandardsIgnoreEnd
 		wp_remote_post( "$this->callback_url/e/woocommerce/disable?pluginid=$plugin_id" );
 	}

@@ -2,11 +2,11 @@
 /**
  * Fired during plugin activation
  *
- * @link       https://www.dotmailer.com/
+ * @link       https://www.dotdigital.com/
  * @since      1.0.0
  *
- * @package    Dotmailer
- * @subpackage Dotmailer/includes
+ * @package    EngagementCloud
+ * @subpackage EngagementCloud/includes
  */
 
 /**
@@ -15,10 +15,10 @@
  * This class defines all code necessary to run during the plugin's activation.
  *
  * @since      1.0.0
- * @subpackage Dotmailer/includes
- * @author     dotmailer <integrations@dotmailer.com>
+ * @subpackage EngagementCloud/includes
+ * @author     dotdigital <integrations@dotdigital.com>
  */
-class Dotmailer_Activator {
+class Engagement_Cloud_Activator {
 
 	/**
 	 * The unique identifier of this plugin.
@@ -30,11 +30,11 @@ class Dotmailer_Activator {
 	private $plugin_name;
 
 	/**
-	 * dotmailer's callback URL.
+	 * Engagement Cloud callback URL.
 	 *
 	 * @since    1.0.0
 	 * @access   private
-	 * @var      string    $callback_url    dotmailer's callback URL.
+	 * @var      string    $callback_url    Engagement Cloud callback URL.
 	 */
 	private $callback_url;
 
@@ -48,7 +48,7 @@ class Dotmailer_Activator {
 	 * @since    1.0.0
 	 *
 	 * @param string $plugin_name The name of the plugin.
-	 * @param string $callback_url The URL of the dotmailer's tracking site.
+	 * @param string $callback_url The URL of the Engagement Cloud tracking site.
 	 */
 	public function __construct( $plugin_name, $callback_url ) {
 
@@ -60,21 +60,21 @@ class Dotmailer_Activator {
 	/**
 	 * Executed upon plugin activation.
 	 *
-	 * Executed upon plugin activation and posts to dotmailer's
+	 * Executed upon plugin activation and posts to Engagement Cloud
 	 * tracking site to notify that the plugin has been activated.
 	 *
 	 * @since    1.0.0
 	 */
 	public function activate() {
 		global $wpdb;
-		$dotmailer_table_name = $wpdb->prefix . $this->plugin_name;
+		$engagement_cloud_table_name = $wpdb->prefix . "dotmailer_email_marketing";
 
 		// @codingStandardsIgnoreStart
-		if ( $wpdb->get_var( $wpdb->prepare( 'SHOW TABLES LIKE %s', $dotmailer_table_name ) ) !== $dotmailer_table_name ) {
+		if ( $wpdb->get_var( $wpdb->prepare( 'SHOW TABLES LIKE %s', $engagement_cloud_table_name ) ) !== $engagement_cloud_table_name ) {
 			// @codingStandardsIgnoreEnd
 			$charset_collate = $wpdb -> get_charset_collate();
 
-			$sql = "CREATE TABLE $dotmailer_table_name (
+			$sql = "CREATE TABLE $engagement_cloud_table_name (
           		PluginID VARCHAR(256) NOT NULL
      		) $charset_collate;";
 
@@ -83,17 +83,17 @@ class Dotmailer_Activator {
 		}
 
 		// @codingStandardsIgnoreStart
-		$plugin_id = $wpdb->get_var( "SELECT PluginID FROM $dotmailer_table_name" );
+		$plugin_id = $wpdb->get_var( "SELECT PluginID FROM $engagement_cloud_table_name" );
 
 		if ( null === $plugin_id ) {
 			$length = 128;
 			$crypto_strong = true;
 
-			$wpdb->insert( $dotmailer_table_name, array(
+			$wpdb->insert( $engagement_cloud_table_name, array(
 				'PluginID' => bin2hex( openssl_random_pseudo_bytes( $length, $crypto_strong ) ),
 			));
 
-			$plugin_id = $wpdb->get_var( "SELECT PluginID FROM $dotmailer_table_name" );
+			$plugin_id = $wpdb->get_var( "SELECT PluginID FROM $engagement_cloud_table_name" );
 			// @codingStandardsIgnoreEnd
 		}
 

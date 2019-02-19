@@ -2,11 +2,11 @@
 /**
  * Register all actions and filters for the plugin
  *
- * @link       https://www.dotmailer.com/
+ * @link       https://www.dotdigital.com/
  * @since      1.0.0
  *
- * @package    Dotmailer
- * @subpackage Dotmailer/includes
+ * @package    EngagementCloud
+ * @subpackage EngagementCloud/includes
  */
 
 /**
@@ -16,11 +16,11 @@
  * the plugin, and register them with the WordPress API. Call the
  * run function to execute the list of actions and filters.
  *
- * @package    Dotmailer
- * @subpackage Dotmailer/includes
- * @author     dotmailer <integrations@dotmailer.com>
+ * @package    EngagementCloud
+ * @subpackage EngagementCloud/includes
+ * @author     dotdigital <integrations@dotdigital.com>
  */
-class Dotmailer_Loader {
+class Engagement_Cloud_Loader {
 
 	/**
 	 * The array of actions registered with WordPress.

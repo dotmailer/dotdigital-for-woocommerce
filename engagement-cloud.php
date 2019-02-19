@@ -7,19 +7,19 @@
  * registers the activation and deactivation functions, and defines a function
  * that starts the plugin.
  *
- * @link              https://www.dotmailer.com/
- * @since             1.0.0
- * @package           Dotmailer
- *
+ * @link       https://www.dotdigital.com/
+ * @since      1.0.0
+ * @package    EngagementCloud
+  *
  * @wordpress-plugin
- * Plugin Name:       dotmailer Email Marketing for WooCommerce
- * Description:       dotmailer Integration for WooCommerce ecommerce platform.
+ * Plugin Name:       dotdigital Engagement Cloud for WooCommerce
+ * Description:       Engagement Cloud Integration for WooCommerce ecommerce platform.
  * Version:           1.0.0
- * Author:            dotmailer
- * Author URI:        https://www.dotmailer.com/
+ * Author:            dotdigital
+ * Author URI:        https://www.dotdigital.com/
  * License:           MIT
  * License URI:       https://opensource.org/licenses/MIT
- * Text Domain:       dotmailer_email_marketing
+ * Text Domain:       dotdigital_engagement_cloud
  * Domain Path:       /languages
  *
  * MIT License
@@ -51,15 +51,15 @@ if ( ! defined( 'WPINC' ) ) {
 }
 
 /**
- * Used to bootstrap the dotmailer plugin.
+ * Used to bootstrap the Engagement Cloud plugin.
  *
  * This class defines all code necessary to register and run the plugin.
  *
  * @since      1.0.0
- * @package    Dotmailer
- * @author     dotmailer <integrations@dotmailer.com>
+ * @package    EngagementCloud
+ * @author     dotdigital <integrations@dotdigital.com>
  */
-class Dotmailer_Bootstrapper {
+class Engagement_Cloud_Bootstrapper {
 
 	/**
 	 * The unique identifier of this plugin.
@@ -68,42 +68,42 @@ class Dotmailer_Bootstrapper {
 	 * @access   private
 	 * @var      string    $plugin_name    The string used to uniquely identify this plugin.
 	 */
-	public static $plugin_name = 'dotmailer_email_marketing';
+	public static $plugin_name = 'dotdigital_engagement_cloud';
 
 	/**
-	 * dotmailer's Web App URL.
+	 * Engagement Cloud URL.
 	 *
 	 * @since    1.0.0
 	 * @access   public
-	 * @var      string    $webapp_url    dotmailer's Web App URL.
+	 * @var      string    $webapp_url    Engagement Cloud URL.
 	 */
-	public static $webapp_url = 'https://login.dotmailer.com';
+	public static $webapp_url = 'https://login.dotdigital.com';
 
 	/**
-	 * dotmailer's callback URL.
+	 * Engagement Cloud callback URL.
 	 *
 	 * @since    1.0.0
 	 * @access   public
-	 * @var      string    $callback_url    dotmailer's callback URL.
+	 * @var      string    $callback_url    Engagement Cloud callback URL.
 	 */
 	public static $callback_url = 'https://t.trackedlink.net';
 
 	/**
 	 * The code that runs during plugin activation.
-	 * This action is documented in includes/class-dotmailer-activator.php
+	 * This action is documented in includes/class-engagement-cloud-activator.php
 	 */
-	public static function activate_dotmailer() {
-		require_once plugin_dir_path( __FILE__ ) . 'includes/class-dotmailer-activator.php';
-		( new Dotmailer_Activator( self::$plugin_name, self::$callback_url ) )->activate();
+	public static function activate_engagement_cloud() {
+		require_once plugin_dir_path( __FILE__ ) . 'includes/class-engagement-cloud-activator.php';
+		( new Engagement_Cloud_Activator( self::$plugin_name, self::$callback_url ) )->activate();
 	}
 
 	/**
 	 * The code that runs during plugin deactivation.
-	 * This action is documented in includes/class-dotmailer-deactivator.php
+	 * This action is documented in includes/class-engagement-cloud-deactivator.php
 	 */
-	public static function deactivate_dotmailer() {
-		require_once plugin_dir_path( __FILE__ ) . 'includes/class-dotmailer-deactivator.php';
-		( new Dotmailer_Deactivator( self::$plugin_name, self::$callback_url ) )->deactivate();
+	public static function deactivate_engagement_cloud() {
+		require_once plugin_dir_path( __FILE__ ) . 'includes/class-engagement-cloud-deactivator.php';
+		( new Engagement_Cloud_Deactivator( self::$plugin_name, self::$callback_url ) )->deactivate();
 	}
 
 	/**
@@ -115,18 +115,18 @@ class Dotmailer_Bootstrapper {
 	 *
 	 * @since    1.0.0
 	 */
-	public static function run_dotmailer() {
+	public static function run_engagement_cloud() {
 		/**
 		 * The core plugin class that is used to define internationalization,
 		 * admin-specific hooks, and public-facing site hooks.
 		 */
-		require plugin_dir_path( __FILE__ ) . 'includes/class-dotmailer.php';
+		require plugin_dir_path( __FILE__ ) . 'includes/class-engagement-cloud.php';
 
-		( new Dotmailer( self::$plugin_name, plugin_basename( __FILE__ ), self::$webapp_url ) )->run();
+		( new Engagement_Cloud( self::$plugin_name, plugin_basename( __FILE__ ), self::$webapp_url ) )->run();
 	}
 }
 
-register_activation_hook( __FILE__, array( 'Dotmailer_Bootstrapper', 'activate_dotmailer' ) );
-register_deactivation_hook( __FILE__, array( 'Dotmailer_Bootstrapper', 'deactivate_dotmailer' ) );
+register_activation_hook( __FILE__, array( 'Engagement_Cloud_Bootstrapper', 'activate_engagement_cloud' ) );
+register_deactivation_hook( __FILE__, array( 'Engagement_Cloud_Bootstrapper', 'deactivate_engagement_cloud' ) );
 
-Dotmailer_Bootstrapper::run_dotmailer();
+Engagement_Cloud_Bootstrapper::run_engagement_cloud();

@@ -2,11 +2,11 @@
 /**
  * The admin-specific functionality of the plugin.
  *
- * @link       https://www.dotmailer.com/
+ * @link       https://www.dotdigital.com/
  * @since      1.0.0
  *
- * @package    Dotmailer
- * @subpackage Dotmailer/admin
+ * @package    EngagementCloud
+ * @subpackage EngagementCloud/admin
  */
 
 /**
@@ -15,11 +15,13 @@
  * Defines the plugin name, version, and two examples hooks for how to
  * enqueue the admin-specific stylesheet and JavaScript.
  *
- * @package    Dotmailer
- * @subpackage Dotmailer/admin
- * @author     dotmailer <integrations@dotmailer.com>
+ * @since      1.0.0
+ *
+ * @package    EngagementCloud
+ * @subpackage EngagementCloud/admin
+ * @author     dotdigital <integrations@dotdigital.com>
  */
-class Dotmailer_Admin {
+class Engagement_Cloud_Admin {
 
 	/**
 	 * The unique identifier of this plugin.
@@ -40,11 +42,11 @@ class Dotmailer_Admin {
 	private $version;
 
 	/**
-	 * dotmailer's Web App URL.
+	 * Engagement Cloud URL
 	 *
 	 * @since    1.0.0
 	 * @access   private
-	 * @var      string    $webapp_url    dotmailer's Web App URL.
+	 * @var      string    $webapp_url    Engagement Cloud URL.
 	 */
 	private $webapp_url;
 
@@ -54,7 +56,7 @@ class Dotmailer_Admin {
 	 * @since    1.0.0
 	 * @param    string $plugin_name 	The name of this plugin.
 	 * @param    string $version    	The version of this plugin.
-	 * @param    string $webapp_url    	dotmailer's Web App URL.
+	 * @param    string $webapp_url    	Engagement Cloud URL.
 	 */
 	public function __construct( $plugin_name, $version, $webapp_url ) {
 
@@ -75,15 +77,15 @@ class Dotmailer_Admin {
 		 * This function is provided for demonstration purposes only.
 		 *
 		 * An instance of this class should be passed to the run() function
-		 * defined in Dotmailer_Loader as all of the hooks are defined
+		 * defined in Engagement_Cloud_Loader as all of the hooks are defined
 		 * in that particular class.
 		 *
-		 * The Dotmailer_Loader will then create the relationship
+		 * The Engagement_Cloud_Loader will then create the relationship
 		 * between the defined hooks and the functions defined in this
 		 * class.
 		 */
 
-		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/dotmailer-admin.css', array(), $this->version, 'all' );
+		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/engagement-cloud-admin.css', array(), $this->version, 'all' );
 
 	}
 
@@ -98,15 +100,15 @@ class Dotmailer_Admin {
 		 * This function is provided for demonstration purposes only.
 		 *
 		 * An instance of this class should be passed to the run() function
-		 * defined in Dotmailer_Loader as all of the hooks are defined
+		 * defined in Engagement_Cloud_Loader as all of the hooks are defined
 		 * in that particular class.
 		 *
-		 * The Dotmailer_Loader will then create the relationship
+		 * The Engagement_Cloud_Loader will then create the relationship
 		 * between the defined hooks and the functions defined in this
 		 * class.
 		 */
 
-		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/dotmailer-admin.js', array( 'jquery' ), $this->version, false );
+		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/engagement-cloud-admin.js', array( 'jquery' ), $this->version, false );
 
 	}
 
@@ -124,32 +126,17 @@ class Dotmailer_Admin {
 		*        Administration Menus: http://codex.wordpress.org/Administration_Menus
 		*
 		*/
-		require_once( 'partials/dotmailer-admin-display.php' );
-		$admin_display = new Dotmailer_Admin_Display( $this->plugin_name, $this->webapp_url );
+		require_once( 'partials/engagement-cloud-admin-display.php' );
+		$admin_display = new Engagement_Cloud_Admin_Display( $this->plugin_name, $this->webapp_url );
 
 		add_menu_page(
-			'dotmailer',
-			'dotmailer',
+			'dotdigital Engagement Cloud',
+			'Engagement Cloud',
 			'manage_options',
 			$this->plugin_name,
 			array( $admin_display, 'display_plugin_setup_page' ),
-			'https://d1nca6q8ghann3.cloudfront.net/themeitems/1/files/c2334.ico',
+			plugins_url('../assests/DD-roundel-16x16.png',__FILE__),
 			55.5
 		);
-	}
-
-	/**
-	 * Add settings action link to the plugins page.
-	 *
-	 * @since    1.0.0
-	 *
-	 * @param array $links Array of links.
-	 */
-	public function add_action_links( $links ) {
-		/*
-		*  Documentation : https://codex.wordpress.org/Plugin_API/Filter_Reference/plugin_action_links_(plugin_file_name)
-    	*/
-		$settings_link = array( '<a href="' . admin_url( 'options-general.php?page=' . $this->plugin_name ) . '">' . __( 'Settings', 'dotmailer' ) . '</a>' );
-		return array_merge( $settings_link, $links );
 	}
 }

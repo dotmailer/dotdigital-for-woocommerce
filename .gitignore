@@ -1,2 +1,6 @@
 .vscode/
 vendor/
+.settings/org.eclipse.wst.validation.prefs
+.buildpath
+.project
+web.config
