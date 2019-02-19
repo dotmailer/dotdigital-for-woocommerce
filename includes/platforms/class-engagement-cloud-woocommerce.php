@@ -103,4 +103,26 @@ class Engagement_Cloud_WooCommerce {
 		}
 		update_user_meta( $user_id, $this->meta_key, $accepts_marketing );
 	}
+	
+	/**
+	 * Updates the modified cart date so Api2Cart can handle.
+	 *
+	 * @since    1.1.0
+	 */
+	function api2cart_cart_updated() {
+	    $user_id = get_current_user_id() ?: WooCommerce::instance()->session->get_customer_id();
+	    $blog_id = get_current_blog_id();
+	    
+	    if (preg_match('/^[a-f0-9]{32}$/', $user_id) !== 1) {
+	        $updateTime = time();
+	        $updatedKey = '_a2c_wh_cart_' . $blog_id . '_updated_gmt';
+	        $createdKey = '_a2c_wh_cart_' . $blog_id . '_created_gmt';
+	        
+	        update_user_meta($user_id, $updatedKey, $updateTime);
+	        
+	        if(get_user_meta($user_id, $createdKey, true) === '') {
+	            update_user_meta($user_id, $createdKey, $updateTime);
+	        }
+	    }
+	}
 }

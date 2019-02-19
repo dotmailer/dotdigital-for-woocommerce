@@ -239,6 +239,11 @@ class Engagement_Cloud {
 
 		$this->loader->add_action( 'woocommerce_checkout_after_customer_details', $plugin_woocommerce, 'engagement_cloud_render_checkout_marketing_checkbox', 5 );
 		$this->loader->add_action( 'woocommerce_checkout_order_processed', $plugin_woocommerce, 'engagement_cloud_handle_checkout_marketing_checkbox', 5 );
+		
+		$this->loader->add_action( 'woocommerce_update_cart_action_cart_updated', $plugin_woocommerce, 'api2cart_cart_updated', 5 );
+		$this->loader->add_action( 'woocommerce_add_to_cart', $plugin_woocommerce, 'api2cart_cart_updated', 5 );
+		$this->loader->add_action( 'woocommerce_cart_item_removed', $plugin_woocommerce, 'api2cart_cart_updated', 5 );
+		$this->loader->add_action( 'woocommerce_cart_item_restored', $plugin_woocommerce, 'api2cart_cart_updated', 5 );
 	}
 
 	/**
