@@ -110,8 +110,10 @@ class Engagement_Cloud_WooCommerce {
 	 * @since    1.1.0
 	 */
 	function api2cart_cart_updated() {
-	    $user_id = get_current_user_id() ?: WooCommerce::instance()->session->get_customer_id();
+	    $woocommerce = WooCommerce::instance();
+	    $user_id = get_current_user_id() ?: $woocommerce->session->get_customer_id();
 	    $blog_id = get_current_blog_id();
+	    $itemsCount = count($woocommerce->cart->get_cart_contents());
 	    
 	    if (preg_match('/^[a-f0-9]{32}$/', $user_id) !== 1) {
 	        $updateTime = time();
@@ -123,6 +125,8 @@ class Engagement_Cloud_WooCommerce {
 	        if(get_user_meta($user_id, $createdKey, true) === '') {
 	            update_user_meta($user_id, $createdKey, $updateTime);
 	        }
-	    }
+	        elseif ($itemsCount === 0) {
+	            delete_user_meta($user_id, $createdKey);
+	        }
 	}
 }
