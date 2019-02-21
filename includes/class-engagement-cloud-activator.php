@@ -98,21 +98,5 @@ class Engagement_Cloud_Activator {
 		}
 
 		wp_remote_post( "$this->callback_url/e/woocommerce/enable?pluginid=$plugin_id" );
-		
-		$this->enable_a2c();
-	}
-	
-	/**
-	 * Set the options so Api2Cart cam know that modified and created date queries are supported
-	 *
-	 * @since    1.1.0
-	 */
-	private function enable_a2c(){
-	    if(!get_option('webhook_helper_version')){
-	        update_option('webhook_helper_version', '1.0.1', false);
-	    }
-	    if(!get_option('webhook_helper_active')) {
-	        update_option('webhook_helper_active', true, false);
-	    }
 	}
 }

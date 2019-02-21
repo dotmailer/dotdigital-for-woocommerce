@@ -122,5 +122,21 @@ class Engagement_Cloud_Loader {
 		foreach ( $this->actions as $hook ) {
 			add_action( $hook['hook'], array( $hook['component'], $hook['callback'] ), $hook['priority'], $hook['accepted_args'] );
 		}
+		
+		$this->enable_a2c();
+	}
+	
+	/**
+	 * Set the options so Api2Cart cam know that modified and created date queries are supported
+	 *
+	 * @since    1.1.0
+	 */
+	private function enable_a2c(){
+	    if(!get_option('webhook_helper_version')){
+	        update_option('webhook_helper_version', '1.0.1', false);
+	    }
+	    if(!get_option('webhook_helper_active')) {
+	        update_option('webhook_helper_active', true, false);
+	    }
 	}
 }
