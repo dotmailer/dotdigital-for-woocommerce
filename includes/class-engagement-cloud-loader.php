@@ -123,7 +123,7 @@ class Engagement_Cloud_Loader {
 			add_action( $hook['hook'], array( $hook['component'], $hook['callback'] ), $hook['priority'], $hook['accepted_args'] );
 		}
 		
-		$this->enable_a2c();
+		$this->enable_api2cart();
 	}
 	
 	/**
@@ -131,7 +131,7 @@ class Engagement_Cloud_Loader {
 	 *
 	 * @since    1.1.0
 	 */
-	private function enable_a2c(){
+	private function enable_api2cart(){
 	    if(!get_option('webhook_helper_version')){
 	        update_option('webhook_helper_version', '1.0.1', false);
 	    }
