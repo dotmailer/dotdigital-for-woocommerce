@@ -128,5 +128,6 @@ class Engagement_Cloud_WooCommerce {
 	        elseif ($itemsCount === 0) {
 	            delete_user_meta($user_id, $createdKey);
 	        }
+	    }
 	}
 }
