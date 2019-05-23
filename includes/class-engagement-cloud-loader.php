@@ -127,16 +127,12 @@ class Engagement_Cloud_Loader {
 	}
 	
 	/**
-	 * Set the options so Api2Cart cam know that modified and created date queries are supported
+	 * Set the options so Api2Cart can know that modified and created date queries are supported
 	 *
 	 * @since    1.1.0
 	 */
 	private function enable_api2cart(){
-	    if(!get_option('webhook_helper_version')){
-	        update_option('webhook_helper_version', '1.0.1', false);
-	    }
-	    if(!get_option('webhook_helper_active')) {
+	        update_option('webhook_helper_version', '1.1.0', false);
 	        update_option('webhook_helper_active', true, false);
-	    }
 	}
 }
