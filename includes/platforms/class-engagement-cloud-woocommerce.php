@@ -105,11 +105,11 @@ class Engagement_Cloud_WooCommerce {
 	}
 	
 	/**
-	 * Updates the modified cart date so Api2Cart can handle.
+	 * Updates the modified cart date.
 	 *
 	 * @since    1.1.0
 	 */
-	function api2cart_cart_updated() {
+	function cart_updated() {
 	    $woocommerce = WooCommerce::instance();
 	    $user_id = get_current_user_id() ?: $woocommerce->session->get_customer_id();
 	    $blog_id = get_current_blog_id();
