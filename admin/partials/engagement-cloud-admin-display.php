@@ -66,8 +66,7 @@ class Engagement_Cloud_Admin_Display {
 	 */
 	public function display_plugin_setup_page() {
 
-		$charset = get_bloginfo('charset');
-		$store_name = html_entity_decode(get_bloginfo('name'), ENT_QUOTES, empty($charset) ? 'UTF-8' : $charset);
+		$store_name = html_entity_decode(get_bloginfo('name'), ENT_QUOTES, $this->get_charset());
 		$store_url = get_bloginfo( 'wpurl' );
 		$bridge_url = $store_url . '/bridge2cart/bridge.php';
 		$store_root = '\\' === DIRECTORY_SEPARATOR ?
@@ -90,5 +89,15 @@ class Engagement_Cloud_Admin_Display {
 		) );
 
 		echo '<iframe id="engagement-cloud-settings" src="' . esc_html( $this->webapp_url ) . '/woocommerce/connect?' . esc_html( $connection_query ) . '"></iframe>';
+	}
+
+	/**
+	 * Gets charset from db / if empty defaults to UTF-8
+	 *
+	 * @since    1.1.1
+	 */
+	private function get_charset() {
+		$charset = get_bloginfo('charset');
+		return empty($charset) ? 'UTF-8' : $charset;
 	}
 }
