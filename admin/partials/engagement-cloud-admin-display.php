@@ -66,7 +66,7 @@ class Engagement_Cloud_Admin_Display {
 	 */
 	public function display_plugin_setup_page() {
 
-		$store_name = html_entity_decode(get_bloginfo('name'), ENT_QUOTES, $this->get_charset());
+		$store_name = $this->get_store_name();
 		$store_url = get_bloginfo( 'wpurl' );
 		$bridge_url = $store_url . '/bridge2cart/bridge.php';
 		$store_root = '\\' === DIRECTORY_SEPARATOR ?
@@ -89,6 +89,15 @@ class Engagement_Cloud_Admin_Display {
 		) );
 
 		echo '<iframe id="engagement-cloud-settings" src="' . esc_html( $this->webapp_url ) . '/woocommerce/connect?' . esc_html( $connection_query ) . '"></iframe>';
+	}
+	
+	/**
+	 * Gets store name from db and decodes quotes
+	 *
+	 * @since    1.1.1
+	 */
+	private function get_store_name() {
+		return html_entity_decode(get_bloginfo('name'), ENT_QUOTES, $this->get_charset());
 	}
 
 	/**
