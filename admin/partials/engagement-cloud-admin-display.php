@@ -68,7 +68,6 @@ class Engagement_Cloud_Admin_Display {
 
 		$charset = get_bloginfo('charset');
 		$store_name = html_entity_decode(get_bloginfo('name'), ENT_QUOTES, empty($charset) ? 'UTF-8' : $charset);
-		$store_url = get_bloginfo('wpurl');
 		$store_url = get_bloginfo( 'wpurl' );
 		$bridge_url = $store_url . '/bridge2cart/bridge.php';
 		$store_root = '\\' === DIRECTORY_SEPARATOR ?
