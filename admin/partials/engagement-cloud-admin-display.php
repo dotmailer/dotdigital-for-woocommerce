@@ -92,12 +92,12 @@ class Engagement_Cloud_Admin_Display {
 	}
 	
 	/**
-	 * Gets store name from db and decodes quotes
+	 * Gets store name from db and decodes both single and double quotes
 	 *
 	 * @since    1.1.1
 	 */
 	private function get_store_name() {
-		return html_entity_decode(get_bloginfo('name'), ENT_QUOTES, $this->get_charset());
+		return html_entity_decode( get_bloginfo( 'name' ), ENT_QUOTES, $this->get_charset() );
 	}
 
 	/**
@@ -106,7 +106,7 @@ class Engagement_Cloud_Admin_Display {
 	 * @since    1.1.1
 	 */
 	private function get_charset() {
-		$charset = get_bloginfo('charset');
-		return empty($charset) ? 'UTF-8' : $charset;
+		$charset = get_bloginfo( 'charset' );
+		return empty( $charset ) ? 'UTF-8' : $charset;
 	}
 }
