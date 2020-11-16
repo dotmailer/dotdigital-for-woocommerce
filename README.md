@@ -38,7 +38,7 @@ For more detailed information on installation, find it at (https://support.dotdi
 
 ## Release Notes
 # 1.1.1
- * Fix for store names containing `'` and `"`
+ * Fix for store names containing special characters
 
 # 1.1.0
  * Abandoned cart support  

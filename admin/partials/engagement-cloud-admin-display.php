@@ -92,7 +92,7 @@ class Engagement_Cloud_Admin_Display {
 	}
 	
 	/**
-	 * Gets store name from db and decodes both single and double quotes
+	 * Gets store name from db and converts it's HTML entities to their corresponding characters with both single and double quotes
 	 *
 	 * @since    1.1.1
 	 */
