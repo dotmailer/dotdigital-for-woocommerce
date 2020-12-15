@@ -37,6 +37,9 @@ The store should now be connected and Engagement Cloud will start syncing custom
 For more detailed information on installation, find it at (https://support.dotdigital.com/hc/en-gb/categories/201643998-Integrations)
 
 ## Release Notes
+# 1.1.2
+ * Fix for minor display bug
+
 # 1.1.1
  * Fix for store names containing special characters
 
