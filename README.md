@@ -39,6 +39,7 @@ For more detailed information on installation, find it at (https://support.dotdi
 ## Release Notes
 # 1.1.2
  * Fix for minor display bug
+ * Hide admin notices on EC admin screen
 
 # 1.1.1
  * Fix for store names containing special characters

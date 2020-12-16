@@ -3,3 +3,7 @@
     width: 100%;
     margin-bottom: -40px;
 }
+
+.engagement-cloud-settings__notice-list-hide {
+    display: none;
+}

@@ -57,6 +57,9 @@ class Engagement_Cloud_Admin_Display {
 		$this->plugin_name = $plugin_name;
 		$this->webapp_url = $webapp_url;
 
+		add_action( 'admin_notices', array( __CLASS__, 'inject_before_notices' ), -9999 );
+		add_action( 'admin_notices', array( __CLASS__, 'inject_after_notices' ), PHP_INT_MAX );
+
 	}
 
 	/**
@@ -108,5 +111,25 @@ class Engagement_Cloud_Admin_Display {
 	private function get_charset() {
 		$charset = get_bloginfo( 'charset' );
 		return empty( $charset ) ? 'UTF-8' : $charset;
+	}
+
+	/**
+	 * Wrap the notices in a hidden div to prevent flickering before
+	 * they are moved elsewhere in the page by WordPress Core.
+	 * 
+	 * @since    1.1.2
+	 */
+	public static function inject_before_notices() {
+		echo '<div class="engagement-cloud-settings__notice-list-hide">';
+	}
+
+	/**
+	 * Close the hidden div used to prevent notices from flickering before
+	 * they are inserted elsewhere in the page.
+	 *
+	 * @since    1.1.2
+	 */
+	public static function inject_after_notices() {
+		echo '</div>';
 	}
 }
