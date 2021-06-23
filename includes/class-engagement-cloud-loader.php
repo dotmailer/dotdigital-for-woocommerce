@@ -56,11 +56,11 @@ class Engagement_Cloud_Loader {
 	 * Add a new action to the collection to be registered with WordPress.
 	 *
 	 * @since    1.0.0
-	 * @param string $hook 				The name of the WordPress action that is being registered.
-	 * @param object $component 		A reference to the instance of the object on which the action is defined.
-	 * @param string $callback 			The name of the function definition on the $component.
-	 * @param int    $priority   		Optional. he priority at which the function should be fired. Default is 10.
-	 * @param int    $accepted_args 	Optional. The number of arguments that should be passed to the $callback. Default is 1.
+	 * @param string $hook              The name of the WordPress action that is being registered.
+	 * @param object $component         A reference to the instance of the object on which the action is defined.
+	 * @param string $callback          The name of the function definition on the $component.
+	 * @param int    $priority          Optional. he priority at which the function should be fired. Default is 10.
+	 * @param int    $accepted_args     Optional. The number of arguments that should be passed to the $callback. Default is 1.
 	 */
 	public function add_action( $hook, $component, $callback, $priority = 10, $accepted_args = 1 ) {
 		$this->actions = $this->add( $this->actions, $hook, $component, $callback, $priority, $accepted_args );
@@ -122,17 +122,17 @@ class Engagement_Cloud_Loader {
 		foreach ( $this->actions as $hook ) {
 			add_action( $hook['hook'], array( $hook['component'], $hook['callback'] ), $hook['priority'], $hook['accepted_args'] );
 		}
-		
+
 		$this->enable_abandoned_cart();
 	}
-	
+
 	/**
 	 * Set the options so Api2Cart can know that modified and created date queries are supported
 	 *
 	 * @since    1.1.0
 	 */
-	private function enable_abandoned_cart(){
-	        update_option('webhook_helper_version', '1.1.0', false);
-	        update_option('webhook_helper_active', true, false);
+	private function enable_abandoned_cart() {
+			update_option( 'webhook_helper_version', '1.1.0', false );
+			update_option( 'webhook_helper_active', true, false );
 	}
 }

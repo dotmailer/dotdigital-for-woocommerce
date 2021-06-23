@@ -15,7 +15,6 @@
  * Defines the plugin name, version, and two examples hooks for how to
  * enqueue the admin-specific stylesheet and JavaScript.
  *
- *
  * @package    EngagementCloud
  * @subpackage EngagementCloud/public
  * @author     dotdigital <integrations@dotigital.com>
@@ -45,12 +44,12 @@ class Engagement_Cloud_Public {
 	 *
 	 * @since    1.0.0
 	 * @param string $plugin_name   The name of the plugin.
-	 * @param string $version    	The version of this plugin.
+	 * @param string $version       The version of this plugin.
 	 */
 	public function __construct( $plugin_name, $version ) {
 
 		$this->plugin_name = $plugin_name;
-		$this->version = $version;
+		$this->version     = $version;
 
 	}
 

@@ -43,8 +43,8 @@ class Engagement_Cloud_Validator {
 	 *
 	 * @since    1.0.0
 	 *
-	 * @param   string $plugin_name 	The name of the plugin.
-	 * @param   string $plugin_path 	The path of this plugin.
+	 * @param   string $plugin_name     The name of the plugin.
+	 * @param   string $plugin_path     The path of this plugin.
 	 */
 	public function __construct( $plugin_name, $plugin_path ) {
 
@@ -82,10 +82,10 @@ class Engagement_Cloud_Validator {
 	 * @since    1.0.0
 	 */
 	function plugin_activation_failure_message() {
-	?>
+		?>
 		<div class="notice notice-error is-dismissible">
 			<p><?php esc_html_e( 'Engagement Cloud plugin will remain deactivated until an ecommerce plugin is installed and activated.', 'dotdigital-engagement-cloud' ); ?></p>
 		</div>
-	<?php
+		<?php
 	}
 }

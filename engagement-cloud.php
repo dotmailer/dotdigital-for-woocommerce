@@ -10,7 +10,7 @@
  * @link       https://www.dotdigital.com/
  * @since      1.0.0
  * @package    EngagementCloud
-  *
+ *
  * @wordpress-plugin
  * Plugin Name:       dotdigital Engagement Cloud for WooCommerce
  * Description:       Engagement Cloud Integration for WooCommerce ecommerce platform.

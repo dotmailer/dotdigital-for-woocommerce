@@ -49,13 +49,13 @@ class Engagement_Cloud_Admin_Display {
 	 *
 	 * @since    1.0.0
 	 *
-	 * @param string $plugin_name 	The name of this plugin.
-	 * @param string $webapp_url 	Engagement Cloud URL.
+	 * @param string $plugin_name   The name of this plugin.
+	 * @param string $webapp_url    Engagement Cloud URL.
 	 */
 	public function __construct( $plugin_name, $webapp_url ) {
 
 		$this->plugin_name = $plugin_name;
-		$this->webapp_url = $webapp_url;
+		$this->webapp_url  = $webapp_url;
 
 	}
 
@@ -67,30 +67,32 @@ class Engagement_Cloud_Admin_Display {
 	public function display_plugin_setup_page() {
 
 		$store_name = $this->get_store_name();
-		$store_url = get_bloginfo( 'wpurl' );
+		$store_url  = get_bloginfo( 'wpurl' );
 		$bridge_url = $store_url . '/bridge2cart/bridge.php';
 		$store_root = '\\' === DIRECTORY_SEPARATOR ?
 			'/' . str_replace( '\\', '/', ABSPATH ) :
 			ABSPATH;
 
 		global $wpdb;
-		$table_name = $wpdb->prefix . "dotmailer_email_marketing";
+		$table_name = $wpdb->prefix . 'dotmailer_email_marketing';
 
 		// @codingStandardsIgnoreStart
 		$plugin_id = $wpdb->get_var( "SELECT PluginID FROM $table_name" );
 		// @codingStandardsIgnoreEnd
 
-		$connection_query = http_build_query( array(
-			'storename' => $store_name,
-			'storeurl' => $store_url,
-			'bridgeurl' => $bridge_url,
-			'storeroot' => $store_root,
-			'pluginid' => $plugin_id,
-		) );
+		$connection_query = http_build_query(
+			array(
+				'storename' => $store_name,
+				'storeurl'  => $store_url,
+				'bridgeurl' => $bridge_url,
+				'storeroot' => $store_root,
+				'pluginid'  => $plugin_id,
+			)
+		);
 
 		echo '<iframe id="engagement-cloud-settings" src="' . esc_html( $this->webapp_url ) . '/woocommerce/connect?' . esc_html( $connection_query ) . '"></iframe>';
 	}
-	
+
 	/**
 	 * Gets store name from db and converts it's HTML entities to their corresponding characters
 	 *
