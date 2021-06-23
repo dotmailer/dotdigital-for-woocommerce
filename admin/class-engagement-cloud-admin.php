@@ -135,7 +135,7 @@ class Engagement_Cloud_Admin {
 			'manage_options',
 			$this->plugin_name,
 			array( $admin_display, 'display_plugin_setup_page' ),
-			plugins_url('../assests/DD-roundel-16x16.png',__FILE__),
+			plugins_url('../assets/DD-roundel-16x16.png',__FILE__),
 			55.5
 		);
 	}
