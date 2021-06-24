@@ -83,9 +83,9 @@ class Engagement_Cloud {
 	 *
 	 * @since    1.0.0
 	 *
-	 * @param string $plugin_name 	The name of the plugin.
+	 * @param string $plugin_name   The name of the plugin.
 	 * @param string $plugin_path   The path of the plugin.
-	 * @param string $webapp_url   	Engagement Cloud URL.
+	 * @param string $webapp_url    Engagement Cloud URL.
 	 */
 	public function __construct( $plugin_name, $plugin_path, $webapp_url ) {
 
@@ -93,7 +93,7 @@ class Engagement_Cloud {
 
 		$this->plugin_name = $plugin_name;
 		$this->plugin_path = $plugin_path;
-		$this->webapp_url = $webapp_url;
+		$this->webapp_url  = $webapp_url;
 
 		$this->load_dependencies();
 		$this->set_locale();
@@ -170,7 +170,7 @@ class Engagement_Cloud {
 	 */
 	private function set_locale() {
 
-	    $plugin_i18n = new Engagement_Cloud_i18n();
+		$plugin_i18n = new Engagement_Cloud_i18n();
 
 		$this->loader->add_action( 'plugins_loaded', $plugin_i18n, 'load_plugin_textdomain' );
 	}
@@ -184,7 +184,7 @@ class Engagement_Cloud {
 	 */
 	private function define_admin_hooks() {
 
-	    $plugin_admin = new Engagement_Cloud_Admin( $this->plugin_name, $this->version, $this->webapp_url );
+		$plugin_admin = new Engagement_Cloud_Admin( $this->plugin_name, $this->version, $this->webapp_url );
 
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
@@ -200,7 +200,7 @@ class Engagement_Cloud {
 	private function define_validation_hooks() {
 
 		if ( ! in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ), true ) ) {
-		    $plugin_validator = new Engagement_Cloud_Validator( $this->plugin_name, $this->plugin_path );
+			$plugin_validator = new Engagement_Cloud_Validator( $this->plugin_name, $this->plugin_path );
 
 			$this->loader->add_action( 'admin_init', $plugin_validator, 'self_deactivate' );
 			$this->loader->add_action( 'admin_menu', $plugin_validator, 'remove_admin_menu_page' );
@@ -217,7 +217,7 @@ class Engagement_Cloud {
 	 */
 	private function define_public_hooks() {
 
-	    $plugin_public = new Engagement_Cloud_Public( $this->plugin_name, $this->version );
+		$plugin_public = new Engagement_Cloud_Public( $this->plugin_name, $this->version );
 
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
@@ -231,14 +231,14 @@ class Engagement_Cloud {
 	 */
 	private function define_woocommerce_hooks() {
 
-	    $plugin_woocommerce = new Engagement_Cloud_WooCommerce();
+		$plugin_woocommerce = new Engagement_Cloud_WooCommerce();
 
 		$this->loader->add_action( 'woocommerce_register_form', $plugin_woocommerce, 'engagement_cloud_render_register_marketing_checkbox', 5 );
 		$this->loader->add_action( 'user_register', $plugin_woocommerce, 'engagement_cloud_handle_register_marketing_checkbox', 5 );
 
 		$this->loader->add_action( 'woocommerce_checkout_after_customer_details', $plugin_woocommerce, 'engagement_cloud_render_checkout_marketing_checkbox', 5 );
 		$this->loader->add_action( 'woocommerce_checkout_order_processed', $plugin_woocommerce, 'engagement_cloud_handle_checkout_marketing_checkbox', 5 );
-		
+
 		$this->loader->add_action( 'woocommerce_update_cart_action_cart_updated', $plugin_woocommerce, 'cart_updated', 5 );
 		$this->loader->add_action( 'woocommerce_add_to_cart', $plugin_woocommerce, 'cart_updated', 5 );
 		$this->loader->add_action( 'woocommerce_cart_item_removed', $plugin_woocommerce, 'cart_updated', 5 );

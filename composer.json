@@ -2,6 +2,9 @@
 	"name" : "dotdigital/engagement-cloud-for-woocommerce",
 	"version" : "1.0.0",
 	"require-dev" : {
-		"squizlabs/php_codesniffer" : "*"
+		"dealerdirect/phpcodesniffer-composer-installer": "*",
+		"phpcompatibility/phpcompatibility-wp": "*",
+		"squizlabs/php_codesniffer": "*",
+		"wp-coding-standards/wpcs": "*"
 	}
 }

@@ -54,15 +54,15 @@ class Engagement_Cloud_Admin {
 	 * Initialize the class and set its properties.
 	 *
 	 * @since    1.0.0
-	 * @param    string $plugin_name 	The name of this plugin.
-	 * @param    string $version    	The version of this plugin.
-	 * @param    string $webapp_url    	Engagement Cloud URL.
+	 * @param    string $plugin_name    The name of this plugin.
+	 * @param    string $version        The version of this plugin.
+	 * @param    string $webapp_url     Engagement Cloud URL.
 	 */
 	public function __construct( $plugin_name, $version, $webapp_url ) {
 
 		$this->plugin_name = $plugin_name;
-		$this->version = $version;
-		$this->webapp_url = $webapp_url;
+		$this->version     = $version;
+		$this->webapp_url  = $webapp_url;
 
 	}
 
@@ -126,7 +126,7 @@ class Engagement_Cloud_Admin {
 		*        Administration Menus: http://codex.wordpress.org/Administration_Menus
 		*
 		*/
-		require_once( 'partials/engagement-cloud-admin-display.php' );
+		require_once 'partials/engagement-cloud-admin-display.php';
 		$admin_display = new Engagement_Cloud_Admin_Display( $this->plugin_name, $this->webapp_url );
 
 		add_menu_page(
@@ -135,7 +135,7 @@ class Engagement_Cloud_Admin {
 			'manage_options',
 			$this->plugin_name,
 			array( $admin_display, 'display_plugin_setup_page' ),
-			plugins_url('../assests/DD-roundel-16x16.png',__FILE__),
+			plugins_url( '../assests/DD-roundel-16x16.png', __FILE__ ),
 			55.5
 		);
 	}

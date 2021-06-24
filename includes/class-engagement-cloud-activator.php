@@ -52,7 +52,7 @@ class Engagement_Cloud_Activator {
 	 */
 	public function __construct( $plugin_name, $callback_url ) {
 
-		$this->plugin_name = $plugin_name;
+		$this->plugin_name  = $plugin_name;
 		$this->callback_url = $callback_url;
 
 	}
@@ -67,18 +67,18 @@ class Engagement_Cloud_Activator {
 	 */
 	public function activate() {
 		global $wpdb;
-		$engagement_cloud_table_name = $wpdb->prefix . "dotmailer_email_marketing";
+		$engagement_cloud_table_name = $wpdb->prefix . 'dotmailer_email_marketing';
 
 		// @codingStandardsIgnoreStart
 		if ( $wpdb->get_var( $wpdb->prepare( 'SHOW TABLES LIKE %s', $engagement_cloud_table_name ) ) !== $engagement_cloud_table_name ) {
 			// @codingStandardsIgnoreEnd
-			$charset_collate = $wpdb -> get_charset_collate();
+			$charset_collate = $wpdb->get_charset_collate();
 
 			$sql = "CREATE TABLE $engagement_cloud_table_name (
           		PluginID VARCHAR(256) NOT NULL
      		) $charset_collate;";
 
-			require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
+			require_once ABSPATH . 'wp-admin/includes/upgrade.php';
 			dbDelta( $sql );
 		}
 

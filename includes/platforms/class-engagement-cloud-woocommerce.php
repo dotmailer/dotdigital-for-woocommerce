@@ -54,12 +54,10 @@ class Engagement_Cloud_WooCommerce {
 	 * @since    1.0.0
 	 */
 	function engagement_cloud_render_checkout_marketing_checkbox() {
-		if ( is_user_logged_in( ) ) {
-			woocommerce_form_field( $this->checkbox_name, array(
-				'type'          => 'checkbox',
-				'label'         => __( $this->checkbox_label ),
-			), get_user_meta( get_current_user_id(), $this->meta_key, true ) );
-		}
+        woocommerce_form_field( $this->checkbox_name, array(
+            'type'          => 'checkbox',
+            'label'         => __( $this->checkbox_label ),
+        ), get_user_meta( get_current_user_id(), $this->meta_key, true ) );
 	}
 
 	/**
@@ -73,7 +71,7 @@ class Engagement_Cloud_WooCommerce {
 			if ( isset( $_POST[ $this->checkbox_name ] ) ) {
 				$accepts_marketing = 1;
 			}
-			update_user_meta( get_current_user_id( ), $this->meta_key, $accepts_marketing );
+			update_user_meta( get_current_user_id(), $this->meta_key, $accepts_marketing );
 		}
 	}
 
@@ -83,10 +81,13 @@ class Engagement_Cloud_WooCommerce {
 	 * @since    1.0.0
 	 */
 	function engagement_cloud_render_register_marketing_checkbox() {
-		woocommerce_form_field( $this->checkbox_name, array(
-			'type'          => 'checkbox',
-			'label'         => __( $this->checkbox_label ),
-		) );
+		woocommerce_form_field(
+			$this->checkbox_name,
+			array(
+				'type'  => 'checkbox',
+				'label' => __( $this->checkbox_label ),
+			)
+		);
 	}
 
 	/**
@@ -103,31 +104,30 @@ class Engagement_Cloud_WooCommerce {
 		}
 		update_user_meta( $user_id, $this->meta_key, $accepts_marketing );
 	}
-	
+
 	/**
 	 * Updates the modified cart date.
 	 *
 	 * @since    1.1.0
 	 */
 	function cart_updated() {
-	    $woocommerce = WooCommerce::instance();
-	    $user_id = get_current_user_id() ?: $woocommerce->session->get_customer_id();
-	    $blog_id = get_current_blog_id();
-	    $itemsCount = count($woocommerce->cart->get_cart_contents());
-	    
-	    if (preg_match('/^[a-f0-9]{32}$/', $user_id) !== 1) {
-	        $updateTime = time();
-	        $updatedKey = '_a2c_wh_cart_' . $blog_id . '_updated_gmt';
-	        $createdKey = '_a2c_wh_cart_' . $blog_id . '_created_gmt';
-	        
-	        update_user_meta($user_id, $updatedKey, $updateTime);
-	        
-	        if(get_user_meta($user_id, $createdKey, true) === '') {
-	            update_user_meta($user_id, $createdKey, $updateTime);
-	        }
-	        elseif ($itemsCount === 0) {
-	            delete_user_meta($user_id, $createdKey);
-	        }
-	    }
+		$woocommerce = WooCommerce::instance();
+		$user_id     = get_current_user_id() ?: $woocommerce->session->get_customer_id();
+		$blog_id     = get_current_blog_id();
+		$itemsCount  = count( $woocommerce->cart->get_cart_contents() );
+
+		if ( preg_match( '/^[a-f0-9]{32}$/', $user_id ) !== 1 ) {
+			$updateTime = time();
+			$updatedKey = '_a2c_wh_cart_' . $blog_id . '_updated_gmt';
+			$createdKey = '_a2c_wh_cart_' . $blog_id . '_created_gmt';
+
+			update_user_meta( $user_id, $updatedKey, $updateTime );
+
+			if ( get_user_meta( $user_id, $createdKey, true ) === '' ) {
+				update_user_meta( $user_id, $createdKey, $updateTime );
+			} elseif ( $itemsCount === 0 ) {
+				delete_user_meta( $user_id, $createdKey );
+			}
+		}
 	}
 }
