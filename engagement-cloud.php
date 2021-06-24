@@ -61,6 +61,9 @@ if ( ! defined( 'WPINC' ) ) {
  */
 class Engagement_Cloud_Bootstrapper {
 
+	const EMAIL_MARKETING_TABLE_NAME = 'dotmailer_email_marketing';
+	const SUBSCRIBERS_TABLE_NAME     = 'ec_subscribers';
+
 	/**
 	 * The unique identifier of this plugin.
 	 *
