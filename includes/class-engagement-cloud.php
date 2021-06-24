@@ -98,7 +98,6 @@ class Engagement_Cloud {
 		$this->load_dependencies();
 		$this->set_locale();
 		$this->define_admin_hooks();
-		$this->define_public_hooks();
 
 		$this->define_validation_hooks();
 		$this->define_woocommerce_hooks();
