@@ -54,16 +54,10 @@ class Engagement_Cloud_WooCommerce {
 	 * @since    1.0.0
 	 */
 	function engagement_cloud_render_checkout_marketing_checkbox() {
-		if ( is_user_logged_in() ) {
-			woocommerce_form_field(
-				$this->checkbox_name,
-				array(
-					'type'  => 'checkbox',
-					'label' => __( $this->checkbox_label ),
-				),
-				get_user_meta( get_current_user_id(), $this->meta_key, true )
-			);
-		}
+        woocommerce_form_field( $this->checkbox_name, array(
+            'type'          => 'checkbox',
+            'label'         => __( $this->checkbox_label ),
+        ), get_user_meta( get_current_user_id(), $this->meta_key, true ) );
 	}
 
 	/**
