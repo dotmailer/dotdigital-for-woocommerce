@@ -21,10 +21,10 @@ function ec_woocommerce_uninstall() {
 	$email_marketing_table_name = $wpdb->prefix . Engagement_Cloud_Bootstrapper::EMAIL_MARKETING_TABLE_NAME;
 	$subscribers_table_name     = $wpdb->prefix . Engagement_Cloud_Bootstrapper::SUBSCRIBERS_TABLE_NAME;
 
-	$plugin_id = $wpdb->prepare( 'SELECT PluginID FROM %s', $email_marketing_table_name );
+	$plugin_id = $wpdb->get_var( "SELECT PluginID FROM $email_marketing_table_name" ); // phpcs:ignore WordPress.DB
 
-	$wpdb->prepare( 'DROP TABLE IF EXISTS %s', $email_marketing_table_name );
-	$wpdb->prepare( 'DROP TABLE IF EXISTS %s', $subscribers_table_name );
+	$wpdb->query( "DROP TABLE IF EXISTS $email_marketing_table_name" ); // phpcs:ignore WordPress.DB
+	$wpdb->query( "DROP TABLE IF EXISTS $subscribers_table_name" ); // phpcs:ignore WordPress.DB
 
 	wp_remote_post( Engagement_Cloud_Bootstrapper::$callback_url . "/e/woocommerce/uninstall?pluginid=$plugin_id" );
 }
