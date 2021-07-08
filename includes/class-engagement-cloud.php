@@ -1,18 +1,5 @@
 <?php
 /**
- * The file that defines the core plugin class
- *
- * A class definition that includes attributes and functions used across both the
- * public-facing side of the site and the admin area.
- *
- * @link       https://www.dotdigital.com/
- * @since      1.0.0
- *
- * @package    EngagementCloud
- * @subpackage EngagementCloud/includes
- */
-
-/**
  * The core plugin class.
  *
  * This is used to define internationalization, admin-specific hooks, and
@@ -25,6 +12,10 @@
  * @package    EngagementCloud
  * @subpackage EngagementCloud/includes
  * @author     dotdigital <integrations@dotdigital.com>
+ */
+
+/**
+ * Class Engagement_Cloud
  */
 class Engagement_Cloud {
 
@@ -81,26 +72,28 @@ class Engagement_Cloud {
 	 * Load the dependencies, define the locale, and set the hooks for the admin area and
 	 * the public-facing side of the site.
 	 *
-	 * @since    1.0.0
+	 * @param string $plugin_name The name of the plugin.
+	 * @param string $plugin_path The path of the plugin.
+	 * @param string $webapp_url Engagement Cloud URL.
+	 * @param string $version The plugin version.
 	 *
-	 * @param string $plugin_name   The name of the plugin.
-	 * @param string $plugin_path   The path of the plugin.
-	 * @param string $webapp_url    Engagement Cloud URL.
+	 * @since    1.0.0
 	 */
-	public function __construct( $plugin_name, $plugin_path, $webapp_url ) {
-
-		$this->version = '1.0.0';
+	public function __construct( $plugin_name, $plugin_path, $webapp_url, $version ) {
 
 		$this->plugin_name = $plugin_name;
 		$this->plugin_path = $plugin_path;
 		$this->webapp_url  = $webapp_url;
+		$this->version     = $version;
 
 		$this->load_dependencies();
 		$this->set_locale();
-		$this->define_admin_hooks();
+		$this->define_upgrade_hook();
 
+		$this->define_admin_hooks();
 		$this->define_validation_hooks();
 		$this->define_woocommerce_hooks();
+		$this->initialise_rest_api();
 	}
 
 	/**
@@ -134,6 +127,11 @@ class Engagement_Cloud {
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-engagement-cloud-i18n.php';
 
 		/**
+		 * The class responsible for defining all upgrade actions.
+		 */
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-engagement-cloud-upgrader.php';
+
+		/**
 		 * The class responsible for defining all actions that occur in the admin area.
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-engagement-cloud-admin.php';
@@ -155,8 +153,9 @@ class Engagement_Cloud {
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/platforms/class-engagement-cloud-woocommerce.php';
 
-		$this->loader = new Engagement_Cloud_Loader();
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-engagement-cloud-rest-api.php';
 
+		$this->loader = new Engagement_Cloud_Loader();
 	}
 
 	/**
@@ -173,6 +172,20 @@ class Engagement_Cloud {
 		$plugin_i18n = new Engagement_Cloud_i18n();
 
 		$this->loader->add_action( 'plugins_loaded', $plugin_i18n, 'load_plugin_textdomain' );
+	}
+
+	/**
+	 * Define an upgrade hook.
+	 */
+	private function define_upgrade_hook() {
+
+		$plugin_upgrader = new Engagement_Cloud_Upgrader( $this->plugin_name, $this->version );
+
+		/**
+		 * Check for an upgrade whenever admin is loaded.
+		 * To be removed when updates can happen via plugin list.
+		 */
+		$this->loader->add_action( 'admin_init', $plugin_upgrader, 'upgrade_check' );
 	}
 
 	/**
@@ -243,6 +256,14 @@ class Engagement_Cloud {
 		$this->loader->add_action( 'woocommerce_add_to_cart', $plugin_woocommerce, 'cart_updated', 5 );
 		$this->loader->add_action( 'woocommerce_cart_item_removed', $plugin_woocommerce, 'cart_updated', 5 );
 		$this->loader->add_action( 'woocommerce_cart_item_restored', $plugin_woocommerce, 'cart_updated', 5 );
+	}
+
+	/**
+	 * Add custom API endpoints
+	 */
+	private function initialise_rest_api() {
+		$service = new Engagement_Cloud_Rest_Api( $this->plugin_name );
+		$this->loader->add_action( 'rest_api_init', $service, 'register_routes' );
 	}
 
 	/**

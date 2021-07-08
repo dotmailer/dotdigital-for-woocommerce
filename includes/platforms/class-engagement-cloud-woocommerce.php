@@ -2,22 +2,16 @@
 /**
  * Used for WooCommerce hooks.
  *
- * @link       https://www.dotdigital.com/
- * @since      1.0.0
- *
- * @package    EngagementCloud
- * @subpackage EngagementCloud/includes/platforms
- */
-
-/**
- * Used for WooCommerce hooks.
- *
  * This class defines all code necessary to use WooCommerce hooks.
  *
  * @since      1.0.0
  * @package    EngagementCloud
  * @subpackage EngagementCloud/includes/platforms
  * @author     dotdigital <integrations@dotdigital.com>
+ */
+
+/**
+ * Class Engagement_Cloud_WooCommerce
  */
 class Engagement_Cloud_WooCommerce {
 
@@ -31,27 +25,34 @@ class Engagement_Cloud_WooCommerce {
 	private $checkbox_name = 'engagement_cloud_checkbox';
 
 	/**
-	 * Key used to identify the value in the meta table.
-	 *
-	 * @since    1.0.0
-	 * @access   private
-	 * @var      string    $meta_key    Key used to identify the value in the meta table.
-	 */
-	private $meta_key = '_wc_subscribed_to_newsletter';
-
-	/**
 	 * Renders the checkbox in checkout page.
+	 * For guests, the value defaults to false.
+	 * For customers, the value reflects the current subscriber status.
 	 *
 	 * @since    1.0.0
 	 */
 	public function engagement_cloud_render_checkout_marketing_checkbox() {
+		$current_user_has_subscription = false;
+
+		if ( get_current_user_id() ) {
+			global $wpdb;
+			$table_name = $wpdb->prefix . Engagement_Cloud_Bootstrapper::SUBSCRIBERS_TABLE_NAME;
+
+			$matching_subscriber = $wpdb->get_row(
+				$wpdb->prepare( "SELECT * FROM {$table_name} WHERE user_id = %d", get_current_user_id() ) // phpcs:ignore WordPress.DB
+			);
+			if ( $matching_subscriber ) {
+				$current_user_has_subscription = ( Engagement_Cloud_Subscriber::SUBSCRIBED === (int) $matching_subscriber->status );
+			}
+		}
+
 		woocommerce_form_field(
 			$this->checkbox_name,
 			array(
 				'type'  => 'checkbox',
 				'label' => __( 'Subscribe to our newsletter' ),
 			),
-			get_user_meta( get_current_user_id(), $this->meta_key, true )
+			$current_user_has_subscription
 		);
 	}
 
@@ -63,30 +64,55 @@ class Engagement_Cloud_WooCommerce {
 	 * @since    1.0.0
 	 */
 	public function engagement_cloud_handle_checkout_subscription( $order_id ) {
-		$nonce_value = isset( $_POST['woocommerce-process-checkout-nonce'] ) ? wp_unslash( $_POST['woocommerce-process-checkout-nonce'] ) : null; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+		$accepts_marketing = 0;
+		if ( isset( $_POST[ $this->checkbox_name ] ) ) { // phpcs:ignore WordPress.Security
+			$accepts_marketing = 1;
+		}
 
-		if ( isset( $nonce_value ) && wp_verify_nonce( $nonce_value, 'woocommerce-process_checkout' ) ) {
-			$accepts_marketing = 0;
+		$order = wc_get_order( $order_id );
+		if ( ! $order ) {
+			return;
+		}
 
-			if ( isset( $_POST[ $this->checkbox_name ] ) ) {
-				$accepts_marketing = 1;
-				$order             = wc_get_order( $order_id );
-				global $wpdb;
+		global $wpdb;
+		$table_name = $wpdb->prefix . Engagement_Cloud_Bootstrapper::SUBSCRIBERS_TABLE_NAME;
+		$order_data = array(
+			'user_id'    => $order->get_customer_id(),
+			'email'      => $order->get_billing_email(),
+			'status'     => $accepts_marketing,
+			'first_name' => $order->get_billing_first_name(),
+			'last_name'  => $order->get_billing_last_name(),
+			'created_at' => current_time( 'mysql' ),
+			'updated_at' => current_time( 'mysql' ),
+		);
 
-				$wpdb->insert(
-					$wpdb->prefix . Engagement_Cloud_Bootstrapper::SUBSCRIBERS_TABLE_NAME,
-					array(
-						'user_id'    => $order->get_customer_id(),
-						'email'      => $order->get_billing_email(),
-						'status'     => 1,
-						'first_name' => $order->get_billing_first_name(),
-						'last_name'  => $order->get_billing_last_name(),
-						'created_at' => current_time( 'mysql' ),
-					)
-				); // db call ok.
-			}
+		// For guest orders with no subscription, we can exit here.
+		if ( ! $accepts_marketing && ! $order->get_customer_id() ) {
+			return;
+		}
 
-			update_user_meta( get_current_user_id(), $this->meta_key, $accepts_marketing );
+		$matching_subscriber = $wpdb->get_row(
+			$wpdb->prepare( "SELECT * FROM {$table_name} WHERE email = %s", $order_data['email'] ) // phpcs:ignore WordPress.DB
+		);
+		if ( $matching_subscriber ) {
+			$wpdb->update(
+				$table_name,
+				array(
+					'user_id'    => $order_data['user_id'],
+					'status'     => $accepts_marketing,
+					'first_name' => $order_data['first_name'],
+					'last_name'  => $order_data['last_name'],
+					'updated_at' => current_time( 'mysql' ),
+				),
+				array(
+					'email' => $order_data['email'],
+				)
+			);
+		} else {
+			$wpdb->insert(
+				$table_name,
+				$order_data
+			); // db call ok.
 		}
 	}
 
@@ -116,10 +142,8 @@ class Engagement_Cloud_WooCommerce {
 		$nonce_value = isset( $_POST['woocommerce-register-nonce'] ) ? wp_unslash( $_POST['woocommerce-register-nonce'] ) : null; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 
 		if ( isset( $nonce_value, $_POST['email'] ) && wp_verify_nonce( $nonce_value, 'woocommerce-register' ) ) {
-			$accepts_marketing = 0;
 			if ( isset( $_POST[ $this->checkbox_name ] ) ) {
-				$accepts_marketing = 1;
-				$email             = isset( $_POST['email'] ) ?
+				$email = isset( $_POST['email'] ) ?
 					sanitize_text_field( wp_unslash( $_POST['email'] ) ) :
 					'';
 				global $wpdb;
@@ -130,14 +154,11 @@ class Engagement_Cloud_WooCommerce {
 						'user_id'    => $user_id,
 						'email'      => $email,
 						'status'     => 1,
-						'first_name' => '',
-						'last_name'  => '',
 						'created_at' => current_time( 'mysql' ),
+						'updated_at' => current_time( 'mysql' ),
 					)
 				); // db call ok.
 			}
-
-			update_user_meta( $user_id, $this->meta_key, $accepts_marketing );
 		}
 	}
 

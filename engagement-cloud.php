@@ -14,7 +14,7 @@
  * @wordpress-plugin
  * Plugin Name:       dotdigital Engagement Cloud for WooCommerce
  * Description:       Engagement Cloud Integration for WooCommerce ecommerce platform.
- * Version:           1.1.1
+ * Version:           1.2.0
  * Author:            dotdigital
  * Author URI:        https://www.dotdigital.com/
  * License:           MIT
@@ -49,6 +49,8 @@
 if ( ! defined( 'WPINC' ) ) {
 	die;
 }
+
+define( 'EC_FOR_WOOCOMMERCE_PLUGIN_VERSION', '1.2.0' );
 
 /**
  * Used to bootstrap the Engagement Cloud plugin.
@@ -97,7 +99,7 @@ class Engagement_Cloud_Bootstrapper {
 	 */
 	public static function activate_engagement_cloud() {
 		require_once plugin_dir_path( __FILE__ ) . 'includes/class-engagement-cloud-activator.php';
-		( new Engagement_Cloud_Activator( self::$plugin_name, self::$callback_url ) )->activate();
+		( new Engagement_Cloud_Activator( self::$plugin_name, self::$callback_url, self::get_version() ) )->activate();
 	}
 
 	/**
@@ -125,7 +127,20 @@ class Engagement_Cloud_Bootstrapper {
 		 */
 		require plugin_dir_path( __FILE__ ) . 'includes/class-engagement-cloud.php';
 
-		( new Engagement_Cloud( self::$plugin_name, plugin_basename( __FILE__ ), self::$webapp_url ) )->run();
+		( new Engagement_Cloud( self::$plugin_name, plugin_basename( __FILE__ ), self::$webapp_url, self::get_version() ) )->run();
+	}
+
+	/**
+	 * Fetch the plugin version.
+	 *
+	 * @return string
+	 */
+	private static function get_version() {
+		if ( defined( 'EC_FOR_WOOCOMMERCE_PLUGIN_VERSION' ) ) {
+			return EC_FOR_WOOCOMMERCE_PLUGIN_VERSION;
+		} else {
+			return '1.0.0';
+		}
 	}
 }
 
