@@ -224,8 +224,8 @@ class Engagement_Cloud_Upgrader {
         ";
 
 		$date = current_time( 'mysql' );
-		$wpdb->query( $wpdb->prepare( "INSERT INTO {$table_name} (user_id, email) {$sql}" ) ); // phpcs:ignore WordPress.DB
-		$wpdb->query( $wpdb->prepare( "UPDATE {$table_name} set status=1, created_at='{$date}', updated_at='{$date}'" ) ); // phpcs:ignore WordPress.DB
+		$wpdb->query( "INSERT INTO {$table_name} (user_id, email) {$sql}" ); // phpcs:ignore WordPress.DB
+		$wpdb->query( "UPDATE {$table_name} set status=1, created_at='{$date}', updated_at='{$date}'" ); // phpcs:ignore WordPress.DB
 	}
 
 	/**
