@@ -85,13 +85,13 @@ class Engagement_Cloud_Bootstrapper {
 	public static $webapp_url = 'https://login.dotdigital.com';
 
 	/**
-	 * Engagement Cloud callback URL.
+	 * Engagement Cloud tracking URL.
 	 *
 	 * @since    1.0.0
 	 * @access   public
-	 * @var      string    $callback_url    Engagement Cloud callback URL.
+	 * @var      string    $tracking_url    Engagement Cloud tracking URL.
 	 */
-	public static $callback_url = 'https://t.trackedlink.net';
+	public static $tracking_url = 'https://t.trackedlink.net';
 
 	/**
 	 * The code that runs during plugin activation.
@@ -99,7 +99,7 @@ class Engagement_Cloud_Bootstrapper {
 	 */
 	public static function activate_engagement_cloud() {
 		require_once plugin_dir_path( __FILE__ ) . 'includes/class-engagement-cloud-activator.php';
-		( new Engagement_Cloud_Activator( self::$plugin_name, self::$callback_url, self::get_version() ) )->activate();
+		( new Engagement_Cloud_Activator( self::$plugin_name, self::$tracking_url, self::get_version() ) )->activate();
 	}
 
 	/**
@@ -108,7 +108,7 @@ class Engagement_Cloud_Bootstrapper {
 	 */
 	public static function deactivate_engagement_cloud() {
 		require_once plugin_dir_path( __FILE__ ) . 'includes/class-engagement-cloud-deactivator.php';
-		( new Engagement_Cloud_Deactivator( self::$plugin_name, self::$callback_url ) )->deactivate();
+		( new Engagement_Cloud_Deactivator( self::$plugin_name, self::$tracking_url ) )->deactivate();
 	}
 
 	/**
@@ -127,7 +127,7 @@ class Engagement_Cloud_Bootstrapper {
 		 */
 		require plugin_dir_path( __FILE__ ) . 'includes/class-engagement-cloud.php';
 
-		( new Engagement_Cloud( self::$plugin_name, plugin_basename( __FILE__ ), self::$webapp_url, self::get_version() ) )->run();
+		( new Engagement_Cloud( self::$plugin_name, plugin_basename( __FILE__ ), self::$webapp_url, self::get_version(), self::$tracking_url ) )->run();
 	}
 
 	/**

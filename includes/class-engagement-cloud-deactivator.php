@@ -30,13 +30,13 @@ class Engagement_Cloud_Deactivator {
 	private $plugin_name;
 
 	/**
-	 * Engagement Cloud callback URL.
+	 * Engagement Cloud tracking URL.
 	 *
 	 * @since    1.0.0
 	 * @access   private
-	 * @var      string    $callback_url    Engagement Cloud callback URL.
+	 * @var      string    $tracking_url    Engagement Cloud tracking URL.
 	 */
-	private $callback_url;
+	private $tracking_url;
 
 	/**
 	 * Define the core functionality of the plugin.
@@ -48,12 +48,12 @@ class Engagement_Cloud_Deactivator {
 	 * @since    1.0.0
 	 *
 	 * @param string $plugin_name The name of the plugin.
-	 * @param string $callback_url Engagement Cloud callback URL.
+	 * @param string $tracking_url Engagement Cloud tracking URL.
 	 */
-	public function __construct( $plugin_name, $callback_url ) {
+	public function __construct( $plugin_name, $tracking_url ) {
 
 		$this->plugin_name  = $plugin_name;
-		$this->callback_url = $callback_url;
+		$this->tracking_url = $tracking_url;
 
 	}
 
@@ -72,6 +72,6 @@ class Engagement_Cloud_Deactivator {
 		// @codingStandardsIgnoreStart
 		$plugin_id = $wpdb->get_var( "SELECT PluginID FROM $engagement_cloud_table_name" );
 		// @codingStandardsIgnoreEnd
-		wp_remote_post( "$this->callback_url/e/woocommerce/disable?pluginid=$plugin_id" );
+		wp_remote_post( "$this->tracking_url/e/woocommerce/disable?pluginid=$plugin_id" );
 	}
 }

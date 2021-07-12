@@ -26,7 +26,7 @@ function ec_woocommerce_uninstall() {
 	$wpdb->query( "DROP TABLE IF EXISTS $email_marketing_table_name" ); // phpcs:ignore WordPress.DB
 	$wpdb->query( "DROP TABLE IF EXISTS $subscribers_table_name" ); // phpcs:ignore WordPress.DB
 
-	wp_remote_post( Engagement_Cloud_Bootstrapper::$callback_url . "/e/woocommerce/uninstall?pluginid=$plugin_id" );
+	wp_remote_post( Engagement_Cloud_Bootstrapper::$tracking_url . "/e/woocommerce/uninstall?pluginid=$plugin_id" );
 
     delete_site_option("engagement_cloud_for_woocommerce_version");
 }

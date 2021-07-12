@@ -50,10 +50,19 @@ class Engagement_Cloud {
 	 * Engagement Cloud URL.
 	 *
 	 * @since    1.0.0
-	 * @access   public
+	 * @access   protected
 	 * @var      string    $webapp_url    Engagement Cloud URL.
 	 */
 	protected $webapp_url;
+
+	/**
+	 * Engagement Cloud tracking URL.
+	 *
+	 * @since    1.0.0
+	 * @access   protected
+	 * @var      string    $tracking_url    Engagement Cloud tracking URL.
+	 */
+	protected $tracking_url;
 
 	/**
 	 * The loader that's responsible for maintaining and registering all hooks that power
@@ -76,15 +85,17 @@ class Engagement_Cloud {
 	 * @param string $plugin_path The path of the plugin.
 	 * @param string $webapp_url Engagement Cloud URL.
 	 * @param string $version The plugin version.
+	 * @param string $tracking_url The tracking URL.
 	 *
 	 * @since    1.0.0
 	 */
-	public function __construct( $plugin_name, $plugin_path, $webapp_url, $version ) {
+	public function __construct( $plugin_name, $plugin_path, $webapp_url, $version, $tracking_url ) {
 
-		$this->plugin_name = $plugin_name;
-		$this->plugin_path = $plugin_path;
-		$this->webapp_url  = $webapp_url;
-		$this->version     = $version;
+		$this->plugin_name  = $plugin_name;
+		$this->plugin_path  = $plugin_path;
+		$this->webapp_url   = $webapp_url;
+		$this->version      = $version;
+		$this->tracking_url = $tracking_url;
 
 		$this->load_dependencies();
 		$this->set_locale();
@@ -179,7 +190,7 @@ class Engagement_Cloud {
 	 */
 	private function define_upgrade_hook() {
 
-		$plugin_upgrader = new Engagement_Cloud_Upgrader( $this->plugin_name, $this->version );
+		$plugin_upgrader = new Engagement_Cloud_Upgrader( $this->plugin_name, $this->version, $this->tracking_url );
 
 		/**
 		 * Check for an upgrade whenever admin is loaded.

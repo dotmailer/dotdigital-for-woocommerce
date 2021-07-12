@@ -30,13 +30,13 @@ class Engagement_Cloud_Activator {
 	private $plugin_name;
 
 	/**
-	 * Engagement Cloud callback URL.
+	 * Engagement Cloud tracking URL.
 	 *
 	 * @since    1.0.0
 	 * @access   private
-	 * @var      string    $callback_url    Engagement Cloud callback URL.
+	 * @var      string    $tracking_url    Engagement Cloud tracking URL.
 	 */
-	private $callback_url;
+	private $tracking_url;
 
 	/**
 	 * Plugin version
@@ -57,13 +57,13 @@ class Engagement_Cloud_Activator {
 	 * @since    1.0.0
 	 *
 	 * @param string $plugin_name The name of the plugin.
-	 * @param string $callback_url The URL of the Engagement Cloud tracking site.
+	 * @param string $tracking_url The URL of the Engagement Cloud tracking site.
 	 * @param string $version Plugin Version.
 	 */
-	public function __construct( $plugin_name, $callback_url, $version ) {
+	public function __construct( $plugin_name, $tracking_url, $version ) {
 
 		$this->plugin_name  = $plugin_name;
-		$this->callback_url = $callback_url;
+		$this->tracking_url = $tracking_url;
 		$this->version      = $version;
 
 	}
@@ -74,7 +74,7 @@ class Engagement_Cloud_Activator {
 	 * @since    1.0.0
 	 */
 	public function activate() {
-		$plugin_upgrader = new Engagement_Cloud_Upgrader( $this->plugin_name, $this->version );
+		$plugin_upgrader = new Engagement_Cloud_Upgrader( $this->plugin_name, $this->version, $this->tracking_url );
 		$plugin_upgrader->upgrade_check();
 	}
 }

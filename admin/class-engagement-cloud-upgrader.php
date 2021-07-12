@@ -33,6 +33,15 @@ class Engagement_Cloud_Upgrader {
 	private $version;
 
 	/**
+	 * The Engagement Cloud tracking URL.
+	 *
+	 * @since    1.0.0
+	 * @access   private
+	 * @var      string $tracking_url The URL.
+	 */
+	private $tracking_url;
+
+	/**
 	 * The stored option containing the last set / previous version of this plugin.
 	 *
 	 * @since    1.2.0
@@ -44,14 +53,17 @@ class Engagement_Cloud_Upgrader {
 	/**
 	 * Initialize the class and set its properties.
 	 *
+	 * @param string $plugin_name The name of this plugin.
+	 * @param string $version The version of this plugin.
+	 * @param string $tracking_url The tracking URL.
+	 *
 	 * @since    1.0.0
-	 * @param    string $plugin_name    The name of this plugin.
-	 * @param    string $version        The version of this plugin.
 	 */
-	public function __construct( $plugin_name, $version ) {
+	public function __construct( $plugin_name, $version, $tracking_url ) {
 
-		$this->plugin_name = $plugin_name;
-		$this->version     = $version;
+		$this->plugin_name  = $plugin_name;
+		$this->version      = $version;
+		$this->tracking_url = $tracking_url;
 
 	}
 
@@ -131,7 +143,7 @@ class Engagement_Cloud_Upgrader {
 			'callback_url' => $callback_url,
 			'pluginid'     => $plugin_id,
 		);
-		wp_remote_post( "$this->callback_url/e/woocommerce/enable?" . http_build_query( $data ) );
+		wp_remote_post( "$this->tracking_url/e/woocommerce/enable?" . http_build_query( $data ) );
 	}
 
 	/**
