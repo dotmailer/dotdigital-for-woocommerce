@@ -17,7 +17,8 @@ The software made available to you is provided "as is" without warranty of any k
 
 ## Installation
 
-This plugin requires you to have WooCommerce (1.6.x - 3.x) installed in WordPress.
+This plugin requires you to have WooCommerce installed in WordPress (see [detailed version requirements](readme.txt)).
+
 Log into your WordPress account and follow these steps:
 
 1. Download the plugin
