@@ -10,7 +10,7 @@
 
 defined( 'WP_UNINSTALL_PLUGIN' ) || exit;
 
-require_once plugin_dir_path( __FILE__ ) . 'engagement-cloud.php';
+require_once plugin_dir_path( __FILE__ ) . 'class-engagement-cloud-bootstrapper.php';
 
 /**
  * Uninstall plugin tables and notify EC
@@ -28,7 +28,7 @@ function ec_woocommerce_uninstall() {
 
 	wp_remote_post( Engagement_Cloud_Bootstrapper::$tracking_url . "/e/woocommerce/uninstall?pluginid=$plugin_id" );
 
-    delete_site_option("engagement_cloud_for_woocommerce_version");
+	delete_site_option( 'engagement_cloud_for_woocommerce_version' );
 }
 
 ec_woocommerce_uninstall();

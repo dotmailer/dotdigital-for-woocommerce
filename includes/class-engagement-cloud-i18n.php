@@ -23,7 +23,7 @@
  * @subpackage EngagementCloud/includes
  * @author     dotdigital <integrations@dotdigital.com>
  */
-class Engagement_Cloud_i18n {
+class Engagement_Cloud_I18n {
 
 	/**
 	 * Load the plugin text domain for translation.

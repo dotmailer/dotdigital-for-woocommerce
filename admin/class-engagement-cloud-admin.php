@@ -126,7 +126,7 @@ class Engagement_Cloud_Admin {
 		*        Administration Menus: http://codex.wordpress.org/Administration_Menus
 		*
 		*/
-		require_once 'partials/engagement-cloud-admin-display.php';
+		require_once 'partials/class-engagement-cloud-admin-display.php';
 		$admin_display = new Engagement_Cloud_Admin_Display( $this->plugin_name, $this->webapp_url );
 
 		add_menu_page(

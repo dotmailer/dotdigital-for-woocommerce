@@ -1,3 +1,10 @@
+/**
+ * Javascript configurations for storefront
+ *
+ * @package dotdigital
+ * @since 1.0.0
+ */
+
 (function( $ ) {
 	'use strict';
 

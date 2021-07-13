@@ -1,3 +1,10 @@
+/**
+ * Javascript configurations for admin panel
+ *
+ * @since 1.0.0
+ * @package dotdigital
+ */
+
 (function ($) {
 	'use strict';
 
