@@ -8,32 +8,69 @@
 (function( $ ) {
 	'use strict';
 
-	/**
-	 * All of the code for your public-facing JavaScript source
-	 * should reside in this file.
-	 *
-	 * Note: It has been assumed you will write jQuery code here, so the
-	 * $ function reference has been prepared for usage within the scope
-	 * of this function.
-	 *
-	 * This enables you to define handlers, for when the DOM is ready:
-	 *
-	 * $(function() {
-	 *
-	 * });
-	 *
-	 * When the window is loaded:
-	 *
-	 * $( window ).load(function() {
-	 *
-	 * });
-	 *
-	 * ...and/or other possibilities.
-	 *
-	 * Ideally, it is not considered best practise to attach more than a
-	 * single DOM-ready or window-load handler for a particular page.
-	 * Although scripts in the WordPress core, Plugins and Themes may be
-	 * practising this, we should strive to set a better example in our own work.
-	 */
+		/**
+		 * All of the code for your public-facing JavaScript source
+		 * should reside in this file.
+		 *
+		 * Note: It has been assumed you will write jQuery code here, so the
+		 * $ function reference has been prepared for usage within the scope
+		 * of this function.
+		 *
+		 * This enables you to define handlers, for when the DOM is ready:
+		 *
+		 * $(function() {
+		 *
+		 * });
+		 *
+		 * When the window is loaded:
+		 *
+		 * $( window ).load(function() {
+		 *
+		 * });
+		 *
+		 * ...and/or other possibilities.
+		 *
+		 * Ideally, it is not considered best practise to attach more than a
+		 * single DOM-ready or window-load handler for a particular page.
+		 * Although scripts in the WordPress core, Plugins and Themes may be
+		 * practising this, we should strive to set a better example in our own work.
+		 */
 
+	$(
+		function() {
+			$( 'form.engagement-cloud-ajax' ).on(
+				'submit',
+				function(e){
+					e.preventDefault();
+					var email = $( '.email' ).val();
+					$.ajax(
+						{
+							url: cpm_object.ajax_url,
+							type: "POST",
+							dataType: 'text',
+							data: {
+								action: 'subscribe_to_newsletter',
+								email: email,
+								nonce: cpm_object.nonce
+							}, success: function(response){
+								var response = jQuery.parseJSON( response );
+
+								if (response.success) {
+									$( '.engagement-cloud-ajax' )[0].reset();
+									$( ".success_msg" ).css( "display","block" );
+									$( ".success_msg" ).fadeIn( 'fast' ).delay( 3000 ).fadeOut( 'slow' );
+								} else {
+									$( ".error_msg" ).css( "display","block" );
+									$( ".error_msg" ).html( response.message );
+									$( ".error_msg" ).fadeIn( 'fast' ).delay( 3000 ).fadeOut( 'slow' );
+								}
+							}, error: function(data){
+								$( ".error_msg" ).css( "display","block" );
+							}
+						}
+					);
+				}
+			);
+		}
+	);
 })( jQuery );

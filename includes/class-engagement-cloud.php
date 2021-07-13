@@ -100,8 +100,8 @@ class Engagement_Cloud {
 		$this->load_dependencies();
 		$this->set_locale();
 		$this->define_upgrade_hook();
-
 		$this->define_admin_hooks();
+		$this->define_public_hooks();
 		$this->define_validation_hooks();
 		$this->define_woocommerce_hooks();
 		$this->initialise_rest_api();
@@ -165,6 +165,12 @@ class Engagement_Cloud {
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/platforms/class-engagement-cloud-woocommerce.php';
 
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-engagement-cloud-rest-api.php';
+
+		/**
+		 * Widget registration.
+		 */
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/widgets/class-engagement-cloud-widget.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/subscriber/class-engagement-cloud-form-handler.php';
 
 		$this->loader = new Engagement_Cloud_Loader();
 	}
@@ -243,8 +249,12 @@ class Engagement_Cloud {
 
 		$plugin_public = new Engagement_Cloud_Public( $this->plugin_name, $this->version );
 
+		$this->loader->add_action( 'widgets_init', $plugin_public, 'ec_register_signup_widget' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
+		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'ajax_form_scripts' );
+		$this->loader->add_action( 'wp_ajax_subscribe_to_newsletter', $plugin_public, 'subscribe_to_newsletter' );
+		$this->loader->add_action( 'wp_ajax_nopriv_subscribe_to_newsletter', $plugin_public, 'subscribe_to_newsletter' );
 	}
 
 	/**

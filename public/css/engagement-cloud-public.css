@@ -2,3 +2,16 @@
  * All of the CSS for your public-facing functionality should be
  * included in this file.
  */
+
+.ec-form-content {
+	display: flex;
+	justify-content: space-between;
+}
+
+.success_msg {
+	color: #00ba37;
+}
+
+.error_msg {
+	color: #9e1313;
+}

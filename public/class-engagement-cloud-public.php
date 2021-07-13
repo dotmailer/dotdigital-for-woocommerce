@@ -95,8 +95,39 @@ class Engagement_Cloud_Public {
 		 * class.
 		 */
 
-		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/engagement-cloud-public.js', array( 'jquery' ), $this->version, false );
-
+		wp_enqueue_script( 'engagement_cloud_public_js', plugin_dir_url( __FILE__ ) . 'js/engagement-cloud-public.js', array( 'jquery' ), $this->version, false );
 	}
 
+	/**
+	 * Initialize ajax_url and nonce params in form ajax request
+	 *
+	 * @since 1.2.0
+	 */
+	public function ajax_form_scripts() {
+		$translation_array = array(
+			'ajax_url' => admin_url( 'admin-ajax.php' ),
+			'nonce'    => wp_create_nonce( 'subscribe_to_newsletter' ),
+		);
+		wp_localize_script( 'engagement_cloud_public_js', 'cpm_object', $translation_array );
+	}
+
+	/**
+	 * Subscribe to newsletter action
+	 *
+	 * @since 1.2.0
+	 */
+	public function subscribe_to_newsletter() {
+		$subscriber  = new Engagement_Cloud_Subscriber();
+		$form_handler = new Engagement_Cloud_Form_Handler( $subscriber );
+		$form_handler->subscribe();
+	}
+
+	/**
+	 * Registration of signup form widget
+	 *
+	 * @since 1.2.0
+	 */
+	public function ec_register_signup_widget() {
+		register_widget( 'Engagement_Cloud_Widget' );
+	}
 }

@@ -17,6 +17,9 @@ class Engagement_Cloud_Subscriber {
 	const UNSUBSCRIBED = 0;
 	const SUBSCRIBED   = 1;
 
+	const SUBSCRIPTION_FAILED  = 0;
+	const SUBSCRIPTION_SUCCESS = 1;
+
 	/**
 	 * Mark an email address as unsubscribed.
 	 *
@@ -36,5 +39,42 @@ class Engagement_Cloud_Subscriber {
 				'email' => $email,
 			)
 		);
+	}
+
+	/**
+	 * Creates a new subscriber or updates the existing one with a new status if already exists.
+	 *
+	 * @param array $subscriber_data  Data to be stored.
+	 * @return int
+	 */
+	public function create_or_update( $subscriber_data ) {
+		global $wpdb;
+		$table_name = $wpdb->prefix . Engagement_Cloud_Bootstrapper::SUBSCRIBERS_TABLE_NAME;
+
+		$matching_subscriber = $wpdb->get_row(
+			$wpdb->prepare( "SELECT * FROM {$table_name} WHERE email = %s", $subscriber_data['email'] ) // phpcs:ignore WordPress.DB
+		);
+
+		try {
+			if ( $matching_subscriber ) {
+				unset( $subscriber_data['created_at'] );
+				$wpdb->update(
+					$table_name,
+					$subscriber_data,
+					array(
+						'email' => $subscriber_data['email'],
+					)
+				); // db call ok.
+			} else {
+				$wpdb->insert(
+					$table_name,
+					$subscriber_data
+				); // db call ok.
+			}
+		} catch ( \Exception $e ) {
+			return self::SUBSCRIPTION_FAILED;
+		}
+
+		return self::SUBSCRIPTION_SUCCESS;
 	}
 }
