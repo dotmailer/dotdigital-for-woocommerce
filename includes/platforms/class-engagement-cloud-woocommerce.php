@@ -32,6 +32,13 @@ class Engagement_Cloud_WooCommerce {
 	 * @since    1.0.0
 	 */
 	public function engagement_cloud_render_checkout_marketing_checkbox() {
+		if ( ! get_option(
+			'engagement_cloud_for_woocommerce_settings_show_marketing_checkbox_at_checkout',
+			Engagement_Cloud_Bootstrapper::DEFAULT_MARKETING_CHECKBOX_DISPLAY_AT_CHECKOUT
+		) ) {
+			return;
+		}
+
 		$current_user_has_subscription = false;
 
 		if ( get_current_user_id() ) {
@@ -50,7 +57,10 @@ class Engagement_Cloud_WooCommerce {
 			$this->checkbox_name,
 			array(
 				'type'  => 'checkbox',
-				'label' => __( 'Subscribe to our newsletter' ),
+				'label' => get_option(
+					'engagement_cloud_for_woocommerce_settings_marketing_checkbox_text',
+					Engagement_Cloud_Bootstrapper::DEFAULT_MARKETING_CHECKBOX_TEXT
+				),
 			),
 			$current_user_has_subscription
 		);
@@ -126,7 +136,10 @@ class Engagement_Cloud_WooCommerce {
 			$this->checkbox_name,
 			array(
 				'type'  => 'checkbox',
-				'label' => __( 'Subscribe to our newsletter' ),
+				'label' => get_option(
+					'engagement_cloud_for_woocommerce_settings_marketing_checkbox_text',
+					Engagement_Cloud_Bootstrapper::DEFAULT_MARKETING_CHECKBOX_TEXT
+				),
 			)
 		);
 	}

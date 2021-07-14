@@ -66,6 +66,9 @@ class Engagement_Cloud_Bootstrapper {
 	const EMAIL_MARKETING_TABLE_NAME = 'dotmailer_email_marketing';
 	const SUBSCRIBERS_TABLE_NAME     = 'ec_subscribers';
 
+	const DEFAULT_MARKETING_CHECKBOX_DISPLAY_AT_CHECKOUT = 1;
+	const DEFAULT_MARKETING_CHECKBOX_TEXT = 'Subscribe to our newsletter';
+
 	/**
 	 * The unique identifier of this plugin.
 	 *

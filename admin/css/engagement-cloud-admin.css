@@ -2,3 +2,12 @@ iframe#engagement-cloud-settings {
 	background-color: #fff;
 	width: 100%;
 }
+
+#icon-engagement-cloud {
+	display: block;
+	float: left;
+	width: 32px;
+	height: 40px;
+	background: url('../../assets/dotdigital-applogo-32x32.png') no-repeat 0 6px;
+	margin-right: 6px;
+}

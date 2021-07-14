@@ -71,7 +71,7 @@ class Engagement_Cloud_Upgrader {
 	 * Check if we need to upgrade the database.
 	 */
 	public function upgrade_check() {
-		$this->stored_version = get_site_option( 'engagement_cloud_for_woocommerce_version' );
+		$this->stored_version = get_option( 'engagement_cloud_for_woocommerce_version' );
 		if ( version_compare( $this->stored_version, $this->version, '>=' ) ) {
 			return;
 		}
@@ -244,6 +244,6 @@ class Engagement_Cloud_Upgrader {
 	 * Set the plugin version after install or upgrade
 	 */
 	private function set_plugin_version() {
-		 update_site_option( 'engagement_cloud_for_woocommerce_version', $this->version );
+		 update_option( 'engagement_cloud_for_woocommerce_version', $this->version );
 	}
 }
