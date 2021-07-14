@@ -270,7 +270,7 @@ class Engagement_Cloud {
 		$this->loader->add_action( 'woocommerce_register_form', $plugin_woocommerce, 'engagement_cloud_render_register_marketing_checkbox', 5 );
 		$this->loader->add_action( 'user_register', $plugin_woocommerce, 'engagement_cloud_handle_register_marketing_checkbox', 5 );
 
-		$this->loader->add_action( 'woocommerce_checkout_after_customer_details', $plugin_woocommerce, 'engagement_cloud_render_checkout_marketing_checkbox', 5 );
+		$this->loader->add_action( 'woocommerce_after_checkout_billing_form', $plugin_woocommerce, 'engagement_cloud_render_checkout_marketing_checkbox', 5 );
 		$this->loader->add_action( 'woocommerce_checkout_order_processed', $plugin_woocommerce, 'engagement_cloud_handle_checkout_subscription', 5 );
 
 		$this->loader->add_action( 'woocommerce_update_cart_action_cart_updated', $plugin_woocommerce, 'cart_updated', 5 );
