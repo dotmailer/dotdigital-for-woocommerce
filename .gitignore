@@ -4,3 +4,4 @@ vendor/
 .buildpath
 .project
 web.config
+DS_Store

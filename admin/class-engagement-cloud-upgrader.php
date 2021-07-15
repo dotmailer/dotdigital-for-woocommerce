@@ -85,8 +85,6 @@ class Engagement_Cloud_Upgrader {
 	 * Run a series of version-specific upgrade scripts.
 	 */
 	private function upgrade() {
-		require_once ABSPATH . 'wp-admin/includes/upgrade.php';
-
 		if ( current_user_can( 'update_plugins' ) ) {
 			$this->upgrade_one_zero_zero();
 			$this->upgrade_one_two_zero();
@@ -160,14 +158,17 @@ class Engagement_Cloud_Upgrader {
 	private function upgrade_one_two_zero() {
 		if ( version_compare( $this->stored_version, '1.2.0', '<' ) ) {
 			$this->create_subscriber_table();
-			$this->migrate_users_to_subscriber_table();
+
+			require_once( 'class-engagement-cloud-migrator.php' );
+			$migrator = new Engagement_Cloud_Migrator();
+			$migrator->migrate_users_to_subscriber_table();
 		}
 	}
 
 	/**
 	 * Creates the dotmailer_email_marketing table.
 	 */
-	private function create_email_marketing_table() {
+	public function create_email_marketing_table() {
 		global $wpdb;
 		$table_name = $wpdb->prefix . Engagement_Cloud_Bootstrapper::EMAIL_MARKETING_TABLE_NAME;
 
@@ -178,6 +179,7 @@ class Engagement_Cloud_Upgrader {
           		PluginID VARCHAR(256) NOT NULL
      		) $charset_collate;";
 
+			require_once ABSPATH . 'wp-admin/includes/upgrade.php';
 			dbDelta( $sql );
 		}
 	}
@@ -185,7 +187,7 @@ class Engagement_Cloud_Upgrader {
 	/**
 	 * Create the ec_subscribers table.
 	 */
-	private function create_subscriber_table() {
+	public function create_subscriber_table() {
 		global $wpdb;
 		$table_name = $wpdb->prefix . Engagement_Cloud_Bootstrapper::SUBSCRIBERS_TABLE_NAME;
 
@@ -204,40 +206,9 @@ class Engagement_Cloud_Upgrader {
 	            PRIMARY KEY (`id`)
 	        ) $charset_collate;";
 
+			require_once ABSPATH . 'wp-admin/includes/upgrade.php';
 			dbDelta( $sql );
 		}
-	}
-
-	/**
-	 * Fetch existing subscribed users to ec_subscribers table
-	 *
-	 * @since 1.0.0
-	 * @package dotdigital
-	 */
-	private function migrate_users_to_subscriber_table() {
-		global $wpdb;
-		$table_name = $wpdb->prefix . Engagement_Cloud_Bootstrapper::SUBSCRIBERS_TABLE_NAME;
-
-		// Do not overwrite existing.
-		$result = $wpdb->get_results( "SELECT id from {$table_name} LIMIT 1" ); // phpcs:ignore WordPress.DB
-		if ( count( $result ) !== 0 ) {
-			return;
-		}
-
-		$sql = "SELECT id as user_id, user_email as email FROM {$wpdb->prefix}users wp_users
-            INNER JOIN {$wpdb->prefix}usermeta ON {$wpdb->prefix}usermeta.user_id = {$wpdb->prefix}users.id AND {$wpdb->prefix}usermeta.meta_key='_wc_subscribed_to_newsletter' AND {$wpdb->prefix}usermeta.meta_value=1
-            WHERE
-            NOT EXISTS (
-                SELECT email,user_id
-                FROM {$table_name} ec_subscribers
-                WHERE ec_subscribers.user_id = wp_users.id
-                AND ec_subscribers.email = wp_users.user_email
-            )
-        ";
-
-		$date = current_time( 'mysql' );
-		$wpdb->query( "INSERT INTO {$table_name} (user_id, email) {$sql}" ); // phpcs:ignore WordPress.DB
-		$wpdb->query( "UPDATE {$table_name} set status=1, created_at='{$date}', updated_at='{$date}'" ); // phpcs:ignore WordPress.DB
 	}
 
 	/**

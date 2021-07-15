@@ -138,7 +138,7 @@ class Engagement_Cloud_Bootstrapper {
 	 *
 	 * @return string
 	 */
-	private static function get_version() {
+	public static function get_version() {
 		if ( defined( 'EC_FOR_WOOCOMMERCE_PLUGIN_VERSION' ) ) {
 			return EC_FOR_WOOCOMMERCE_PLUGIN_VERSION;
 		} else {
