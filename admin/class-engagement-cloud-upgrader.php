@@ -171,17 +171,14 @@ class Engagement_Cloud_Upgrader {
 	public function create_email_marketing_table() {
 		global $wpdb;
 		$table_name = $wpdb->prefix . Engagement_Cloud_Bootstrapper::EMAIL_MARKETING_TABLE_NAME;
+		$charset_collate = $wpdb->get_charset_collate();
 
-		if ( $wpdb->get_var( $wpdb->prepare( 'SHOW TABLES LIKE %s', $table_name ) ) !== $table_name ) { // phpcs:ignore WordPress.DB
-			$charset_collate = $wpdb->get_charset_collate();
+		$sql = "CREATE TABLE $table_name (
+            PluginID VARCHAR(256) NOT NULL
+        ) $charset_collate;";
 
-			$sql = "CREATE TABLE $table_name (
-          		PluginID VARCHAR(256) NOT NULL
-     		) $charset_collate;";
-
-			require_once ABSPATH . 'wp-admin/includes/upgrade.php';
-			dbDelta( $sql );
-		}
+		require_once ABSPATH . 'wp-admin/includes/upgrade.php';
+		dbDelta( $sql );
 	}
 
 	/**
@@ -190,25 +187,22 @@ class Engagement_Cloud_Upgrader {
 	public function create_subscriber_table() {
 		global $wpdb;
 		$table_name = $wpdb->prefix . Engagement_Cloud_Bootstrapper::SUBSCRIBERS_TABLE_NAME;
+		$charset_collate = $wpdb->get_charset_collate();
 
-		if ( $wpdb->get_var( $wpdb->prepare( 'SHOW TABLES LIKE %s', $table_name ) ) !== $table_name ) {
-			$charset_collate = $wpdb->get_charset_collate();
+		$sql = "CREATE TABLE {$table_name} (
+            `id` int(10) NOT NULL AUTO_INCREMENT,
+            `user_id` int(10) NOT NULL default 0,
+            `email` varchar(255) NOT NULL default '',
+            `status` smallint(5),
+            `first_name` varchar(255),
+            `last_name` varchar(255),
+            `created_at` datetime NOT NULL default '0000-00-00 00:00:00',
+            `updated_at` datetime NOT NULL default '0000-00-00 00:00:00',
+            PRIMARY KEY (`id`)
+        ) $charset_collate;";
 
-			$sql = "CREATE TABLE {$table_name} (
-	            `id` int(10) NOT NULL AUTO_INCREMENT,
-	            `user_id` int(10) NOT NULL default 0,
-	            `email` varchar(255) NOT NULL default '',
-	            `status` smallint(5),
-	            `first_name` varchar(255),
-	            `last_name` varchar(255),
-	            `created_at` datetime NOT NULL default '0000-00-00 00:00:00',
-	            `updated_at` datetime NOT NULL default '0000-00-00 00:00:00',
-	            PRIMARY KEY (`id`)
-	        ) $charset_collate;";
-
-			require_once ABSPATH . 'wp-admin/includes/upgrade.php';
-			dbDelta( $sql );
-		}
+		require_once ABSPATH . 'wp-admin/includes/upgrade.php';
+		dbDelta( $sql );
 	}
 
 	/**
