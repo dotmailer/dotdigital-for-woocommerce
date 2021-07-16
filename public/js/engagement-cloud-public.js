@@ -38,34 +38,44 @@
 
 	$(
 		function() {
-			$( 'form.engagement-cloud-ajax' ).on(
+			$( "form.ec-ajax" ).on(
 				'submit',
 				function(e){
 					e.preventDefault();
-					var email = $( '.email' ).val();
 					$.ajax(
 						{
 							url: cpm_object.ajax_url,
-							type: "POST",
+							type: 'POST',
 							dataType: 'text',
 							data: {
 								action: 'subscribe_to_newsletter',
-								email: email,
+								email: $( "#ec-email" ).val(),
 								nonce: cpm_object.nonce
-							}, success: function(response){
+							},
+							beforeSend: function() {
+								$("#ec-submit").prop('disabled', true);
+							},
+							success: function(response){
+								$("#ec-submit").prop('disabled', false);
 								var response = jQuery.parseJSON( response );
 
 								if (response.success) {
-									$( '.engagement-cloud-ajax' )[0].reset();
-									$( ".success_msg" ).css( "display","block" );
-									$( ".success_msg" ).fadeIn( 'fast' ).delay( 3000 ).fadeOut( 'slow' );
+									$( ".ec-ajax" )[0].reset();
+									$( ".ec-success-msg" )
+										.css( "display","block" )
+										.fadeIn( 'fast' )
+										.delay( 3000 )
+										.fadeOut( 'slow' );
 								} else {
-									$( ".error_msg" ).css( "display","block" );
-									$( ".error_msg" ).html( response.message );
-									$( ".error_msg" ).fadeIn( 'fast' ).delay( 3000 ).fadeOut( 'slow' );
+									$( ".ec-error-msg" )
+										.css( "display","block" )
+										.html( response.message )
+										.fadeIn( 'fast' )
+										.delay( 3000 )
+										.fadeOut( 'slow' );
 								}
 							}, error: function(data){
-								$( ".error_msg" ).css( "display","block" );
+								$( ".ec-error-msg" ).css( "display","block" );
 							}
 						}
 					);

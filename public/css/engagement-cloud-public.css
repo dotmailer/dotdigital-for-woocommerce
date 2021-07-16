@@ -8,10 +8,15 @@
 	justify-content: space-between;
 }
 
-.success_msg {
+.ec-submit-btn:disabled {
+	pointer-events: none;
+	opacity: 0.5;
+}
+
+.ec-success-msg {
 	color: #00ba37;
 }
 
-.error_msg {
+.ec-error-msg {
 	color: #9e1313;
 }
