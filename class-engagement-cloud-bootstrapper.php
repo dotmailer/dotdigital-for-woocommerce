@@ -67,6 +67,7 @@ class Engagement_Cloud_Bootstrapper {
 	const SUBSCRIBERS_TABLE_NAME     = 'ec_subscribers';
 
 	const DEFAULT_MARKETING_CHECKBOX_DISPLAY_AT_CHECKOUT = 1;
+	const DEFAULT_MARKETING_CHECKBOX_DISPLAY_AT_REGISTER = 1;
 	const DEFAULT_MARKETING_CHECKBOX_TEXT = 'Subscribe to our newsletter';
 
 	/**

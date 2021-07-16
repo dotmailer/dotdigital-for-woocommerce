@@ -128,7 +128,7 @@ class Engagement_Cloud_Admin {
 		*/
 		require_once 'partials/class-engagement-cloud-admin-display.php';
 		$admin_display = new Engagement_Cloud_Admin_Display( $this->plugin_name, $this->webapp_url );
-		$icon_svg = 'PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+PHBhdGggZD0iTTE2LDIuNzhBMTMuMjIsMTMuMjIsMCwxLDEsMi43OCwxNiwxMy4yMywxMy4yMywwLDAsMSwxNiwyLjc4TTE2LDBBMTYsMTYsMCwxLDAsMzIsMTYsMTYsMTYsMCwwLDAsMTYsMFoiIGZpbGw9IiNmZmYiLz48cGF0aCBkPSJNMTYsOC4yOUE3Ljc0LDcuNzQsMCwxLDEsOC4yNiwxNiw3Ljc1LDcuNzUsMCwwLDEsMTYsOC4yOW0wLTIuNzhBMTAuNTIsMTAuNTIsMCwxLDAsMjYuNTIsMTYsMTAuNTIsMTAuNTIsMCwwLDAsMTYsNS41MVoiIGZpbGw9IiNmZmYiLz48cGF0aCBkPSJNMTYsMTMuNzdBMi4yNiwyLjI2LDAsMSwxLDEzLjc1LDE2LDIuMjYsMi4yNiwwLDAsMSwxNiwxMy43N00xNiwxMWE1LDUsMCwxLDAsNSw1LDUsNSwwLDAsMC01LTVaIiBmaWxsPSIjZmZmIi8+PC9zdmc+';
+		$icon_svg      = 'PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+PHBhdGggZD0iTTE2LDIuNzhBMTMuMjIsMTMuMjIsMCwxLDEsMi43OCwxNiwxMy4yMywxMy4yMywwLDAsMSwxNiwyLjc4TTE2LDBBMTYsMTYsMCwxLDAsMzIsMTYsMTYsMTYsMCwwLDAsMTYsMFoiIGZpbGw9IiNmZmYiLz48cGF0aCBkPSJNMTYsOC4yOUE3Ljc0LDcuNzQsMCwxLDEsOC4yNiwxNiw3Ljc1LDcuNzUsMCwwLDEsMTYsOC4yOW0wLTIuNzhBMTAuNTIsMTAuNTIsMCwxLDAsMjYuNTIsMTYsMTAuNTIsMTAuNTIsMCwwLDAsMTYsNS41MVoiIGZpbGw9IiNmZmYiLz48cGF0aCBkPSJNMTYsMTMuNzdBMi4yNiwyLjI2LDAsMSwxLDEzLjc1LDE2LDIuMjYsMi4yNiwwLDAsMSwxNiwxMy43N00xNiwxMWE1LDUsMCwxLDAsNSw1LDUsNSwwLDAsMC01LTVaIiBmaWxsPSIjZmZmIi8+PC9zdmc+';
 
 		add_menu_page(
 			'dotdigital Engagement Cloud',
@@ -184,7 +184,7 @@ class Engagement_Cloud_Admin {
 		);
 
 		/**
-		 * Add settings field [show checkbox].
+		 * Add settings field [show checkbox at checkout].
 		 */
 		add_settings_field(
 			'engagement_cloud_for_woocommerce_settings_show_marketing_checkbox_at_checkout',
@@ -199,9 +199,30 @@ class Engagement_Cloud_Admin {
 			)
 		);
 
+		/**
+		 * Add settings field [show checkbox at register].
+		 */
+		add_settings_field(
+			'engagement_cloud_for_woocommerce_settings_show_marketing_checkbox_at_register',
+			'Show marketing checkbox at register',
+			array( $this, 'settings_page_render_checkbox' ),
+			$this->plugin_name . '-settings',
+			'ec_woo_settings_page_general_section',
+			array(
+				'id'            => 'engagement_cloud_for_woocommerce_settings_show_marketing_checkbox_at_register',
+				'name'          => 'engagement_cloud_for_woocommerce_settings_show_marketing_checkbox_at_register',
+				'default_value' => Engagement_Cloud_Bootstrapper::DEFAULT_MARKETING_CHECKBOX_DISPLAY_AT_REGISTER,
+			)
+		);
+
 		register_setting(
 			$this->plugin_name . '-settings',
 			'engagement_cloud_for_woocommerce_settings_show_marketing_checkbox_at_checkout'
+		);
+
+		register_setting(
+			$this->plugin_name . '-settings',
+			'engagement_cloud_for_woocommerce_settings_show_marketing_checkbox_at_register'
 		);
 
 		/**

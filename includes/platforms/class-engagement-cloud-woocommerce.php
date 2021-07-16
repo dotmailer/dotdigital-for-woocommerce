@@ -132,6 +132,14 @@ class Engagement_Cloud_WooCommerce {
 	 * @since    1.0.0
 	 */
 	public function engagement_cloud_render_register_marketing_checkbox() {
+
+		if ( ! get_option(
+			'engagement_cloud_for_woocommerce_settings_show_marketing_checkbox_at_register',
+			Engagement_Cloud_Bootstrapper::DEFAULT_MARKETING_CHECKBOX_DISPLAY_AT_CHECKOUT
+		) ) {
+			return;
+		}
+
 		woocommerce_form_field(
 			$this->checkbox_name,
 			array(
