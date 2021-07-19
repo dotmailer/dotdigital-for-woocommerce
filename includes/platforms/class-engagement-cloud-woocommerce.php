@@ -84,46 +84,21 @@ class Engagement_Cloud_WooCommerce {
 			return;
 		}
 
-		global $wpdb;
-		$table_name = $wpdb->prefix . Engagement_Cloud_Bootstrapper::SUBSCRIBERS_TABLE_NAME;
-		$order_data = array(
-			'user_id'    => $order->get_customer_id(),
-			'email'      => $order->get_billing_email(),
-			'status'     => $accepts_marketing,
-			'first_name' => $order->get_billing_first_name(),
-			'last_name'  => $order->get_billing_last_name(),
-			'created_at' => current_time( 'mysql' ),
-			'updated_at' => current_time( 'mysql' ),
-		);
-
 		// For guest orders with no subscription, we can exit here.
 		if ( ! $accepts_marketing && ! $order->get_customer_id() ) {
 			return;
 		}
 
-		$matching_subscriber = $wpdb->get_row(
-			$wpdb->prepare( "SELECT * FROM {$table_name} WHERE email = %s", $order_data['email'] ) // phpcs:ignore WordPress.DB
+		$data = array(
+			'user_id'    => $order->get_customer_id(),
+			'email'      => $order->get_billing_email(),
+			'status'     => $accepts_marketing,
+			'first_name' => $order->get_billing_first_name(),
+			'last_name'  => $order->get_billing_last_name(),
 		);
-		if ( $matching_subscriber ) {
-			$wpdb->update(
-				$table_name,
-				array(
-					'user_id'    => $order_data['user_id'],
-					'status'     => $accepts_marketing,
-					'first_name' => $order_data['first_name'],
-					'last_name'  => $order_data['last_name'],
-					'updated_at' => current_time( 'mysql' ),
-				),
-				array(
-					'email' => $order_data['email'],
-				)
-			);
-		} else {
-			$wpdb->insert(
-				$table_name,
-				$order_data
-			); // db call ok.
-		}
+
+		$subscriber = new Engagement_Cloud_Subscriber();
+		$subscriber->create_or_update( $data );
 	}
 
 	/**
@@ -167,18 +142,15 @@ class Engagement_Cloud_WooCommerce {
 				$email = isset( $_POST['email'] ) ?
 					sanitize_text_field( wp_unslash( $_POST['email'] ) ) :
 					'';
-				global $wpdb;
 
-				$wpdb->insert(
-					$wpdb->prefix . Engagement_Cloud_Bootstrapper::SUBSCRIBERS_TABLE_NAME,
-					array(
-						'user_id'    => $user_id,
-						'email'      => $email,
-						'status'     => 1,
-						'created_at' => current_time( 'mysql' ),
-						'updated_at' => current_time( 'mysql' ),
-					)
-				); // db call ok.
+				$data = array(
+					'user_id'    => $user_id,
+					'email'      => $email,
+					'status'     => 1,
+				);
+
+				$subscriber = new Engagement_Cloud_Subscriber();
+				$subscriber->create_or_update( $data );
 			}
 		}
 	}

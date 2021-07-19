@@ -55,6 +55,9 @@ class Engagement_Cloud_Subscriber {
 			$wpdb->prepare( "SELECT * FROM {$table_name} WHERE email = %s", $subscriber_data['email'] ) // phpcs:ignore WordPress.DB
 		);
 
+		$subscriber_data['created_at'] = current_time( 'mysql' );
+		$subscriber_data['updated_at'] = current_time( 'mysql' );
+
 		try {
 			if ( $matching_subscriber ) {
 				unset( $subscriber_data['created_at'] );

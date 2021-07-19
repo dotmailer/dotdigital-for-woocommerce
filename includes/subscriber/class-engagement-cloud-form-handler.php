@@ -53,8 +53,6 @@ class Engagement_Cloud_Form_Handler {
 			$subscriber_data = array(
 				'email'      => $email,
 				'status'     => 1,
-				'created_at' => current_time( 'mysql' ),
-				'updated_at' => current_time( 'mysql' ),
 			);
 
 			$subscribed = $this->subscriber->create_or_update( $subscriber_data );
