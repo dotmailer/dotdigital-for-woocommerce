@@ -209,7 +209,7 @@ class Engagement_Cloud_Admin {
 		 */
 		add_settings_field(
 			'engagement_cloud_for_woocommerce_settings_show_marketing_checkbox_at_register',
-			'Show marketing checkbox at register',
+			'Show marketing checkbox at user registration',
 			array( $this, 'settings_page_render_checkbox' ),
 			$this->plugin_name . '-settings',
 			'ec_woo_settings_page_general_section',
