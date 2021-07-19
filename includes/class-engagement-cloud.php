@@ -14,6 +14,15 @@
  * @author     dotdigital <integrations@dotdigital.com>
  */
 
+namespace Engagement_Cloud\Includes;
+
+use Engagement_Cloud\Admin\Engagement_Cloud_Admin;
+use Engagement_Cloud\Admin\Engagement_Cloud_Upgrader;
+use Engagement_Cloud\Includes\Platforms\Engagement_Cloud_WooCommerce;
+use Engagement_Cloud\Pub\Engagement_Cloud_Public;
+use Engagement_Cloud\Includes\Engagement_Cloud_Rest_Api;
+use Engagement_Cloud\Includes\Widgets\Engagement_Cloud_Widget;
+
 /**
  * Class Engagement_Cloud
  */
@@ -124,54 +133,10 @@ class Engagement_Cloud {
 	 * @access   private
 	 */
 	private function load_dependencies() {
-
-		/**
-		 * The class responsible for orchestrating the actions and filters of the
-		 * core plugin.
-		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-engagement-cloud-loader.php';
-
-		/**
-		 * The class responsible for defining internationalization functionality
-		 * of the plugin.
-		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-engagement-cloud-i18n.php';
-
-		/**
-		 * The class responsible for defining all upgrade actions.
-		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-engagement-cloud-upgrader.php';
-
-		/**
-		 * The class responsible for defining all actions that occur in the admin area.
-		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-engagement-cloud-admin.php';
-
-		/**
-		 * The class responsible for defining all actions that occur in the public-facing
-		 * side of the site.
-		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-engagement-cloud-public.php';
-
-		/**
-		 * The class responsible for defining all actions that occur during plugin's requirement validation.
-		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-engagement-cloud-validator.php';
-
-		/**
-		 * The class responsible for defining all actions that occur in woocommerce related
-		 * side of the site.
-		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/platforms/class-engagement-cloud-woocommerce.php';
-
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-engagement-cloud-rest-api.php';
-
 		/**
 		 * Widget registration.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/widgets/class-engagement-cloud-widget.php';
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/subscriber/class-engagement-cloud-form-handler.php';
-
+		// $widget = new Engagement_Cloud_Widget();
 		$this->loader = new Engagement_Cloud_Loader();
 	}
 

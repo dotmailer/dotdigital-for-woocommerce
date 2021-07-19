@@ -9,6 +9,8 @@
  * @subpackage EngagementCloud/includes
  */
 
+namespace Engagement_Cloud\Admin\Partials;
+
 /**
  * Provide a admin area view for the plugin
  *

@@ -9,6 +9,10 @@
  * @subpackage EngagementCloud/subscriber
  */
 
+namespace Engagement_Cloud\Includes\Subscriber;
+
+use Engagement_Cloud\Engagement_Cloud_Bootstrapper;
+
 /**
  * Class Engagement_Cloud_Subscriber
  */

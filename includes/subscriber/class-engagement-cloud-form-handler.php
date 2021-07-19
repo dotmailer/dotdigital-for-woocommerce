@@ -9,6 +9,8 @@
  * @subpackage EngagementCloud/subscriber
  */
 
+namespace Engagement_Cloud\Includes\Subscriber;
+
 /**
  * Class Engagement_Cloud_Form_Handler
  */

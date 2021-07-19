@@ -9,10 +9,12 @@
  * @subpackage EngagementCloud/includes/rest-api
  */
 
-/**
- * Require the Engagement_Cloud_Subscriber class.
- */
-require_once plugin_dir_path( __FILE__ ) . '../subscriber/class-engagement-cloud-subscriber.php';
+namespace Engagement_Cloud\Includes\RestApi;
+
+use Engagement_Cloud\Includes\Subscriber\Engagement_Cloud_Subscriber;
+use Engagement_Cloud\Includes\Engagement_Cloud_Rest_Api;
+use WP_REST_Request;
+use WP_REST_Response;
 
 /**
  * Class Engagement_Cloud_Rest_Unsubscribe

@@ -9,6 +9,10 @@
  * @subpackage EngagementCloud/includes
  */
 
+namespace Engagement_Cloud\Includes\Widgets;
+
+use WP_Widget;
+
 /**
  * Class Engagement_Cloud_Widget
  */

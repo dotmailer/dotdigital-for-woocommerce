@@ -30,5 +30,4 @@ require_once __DIR__ . '/../../vendor/autoload.php';
 require_once __DIR__ . '/inc/PluginTestCase.php';
 
 // Since our plugin files are loaded with composer, we should be good to go
-
-//require_once __DIR__ . '/../../engagement-cloud.php';
+require_once __DIR__ . '/../../inc/autoloader.php';

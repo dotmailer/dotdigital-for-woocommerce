@@ -76,6 +76,7 @@
 								}
 							}, error: function(data){
 								$( ".ec-error-msg" ).css( "display","block" );
+								$( ".ec-error-msg" ).fadeIn( 'fast' ).delay( 3000 ).fadeOut( 'slow' );
 							}
 						}
 					);

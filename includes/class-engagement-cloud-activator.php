@@ -9,6 +9,10 @@
  * @subpackage EngagementCloud/includes
  */
 
+namespace Engagement_Cloud\Includes;
+
+use Engagement_Cloud\Admin\Engagement_Cloud_Upgrader;
+
 /**
  * Fired during plugin activation.
  *

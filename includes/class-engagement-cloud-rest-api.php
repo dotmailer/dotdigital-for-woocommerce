@@ -9,10 +9,11 @@
  * @subpackage EngagementCloud/includes
  */
 
-/**
- * Require the Engagement_Cloud_Rest_Unsubscribe class.
- */
-require_once plugin_dir_path( __FILE__ ) . 'rest-api/class-engagement-cloud-rest-unsubscribe.php';
+namespace Engagement_Cloud\Includes;
+
+use Engagement_Cloud\Includes\RestApi\Engagement_Cloud_Rest_Unsubscribe;
+use Engagement_Cloud\Engagement_Cloud_Bootstrapper;
+use WP_REST_Response;
 
 /**
  * Class Engagement_Cloud_Rest_Api
@@ -61,6 +62,7 @@ class Engagement_Cloud_Rest_Api {
 			array(
 				'methods'  => 'GET',
 				'callback' => array( new Engagement_Cloud_Rest_Unsubscribe( $this->plugin_name ), 'unsubscribe' ),
+				'permission_callback' => '__return_true',
 				'args'     => array(
 					'email'     => array(
 						'required' => true,

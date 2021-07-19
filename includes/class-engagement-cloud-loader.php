@@ -9,6 +9,8 @@
  * @subpackage EngagementCloud/includes
  */
 
+namespace Engagement_Cloud\Includes;
+
 /**
  * Register all actions and filters for the plugin.
  *

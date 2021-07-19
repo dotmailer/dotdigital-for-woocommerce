@@ -9,6 +9,11 @@
  * @subpackage EngagementCloud/admin
  */
 
+namespace Engagement_Cloud\Admin;
+
+use Engagement_Cloud\Admin\Partials\Engagement_Cloud_Admin_Display;
+use Engagement_Cloud\Engagement_Cloud_Bootstrapper;
+
 /**
  * The admin-specific functionality of the plugin.
  *

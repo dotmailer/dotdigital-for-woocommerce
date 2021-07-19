@@ -45,12 +45,21 @@
  * SOFTWARE.
  */
 
+namespace Engagement_Cloud;
+
+use Engagement_Cloud\Includes\Engagement_Cloud;
+use Engagement_Cloud\Includes\Engagement_Cloud_Deactivator;
+use Engagement_Cloud\Includes\Engagement_Cloud_Activator;
+
 // If this file is called directly, abort.
 if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
 define( 'EC_FOR_WOOCOMMERCE_PLUGIN_VERSION', '1.2.0' );
+define( 'PLUGIN_DIR_PATH', __DIR__ );
+
+require_once 'inc/autoloader.php';
 
 /**
  * Used to bootstrap the Engagement Cloud plugin.
@@ -102,7 +111,6 @@ class Engagement_Cloud_Bootstrapper {
 	 * This action is documented in includes/class-engagement-cloud-activator.php
 	 */
 	public static function activate_engagement_cloud() {
-		require_once plugin_dir_path( __FILE__ ) . 'includes/class-engagement-cloud-activator.php';
 		( new Engagement_Cloud_Activator( self::$plugin_name, self::$tracking_url, self::get_version() ) )->activate();
 	}
 
@@ -111,7 +119,6 @@ class Engagement_Cloud_Bootstrapper {
 	 * This action is documented in includes/class-engagement-cloud-deactivator.php
 	 */
 	public static function deactivate_engagement_cloud() {
-		require_once plugin_dir_path( __FILE__ ) . 'includes/class-engagement-cloud-deactivator.php';
 		( new Engagement_Cloud_Deactivator( self::$plugin_name, self::$tracking_url ) )->deactivate();
 	}
 
@@ -129,8 +136,6 @@ class Engagement_Cloud_Bootstrapper {
 		 * The core plugin class that is used to define internationalization,
 		 * admin-specific hooks, and public-facing site hooks.
 		 */
-		require plugin_dir_path( __FILE__ ) . 'includes/class-engagement-cloud.php';
-
 		( new Engagement_Cloud( self::$plugin_name, plugin_basename( __FILE__ ), self::$webapp_url, self::get_version(), self::$tracking_url ) )->run();
 	}
 

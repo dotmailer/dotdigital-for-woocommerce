@@ -12,6 +12,8 @@
  * @subpackage EngagementCloud/includes
  */
 
+namespace Engagement_Cloud\Includes;
+
 /**
  * Define the internationalization functionality.
  *

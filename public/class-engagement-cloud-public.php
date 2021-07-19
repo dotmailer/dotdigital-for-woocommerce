@@ -9,6 +9,12 @@
  * @subpackage EngagementCloud/public
  */
 
+namespace Engagement_Cloud\Pub;
+
+use Engagement_Cloud\Includes\Subscriber\Engagement_Cloud_Subscriber;
+use Engagement_Cloud\Includes\Subscriber\Engagement_Cloud_Form_Handler;
+use Engagement_Cloud\Includes\Widgets\Engagement_Cloud_Widget;
+
 /**
  * The public-facing functionality of the plugin.
  *
@@ -128,6 +134,6 @@ class Engagement_Cloud_Public {
 	 * @since 1.2.0
 	 */
 	public function ec_register_signup_widget() {
-		register_widget( 'Engagement_Cloud_Widget' );
+		register_widget( new Engagement_Cloud_Widget() );
 	}
 }

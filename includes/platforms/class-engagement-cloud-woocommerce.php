@@ -10,6 +10,12 @@
  * @author     dotdigital <integrations@dotdigital.com>
  */
 
+namespace Engagement_Cloud\Includes\Platforms;
+
+use WooCommerce;
+use Engagement_Cloud\Engagement_Cloud_Bootstrapper;
+use Engagement_Cloud\Includes\Subscriber\Engagement_Cloud_Subscriber;
+
 /**
  * Class Engagement_Cloud_WooCommerce
  */

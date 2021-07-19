@@ -9,6 +9,12 @@
  * @subpackage EngagementCloud/admin
  */
 
+namespace Engagement_Cloud\Admin;
+
+use Engagement_Cloud\Engagement_Cloud_Bootstrapper;
+use Engagement_Cloud\Includes\Engagement_Cloud_Rest_Api;
+use Engagement_Cloud\Admin\Engagement_Cloud_Migrator;
+
 /**
  * Class Engagement_Cloud_Upgrader
  */
@@ -159,7 +165,6 @@ class Engagement_Cloud_Upgrader {
 		if ( version_compare( $this->stored_version, '1.2.0', '<' ) ) {
 			$this->create_subscriber_table();
 
-			require_once( 'class-engagement-cloud-migrator.php' );
 			$migrator = new Engagement_Cloud_Migrator();
 			$migrator->migrate_users_to_subscriber_table();
 		}
@@ -203,6 +208,33 @@ class Engagement_Cloud_Upgrader {
 
 		require_once ABSPATH . 'wp-admin/includes/upgrade.php';
 		dbDelta( $sql );
+	}
+
+	/**
+	 * Fetch existing subscribed users to ec_subscribers table
+	 *
+	 * @since 1.0.0
+	 * @package dotdigital
+	 */
+	private function migrate_users_to_subscriber_table() {
+		global $wpdb;
+		$table_name = $wpdb->prefix . Engagement_Cloud_Bootstrapper::SUBSCRIBERS_TABLE_NAME;
+
+		// Do not overwrite existing.
+		$result = $wpdb->get_results( "SELECT id from {$table_name} LIMIT 1" ); // phpcs:ignore WordPress.DB
+		if ( count( $result ) !== 0 ) {
+			return;
+		}
+
+		$sql = "SELECT ID, user_email FROM {$wpdb->prefix}users
+            	INNER JOIN {$wpdb->prefix}usermeta ON {$wpdb->prefix}usermeta.user_id = {$wpdb->prefix}users.ID 
+            	WHERE {$wpdb->prefix}usermeta.meta_key = '_wc_subscribed_to_newsletter'
+            	AND {$wpdb->prefix}usermeta.meta_value = 1
+        ";
+
+		$date = current_time( 'mysql' );
+		$wpdb->query( "INSERT INTO {$table_name} (user_id, email) {$sql}" ); // phpcs:ignore WordPress.DB
+		$wpdb->query( "UPDATE {$table_name} set status=1, created_at='{$date}', updated_at='{$date}'" ); // phpcs:ignore WordPress.DB
 	}
 
 	/**

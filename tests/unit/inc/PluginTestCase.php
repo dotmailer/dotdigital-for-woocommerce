@@ -1,4 +1,5 @@
 <?php
+namespace Engagement_Cloud\Tests\Unit\Inc;
 
 use PHPUnit\Framework\TestCase;
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
@@ -18,18 +19,27 @@ class PluginTestCase extends TestCase {
 	 */
 	public function setUp() {
 		parent::setUp();
+		$_POST = array();
 		Monkey\setUp();
-		// A few common passthrough
-		// 1. WordPress i18n functions
+
 		Monkey\Functions\when( '__' )
 			->returnArg( 1 );
 		Monkey\Functions\when( '_e' )
 			->returnArg( 1 );
 		Monkey\Functions\when( '_n' )
 			->returnArg( 1 );
-
-		//require_once __DIR__ . '/../../../engagement-cloud.php';
-		require_once __DIR__ . '/../../../admin/class-engagement-cloud-upgrader.php';
+		Monkey\Functions\when( 'plugin_dir_path' )
+			->returnArg( 1 );
+		Monkey\Functions\when( 'register_activation_hook' )
+			->returnArg( 1 );
+		Monkey\Functions\when( 'register_deactivation_hook' )
+			->returnArg( 1 );
+		Monkey\Functions\when( 'plugin_basename' )
+			->returnArg( 1 );
+		Monkey\Functions\when( 'update_option' )
+			->returnArg( 1 );
+		Monkey\Functions\when( 'apply_filters' )
+			->justReturn( array() );
 	}
 
 	/**

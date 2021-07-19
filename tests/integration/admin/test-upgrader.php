@@ -5,10 +5,15 @@
  * @package Engagement_Cloud_For_Woocommerce
  */
 
+namespace Engagement_Cloud\Tests\Integration\Admin;
+
+use Engagement_Cloud\Admin\Engagement_Cloud_Upgrader;
+use Engagement_Cloud\Engagement_Cloud_Bootstrapper;
+
 /**
  * Upgrader test.
  */
-class UpgraderTest extends WP_UnitTestCase {
+class UpgraderTest extends \WP_UnitTestCase {
 
 	/**
 	 * @var Engagement_Cloud_Upgrader

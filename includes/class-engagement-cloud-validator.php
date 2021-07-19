@@ -9,6 +9,8 @@
  * @subpackage EngagementCloud/includes
  */
 
+namespace Engagement_Cloud\Includes;
+
 /**
  * Fired during plugin validation.
  *

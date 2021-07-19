@@ -1,5 +1,6 @@
 .vscode/
 vendor/
+/vendor/**/.git
 .settings/org.eclipse.wst.validation.prefs
 .buildpath
 .project

@@ -9,6 +9,10 @@
  * @subpackage EngagementCloud/admin
  */
 
+namespace Engagement_Cloud\Admin;
+
+use Engagement_Cloud\Engagement_Cloud_Bootstrapper;
+
 /**
  * Class Engagement_Cloud_Upgrader
  */
