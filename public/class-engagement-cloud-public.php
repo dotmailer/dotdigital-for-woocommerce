@@ -101,7 +101,7 @@ class Engagement_Cloud_Public {
 		 * class.
 		 */
 
-		wp_enqueue_script( 'engagement_cloud_public_js', plugin_dir_url( __FILE__ ) . 'js/engagement-cloud-public.js', array( 'jquery' ), $this->version, false );
+		wp_enqueue_script( 'engagement_cloud_public_js', plugin_dir_url( __FILE__ ) . 'js/engagement-cloud-public.js', array( 'jquery' ), $this->version, true );
 	}
 
 	/**
