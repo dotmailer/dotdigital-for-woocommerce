@@ -50,6 +50,7 @@ class Engagement_Cloud_Form_Handler {
 						'message' => 'Invalid email address',
 					)
 				);
+				return;
 			}
 
 			$subscriber_data = array(
@@ -61,6 +62,7 @@ class Engagement_Cloud_Form_Handler {
 
 			if ( $subscribed ) {
 				wp_send_json( array( 'success' => 1 ) );
+				return;
 			}
 		}
 		wp_send_json(

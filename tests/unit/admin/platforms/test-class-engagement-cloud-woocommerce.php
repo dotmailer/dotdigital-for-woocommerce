@@ -1,14 +1,20 @@
 <?php
 
-namespace Engagement_Cloud\Tests\Unit;
+namespace Engagement_Cloud\Tests\Unit\Admin\Platforms;
 
+use Brain\Monkey;
 use Brain\Monkey\Functions;
 use Engagement_Cloud\Tests\Unit\Inc\PluginTestCase;
 use Engagement_Cloud\Includes\Platforms\Engagement_Cloud_WooCommerce;
-use Engagement_Cloud\Engagement_Cloud_Bootstrapper;
-use WC_Order;
 
 class TestEngagementCloudWoocommerce extends PluginTestCase {
+
+    public function setUp() {
+        parent::setUp();
+
+        Monkey\Functions\when( 'get_option' )
+            ->justReturn( 1 );
+    }
 
 	public function test_engagement_cloud_handle_checkout_subscription_that_updates_the_record_if_subscriber_match() {
 		$ec_woocommerce_class = new Engagement_Cloud_WooCommerce();
