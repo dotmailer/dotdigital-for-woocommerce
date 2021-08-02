@@ -75,16 +75,20 @@ class Engagement_Cloud_Upgrader {
 
 	/**
 	 * Check if we need to upgrade the database.
+	 *
+	 * @return bool If we did upgrade, return true.
 	 */
 	public function upgrade_check() {
 		$this->stored_version = get_option( 'engagement_cloud_for_woocommerce_version' );
 		if ( version_compare( $this->stored_version, $this->version, '>=' ) ) {
-			return;
+			return false;
 		}
 
 		$this->upgrade();
 		$this->notify();
 		$this->set_plugin_version();
+
+		return true;
 	}
 
 	/**
@@ -100,7 +104,7 @@ class Engagement_Cloud_Upgrader {
 	/**
 	 * Notify Engagement Cloud of the upgrade.
 	 */
-	private function notify() {
+	public function notify() {
 		$service      = new Engagement_Cloud_Rest_Api( $this->plugin_name );
 		$callback_url = $service->get_rest_callback_url();
 		$plugin_id    = $this->generate_and_store_plugin_id();

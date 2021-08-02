@@ -153,7 +153,7 @@ class Engagement_Cloud_Bootstrapper {
 	}
 }
 
-register_activation_hook( __FILE__, array( 'Engagement_Cloud_Bootstrapper', 'activate_engagement_cloud' ) );
-register_deactivation_hook( __FILE__, array( 'Engagement_Cloud_Bootstrapper', 'deactivate_engagement_cloud' ) );
+register_activation_hook( __FILE__, array( 'Engagement_Cloud\Engagement_Cloud_Bootstrapper', 'activate_engagement_cloud' ) );
+register_deactivation_hook( __FILE__, array( 'Engagement_Cloud\Engagement_Cloud_Bootstrapper', 'deactivate_engagement_cloud' ) );
 
 Engagement_Cloud_Bootstrapper::run_engagement_cloud();

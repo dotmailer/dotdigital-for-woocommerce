@@ -79,6 +79,9 @@ class Engagement_Cloud_Activator {
 	 */
 	public function activate() {
 		$plugin_upgrader = new Engagement_Cloud_Upgrader( $this->plugin_name, $this->version, $this->tracking_url );
-		$plugin_upgrader->upgrade_check();
+		$upgrade = $plugin_upgrader->upgrade_check();
+		if ( ! $upgrade ) {
+			$plugin_upgrader->notify();
+		}
 	}
 }
