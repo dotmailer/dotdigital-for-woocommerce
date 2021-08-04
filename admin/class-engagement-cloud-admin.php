@@ -178,8 +178,56 @@ class Engagement_Cloud_Admin {
 	 * @since    1.2.0
 	 */
 	public function register_settings() {
+		$this->register_settings_for_marketing_subscription();
+		$this->register_settings_for_tracking();
+	}
+
+	/**
+	 * A template for a checkbox field.
+	 *
+	 * @param array $args An array of arguments.
+	 */
+	public function settings_page_render_checkbox( $args ) {
+		$value = get_option( $args['id'], $args['default_value'] );
+		echo '<input type="checkbox" id="' . $args['id'] . '" name="' . $args['name'] . '" value="1"' . checked( 1, $value, false ) . '/>'; // phpcs:ignore WordPress.Security
+	}
+
+	/**
+	 * A template for a text input field.
+	 *
+	 * @param array $args An array of arguments.
+	 */
+	public function settings_page_render_text_input( $args ) {
+		$value = get_option( $args['id'], $args['default_value'] );
+		echo '<input type="text" id="' . $args['id'] . '" name="' . $args['name'] . '" value="' . esc_attr( $value ) . '" size="40" />'; // phpcs:ignore WordPress.Security
+	}
+
+	/**
+	 * A template for a dropdown field.
+	 *
+	 * @param array $args An array of arguments.
+	 */
+	public function settings_page_render_dropdown( $args ) {
+		$selected_region = get_option( $args['name'], $args['default_value'] );
+		?>
+			<select id='<?php echo sanitize_key( $args['id'] ); ?>' name='<?php echo sanitize_key( $args['name'] ); ?>'>
+		<?php
+		foreach ( $args['items'] as $value => $label ) {
+			?>
+			<option value='<?php echo sanitize_key( $value ); ?>' <?php selected( $selected_region, $value ); ?>><?php echo esc_html( $label ); ?></option>
+			<?php
+		}
+		echo '</select>';
+	}
+
+	/**
+	 * Register settings for marketing subscription.
+	 *
+	 * @since 1.2.0
+	 */
+	private function register_settings_for_marketing_subscription() {
 		/**
-		 * Add settings section.
+		 * Add settings section for marketing subscription.
 		 */
 		add_settings_section(
 			'ec_woo_settings_page_general_section',
@@ -253,22 +301,66 @@ class Engagement_Cloud_Admin {
 	}
 
 	/**
-	 * A template for a checkbox field.
+	 * Register settings for tracking section.
 	 *
-	 * @param array $args An array of arguments.
+	 * @since 1.2.0
 	 */
-	public function settings_page_render_checkbox( $args ) {
-		$value = get_option( $args['id'], $args['default_value'] );
-		echo '<input type="checkbox" id="' . $args['id'] . '" name="' . $args['name'] . '" value="1"' . checked( 1, $value, false ) . '/>'; // phpcs:ignore WordPress.Security
-	}
+	private function register_settings_for_tracking() {
+		/**
+		 * Add settings section for tracking.
+		 */
+		add_settings_section(
+			'ec_woo_settings_page_tracking_section',
+			'Tracking',
+			null,
+			$this->plugin_name . '-settings'
+		);
 
-	/**
-	 * A template for a text input field.
-	 *
-	 * @param array $args An array of arguments.
-	 */
-	public function settings_page_render_text_input( $args ) {
-		$value = get_option( $args['id'], $args['default_value'] );
-		echo '<input type="text" id="' . $args['id'] . '" name="' . $args['name'] . '" value="' . esc_attr( $value ) . '" size="40" />'; // phpcs:ignore WordPress.Security
+		/**
+		 * Add settings field [enable site and roi tracking].
+		 */
+		add_settings_field(
+			'engagement_cloud_for_woocommerce_settings_enable_site_and_roi_tracking',
+			'Enable site and ROI tracking',
+			array( $this, 'settings_page_render_checkbox' ),
+			$this->plugin_name . '-settings',
+			'ec_woo_settings_page_tracking_section',
+			array(
+				'id'            => 'engagement_cloud_for_woocommerce_settings_enable_site_and_roi_tracking',
+				'name'          => 'engagement_cloud_for_woocommerce_settings_enable_site_and_roi_tracking',
+				'default_value' => Engagement_Cloud_Bootstrapper::DEFAULT_SITE_AND_ROI_TRACKING_ENABLED,
+			)
+		);
+
+		register_setting(
+			$this->plugin_name . '-settings',
+			'engagement_cloud_for_woocommerce_settings_enable_site_and_roi_tracking'
+		);
+
+		/**
+		 * Add register and settings field for region dropdown.
+		 */
+		register_setting(
+			$this->plugin_name . '-settings',
+			'engagement_cloud_for_woocommerce_settings_region'
+		);
+
+		add_settings_field(
+			'selected_region',
+			'Select Region',
+			array( $this, 'settings_page_render_dropdown' ),
+			$this->plugin_name . '-settings',
+			'ec_woo_settings_page_tracking_section',
+			array(
+				'id' => 'engagement_cloud_for_woocommerce_settings_region',
+				'name' => 'engagement_cloud_for_woocommerce_settings_region',
+				'default_value' => Engagement_Cloud_Bootstrapper::DEFAULT_REGION,
+				'items' => array(
+					'1' => 'Region 1',
+					'2' => 'Region 2',
+					'3' => 'Region 3',
+				),
+			)
+		);
 	}
 }

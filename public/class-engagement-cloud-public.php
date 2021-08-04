@@ -14,6 +14,8 @@ namespace Engagement_Cloud\Pub;
 use Engagement_Cloud\Includes\Subscriber\Engagement_Cloud_Subscriber;
 use Engagement_Cloud\Includes\Subscriber\Engagement_Cloud_Form_Handler;
 use Engagement_Cloud\Includes\Widgets\Engagement_Cloud_Widget;
+use Engagement_Cloud\Includes\Tracking\Engagement_Cloud_Roi;
+use Engagement_Cloud\Engagement_Cloud_Bootstrapper;
 
 /**
  * The public-facing functionality of the plugin.
@@ -56,7 +58,6 @@ class Engagement_Cloud_Public {
 
 		$this->plugin_name = $plugin_name;
 		$this->version     = $version;
-
 	}
 
 	/**
@@ -102,19 +103,8 @@ class Engagement_Cloud_Public {
 		 */
 
 		wp_enqueue_script( 'engagement_cloud_public_js', plugin_dir_url( __FILE__ ) . 'js/engagement-cloud-public.js', array( 'jquery' ), $this->version, true );
-	}
-
-	/**
-	 * Initialize ajax_url and nonce params in form ajax request
-	 *
-	 * @since 1.2.0
-	 */
-	public function ajax_form_scripts() {
-		$translation_array = array(
-			'ajax_url' => admin_url( 'admin-ajax.php' ),
-			'nonce'    => wp_create_nonce( 'subscribe_to_newsletter' ),
-		);
-		wp_localize_script( 'engagement_cloud_public_js', 'cpm_object', $translation_array );
+		$this->ajax_form_scripts();
+		$this->add_tracking_and_roi_script();
 	}
 
 	/**
@@ -123,7 +113,7 @@ class Engagement_Cloud_Public {
 	 * @since 1.2.0
 	 */
 	public function subscribe_to_newsletter() {
-		$subscriber  = new Engagement_Cloud_Subscriber();
+		$subscriber   = new Engagement_Cloud_Subscriber();
 		$form_handler = new Engagement_Cloud_Form_Handler( $subscriber );
 		$form_handler->subscribe();
 	}
@@ -135,5 +125,62 @@ class Engagement_Cloud_Public {
 	 */
 	public function ec_register_signup_widget() {
 		register_widget( new Engagement_Cloud_Widget() );
+	}
+
+	/**
+	 * Initialize ajax_url and nonce params in form ajax request
+	 *
+	 * @since 1.2.0
+	 */
+	private function ajax_form_scripts() {
+		$translation_array = array(
+			'ajax_url' => admin_url( 'admin-ajax.php' ),
+			'nonce'    => wp_create_nonce( 'subscribe_to_newsletter' ),
+		);
+		wp_localize_script( 'engagement_cloud_public_js', 'cpm_object', $translation_array );
+	}
+
+	/**
+	 * Adds tracking and roi script in the footer.
+	 *
+	 * @since 1.2.0
+	 */
+	private function add_tracking_and_roi_script() {
+		if ( ! get_option(
+			'engagement_cloud_for_woocommerce_settings_enable_site_and_roi_tracking',
+			Engagement_Cloud_Bootstrapper::DEFAULT_SITE_AND_ROI_TRACKING_ENABLED
+		) ) {
+			return;
+		}
+
+		$region = get_option(
+			'engagement_cloud_for_woocommerce_select_region',
+			Engagement_Cloud_Bootstrapper::DEFAULT_REGION
+		);
+
+		$src = sprintf( '//r%s-t.trackedlink.net/_dmpt.js', $region );
+		wp_enqueue_script( 'tracking', $src, array(), $this->version, true );
+
+		if ( is_checkout() && is_wc_endpoint_url( 'order-received' ) ) {
+			$order_id = absint( get_query_var( 'order-received' ) );
+			$this->trigger_roi_script( $order_id );
+		}
+	}
+
+	/**
+	 * Triggers the roi script with the order details.
+	 *
+	 * @param int $order_id  Used to fetch the order details.
+	 *
+	 * @since 1.2.0
+	 */
+	private function trigger_roi_script( $order_id ) {
+		$roi_data_provider = new Engagement_Cloud_Roi();
+
+		if ( $order_id ) {
+			$order_data = $roi_data_provider->get_order_data( $order_id );
+			wp_enqueue_script( 'roi_tracking_js', plugin_dir_url( __FILE__ ) . 'js/roi-tracking.js', array(), $this->version, true );
+			wp_localize_script( 'roi_tracking_js', 'order_data', $order_data );
+		}
 	}
 }

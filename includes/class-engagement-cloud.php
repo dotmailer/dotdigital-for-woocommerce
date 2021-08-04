@@ -133,10 +133,6 @@ class Engagement_Cloud {
 	 * @access   private
 	 */
 	private function load_dependencies() {
-		/**
-		 * Widget registration.
-		 */
-		// $widget = new Engagement_Cloud_Widget();
 		$this->loader = new Engagement_Cloud_Loader();
 	}
 
@@ -218,7 +214,6 @@ class Engagement_Cloud {
 		$this->loader->add_action( 'widgets_init', $plugin_public, 'ec_register_signup_widget' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
-		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'ajax_form_scripts' );
 		$this->loader->add_action( 'wp_ajax_subscribe_to_newsletter', $plugin_public, 'subscribe_to_newsletter' );
 		$this->loader->add_action( 'wp_ajax_nopriv_subscribe_to_newsletter', $plugin_public, 'subscribe_to_newsletter' );
 	}

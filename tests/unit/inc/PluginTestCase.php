@@ -20,6 +20,7 @@ class PluginTestCase extends TestCase {
 	public function setUp() {
 		parent::setUp();
 		$_POST = array();
+		$_GET = array();
 		Monkey\setUp();
 
 		Monkey\Functions\when( '__' )

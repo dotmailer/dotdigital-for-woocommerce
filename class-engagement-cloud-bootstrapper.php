@@ -77,7 +77,9 @@ class Engagement_Cloud_Bootstrapper {
 
 	const DEFAULT_MARKETING_CHECKBOX_DISPLAY_AT_CHECKOUT = 1;
 	const DEFAULT_MARKETING_CHECKBOX_DISPLAY_AT_REGISTER = 1;
+	const DEFAULT_SITE_AND_ROI_TRACKING_ENABLED = 1;
 	const DEFAULT_MARKETING_CHECKBOX_TEXT = 'Subscribe to our newsletter';
+	const DEFAULT_REGION = 1;
 
 	/**
 	 * The unique identifier of this plugin.
