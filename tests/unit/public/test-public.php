@@ -25,7 +25,7 @@ class Engagement_Cloud_Public_Test extends PluginTestCase
 
         Functions\expect( 'get_option' )
             ->once()
-            ->with( 'engagement_cloud_for_woocommerce_select_region', Engagement_Cloud_Bootstrapper::DEFAULT_REGION  )
+            ->with( 'engagement_cloud_for_woocommerce_settings_region', Engagement_Cloud_Bootstrapper::DEFAULT_REGION  )
             ->andReturn( Engagement_Cloud_Bootstrapper::DEFAULT_REGION );
 
         Functions\expect( 'plugin_dir_url' )

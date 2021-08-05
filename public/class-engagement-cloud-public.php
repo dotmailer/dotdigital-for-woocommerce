@@ -154,7 +154,7 @@ class Engagement_Cloud_Public {
 		}
 
 		$region = get_option(
-			'engagement_cloud_for_woocommerce_select_region',
+			'engagement_cloud_for_woocommerce_settings_region',
 			Engagement_Cloud_Bootstrapper::DEFAULT_REGION
 		);
 
