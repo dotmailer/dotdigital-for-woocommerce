@@ -53,13 +53,13 @@ class Engagement_Cloud_Public_Test extends PluginTestCase
             ->with( 'engagement_cloud_for_woocommerce_settings_enable_site_and_roi_tracking', Engagement_Cloud_Bootstrapper::DEFAULT_SITE_AND_ROI_TRACKING_ENABLED  )
             ->andReturn( true );
 
-        $translation_array = array(
+	    $props = array(
             'ajax_url' => $admin_url,
             'nonce'    => $nonce_value,
         );
 
         Functions\expect( 'wp_localize_script' )
-            ->with( 'engagement_cloud_public_js', 'cpm_object', $translation_array  );
+            ->with( 'engagement_cloud_public_js', 'ec_ajax_handler', $props );
 
         $this->public_class = new Engagement_Cloud_Public('Plugin_name', null);
 
@@ -74,7 +74,6 @@ class Engagement_Cloud_Public_Test extends PluginTestCase
 
         Functions\expect( 'is_wc_endpoint_url' )
             ->andReturn( false );
-
 
         $this->public_class->enqueue_scripts();
     }

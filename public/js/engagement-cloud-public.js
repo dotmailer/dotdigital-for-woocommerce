@@ -44,13 +44,13 @@
 					e.preventDefault();
 					$.ajax(
 						{
-							url: cpm_object.ajax_url,
+							url: ec_ajax_handler.ajax_url,
 							type: 'POST',
 							dataType: 'text',
 							data: {
 								action: 'subscribe_to_newsletter',
 								email: $( "#ec-email" ).val(),
-								nonce: cpm_object.nonce
+								nonce: ec_ajax_handler.nonce
 							},
 							beforeSend: function() {
 								$("#ec-submit").prop('disabled', true);

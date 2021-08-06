@@ -81,6 +81,8 @@ class Engagement_Cloud_Bootstrapper {
 	const DEFAULT_MARKETING_CHECKBOX_TEXT = 'Subscribe to our newsletter';
 	const DEFAULT_REGION = 1;
 
+	const DEFAULT_ABANDONED_CART_ALLOW_NON_SUBSCRIBERS = 1;
+
 	/**
 	 * The unique identifier of this plugin.
 	 *

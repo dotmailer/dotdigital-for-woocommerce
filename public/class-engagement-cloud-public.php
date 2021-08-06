@@ -11,6 +11,8 @@
 
 namespace Engagement_Cloud\Pub;
 
+use Engagement_Cloud\Includes\Cart\Engagement_Cloud_Cart;
+use Engagement_Cloud\Includes\Cart\Engagement_Cloud_Cart_Insight_Handler;
 use Engagement_Cloud\Includes\Subscriber\Engagement_Cloud_Subscriber;
 use Engagement_Cloud\Includes\Subscriber\Engagement_Cloud_Form_Handler;
 use Engagement_Cloud\Includes\Widgets\Engagement_Cloud_Widget;
@@ -102,9 +104,14 @@ class Engagement_Cloud_Public {
 		 * class.
 		 */
 
+		/**
+		 * Main storefront JS
+		 */
 		wp_enqueue_script( 'engagement_cloud_public_js', plugin_dir_url( __FILE__ ) . 'js/engagement-cloud-public.js', array( 'jquery' ), $this->version, true );
+
 		$this->ajax_form_scripts();
 		$this->add_tracking_and_roi_script();
+		$this->setup_scripts_for_cart_insight();
 	}
 
 	/**
@@ -132,12 +139,42 @@ class Engagement_Cloud_Public {
 	 *
 	 * @since 1.2.0
 	 */
-	private function ajax_form_scripts() {
-		$translation_array = array(
+	public function ajax_form_scripts() {
+		$props = array(
 			'ajax_url' => admin_url( 'admin-ajax.php' ),
 			'nonce'    => wp_create_nonce( 'subscribe_to_newsletter' ),
 		);
-		wp_localize_script( 'engagement_cloud_public_js', 'cpm_object', $translation_array );
+		wp_localize_script( 'engagement_cloud_public_js', 'ec_ajax_handler', $props );
+	}
+
+
+	/**
+	 * Purges the cart_id meta for the current user.
+	 */
+	public function clean_cart_id() {
+		if ( is_checkout() && is_wc_endpoint_url( 'order-received' ) ) {
+			( new Engagement_Cloud_Cart() )->delete_cart_id();
+		}
+	}
+
+	/**
+	 * Triggered by a Woo AJAX add to cart event.
+	 */
+	public function add_to_cart() {
+		$cart_insight_handler = new Engagement_Cloud_Cart_Insight_Handler();
+		$cart_insight_data = array();
+
+		if ( $cart_insight_handler->can_send_cart_insight() ) {
+			$cart_insight_data = $cart_insight_handler
+				->get_data_provider()
+				->get_payload();
+		}
+
+		wp_send_json(
+			array(
+				'data' => $cart_insight_data,
+			)
+		);
 	}
 
 	/**
@@ -182,5 +219,47 @@ class Engagement_Cloud_Public {
 			wp_enqueue_script( 'roi_tracking_js', plugin_dir_url( __FILE__ ) . 'js/roi-tracking.js', array(), $this->version, true );
 			wp_localize_script( 'roi_tracking_js', 'order_data', $order_data );
 		}
+	}
+
+	/**
+	 * Set up scripts for Web Behaviour Tracking and Cart Insight.
+	 */
+	private function setup_scripts_for_cart_insight() {
+
+		$wbt_profile_id = get_option(
+			'engagement_cloud_for_woocommerce_settings_web_behaviour_tracking_profile_id'
+		);
+
+		if ( ! $wbt_profile_id ) {
+			return;
+		}
+
+		wp_enqueue_script( 'wbt', plugin_dir_url( __FILE__ ) . 'js/tracking/web-behaviour-tracking.js', array(), $this->version, true );
+		wp_localize_script(
+			'wbt',
+			'wbt_data',
+			array(
+				'profile_id' => $wbt_profile_id,
+			)
+		);
+
+		$cart_insight_handler = new Engagement_Cloud_Cart_Insight_Handler();
+		$cart_insight_data    = array();
+
+		if ( $cart_insight_handler->can_send_cart_insight() ) {
+			$cart_insight_data = $cart_insight_handler
+				->get_data_provider()
+				->get_payload();
+		}
+
+		wp_enqueue_script( 'cart_insight', plugin_dir_url( __FILE__ ) . 'js/tracking/cart-insight.js', array( 'jquery' ), $this->version, true );
+		wp_localize_script(
+			'cart_insight',
+			'cart_insight',
+			array(
+				'data'     => $cart_insight_data,
+				'ajax_url' => admin_url( 'admin-ajax.php' ),
+			)
+		);
 	}
 }

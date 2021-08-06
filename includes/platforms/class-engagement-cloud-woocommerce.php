@@ -14,6 +14,7 @@ namespace Engagement_Cloud\Includes\Platforms;
 
 use WooCommerce;
 use Engagement_Cloud\Engagement_Cloud_Bootstrapper;
+use Engagement_Cloud\Includes\Cart\Engagement_Cloud_Cart;
 use Engagement_Cloud\Includes\Subscriber\Engagement_Cloud_Subscriber;
 
 /**
@@ -184,6 +185,17 @@ class Engagement_Cloud_WooCommerce {
 			} elseif ( 0 === $items_count ) {
 				delete_user_meta( $user_id, $created_key );
 			}
+		}
+	}
+
+	/**
+	 * Set the cart id.
+	 */
+	public function ec_cart_init() {
+		$cart = new Engagement_Cloud_Cart();
+
+		if ( ! $cart->get_cart_id() ) {
+			$cart->set_cart_id();
 		}
 	}
 }

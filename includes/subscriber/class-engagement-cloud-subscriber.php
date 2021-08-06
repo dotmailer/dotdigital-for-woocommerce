@@ -84,4 +84,21 @@ class Engagement_Cloud_Subscriber {
 
 		return self::SUBSCRIPTION_SUCCESS;
 	}
+
+	/**
+	 * Check if the supplied email address is subscribed.
+	 *
+	 * @param string $email An email address.
+	 * @return bool
+	 */
+	public function is_subscribed( string $email ) {
+		global $wpdb;
+		$table_name = $wpdb->prefix . Engagement_Cloud_Bootstrapper::SUBSCRIBERS_TABLE_NAME;
+
+		$matching_subscriber = $wpdb->get_row(
+			$wpdb->prepare( "SELECT * FROM {$table_name} WHERE email = %s", $email ) // phpcs:ignore WordPress.DB
+		);
+
+		return (bool) $matching_subscriber;
+	}
 }
