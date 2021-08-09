@@ -3,10 +3,6 @@
 
 	var data = cart_insight.data;
 
-	if (data.length === 0 || ! data.cart_id) {
-		return;
-	}
-
 	if (data.customer_email) {
 		window.dmPt( "identify", data.customer_email );
 	}
@@ -14,6 +10,10 @@
 	cartInsight(data);
 
 	function cartInsight(data) {
+		if (!data.cart_id) {
+			return;
+		}
+
 		window.dmPt(
 			"cartInsight",
 			{
