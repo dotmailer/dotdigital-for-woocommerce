@@ -49,11 +49,26 @@ class Engagement_Cloud_Cart_Insight_Handler {
 	}
 
 	/**
+	 * Get cart insight data.
+	 *
+	 * @return array
+	 */
+	public function get_data() {
+		$cart_insight_data = array();
+
+		if ( $this->can_send_cart_insight() ) {
+			$cart_insight_data = $this->get_data_provider()->get_payload();
+		}
+
+		return $cart_insight_data;
+	}
+
+	/**
 	 * Get the appropriate class to collect data.
 	 *
 	 * @return Engagement_Cloud_Cart_Insight|Engagement_Cloud_Cart_Insight_Order_Complete
 	 */
-	public function get_data_provider() {
+	private function get_data_provider() {
 		if ( is_checkout() && is_wc_endpoint_url( 'order-received' ) ) {
 			$order_id = absint( get_query_var( 'order-received' ) );
 			return new Engagement_Cloud_Cart_Insight_Order_Complete( $order_id );

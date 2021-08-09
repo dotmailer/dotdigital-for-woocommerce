@@ -216,8 +216,8 @@ class Engagement_Cloud {
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
 		$this->loader->add_action( 'wp_ajax_subscribe_to_newsletter', $plugin_public, 'subscribe_to_newsletter' );
 		$this->loader->add_action( 'wp_ajax_nopriv_subscribe_to_newsletter', $plugin_public, 'subscribe_to_newsletter' );
-		$this->loader->add_action( 'wp_ajax_add_to_cart', $plugin_public, 'add_to_cart' );
-		$this->loader->add_action( 'wp_ajax_nopriv_add_to_cart', $plugin_public, 'add_to_cart' );
+		$this->loader->add_action( 'wp_ajax_update_cart', $plugin_public, 'update_cart' );
+		$this->loader->add_action( 'wp_ajax_nopriv_update_cart', $plugin_public, 'update_cart' );
 
 		$this->loader->add_action( 'wp_footer', $plugin_public, 'clean_cart_id' );
 	}

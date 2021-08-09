@@ -57,15 +57,15 @@
 	}
 
 	$(function() {
-		$(document.body).on(
-			'added_to_cart',
+		$( document.body ).on(
+			'added_to_cart removed_from_cart',
 			function () {
 				$.ajax({
 					url: cart_insight.ajax_url,
 					type: 'POST',
 					dataType: 'text',
 					data: {
-						action: 'add_to_cart'
+						action: 'update_cart'
 					},
 					success: function (response) {
 						var payload = $.parseJSON(response);

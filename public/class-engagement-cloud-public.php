@@ -158,21 +158,13 @@ class Engagement_Cloud_Public {
 	}
 
 	/**
-	 * Triggered by a Woo AJAX add to cart event.
+	 * Triggered by Woo AJAX events added_to_cart and removed_from_cart.
 	 */
-	public function add_to_cart() {
+	public function update_cart() {
 		$cart_insight_handler = new Engagement_Cloud_Cart_Insight_Handler();
-		$cart_insight_data = array();
-
-		if ( $cart_insight_handler->can_send_cart_insight() ) {
-			$cart_insight_data = $cart_insight_handler
-				->get_data_provider()
-				->get_payload();
-		}
-
 		wp_send_json(
 			array(
-				'data' => $cart_insight_data,
+				'data' => $cart_insight_handler->get_data(),
 			)
 		);
 	}
@@ -244,20 +236,13 @@ class Engagement_Cloud_Public {
 		);
 
 		$cart_insight_handler = new Engagement_Cloud_Cart_Insight_Handler();
-		$cart_insight_data    = array();
-
-		if ( $cart_insight_handler->can_send_cart_insight() ) {
-			$cart_insight_data = $cart_insight_handler
-				->get_data_provider()
-				->get_payload();
-		}
 
 		wp_enqueue_script( 'cart_insight', plugin_dir_url( __FILE__ ) . 'js/tracking/cart-insight.js', array( 'jquery' ), $this->version, true );
 		wp_localize_script(
 			'cart_insight',
 			'cart_insight',
 			array(
-				'data'     => $cart_insight_data,
+				'data'     => $cart_insight_handler->get_data(),
 				'ajax_url' => admin_url( 'admin-ajax.php' ),
 			)
 		);
