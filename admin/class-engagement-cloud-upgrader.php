@@ -106,10 +106,13 @@ class Engagement_Cloud_Upgrader {
 	 */
 	public function notify() {
 		$service      = new Engagement_Cloud_Rest_Api( $this->plugin_name );
-		$callback_url = $service->get_rest_callback_url();
-		$plugin_id    = $this->generate_and_store_plugin_id();
 
-		$this->send_plugin_id_and_callback_url_to_ec( $callback_url, $plugin_id );
+		$data = array(
+			'callback_url' => $service->get_rest_callback_url(),
+			'pluginid'     => $this->generate_and_store_plugin_id(),
+			'version' => $this->version,
+		);
+		wp_remote_post( "$this->tracking_url/e/woocommerce/enable?" . http_build_query( $data ) );
 	}
 
 	/**
@@ -137,21 +140,6 @@ class Engagement_Cloud_Upgrader {
 		}
 
 		return $plugin_id;
-	}
-
-	/**
-	 * Stores the plugin ID in the table and posts to Engagement Cloud
-	 * tracking site to notify that the plugin has been activated.
-	 *
-	 * @param string $callback_url A callback URL for EC requests.
-	 * @param string $plugin_id The plugin ID.
-	 */
-	private function send_plugin_id_and_callback_url_to_ec( $callback_url, $plugin_id ) {
-		$data = array(
-			'callback_url' => $callback_url,
-			'pluginid'     => $plugin_id,
-		);
-		wp_remote_post( "$this->tracking_url/e/woocommerce/enable?" . http_build_query( $data ) );
 	}
 
 	/**
