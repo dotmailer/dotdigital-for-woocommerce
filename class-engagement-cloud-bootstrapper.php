@@ -83,6 +83,12 @@ class Engagement_Cloud_Bootstrapper {
 
 	const DEFAULT_ABANDONED_CART_ALLOW_NON_SUBSCRIBERS = 1;
 
+	const WBT_PROFILE_ID_PATH = 'engagement_cloud_for_woocommerce_settings_web_behaviour_tracking_profile_id';
+	const WBT_STATUS_PATH = 'engagement_cloud_for_woocommerce_settings_web_behaviour_tracking_enabled';
+	const PROGRAM_ID_PATH = 'engagement_cloud_for_woocommerce_cart_insight_program_id';
+	const CART_DELAY_PATH = 'engagement_cloud_for_woocommerce_cart_insight_cart_delay';
+	const ALLOW_NON_SUBSCRIBERS_PATH = 'engagement_cloud_for_woocommerce_abandoned_cart_allow_non_subscribers';
+
 	/**
 	 * The unique identifier of this plugin.
 	 *
@@ -90,7 +96,7 @@ class Engagement_Cloud_Bootstrapper {
 	 * @access   private
 	 * @var      string    $plugin_name    The string used to uniquely identify this plugin.
 	 */
-	public static $plugin_name = 'dotdigital_engagement_cloud';
+	public static $plugin_name = 'dotdigital-engagement-cloud';
 
 	/**
 	 * Engagement Cloud URL.

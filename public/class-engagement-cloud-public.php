@@ -205,7 +205,7 @@ class Engagement_Cloud_Public {
 	private function setup_scripts_for_cart_insight() {
 
 		$wbt_profile_id = get_option(
-			'engagement_cloud_for_woocommerce_settings_web_behaviour_tracking_profile_id'
+			Engagement_Cloud_Bootstrapper::WBT_PROFILE_ID_PATH
 		);
 
 		if ( ! $wbt_profile_id ) {

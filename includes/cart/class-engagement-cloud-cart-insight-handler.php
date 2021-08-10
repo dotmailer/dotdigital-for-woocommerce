@@ -12,7 +12,6 @@
 namespace Engagement_Cloud\Includes\Cart;
 
 use Engagement_Cloud\Engagement_Cloud_Bootstrapper;
-use Engagement_Cloud\Includes\Cart\Engagement_Cloud_Cart;
 use Engagement_Cloud\Includes\Customer\Engagement_Cloud_Customer;
 use Engagement_Cloud\Includes\Subscriber\Engagement_Cloud_Subscriber;
 
@@ -28,11 +27,13 @@ class Engagement_Cloud_Cart_Insight_Handler {
 	 */
 	public function can_send_cart_insight() {
 		$cart = new Engagement_Cloud_Cart();
+		$abandoned_cart_program_id = get_option( Engagement_Cloud_Bootstrapper::PROGRAM_ID_PATH, null );
 
 		/**
-		 * If we haven't got a cart_id, that means we've no user OR there are no items in the cart
+		 * If we haven't got a cart_id, that means we've no user OR there are no items in the cart.
+		 * If we haven't got an abandoned cart program_id specified, that means we don't need to track abandoned cart.
 		 */
-		if ( empty( $cart->get_cart_id() ) ) {
+		if ( empty( $cart->get_cart_id() || ! $abandoned_cart_program_id ) ) {
 			return false;
 		}
 
@@ -44,7 +45,7 @@ class Engagement_Cloud_Cart_Insight_Handler {
 		}
 
 		if ( get_option(
-			'engagement_cloud_for_woocommerce_abandoned_cart_allow_non_subscribers',
+			Engagement_Cloud_Bootstrapper::ALLOW_NON_SUBSCRIBERS_PATH,
 			Engagement_Cloud_Bootstrapper::DEFAULT_ABANDONED_CART_ALLOW_NON_SUBSCRIBERS
 		) ) {
 			return true;

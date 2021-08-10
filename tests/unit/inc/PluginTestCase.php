@@ -41,7 +41,7 @@ class PluginTestCase extends TestCase {
 			->returnArg( 1 );
 		Monkey\Functions\when( 'apply_filters' )
 			->justReturn( array() );
-	}
+    }
 
 	/**
 	 * Teardown which calls \WP_Mock tearDown

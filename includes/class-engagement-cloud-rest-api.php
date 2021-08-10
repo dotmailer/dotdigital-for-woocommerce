@@ -11,14 +11,25 @@
 
 namespace Engagement_Cloud\Includes;
 
+use Engagement_Cloud\Includes\RestApi\Engagement_Cloud_Rest_Configurations;
 use Engagement_Cloud\Includes\RestApi\Engagement_Cloud_Rest_Unsubscribe;
 use Engagement_Cloud\Engagement_Cloud_Bootstrapper;
 use WP_REST_Response;
+use WP_REST_Controller;
+use WP_Error;
 
 /**
  * Class Engagement_Cloud_Rest_Api
  */
 class Engagement_Cloud_Rest_Api {
+
+	const EMAIL_PARAM = 'email';
+	const WBT_STATUS_PARAM = 'wbt_enabled';
+	const WBT_PROFILE_ID_PARAM = 'wbt_profile_id';
+	const PROGRAM_ID_PARAM = 'program_id';
+	const CART_DELAY_PARAM = 'cart_delay';
+	const ALLOW_NON_SUBSCRIBERS_PARAM = 'allow_non_subscribers';
+	const PLUGIN_ID_PARAM = 'plugin_id';
 
 	/**
 	 * The unique identifier of this plugin.
@@ -33,7 +44,7 @@ class Engagement_Cloud_Rest_Api {
 	 *
 	 * @var string
 	 */
-	private $namespace;
+	protected $namespace;
 
 	/**
 	 * API version.
@@ -49,7 +60,7 @@ class Engagement_Cloud_Rest_Api {
 	 */
 	public function __construct( $plugin_name ) {
 		$this->plugin_name = $plugin_name;
-		$this->namespace   = $plugin_name . '/' . $this->api_version;
+		$this->namespace   = 'wc-' . $plugin_name . '/' . $this->api_version;
 	}
 
 	/**
@@ -64,16 +75,64 @@ class Engagement_Cloud_Rest_Api {
 				'callback' => array( new Engagement_Cloud_Rest_Unsubscribe( $this->plugin_name ), 'unsubscribe' ),
 				'permission_callback' => '__return_true',
 				'args'     => array(
-					'email'     => array(
+					self::EMAIL_PARAM     => array(
 						'required' => true,
 					),
-					'plugin_id' => array(
+					self::PLUGIN_ID_PARAM => array(
 						'required'          => true,
 						'validate_callback' => array( $this, 'validate_plugin_id' ),
 					),
 				),
 			)
 		);
+
+		register_rest_route(
+			$this->namespace,
+			'/configure-store-settings',
+			array(
+				'methods' => \WP_REST_Server::CREATABLE,
+				'callback' => array( new Engagement_Cloud_Rest_Configurations( $this->plugin_name ), 'set_configurations' ),
+				'permission_callback' => array( $this, 'configure_settings_permissions_check' ),
+				'args' => array(
+					self::WBT_STATUS_PARAM     => array(
+						'type' => 'boolean',
+					),
+					self::WBT_PROFILE_ID_PARAM     => array(
+						'type' => 'string',
+					),
+					self::PROGRAM_ID_PARAM     => array(
+						'type' => 'number',
+					),
+					self::CART_DELAY_PARAM     => array(
+						'type' => 'number',
+					),
+					self::ALLOW_NON_SUBSCRIBERS_PARAM     => array(
+						'type' => 'boolean',
+					),
+					self::PLUGIN_ID_PARAM => array(
+						'required'          => true,
+						'validate_callback' => array( $this, 'validate_plugin_id' ),
+					),
+				),
+			)
+		);
+	}
+
+	/**
+	 * Check if current user perform the action.
+	 *
+	 * @return bool|WP_Error
+	 */
+	public function configure_settings_permissions_check() {
+		if ( ! ( current_user_can( 'manage_options' ) ) ) {
+			return new WP_Error(
+				'permissions_error',
+				__( 'Cannot update settings.', 'ec' ),
+				array( 'status' => 400 )
+			);
+		}
+
+		return true;
 	}
 
 	/**

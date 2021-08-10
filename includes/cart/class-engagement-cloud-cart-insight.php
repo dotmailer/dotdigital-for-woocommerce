@@ -11,7 +11,7 @@
 
 namespace Engagement_Cloud\Includes\Cart;
 
-use Engagement_Cloud\Includes\Cart\Engagement_Cloud_Cart;
+use Engagement_Cloud\Engagement_Cloud_Bootstrapper;
 use Engagement_Cloud\Includes\Customer\Engagement_Cloud_Customer;
 
 /**
@@ -84,7 +84,7 @@ class Engagement_Cloud_Cart_Insight {
 	 * @return int
 	 */
 	private function get_program_id() {
-		return (int) get_option( 'engagement_cloud_for_woocommerce_cart_insight_program_id', 0 );
+		return (int) get_option( Engagement_Cloud_Bootstrapper::PROGRAM_ID_PATH, 0 );
 	}
 
 	/**
@@ -93,7 +93,7 @@ class Engagement_Cloud_Cart_Insight {
 	 * @return int
 	 */
 	private function get_cart_delay() {
-		return (int) get_option( 'engagement_cloud_for_woocommerce_cart_insight_cart_delay', 0 );
+		return (int) get_option( Engagement_Cloud_Bootstrapper::CART_DELAY_PATH, 0 );
 	}
 
 	/**
