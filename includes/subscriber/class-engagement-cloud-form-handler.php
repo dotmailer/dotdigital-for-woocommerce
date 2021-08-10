@@ -11,33 +11,18 @@
 
 namespace Engagement_Cloud\Includes\Subscriber;
 
+use Engagement_Cloud\Includes\Subscriber\Engagement_Cloud_Subscriber;
+
 /**
  * Class Engagement_Cloud_Form_Handler
  */
 class Engagement_Cloud_Form_Handler {
 
 	/**
-	 * Subscriber Object.
-	 *
-	 * @var Engagement_Cloud_Subscriber
-	 */
-	private $subscriber;
-
-	/**
-	 * Engagement_Cloud_Form_Handler constructor.
-	 *
-	 * @param Engagement_Cloud_Subscriber $subscriber Subscriber Object.
-	 */
-	public function __construct(
-		Engagement_Cloud_Subscriber $subscriber
-	) {
-		$this->subscriber = $subscriber;
-	}
-
-	/**
 	 * Subscribes user to newsletter via newsletter form widget.
+	 * Adds a guest email address to a cart session for abandoned cart.
 	 */
-	public function subscribe() {
+	public function execute() {
 		$nonce_value = isset( $_POST['nonce'] ) ? wp_unslash( $_POST['nonce'] ) : null; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 
 		if ( wp_verify_nonce( $nonce_value, 'subscribe_to_newsletter' ) ) {
@@ -58,7 +43,8 @@ class Engagement_Cloud_Form_Handler {
 				'status'     => 1,
 			);
 
-			$subscribed = $this->subscriber->create_or_update( $subscriber_data );
+			$subscriber = new Engagement_Cloud_Subscriber();
+			$subscribed = $subscriber->create_or_update( $subscriber_data );
 
 			if ( $subscribed ) {
 				wp_send_json( array( 'success' => 1 ) );
@@ -68,7 +54,7 @@ class Engagement_Cloud_Form_Handler {
 		wp_send_json(
 			array(
 				'success' => 0,
-				'message' => 'There was an error during your subscription. Please try again',
+				'message' => 'There was an error during your subscription. Please try again.',
 			)
 		);
 	}

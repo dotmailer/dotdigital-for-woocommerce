@@ -3,6 +3,7 @@
 
 	var data = cart_insight.data;
 
+	// check if we actually need to keep sending this
 	if (data.customer_email) {
 		window.dmPt( "identify", data.customer_email );
 	}
@@ -56,23 +57,43 @@
 		return mapped;
 	}
 
+	function ajaxRefreshCartInsight(args) {
+		$.ajax({
+			url: cart_insight.ajax_url,
+			type: 'POST',
+			dataType: 'json',
+			data: args,
+			success: function (response) {
+				if (response.data) {
+					if (args.email && typeof window.dmPt !== 'undefined') {
+						window.dmPt('identify', args.email);
+					}
+					if (response.data.cart_id) {
+						cartInsight(response.data);
+					}
+				}
+			}
+		});
+	}
+
 	$(function() {
 		$( document.body ).on(
 			'added_to_cart removed_from_cart',
-			function () {
-				$.ajax({
-					url: cart_insight.ajax_url,
-					type: 'POST',
-					dataType: 'text',
-					data: {
-						action: 'update_cart'
-					},
-					success: function (response) {
-						var payload = $.parseJSON(response);
-						if (payload.data && payload.data.cart_id) {
-							cartInsight(payload.data);
-						}
-					}
+			function() {
+				ajaxRefreshCartInsight({
+					action: 'update_cart'
+				});
+			}
+		);
+
+		$( document.body ).on(
+			'blur',
+			'input#ec-email, input#billing_email',
+			function() {
+				ajaxRefreshCartInsight({
+					action: 'update_session',
+					email: $(this).val(),
+					nonce: cart_insight.nonce
 				});
 			}
 		);

@@ -13,8 +13,6 @@ namespace Engagement_Cloud\Pub;
 
 use Engagement_Cloud\Includes\Cart\Engagement_Cloud_Cart;
 use Engagement_Cloud\Includes\Cart\Engagement_Cloud_Cart_Insight_Handler;
-use Engagement_Cloud\Includes\Subscriber\Engagement_Cloud_Subscriber;
-use Engagement_Cloud\Includes\Subscriber\Engagement_Cloud_Form_Handler;
 use Engagement_Cloud\Includes\Widgets\Engagement_Cloud_Widget;
 use Engagement_Cloud\Includes\Tracking\Engagement_Cloud_Roi;
 use Engagement_Cloud\Engagement_Cloud_Bootstrapper;
@@ -115,17 +113,6 @@ class Engagement_Cloud_Public {
 	}
 
 	/**
-	 * Subscribe to newsletter action
-	 *
-	 * @since 1.2.0
-	 */
-	public function subscribe_to_newsletter() {
-		$subscriber   = new Engagement_Cloud_Subscriber();
-		$form_handler = new Engagement_Cloud_Form_Handler( $subscriber );
-		$form_handler->subscribe();
-	}
-
-	/**
 	 * Registration of signup form widget
 	 *
 	 * @since 1.2.0
@@ -146,7 +133,6 @@ class Engagement_Cloud_Public {
 		);
 		wp_localize_script( 'engagement_cloud_public_js', 'ec_ajax_handler', $props );
 	}
-
 
 	/**
 	 * Purges the cart_id meta for the current user.
@@ -244,6 +230,7 @@ class Engagement_Cloud_Public {
 			array(
 				'data'     => $cart_insight_handler->get_data(),
 				'ajax_url' => admin_url( 'admin-ajax.php' ),
+				'nonce'    => wp_create_nonce( 'email_capture' ),
 			)
 		);
 	}

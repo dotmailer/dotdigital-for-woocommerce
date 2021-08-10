@@ -12,6 +12,7 @@
 namespace Engagement_Cloud\Includes\Cart;
 
 use Engagement_Cloud\Includes\Cart\Engagement_Cloud_Cart;
+use Engagement_Cloud\Includes\Customer\Engagement_Cloud_Customer;
 
 /**
  * Class Engagement_Cloud_Cart_Insight
@@ -30,9 +31,10 @@ class Engagement_Cloud_Cart_Insight {
 		}
 
 		$ec_cart = new Engagement_Cloud_Cart();
+		$customer = new Engagement_Cloud_Customer();
 
 		$data = array(
-			'customer_email'  => WC()->customer->get_email(),
+			'customer_email'  => $customer->get_customer_email(),
 			'program_id'      => $this->get_program_id(),
 			'cart_delay'      => $this->get_cart_delay(),
 			'cart_id'         => $ec_cart->get_cart_id(),

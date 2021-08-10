@@ -7,6 +7,10 @@ use Engagement_Cloud\Includes\Subscriber\Engagement_Cloud_Form_Handler;
 use Engagement_Cloud\Includes\Subscriber\Engagement_Cloud_Subscriber;
 use Engagement_Cloud\Tests\Unit\Inc\PluginTestCase;
 
+/**
+ * @runTestsInSeparateProcesses
+ * @preserveGlobalState disabled
+ */
 class TestEngagementCloudFormHandler extends PluginTestCase
 {
     /**
@@ -22,8 +26,10 @@ class TestEngagementCloudFormHandler extends PluginTestCase
     public function setUp() {
         parent::setUp();
 
-        $this->ec_subscriber_mock = \Mockery::mock( Engagement_Cloud_Subscriber::class );
-        $this->ec_form_handler = new Engagement_Cloud_Form_Handler($this->ec_subscriber_mock);
+        $this->ec_subscriber_mock = \Mockery::mock(
+        	'overload:Engagement_Cloud\Includes\Subscriber\Engagement_Cloud_Subscriber'
+        );
+        $this->ec_form_handler = new Engagement_Cloud_Form_Handler();
     }
 
     public function test_if_email_is_correct_and_nonce_value_is_correct_that_user_subscribes()
@@ -54,7 +60,7 @@ class TestEngagementCloudFormHandler extends PluginTestCase
         $this->ec_subscriber_mock
             ->shouldReceive('create_or_update')
             ->with($subscriber_data)
-            ->andReturn(Engagement_Cloud_Subscriber::SUBSCRIPTION_SUCCESS);
+            ->andReturn(1);
 
         Functions\expect( 'wp_send_json' )
             ->with( array( 'success' => 1 ) )
@@ -62,7 +68,7 @@ class TestEngagementCloudFormHandler extends PluginTestCase
                 exit;
             }));
 
-        $this->ec_form_handler->subscribe();
+        $this->ec_form_handler->execute();
     }
 
     public function test_if_nonce_value_is_invalid_user_not_subscibes()
@@ -86,7 +92,7 @@ class TestEngagementCloudFormHandler extends PluginTestCase
                 exit;
             }));
 
-        $this->ec_form_handler->subscribe();
+        $this->ec_form_handler->execute();
     }
 
     public function test_if_email_is_invalid_user_not_subscribes()
@@ -119,6 +125,6 @@ class TestEngagementCloudFormHandler extends PluginTestCase
             }));
 
         $this->ec_subscriber_mock->shouldNotReceive('create_or_update');
-        $this->ec_form_handler->subscribe();
+        $this->ec_form_handler->execute();
     }
 }

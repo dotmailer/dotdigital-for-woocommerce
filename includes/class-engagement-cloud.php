@@ -19,6 +19,8 @@ namespace Engagement_Cloud\Includes;
 use Engagement_Cloud\Admin\Engagement_Cloud_Admin;
 use Engagement_Cloud\Admin\Engagement_Cloud_Upgrader;
 use Engagement_Cloud\Includes\Platforms\Engagement_Cloud_WooCommerce;
+use Engagement_Cloud\Includes\Session\Engagement_Cloud_Session_Updater;
+use Engagement_Cloud\Includes\Subscriber\Engagement_Cloud_Form_Handler;
 use Engagement_Cloud\Pub\Engagement_Cloud_Public;
 use Engagement_Cloud\Includes\Engagement_Cloud_Rest_Api;
 use Engagement_Cloud\Includes\Widgets\Engagement_Cloud_Widget;
@@ -214,12 +216,21 @@ class Engagement_Cloud {
 		$this->loader->add_action( 'widgets_init', $plugin_public, 'ec_register_signup_widget' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
-		$this->loader->add_action( 'wp_ajax_subscribe_to_newsletter', $plugin_public, 'subscribe_to_newsletter' );
-		$this->loader->add_action( 'wp_ajax_nopriv_subscribe_to_newsletter', $plugin_public, 'subscribe_to_newsletter' );
+
 		$this->loader->add_action( 'wp_ajax_update_cart', $plugin_public, 'update_cart' );
 		$this->loader->add_action( 'wp_ajax_nopriv_update_cart', $plugin_public, 'update_cart' );
 
 		$this->loader->add_action( 'wp_footer', $plugin_public, 'clean_cart_id' );
+
+		$subscribe_form_handler = new Engagement_Cloud_Form_Handler();
+
+		$this->loader->add_action( 'wp_ajax_subscribe_to_newsletter', $subscribe_form_handler, 'execute' );
+		$this->loader->add_action( 'wp_ajax_nopriv_subscribe_to_newsletter', $subscribe_form_handler, 'execute' );
+
+		$session_updater = new Engagement_Cloud_Session_Updater();
+
+		$this->loader->add_action( 'wp_ajax_update_session', $session_updater, 'execute' );
+		$this->loader->add_action( 'wp_ajax_nopriv_update_session', $session_updater, 'execute' );
 	}
 
 	/**

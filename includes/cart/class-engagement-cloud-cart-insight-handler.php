@@ -13,6 +13,7 @@ namespace Engagement_Cloud\Includes\Cart;
 
 use Engagement_Cloud\Engagement_Cloud_Bootstrapper;
 use Engagement_Cloud\Includes\Cart\Engagement_Cloud_Cart;
+use Engagement_Cloud\Includes\Customer\Engagement_Cloud_Customer;
 use Engagement_Cloud\Includes\Subscriber\Engagement_Cloud_Subscriber;
 
 /**
@@ -35,6 +36,13 @@ class Engagement_Cloud_Cart_Insight_Handler {
 			return false;
 		}
 
+		$subscriber = new Engagement_Cloud_Subscriber();
+		$customer = new Engagement_Cloud_Customer();
+
+		if ( empty( $customer->get_customer_email() ) ) {
+			return true;
+		}
+
 		if ( get_option(
 			'engagement_cloud_for_woocommerce_abandoned_cart_allow_non_subscribers',
 			Engagement_Cloud_Bootstrapper::DEFAULT_ABANDONED_CART_ALLOW_NON_SUBSCRIBERS
@@ -42,10 +50,7 @@ class Engagement_Cloud_Cart_Insight_Handler {
 			return true;
 		}
 
-		$subscriber = new Engagement_Cloud_Subscriber();
-		$email      = WC()->customer->get_email();
-
-		return $subscriber->is_subscribed( $email );
+		return $subscriber->is_subscribed( $customer->get_customer_email() );
 	}
 
 	/**
