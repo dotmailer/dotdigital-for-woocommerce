@@ -69,25 +69,6 @@ class Engagement_Cloud_Rest_Api {
 	public function register_routes() {
 		register_rest_route(
 			$this->namespace,
-			'/unsubscribe',
-			array(
-				'methods'  => 'GET',
-				'callback' => array( new Engagement_Cloud_Rest_Unsubscribe( $this->plugin_name ), 'unsubscribe' ),
-				'permission_callback' => '__return_true',
-				'args'     => array(
-					self::EMAIL_PARAM     => array(
-						'required' => true,
-					),
-					self::PLUGIN_ID_PARAM => array(
-						'required'          => true,
-						'validate_callback' => array( $this, 'validate_plugin_id' ),
-					),
-				),
-			)
-		);
-
-		register_rest_route(
-			$this->namespace,
 			'/configure-store-settings',
 			array(
 				'methods' => \WP_REST_Server::CREATABLE,
