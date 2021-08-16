@@ -25,6 +25,21 @@ class Engagement_Cloud_Subscriber {
 	const SUBSCRIPTION_SUCCESS = 1;
 
 	/**
+	 * This model's table name.
+	 *
+	 * @var string
+	 */
+	private $table_name;
+
+	/**
+	 * Engagement_Cloud_Subscriber constructor.
+	 */
+	public function __construct() {
+		global $wpdb;
+		$this->table_name = $wpdb->prefix . Engagement_Cloud_Bootstrapper::SUBSCRIBERS_TABLE_NAME;
+	}
+
+	/**
 	 * Mark an email address as unsubscribed.
 	 *
 	 * @param string $email An email address.
@@ -32,10 +47,8 @@ class Engagement_Cloud_Subscriber {
 	public function unsubscribe( string $email ) {
 		global $wpdb;
 
-		$subscribers_table_name = $wpdb->prefix . Engagement_Cloud_Bootstrapper::SUBSCRIBERS_TABLE_NAME;
-
 		$wpdb->update(
-			$subscribers_table_name,
+			$this->table_name,
 			array(
 				'status' => self::UNSUBSCRIBED,
 			),
@@ -53,10 +66,9 @@ class Engagement_Cloud_Subscriber {
 	 */
 	public function create_or_update( $subscriber_data ) {
 		global $wpdb;
-		$table_name = $wpdb->prefix . Engagement_Cloud_Bootstrapper::SUBSCRIBERS_TABLE_NAME;
 
 		$matching_subscriber = $wpdb->get_row(
-			$wpdb->prepare( "SELECT * FROM {$table_name} WHERE email = %s", $subscriber_data['email'] ) // phpcs:ignore WordPress.DB
+			$wpdb->prepare( "SELECT * FROM {$this->table_name} WHERE email = %s", $subscriber_data['email'] ) // phpcs:ignore WordPress.DB
 		);
 
 		$subscriber_data['created_at'] = current_time( 'mysql' );
@@ -65,18 +77,9 @@ class Engagement_Cloud_Subscriber {
 		try {
 			if ( $matching_subscriber ) {
 				unset( $subscriber_data['created_at'] );
-				$wpdb->update(
-					$table_name,
-					$subscriber_data,
-					array(
-						'email' => $subscriber_data['email'],
-					)
-				); // db call ok.
+				$this->update( $subscriber_data['email'], $subscriber_data );
 			} else {
-				$wpdb->insert(
-					$table_name,
-					$subscriber_data
-				); // db call ok.
+				$this->create( $subscriber_data );
 			}
 		} catch ( \Exception $e ) {
 			return self::SUBSCRIPTION_FAILED;
@@ -93,12 +96,104 @@ class Engagement_Cloud_Subscriber {
 	 */
 	public function is_subscribed( string $email ) {
 		global $wpdb;
-		$table_name = $wpdb->prefix . Engagement_Cloud_Bootstrapper::SUBSCRIBERS_TABLE_NAME;
 
 		$matching_subscriber = $wpdb->get_row(
-			$wpdb->prepare( "SELECT * FROM {$table_name} WHERE email = %s", $email ) // phpcs:ignore WordPress.DB
+			$wpdb->prepare( "SELECT * FROM {$this->table_name} WHERE email = %s", $email ) // phpcs:ignore WordPress.DB
 		);
 
-		return (bool) $matching_subscriber;
+		return (bool) $matching_subscriber && ( self::SUBSCRIBED === (int) $matching_subscriber->status );
 	}
+
+	/**
+	 * Check if we have a matching row for the supplied user id,
+	 * and that the status is 'subscribed'.
+	 *
+	 * @param int $id A user id.
+	 * @return bool
+	 */
+	public function is_user_id_subscribed( int $id ) {
+		if ( 0 === $id ) {
+			return false;
+		}
+
+		global $wpdb;
+
+		$matching_subscriber = $wpdb->get_row(
+			$wpdb->prepare( "SELECT * FROM {$this->table_name} WHERE user_id = %d", $id ) // phpcs:ignore WordPress.DB
+		);
+
+		return (bool) $matching_subscriber && ( self::SUBSCRIBED === (int) $matching_subscriber->status );
+	}
+
+	/**
+	 * Create a subscriber.
+	 * This method returns the auto-incremented ID of the created row,
+	 * in common with WP object creation (posts, users etc.).
+	 *
+	 * @param array $data Array of data.
+	 *
+	 * @return int
+	 */
+	public function create( $data ) {
+		global $wpdb;
+
+		$insert = $wpdb->insert(
+			$this->table_name,
+			$data
+		); // db call ok.
+
+		return $wpdb->insert_id;
+	}
+
+	/**
+	 * Update a subscriber.
+	 *
+	 * @param string $email Email address.
+	 * @param array  $data Array of data.
+	 */
+	public function update( $email, $data ) {
+		global $wpdb;
+
+		$wpdb->update(
+			$this->table_name,
+			$data,
+			array(
+				'email' => $email,
+			)
+		); // db call ok.
+	}
+
+	/**
+	 * Get by id (not user_id). Used by the unit test factory.
+	 *
+	 * @param int $id The row ID.
+	 *
+	 * @return array|object|void|null
+	 */
+	public function get_by_id( $id ) {
+		global $wpdb;
+
+		return $wpdb->get_row(
+			$wpdb->prepare( "SELECT * FROM {$this->table_name} WHERE id = %s", $id ) // phpcs:ignore WordPress.DB
+		);
+	}
+
+	/**
+	 * Update by id (not user_id). Used by the unit test factory.
+	 *
+	 * @param int   $id The row ID.
+	 * @param array $data Array of data.
+	 */
+	public function update_by_id( $id, $data ) {
+		global $wpdb;
+
+		$wpdb->update(
+			$this->table_name,
+			$data,
+			array(
+				'id' => $id,
+			)
+		); // db call ok.
+	}
+
 }

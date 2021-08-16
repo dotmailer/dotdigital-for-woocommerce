@@ -46,19 +46,7 @@ class Engagement_Cloud_WooCommerce {
 			return;
 		}
 
-		$current_user_has_subscription = false;
-
-		if ( get_current_user_id() ) {
-			global $wpdb;
-			$table_name = $wpdb->prefix . Engagement_Cloud_Bootstrapper::SUBSCRIBERS_TABLE_NAME;
-
-			$matching_subscriber = $wpdb->get_row(
-				$wpdb->prepare( "SELECT * FROM {$table_name} WHERE user_id = %d", get_current_user_id() ) // phpcs:ignore WordPress.DB
-			);
-			if ( $matching_subscriber ) {
-				$current_user_has_subscription = ( Engagement_Cloud_Subscriber::SUBSCRIBED === (int) $matching_subscriber->status );
-			}
-		}
+		$subscriber = new Engagement_Cloud_Subscriber();
 
 		woocommerce_form_field(
 			$this->checkbox_name,
@@ -69,7 +57,7 @@ class Engagement_Cloud_WooCommerce {
 					Engagement_Cloud_Bootstrapper::DEFAULT_MARKETING_CHECKBOX_TEXT
 				),
 			),
-			$current_user_has_subscription
+			$subscriber->is_user_id_subscribed( get_current_user_id() )
 		);
 	}
 
