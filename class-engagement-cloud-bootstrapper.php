@@ -73,7 +73,7 @@ require_once 'inc/autoloader.php';
 class Engagement_Cloud_Bootstrapper {
 
 	const EMAIL_MARKETING_TABLE_NAME = 'dotmailer_email_marketing';
-	const SUBSCRIBERS_TABLE_NAME     = 'ec_subscribers';
+	const SUBSCRIBERS_TABLE_NAME     = 'dd_subscribers';
 
 	const DEFAULT_MARKETING_CHECKBOX_DISPLAY_AT_CHECKOUT = 1;
 	const DEFAULT_MARKETING_CHECKBOX_DISPLAY_AT_REGISTER = 1;

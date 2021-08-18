@@ -179,7 +179,7 @@ class Engagement_Cloud_Upgrader {
 	}
 
 	/**
-	 * Create the ec_subscribers table.
+	 * Create the dd_subscribers table.
 	 */
 	public function create_subscriber_table() {
 		global $wpdb;
@@ -203,7 +203,7 @@ class Engagement_Cloud_Upgrader {
 	}
 
 	/**
-	 * Fetch existing subscribed users to ec_subscribers table
+	 * Fetch existing subscribed users to dd_subscribers table
 	 *
 	 * @since 1.0.0
 	 * @package dotdigital

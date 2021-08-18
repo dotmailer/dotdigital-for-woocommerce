@@ -26,7 +26,7 @@ class Engagement_Cloud_Migrator {
 	const SUBSCRIBER_META_KEY = '_wc_subscribed_to_newsletter';
 
 	/**
-	 * Fetch existing subscribed users to ec_subscribers table
+	 * Fetch existing subscribed users to dd_subscribers table
 	 *
 	 * @return bool|int
 	 */
