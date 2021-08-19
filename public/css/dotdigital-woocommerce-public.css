@@ -1,0 +1,22 @@
+/**
+ * All of the CSS for your public-facing functionality should be
+ * included in this file.
+ */
+
+.dd-form-content {
+	display: flex;
+	justify-content: space-between;
+}
+
+.dd-submit-btn:disabled {
+	pointer-events: none;
+	opacity: 0.5;
+}
+
+.dd-success-msg {
+	color: #00ba37;
+}
+
+.dd-error-msg {
+	color: #9e1313;
+}

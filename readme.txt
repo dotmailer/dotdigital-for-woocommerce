@@ -1,4 +1,4 @@
-=== Engagement Cloud for Woocommerce ===
+=== dotdigital for WooCommerce ===
 Contributors: dotdigital
 Requires at least: 5.2
 Tested up to: 5.7
@@ -8,4 +8,4 @@ WC tested up to: 5.1
 License: MIT
 License URI: https://opensource.org/licenses/MIT
 
-Connect your WooCommerce store to dotdigital Engagement Cloud.
+Connect your WooCommerce store to dotdigital.

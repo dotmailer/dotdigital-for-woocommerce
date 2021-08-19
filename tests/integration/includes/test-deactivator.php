@@ -2,14 +2,14 @@
 /**
  * Class DeactivatorTest
  *
- * @package Engagement_Cloud_For_Woocommerce
+ * @package Dotdigital_WooCommerce
  */
 
-namespace Engagement_Cloud\Tests\Integration\Includes;
+namespace Dotdigital_WooCommerce\Tests\Integration\Includes;
 
-use Engagement_Cloud\Admin\Engagement_Cloud_Upgrader;
-use Engagement_Cloud\Includes\Engagement_Cloud_Deactivator;
-use Engagement_Cloud\Engagement_Cloud_Bootstrapper;
+use Dotdigital_WooCommerce\Admin\Dotdigital_WooCommerce_Upgrader;
+use Dotdigital_WooCommerce\Includes\Dotdigital_WooCommerce_Deactivator;
+use Dotdigital_WooCommerce\Dotdigital_WooCommerce_Bootstrapper;
 use WP_UnitTestCase;
 
 /**
@@ -18,12 +18,12 @@ use WP_UnitTestCase;
 class DeactivatorTest extends WP_UnitTestCase {
 
 	/**
-	 * @var Engagement_Cloud_Deactivator
+	 * @var Dotdigital_WooCommerce_Deactivator
 	 */
 	private $deactivator;
 
 	/**
-	 * @var Engagement_Cloud_Upgrader
+	 * @var Dotdigital_WooCommerce_Upgrader
 	 */
 	private $upgrader;
 
@@ -39,13 +39,13 @@ class DeactivatorTest extends WP_UnitTestCase {
 		parent::setUp();
 
 		// Upgrader is required so we can install the marketing table
-		$this->upgrader = new Engagement_Cloud_Upgrader(
+		$this->upgrader = new Dotdigital_WooCommerce_Upgrader(
 			'test-plugin',
 			'1.2.0',
 			'https://chaz-tracking-link.net'
 		);
 
-		$this->code_version = Engagement_Cloud_Bootstrapper::get_version();
+		$this->code_version = Dotdigital_WooCommerce_Bootstrapper::get_version();
 	}
 
 	/**
@@ -57,7 +57,7 @@ class DeactivatorTest extends WP_UnitTestCase {
 		$this->install_tables();
 
 		$plugin_abspath = dirname( dirname( dirname( dirname( __FILE__ ) ) ) ) .
-		                  '/class-engagement-cloud-bootstrapper.php';
+		                  '/class-dotdigital-woocommerce-bootstrapper.php';
 
 		do_action( 'deactivate_' . plugin_basename( $plugin_abspath ) );
 

@@ -2,7 +2,7 @@
 /**
  * PHPUnit bootstrap file.
  *
- * @package Engagement_Cloud_For_Woocommerce
+ * @package Dotdigital_WooCommerce
  */
 
 if ( PHP_MAJOR_VERSION >= 8 ) {
@@ -28,7 +28,7 @@ require_once "{$_tests_dir}/includes/functions.php";
  * Manually load the plugin being tested.
  */
 function _manually_load_plugin() {
-	require dirname( dirname( dirname( __FILE__ ) ) ) . '/class-engagement-cloud-bootstrapper.php';
+	require dirname( dirname( dirname( __FILE__ ) ) ) . '/class-dotdigital-woocommerce-bootstrapper.php';
 }
 
 tests_add_filter( 'muplugins_loaded', '_manually_load_plugin' );

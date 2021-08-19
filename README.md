@@ -1,16 +1,16 @@
-Engagement Cloud for WooCommerce
+dotdigital for WooCommerce
 ======
 
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg)](LICENSE)
 
 ## Overview
-Connect your WooCommerce store to dotdigital Engagement Cloud.
-Email is a proven way to drive ecommerce growth. Our plug and play connector lets you sync your data from your store to your Engagement Cloud account to empower your marketing. Engagement Cloud gives you all the tools you need to send on-brand emails, automate campaigns, and manage mailing lists to engage with your audience.
-* Sync all your contacts to Engagement Cloud, and segment them for your email campaigns
+Connect your WooCommerce store to dotdigital.
+Email is a proven way to drive ecommerce growth. Our plug and play connector lets you sync your data from your store to your dotdigital account to empower your marketing. dotdigital gives you all the tools you need to send on-brand emails, automate campaigns, and manage mailing lists to engage with your audience.
+* Sync all your contacts to dotdigital, and segment them for your email campaigns
 * Use your customers' order history to better target your audience
 * Build and automate email programs to engage your customers and drive revenue
 
-If you're not a Engagement Cloud user already you can find out more about us at https://www.dotdigital.com.
+If you're not a dotdigital user already you can find out more about us at https://www.dotdigital.com.
 
 ## Disclaimer
 The software made available to you is provided "as is" without warranty of any kind, either expressed or implied and such software is to be used at your own risk and without modification.
@@ -22,19 +22,19 @@ This plugin requires you to have WooCommerce installed in WordPress (see [detail
 Log into your WordPress account and follow these steps:
 
 1. Download the plugin
-2. Copy and unzip the downloaded plugin file into your WordPress plugin folder. After doing so, you should see 'engagement-cloud-for-woocommerce' files.
+2. Copy and unzip the downloaded plugin file into your WordPress plugin folder. After doing so, you should see 'dotdigital-for-woocommerce' files.
 3. Log into your WordPress admin console
 4. In the left-hand menu, go to Plugins > Installed Plugins
-5. Find 'dotdigital Engagement Cloud'
+5. Find 'dotdigital for WooCommerce'
 6. Click on Activate Plugin
-7. In the left-hand menu, click on Engagement Cloud
-8. Log into Engagement Cloud
+7. In the left-hand menu, click on dotdigital for WooCommerce
+8. Log into dotdigital
   * You'll see the 'Almost there!' message, outlining the three final steps to complete:
   * Download the bridge zip file (Disclaimer above also applies)
   * Copy and unzip the bridge file into your WordPress root folder - wordpress-root\wp-content\plugins
   * Click on 'Test connection' to check all's well
 
-The store should now be connected and Engagement Cloud will start syncing customers data automatically.
+The store should now be connected and dotdigital will start syncing customers data automatically.
 For more detailed information on installation, find it at (https://support.dotdigital.com/hc/en-gb/categories/201643998-Integrations)
 
 ## Release Notes
@@ -56,7 +56,7 @@ If you have already installed this plugin, a message will pop up in the admin ar
 Simply update from there.
 
 ## Contribution
-You are welcome to contribute to Engagement Cloud for WooCommerce! You can either:
+You are welcome to contribute to dotdigital for WooCommerce! You can either:
 * Report a bug: create a GitHub issue including description, repro steps, WooCommerce/WordPress and connector version
 * Fix a bug: please clone this repo and submit your Pull Request
 * Request a feature on our [community forum](https://support.dotdigital.com/hc/en-gb/community/topics/200432508-Feedback-and-feature-requests)

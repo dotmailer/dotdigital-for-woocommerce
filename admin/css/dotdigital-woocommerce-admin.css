@@ -1,0 +1,17 @@
+.toplevel_page_dotdigital-for-woocommerce #wpcontent {
+	padding-left: 0;
+}
+
+iframe#dotdigital-for-woocommerce-settings {
+	background-color: #fff;
+	width: 100%;
+}
+
+#icon-dotdigital {
+	display: block;
+	float: left;
+	width: 32px;
+	height: 40px;
+	background: url('../../assets/dotdigital-applogo-32x32.png') no-repeat 0 6px;
+	margin-right: 6px;
+}

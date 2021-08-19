@@ -1,35 +1,35 @@
 <?php
 
-namespace Engagement_Cloud\Tests\Unit\Includes\Subscriber;
+namespace Dotdigital_WooCommerce\Tests\Unit\Includes\Subscriber;
 
 use Brain\Monkey\Functions;
-use Engagement_Cloud\Includes\Subscriber\Engagement_Cloud_Form_Handler;
-use Engagement_Cloud\Includes\Subscriber\Engagement_Cloud_Subscriber;
-use Engagement_Cloud\Tests\Unit\Inc\PluginTestCase;
+use Dotdigital_WooCommerce\Includes\Subscriber\Dotdigital_WooCommerce_Form_Handler;
+use Dotdigital_WooCommerce\Includes\Subscriber\Dotdigital_WooCommerce_Subscriber;
+use Dotdigital_WooCommerce\Tests\Unit\Inc\PluginTestCase;
 
 /**
  * @runTestsInSeparateProcesses
  * @preserveGlobalState disabled
  */
-class TestEngagementCloudFormHandler extends PluginTestCase
+class TestDotdigitalFormHandler extends PluginTestCase
 {
     /**
-     * @var Engagement_Cloud_Form_Handler
+     * @var Dotdigital_WooCommerce_Form_Handler
      */
-    private $ec_form_handler;
+    private $dd_form_handler;
 
     /**
-     * @var Engagement_Cloud_Subscriber|\Mockery\LegacyMockInterface|\Mockery\MockInterface
+     * @var Dotdigital_WooCommerce_Subscriber|\Mockery\LegacyMockInterface|\Mockery\MockInterface
      */
-    private $ec_subscriber_mock;
+    private $dd_subscriber_mock;
 
     public function setUp() {
         parent::setUp();
 
-        $this->ec_subscriber_mock = \Mockery::mock(
-        	'overload:Engagement_Cloud\Includes\Subscriber\Engagement_Cloud_Subscriber'
+        $this->dd_subscriber_mock = \Mockery::mock(
+        	'overload:Dotdigital_WooCommerce\Includes\Subscriber\Dotdigital_WooCommerce_Subscriber'
         );
-        $this->ec_form_handler = new Engagement_Cloud_Form_Handler();
+        $this->dd_form_handler = new Dotdigital_WooCommerce_Form_Handler();
     }
 
     public function test_if_email_is_correct_and_nonce_value_is_correct_that_user_subscribes()
@@ -57,7 +57,7 @@ class TestEngagementCloudFormHandler extends PluginTestCase
             'status'     => 1,
         );
 
-        $this->ec_subscriber_mock
+        $this->dd_subscriber_mock
             ->shouldReceive('create_or_update')
             ->with($subscriber_data)
             ->andReturn(1);
@@ -68,7 +68,7 @@ class TestEngagementCloudFormHandler extends PluginTestCase
                 exit;
             }));
 
-        $this->ec_form_handler->execute();
+        $this->dd_form_handler->execute();
     }
 
     public function test_if_nonce_value_is_invalid_user_not_subscibes()
@@ -92,7 +92,7 @@ class TestEngagementCloudFormHandler extends PluginTestCase
                 exit;
             }));
 
-        $this->ec_form_handler->execute();
+        $this->dd_form_handler->execute();
     }
 
     public function test_if_email_is_invalid_user_not_subscribes()
@@ -124,7 +124,7 @@ class TestEngagementCloudFormHandler extends PluginTestCase
                 exit;
             }));
 
-        $this->ec_subscriber_mock->shouldNotReceive('create_or_update');
-        $this->ec_form_handler->execute();
+        $this->dd_subscriber_mock->shouldNotReceive('create_or_update');
+        $this->dd_form_handler->execute();
     }
 }

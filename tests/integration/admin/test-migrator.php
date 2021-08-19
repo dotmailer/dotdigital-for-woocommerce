@@ -2,13 +2,13 @@
 /**
  * Class MigratorTest
  *
- * @package Engagement_Cloud_For_Woocommerce
+ * @package Dotdigital_WooCommerce
  */
 
-namespace Engagement_Cloud\Tests\Integration\Admin;
+namespace Dotdigital_WooCommerce\Tests\Integration\Admin;
 
-use Engagement_Cloud\Admin\Engagement_Cloud_Migrator;
-use Engagement_Cloud\Admin\Engagement_Cloud_Upgrader;
+use Dotdigital_WooCommerce\Admin\Dotdigital_WooCommerce_Migrator;
+use Dotdigital_WooCommerce\Admin\Dotdigital_WooCommerce_Upgrader;
 
 /**
  * Migrator test.
@@ -16,12 +16,12 @@ use Engagement_Cloud\Admin\Engagement_Cloud_Upgrader;
 class MigratorTest extends \WP_UnitTestCase {
 
 	/**
-	 * @var Engagement_Cloud_Upgrader
+	 * @var Dotdigital_WooCommerce_Upgrader
 	 */
 	private $upgrader;
 
 	/**
-	 * @var Engagement_Cloud_Migrator
+	 * @var Dotdigital_WooCommerce_Migrator
 	 */
 	private $migrator;
 
@@ -32,14 +32,14 @@ class MigratorTest extends \WP_UnitTestCase {
 		parent::setUp();
 
 		// Upgrader is required so we can install the subscriber table
-		$this->upgrader = new Engagement_Cloud_Upgrader(
+		$this->upgrader = new Dotdigital_WooCommerce_Upgrader(
 			'test-plugin',
 			'1.2.0',
 			'https://chaz-tracking-link.net'
 		);
 
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . '../../admin/class-engagement-cloud-migrator.php';
-		$this->migrator = new Engagement_Cloud_Migrator();
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . '../../admin/class-dotdigital-woocommerce-migrator.php';
+		$this->migrator = new Dotdigital_WooCommerce_Migrator();
 	}
 
 	/**
@@ -52,7 +52,7 @@ class MigratorTest extends \WP_UnitTestCase {
 
 		$user_ids = $this->factory()->user->create_many($user_count);
 		foreach ( $user_ids as $user_id ) {
-			add_user_meta( $user_id, Engagement_Cloud_Migrator::SUBSCRIBER_META_KEY, 1 );
+			add_user_meta( $user_id, Dotdigital_WooCommerce_Migrator::SUBSCRIBER_META_KEY, 1 );
 		}
 
 		$migrated = $this->migrator->migrate_users_to_subscriber_table();

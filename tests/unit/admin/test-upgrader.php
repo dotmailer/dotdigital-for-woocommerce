@@ -1,10 +1,10 @@
 <?php
 
-namespace Engagement_Cloud\Tests\Unit\Admin;
+namespace Dotdigital_WooCommerce\Tests\Unit\Admin;
 
-use Engagement_Cloud\Tests\Unit\Inc\PluginTestCase;
+use Dotdigital_WooCommerce\Tests\Unit\Inc\PluginTestCase;
 use Brain\Monkey;
-use Engagement_Cloud\Admin\Engagement_Cloud_Upgrader;
+use Dotdigital_WooCommerce\Admin\Dotdigital_WooCommerce_Upgrader;
 
 /**
  * Upgrader unit test.
@@ -16,7 +16,7 @@ use Engagement_Cloud\Admin\Engagement_Cloud_Upgrader;
 class UpgraderTest extends PluginTestCase {
 
 	/**
-	 * @var Engagement_Cloud_Upgrader
+	 * @var Dotdigital_WooCommerce_Upgrader
 	 */
 	private $upgrader;
 
@@ -32,7 +32,7 @@ class UpgraderTest extends PluginTestCase {
 		$code_version = '1.2.0';
 		$stored_version = $code_version;
 
-		$upgrader = new Engagement_Cloud_Upgrader(
+		$upgrader = new Dotdigital_WooCommerce_Upgrader(
 			'test-plugin',
 			$code_version,
 			'https://chaz-tracking-link.net'
@@ -40,7 +40,7 @@ class UpgraderTest extends PluginTestCase {
 
 		Monkey\Functions\expect( 'get_option' )
 			->once()
-			->with( 'engagement_cloud_for_woocommerce_version' )
+			->with( 'dotdigital_for_woocommerce_version' )
 			->andReturn( $stored_version );
 
 		global $wpdb;

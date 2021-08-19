@@ -1,5 +1,5 @@
 <?php
-namespace Engagement_Cloud\Tests\Unit\Inc;
+namespace Dotdigital_WooCommerce\Tests\Unit\Inc;
 
 use PHPUnit\Framework\TestCase;
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;

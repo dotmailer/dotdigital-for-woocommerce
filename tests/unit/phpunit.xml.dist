@@ -8,7 +8,7 @@
 	convertWarningsToExceptions="true"
 	>
 	<testsuites>
-		<testsuite name="ec-woo-testsuite-unit">
+		<testsuite name="dd-woo-testsuite-unit">
 			<directory prefix="test-" suffix=".php">.</directory>
 		</testsuite>
 	</testsuites>

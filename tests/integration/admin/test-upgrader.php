@@ -2,13 +2,13 @@
 /**
  * Class UpgraderTest
  *
- * @package Engagement_Cloud_For_Woocommerce
+ * @package Dotdigital_WooCommerce
  */
 
-namespace Engagement_Cloud\Tests\Integration\Admin;
+namespace Dotdigital_WooCommerce\Tests\Integration\Admin;
 
-use Engagement_Cloud\Admin\Engagement_Cloud_Upgrader;
-use Engagement_Cloud\Engagement_Cloud_Bootstrapper;
+use Dotdigital_WooCommerce\Admin\Dotdigital_WooCommerce_Upgrader;
+use Dotdigital_WooCommerce\Dotdigital_WooCommerce_Bootstrapper;
 
 /**
  * Upgrader test.
@@ -16,7 +16,7 @@ use Engagement_Cloud\Engagement_Cloud_Bootstrapper;
 class UpgraderTest extends \WP_UnitTestCase {
 
 	/**
-	 * @var Engagement_Cloud_Upgrader
+	 * @var Dotdigital_WooCommerce_Upgrader
 	 */
 	private $upgrader;
 
@@ -33,8 +33,8 @@ class UpgraderTest extends \WP_UnitTestCase {
 
 		wp_set_current_user( 1 );
 
-		$this->code_version = Engagement_Cloud_Bootstrapper::get_version();
-		$this->upgrader = new Engagement_Cloud_Upgrader(
+		$this->code_version = Dotdigital_WooCommerce_Bootstrapper::get_version();
+		$this->upgrader = new Dotdigital_WooCommerce_Upgrader(
 			'test-plugin',
 			$this->code_version,
 			'https://chaz-tracking-link.net'
@@ -49,7 +49,7 @@ class UpgraderTest extends \WP_UnitTestCase {
 
 		$this->upgrader->upgrade_check();
 
-		$this->assertEquals(get_option( 'engagement_cloud_for_woocommerce_version' ), $this->code_version);
+		$this->assertEquals(get_option( 'dotdigital_for_woocommerce_version' ), $this->code_version);
 	}
 
 	/**
@@ -57,12 +57,12 @@ class UpgraderTest extends \WP_UnitTestCase {
 	 */
 	public function test_upgrade_from_version_one_zero_zero() {
 		$stored_version = '1.0.0';
-		update_option( 'engagement_cloud_for_woocommerce_version', $stored_version );
+		update_option( 'dotdigital_for_woocommerce_version', $stored_version );
 		$this->install_tables();
 
 		$this->upgrader->upgrade_check();
 
-		$this->assertEquals(get_option( 'engagement_cloud_for_woocommerce_version' ), $this->code_version);
+		$this->assertEquals(get_option( 'dotdigital_for_woocommerce_version' ), $this->code_version);
 	}
 
 	/**
@@ -70,11 +70,11 @@ class UpgraderTest extends \WP_UnitTestCase {
 	 */
 	public function test_upgrade_check_if_versions_match() {
 		$stored_version = $this->code_version;
-		update_option( 'engagement_cloud_for_woocommerce_version', $stored_version );
+		update_option( 'dotdigital_for_woocommerce_version', $stored_version );
 
 		$this->upgrader->upgrade_check();
 
-		$this->assertEquals(get_option( 'engagement_cloud_for_woocommerce_version' ), $this->code_version);
+		$this->assertEquals(get_option( 'dotdigital_for_woocommerce_version' ), $this->code_version);
 	}
 
 	/**
@@ -82,7 +82,7 @@ class UpgraderTest extends \WP_UnitTestCase {
 	 */
 	public function tearDown(): void
 	{
-		delete_option( 'engagement_cloud_for_woocommerce_version' );
+		delete_option( 'dotdigital_for_woocommerce_version' );
 		parent::tearDown();
 	}
 

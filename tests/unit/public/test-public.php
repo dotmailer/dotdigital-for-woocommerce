@@ -1,13 +1,13 @@
 <?php
 
-namespace Engagement_Cloud\Tests\Unit\Pub;
+namespace Dotdigital_WooCommerce\Tests\Unit\Pub;
 
 use Brain\Monkey\Functions;
-use Engagement_Cloud\Engagement_Cloud_Bootstrapper;
-use Engagement_Cloud\Tests\Unit\Inc\PluginTestCase;
-use Engagement_Cloud\Pub\Engagement_Cloud_Public;
+use Dotdigital_WooCommerce\Dotdigital_WooCommerce_Bootstrapper;
+use Dotdigital_WooCommerce\Tests\Unit\Inc\PluginTestCase;
+use Dotdigital_WooCommerce\Pub\Dotdigital_WooCommerce_Public;
 
-class Engagement_Cloud_Public_Test extends PluginTestCase
+class Dotdigital_WooCommerce_Public_Test extends PluginTestCase
 {
     /**
      * @var string
@@ -15,18 +15,18 @@ class Engagement_Cloud_Public_Test extends PluginTestCase
     private $plugin_dir;
 
     /**
-     * @var Engagement_Cloud_Public
+     * @var Dotdigital_WooCommerce_Public
      */
     private $public_class;
 
     public function setUp()
     {
-        $src = sprintf( '//r%s-t.trackedlink.net/_dmpt.js', Engagement_Cloud_Bootstrapper::DEFAULT_REGION );
+        $src = sprintf( '//r%s-t.trackedlink.net/_dmpt.js', Dotdigital_WooCommerce_Bootstrapper::DEFAULT_REGION );
 
         Functions\expect( 'get_option' )
             ->once()
-            ->with( 'engagement_cloud_for_woocommerce_settings_region', Engagement_Cloud_Bootstrapper::DEFAULT_REGION  )
-            ->andReturn( Engagement_Cloud_Bootstrapper::DEFAULT_REGION );
+            ->with( 'dotdigital_for_woocommerce_settings_region', Dotdigital_WooCommerce_Bootstrapper::DEFAULT_REGION  )
+            ->andReturn( Dotdigital_WooCommerce_Bootstrapper::DEFAULT_REGION );
 
         Functions\expect( 'plugin_dir_url' )
             ->with( '__FILE__'  )
@@ -34,7 +34,7 @@ class Engagement_Cloud_Public_Test extends PluginTestCase
 
         Functions\expect( 'wp_enqueue_script' )
             ->once()
-            ->with( 'engagement_cloud_public_js', $this->plugin_dir . 'js/engagement-cloud-public.js', array( 'jquery' ), null , true );
+            ->with( 'dotdigital_woocommerce_public_js', $this->plugin_dir . 'js/dotdigital-woocommerce-public.js', array( 'jquery' ), null , true );
 
         Functions\expect( 'wp_enqueue_script' )
             ->once()
@@ -50,7 +50,7 @@ class Engagement_Cloud_Public_Test extends PluginTestCase
 
         Functions\expect( 'get_option' )
             ->once()
-            ->with( 'engagement_cloud_for_woocommerce_settings_enable_site_and_roi_tracking', Engagement_Cloud_Bootstrapper::DEFAULT_SITE_AND_ROI_TRACKING_ENABLED  )
+            ->with( 'dotdigital_for_woocommerce_settings_enable_site_and_roi_tracking', Dotdigital_WooCommerce_Bootstrapper::DEFAULT_SITE_AND_ROI_TRACKING_ENABLED  )
             ->andReturn( true );
 
 	    $props = array(
@@ -59,9 +59,9 @@ class Engagement_Cloud_Public_Test extends PluginTestCase
         );
 
         Functions\expect( 'wp_localize_script' )
-            ->with( 'engagement_cloud_public_js', 'ec_ajax_handler', $props );
+            ->with( 'dotdigital_woocommerce_public_js', 'dd_ajax_handler', $props );
 
-        $this->public_class = new Engagement_Cloud_Public('Plugin_name', null);
+        $this->public_class = new Dotdigital_WooCommerce_Public('Plugin_name', null);
 
 
         parent::setUp();
@@ -99,7 +99,7 @@ class Engagement_Cloud_Public_Test extends PluginTestCase
             ->with($order_id)
             ->andReturn( $order_id  );
 
-        $roi_mockery_class =  \Mockery::mock(  'overload:Engagement_Cloud\Includes\Tracking\Engagement_Cloud_Roi' );
+        $roi_mockery_class =  \Mockery::mock(  'overload:Dotdigital_WooCommerce\Includes\Tracking\Dotdigital_WooCommerce_Roi' );
 
         $roi_mockery_class->shouldReceive('get_order_data')
             ->with($order_id)

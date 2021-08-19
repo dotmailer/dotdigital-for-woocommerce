@@ -2,13 +2,13 @@
 /**
  * Class ActivatorTest
  *
- * @package Engagement_Cloud_For_Woocommerce
+ * @package Dotdigital_WooCommerce
  */
 
-namespace Engagement_Cloud\Tests\Integration\Includes;
+namespace Dotdigital_WooCommerce\Tests\Integration\Includes;
 
-use Engagement_Cloud\Includes\Engagement_Cloud_Activator;
-use Engagement_Cloud\Engagement_Cloud_Bootstrapper;
+use Dotdigital_WooCommerce\Includes\Dotdigital_WooCommerce_Activator;
+use Dotdigital_WooCommerce\Dotdigital_WooCommerce_Bootstrapper;
 use WP_UnitTestCase;
 
 /**
@@ -17,7 +17,7 @@ use WP_UnitTestCase;
 class ActivatorTest extends WP_UnitTestCase {
 
 	/**
-	 * @var Engagement_Cloud_Activator
+	 * @var Dotdigital_WooCommerce_Activator
 	 */
 	private $activator;
 
@@ -34,7 +34,7 @@ class ActivatorTest extends WP_UnitTestCase {
 
 		wp_set_current_user( 1 );
 
-		$this->code_version = Engagement_Cloud_Bootstrapper::get_version();
+		$this->code_version = Dotdigital_WooCommerce_Bootstrapper::get_version();
 	}
 
 	/**
@@ -42,15 +42,15 @@ class ActivatorTest extends WP_UnitTestCase {
 	 *
 	 * Notes:
 	 * - This assumes the version option is not yet stored.
-	 * - register_action_hook is called as normal from Engagement_Cloud_Bootstrapper.
+	 * - register_action_hook is called as normal from Dotdigital_WooCommerce_Bootstrapper.
 	 */
 	public function test_activate_runs_upgrade_check() {
 		$plugin_abspath = dirname( dirname( dirname( dirname( __FILE__ ) ) ) ) .
-		                   '/class-engagement-cloud-bootstrapper.php';
+		                   '/class-dotdigital-woocommerce-bootstrapper.php';
 
 		do_action( 'activate_' . plugin_basename( $plugin_abspath ) );
 
-		$this->assertEquals(get_option( 'engagement_cloud_for_woocommerce_version' ), $this->code_version);
+		$this->assertEquals(get_option( 'dotdigital_for_woocommerce_version' ), $this->code_version);
 	}
 
 	/**

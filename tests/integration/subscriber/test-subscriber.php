@@ -2,14 +2,14 @@
 /**
  * Class SubscriberTest
  *
- * @package Engagement_Cloud_For_Woocommerce
+ * @package Dotdigital_WooCommerce
  */
 
-namespace Engagement_Cloud\Tests\Integration\Subscriber;
+namespace Dotdigital_WooCommerce\Tests\Integration\Subscriber;
 
-use Engagement_Cloud\Tests\Integration\Subscriber\Engagement_Cloud_UnitTest_Factory;
-use Engagement_Cloud\Includes\Subscriber\Engagement_Cloud_Subscriber;
-use Engagement_Cloud\Admin\Engagement_Cloud_Upgrader;
+use Dotdigital_WooCommerce\Tests\Integration\Subscriber\Dotdigital_WooCommerce_UnitTest_Factory;
+use Dotdigital_WooCommerce\Includes\Subscriber\Dotdigital_WooCommerce_Subscriber;
+use Dotdigital_WooCommerce\Admin\Dotdigital_WooCommerce_Upgrader;
 
 /**
  * Migrator test.
@@ -17,12 +17,12 @@ use Engagement_Cloud\Admin\Engagement_Cloud_Upgrader;
 class SubscriberTest extends \WP_UnitTestCase {
 
 	/**
-	 * @var Engagement_Cloud_Subscriber
+	 * @var Dotdigital_WooCommerce_Subscriber
 	 */
 	private $subscriber;
 
     /**
-     * @var Engagement_Cloud_Upgrader
+     * @var Dotdigital_WooCommerce_Upgrader
      */
     private $upgrader;
 
@@ -32,11 +32,11 @@ class SubscriberTest extends \WP_UnitTestCase {
 	public function setUp(): void {
 		parent::setUp();
 
-        $this->factory = new Engagement_Cloud_UnitTest_Factory;
-        $this->subscriber = new Engagement_Cloud_Subscriber();
+        $this->factory = new Dotdigital_WooCommerce_UnitTest_Factory;
+        $this->subscriber = new Dotdigital_WooCommerce_Subscriber();
 
         // Upgrader is required so we can install the subscriber table
-        $this->upgrader = new Engagement_Cloud_Upgrader(
+        $this->upgrader = new Dotdigital_WooCommerce_Upgrader(
             'test-plugin',
             '1.2.0',
             'https://chaz-tracking-link.net'

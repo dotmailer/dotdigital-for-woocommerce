@@ -88,7 +88,7 @@
 
 		$( document.body ).on(
 			'blur',
-			'input#ec-email, input#billing_email',
+			'input#dd-email, input#billing_email',
 			function() {
 				ajaxRefreshCartInsight({
 					action: 'update_session',

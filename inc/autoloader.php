@@ -5,8 +5,8 @@
  * This file is used to autoload all classes.
  *
  * @since      1.2.0
- * @package    EngagementCloud
- * @subpackage EngagementCloud
+ * @package    Dotdigital_WooCommerce
+ * @subpackage Dotdigital
  * @author     dotdigital <integrations@dotdigital.com>
  */
 
@@ -17,7 +17,7 @@ require_once __DIR__ . '/../vendor/autoload.php';
 
 spl_autoload_register(
 	function( $class ) {
-		if ( false !== strpos( $class, 'Engagement_Cloud' ) ) {
+		if ( false !== strpos( $class, 'Dotdigital_WooCommerce' ) ) {
 			if ( defined( 'PLUGIN_DIR_PATH' ) ) {
 				$root = PLUGIN_DIR_PATH . '/'; // parent directory.
 			} else {
@@ -25,10 +25,10 @@ spl_autoload_register(
 			}
 
 			$split = explode( '\\', $class );
-			if ( 'Engagement_Cloud_Bootstrapper' !== $split[0] ) {
+			if ( 'Dotdigital_WooCommerce_Bootstrapper' !== $split[0] ) {
 				unset( $split[0] );
 				foreach ( $split as $key => $item ) {
-					if ( false === strpos( $item, 'Engagement_Cloud' ) ) {
+					if ( false === strpos( $item, 'Dotdigital_WooCommerce' ) ) {
 						if ( 'Pub' === $item ) {
 							$split[ $key ] = 'public';
 						} elseif ( 'RestApi' === $item ) {
