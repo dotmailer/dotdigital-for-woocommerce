@@ -80,6 +80,7 @@ class Dotdigital_WooCommerce_Admin_Display {
 
 		// @codingStandardsIgnoreStart
 		$plugin_id = $wpdb->get_var( "SELECT PluginID FROM $table_name" );
+		$plugin_version = get_option( 'dotdigital_for_woocommerce_version' );
 		// @codingStandardsIgnoreEnd
 
 		$connection_query = http_build_query(
@@ -89,6 +90,7 @@ class Dotdigital_WooCommerce_Admin_Display {
 				'bridgeurl' => $bridge_url,
 				'storeroot' => $store_root,
 				'pluginid'  => $plugin_id,
+				'pluginversion' => $plugin_version,
 			)
 		);
 
