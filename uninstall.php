@@ -10,6 +10,7 @@
 
 defined( 'WP_UNINSTALL_PLUGIN' ) || exit;
 
+require 'class-dotdigital-woocommerce-bootstrapper.php';
 use Dotdigital_WooCommerce\Dotdigital_WooCommerce_Bootstrapper;
 
 /**
@@ -29,6 +30,11 @@ function dd_woocommerce_uninstall() {
 	wp_remote_post( Dotdigital_WooCommerce_Bootstrapper::$tracking_url . "/e/woocommerce/uninstall?pluginid=$plugin_id" );
 
 	delete_option( 'dotdigital_for_woocommerce_version' );
+	delete_option( 'dotdigital_for_woocommerce_settings_show_marketing_checkbox_at_checkout' );
+	delete_option( 'dotdigital_for_woocommerce_settings_show_marketing_checkbox_at_register' );
+	delete_option( 'dotdigital_for_woocommerce_settings_marketing_checkbox_text' );
+	delete_option( 'dotdigital_for_woocommerce_settings_enable_site_and_roi_tracking' );
+	delete_option( 'dotdigital_for_woocommerce_settings_region' );
 }
 
 dd_woocommerce_uninstall();
