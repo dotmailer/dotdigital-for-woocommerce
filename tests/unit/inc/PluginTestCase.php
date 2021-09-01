@@ -39,8 +39,12 @@ class PluginTestCase extends TestCase {
 			->returnArg( 1 );
 		Monkey\Functions\when( 'update_option' )
 			->returnArg( 1 );
+		Monkey\Functions\when( 'get_site_option' )
+			->returnArg( 1 );
 		Monkey\Functions\when( 'apply_filters' )
 			->justReturn( array() );
+		Monkey\Functions\when( 'is_multisite' )
+			->justReturn( 1 );
     }
 
 	/**

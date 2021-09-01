@@ -86,7 +86,7 @@ class Dotdigital_WooCommerce_Validator {
 	public function plugin_activation_failure_message() {
 		?>
 		<div class="notice notice-error is-dismissible">
-			<p><?php esc_html_e( 'The dotdigital for WooCommerce plugin will remain deactivated until an ecommerce plugin is installed and activated.', 'dotdigital-woocommerce' ); ?></p>
+			<p><?php esc_html_e( 'The dotdigital for WooCommerce plugin will remain deactivated until the WooCommerce plugin is installed and activated.', 'dotdigital-woocommerce' ); ?></p>
 		</div>
 		<?php
 	}

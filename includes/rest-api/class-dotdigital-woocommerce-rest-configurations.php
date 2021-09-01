@@ -36,27 +36,27 @@ class Dotdigital_WooCommerce_Rest_Configurations extends Dotdigital_WooCommerce_
 	 * @return \WP_REST_Response
 	 */
 	public function set_configurations( WP_REST_Request $request ) {
-		update_site_option(
+		update_option(
 			Dotdigital_WooCommerce_Bootstrapper::WBT_STATUS_PATH,
 			$request->get_param( self::WBT_STATUS_PARAM )
 		);
 
-		update_site_option(
+		update_option(
 			Dotdigital_WooCommerce_Bootstrapper::WBT_PROFILE_ID_PATH,
 			$request->get_param( self::WBT_PROFILE_ID_PARAM )
 		);
 
-		update_site_option(
+		update_option(
 			Dotdigital_WooCommerce_Bootstrapper::PROGRAM_ID_PATH,
 			$request->get_param( self::PROGRAM_ID_PARAM )
 		);
 
-		update_site_option(
+		update_option(
 			Dotdigital_WooCommerce_Bootstrapper::CART_DELAY_PATH,
 			$request->get_param( self::CART_DELAY_PARAM )
 		);
 
-		update_site_option(
+		update_option(
 			Dotdigital_WooCommerce_Bootstrapper::ALLOW_NON_SUBSCRIBERS_PATH,
 			$request->get_param( self::ALLOW_NON_SUBSCRIBERS_PARAM )
 		);

@@ -193,13 +193,26 @@ class Dotdigital_WooCommerce {
 	 */
 	private function define_validation_hooks() {
 
-		if ( ! in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ), true ) ) {
-			$plugin_validator = new Dotdigital_WooCommerce_Validator( $this->plugin_name, $this->plugin_path );
-
-			$this->loader->add_action( 'admin_init', $plugin_validator, 'self_deactivate' );
-			$this->loader->add_action( 'admin_menu', $plugin_validator, 'remove_admin_menu_page' );
-			$this->loader->add_action( 'admin_notices', $plugin_validator, 'plugin_activation_failure_message' );
+		if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ), true ) ) {
+			return;
 		}
+
+		/**
+		 * If Woo is network activated in multisite, that's OK.
+		 */
+		if ( is_multisite() ) {
+			$plugins = get_site_option( 'active_sitewide_plugins' );
+			if ( isset( $plugins['woocommerce/woocommerce.php'] ) ) {
+				return;
+			}
+		}
+
+		$plugin_validator = new Dotdigital_WooCommerce_Validator( $this->plugin_name, $this->plugin_path );
+
+		$this->loader->add_action( 'admin_init', $plugin_validator, 'self_deactivate' );
+		$this->loader->add_action( 'admin_menu', $plugin_validator, 'remove_admin_menu_page' );
+		$this->loader->add_action( 'admin_notices', $plugin_validator, 'plugin_activation_failure_message' );
+
 	}
 
 	/**
