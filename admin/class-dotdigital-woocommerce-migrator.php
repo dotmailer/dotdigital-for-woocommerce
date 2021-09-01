@@ -11,7 +11,7 @@
 
 namespace Dotdigital_WooCommerce\Admin;
 
-use Dotdigital_WooCommerce\Dotdigital_WooCommerce_Bootstrapper;
+use Dotdigital_WooCommerce\Includes\Dotdigital_WooCommerce_Config;
 
 /**
  * Class Dotdigital_WooCommerce_Upgrader
@@ -32,7 +32,7 @@ class Dotdigital_WooCommerce_Migrator {
 	 */
 	public function migrate_users_to_subscriber_table() {
 		global $wpdb;
-		$table_name = $wpdb->prefix . Dotdigital_WooCommerce_Bootstrapper::SUBSCRIBERS_TABLE_NAME;
+		$table_name = $wpdb->prefix . Dotdigital_WooCommerce_Config::SUBSCRIBERS_TABLE_NAME;
 
 		// Do not overwrite existing.
 		$result = $wpdb->get_results( "SELECT id from {$table_name} LIMIT 1" ); // phpcs:ignore WordPress.DB

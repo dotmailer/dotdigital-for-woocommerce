@@ -12,8 +12,6 @@
 namespace Dotdigital_WooCommerce\Includes;
 
 use Dotdigital_WooCommerce\Includes\RestApi\Dotdigital_WooCommerce_Rest_Configurations;
-use Dotdigital_WooCommerce\Includes\RestApi\Dotdigital_WooCommerce_Rest_Unsubscribe;
-use Dotdigital_WooCommerce\Dotdigital_WooCommerce_Bootstrapper;
 use WP_REST_Response;
 use WP_REST_Controller;
 use WP_Error;
@@ -125,7 +123,7 @@ class Dotdigital_WooCommerce_Rest_Api {
 	 */
 	public function validate_plugin_id( $plugin_id ) {
 		global $wpdb;
-		$email_marketing_table_name = $wpdb->prefix . Dotdigital_WooCommerce_Bootstrapper::EMAIL_MARKETING_TABLE_NAME;
+		$email_marketing_table_name = $wpdb->prefix . Dotdigital_WooCommerce_Config::EMAIL_MARKETING_TABLE_NAME;
 
 		return $plugin_id === $wpdb->get_var( "SELECT PluginID FROM $email_marketing_table_name" ); // phpcs:ignore WordPress.DB
 	}

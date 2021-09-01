@@ -12,7 +12,7 @@
 namespace Dotdigital_WooCommerce\Admin;
 
 use Dotdigital_WooCommerce\Admin\Partials\Dotdigital_WooCommerce_Admin_Display;
-use Dotdigital_WooCommerce\Dotdigital_WooCommerce_Bootstrapper;
+use Dotdigital_WooCommerce\Includes\Dotdigital_WooCommerce_Config;
 
 /**
  * The admin-specific functionality of the plugin.
@@ -239,15 +239,15 @@ class Dotdigital_WooCommerce_Admin {
 		 * Add settings field [show checkbox at checkout].
 		 */
 		add_settings_field(
-			'dotdigital_for_woocommerce_settings_show_marketing_checkbox_at_checkout',
+			Dotdigital_WooCommerce_Config::SHOW_MARKETING_CHECKBOX_CHECKOUT,
 			'Show marketing checkbox at checkout',
 			array( $this, 'settings_page_render_checkbox' ),
 			$this->plugin_name . '-settings',
 			'dd_woo_settings_page_general_section',
 			array(
-				'id'            => 'dotdigital_for_woocommerce_settings_show_marketing_checkbox_at_checkout',
-				'name'          => 'dotdigital_for_woocommerce_settings_show_marketing_checkbox_at_checkout',
-				'default_value' => Dotdigital_WooCommerce_Bootstrapper::DEFAULT_MARKETING_CHECKBOX_DISPLAY_AT_CHECKOUT,
+				'id'            => Dotdigital_WooCommerce_Config::SHOW_MARKETING_CHECKBOX_CHECKOUT,
+				'name'          => Dotdigital_WooCommerce_Config::SHOW_MARKETING_CHECKBOX_CHECKOUT,
+				'default_value' => Dotdigital_WooCommerce_Config::DEFAULT_MARKETING_CHECKBOX_DISPLAY_AT_CHECKOUT,
 			)
 		);
 
@@ -255,47 +255,47 @@ class Dotdigital_WooCommerce_Admin {
 		 * Add settings field [show checkbox at register].
 		 */
 		add_settings_field(
-			'dotdigital_for_woocommerce_settings_show_marketing_checkbox_at_register',
+			Dotdigital_WooCommerce_Config::SHOW_MARKETING_CHECKBOX_REGISTER,
 			'Show marketing checkbox at user registration',
 			array( $this, 'settings_page_render_checkbox' ),
 			$this->plugin_name . '-settings',
 			'dd_woo_settings_page_general_section',
 			array(
-				'id'            => 'dotdigital_for_woocommerce_settings_show_marketing_checkbox_at_register',
-				'name'          => 'dotdigital_for_woocommerce_settings_show_marketing_checkbox_at_register',
-				'default_value' => Dotdigital_WooCommerce_Bootstrapper::DEFAULT_MARKETING_CHECKBOX_DISPLAY_AT_REGISTER,
+				'id'            => Dotdigital_WooCommerce_Config::SHOW_MARKETING_CHECKBOX_REGISTER,
+				'name'          => Dotdigital_WooCommerce_Config::SHOW_MARKETING_CHECKBOX_REGISTER,
+				'default_value' => Dotdigital_WooCommerce_Config::DEFAULT_MARKETING_CHECKBOX_DISPLAY_AT_REGISTER,
 			)
 		);
 
 		register_setting(
 			$this->plugin_name . '-settings',
-			'dotdigital_for_woocommerce_settings_show_marketing_checkbox_at_checkout'
+			Dotdigital_WooCommerce_Config::SHOW_MARKETING_CHECKBOX_CHECKOUT
 		);
 
 		register_setting(
 			$this->plugin_name . '-settings',
-			'dotdigital_for_woocommerce_settings_show_marketing_checkbox_at_register'
+			Dotdigital_WooCommerce_Config::SHOW_MARKETING_CHECKBOX_REGISTER
 		);
 
 		/**
 		 * Add settings field [checkbox text].
 		 */
 		add_settings_field(
-			'dotdigital_for_woocommerce_settings_marketing_checkbox_text',
+			Dotdigital_WooCommerce_Config::MARKETING_CHECKBOX_TEXT,
 			'Marketing checkbox text',
 			array( $this, 'settings_page_render_text_input' ),
 			$this->plugin_name . '-settings',
 			'dd_woo_settings_page_general_section',
 			array(
-				'id'            => 'dotdigital_for_woocommerce_settings_marketing_checkbox_text',
-				'name'          => 'dotdigital_for_woocommerce_settings_marketing_checkbox_text',
-				'default_value' => Dotdigital_WooCommerce_Bootstrapper::DEFAULT_MARKETING_CHECKBOX_TEXT,
+				'id'            => Dotdigital_WooCommerce_Config::MARKETING_CHECKBOX_TEXT,
+				'name'          => Dotdigital_WooCommerce_Config::MARKETING_CHECKBOX_TEXT,
+				'default_value' => Dotdigital_WooCommerce_Config::DEFAULT_MARKETING_CHECKBOX_TEXT,
 			)
 		);
 
 		register_setting(
 			$this->plugin_name . '-settings',
-			'dotdigital_for_woocommerce_settings_marketing_checkbox_text'
+			Dotdigital_WooCommerce_Config::MARKETING_CHECKBOX_TEXT
 		);
 	}
 
@@ -319,21 +319,21 @@ class Dotdigital_WooCommerce_Admin {
 		 * Add settings field [enable site and roi tracking].
 		 */
 		add_settings_field(
-			'dotdigital_for_woocommerce_settings_enable_site_and_roi_tracking',
+			Dotdigital_WooCommerce_Config::SITE_AND_ROI_TRACKING,
 			'Enable site and ROI tracking',
 			array( $this, 'settings_page_render_checkbox' ),
 			$this->plugin_name . '-settings',
 			'dd_woo_settings_page_tracking_section',
 			array(
-				'id'            => 'dotdigital_for_woocommerce_settings_enable_site_and_roi_tracking',
-				'name'          => 'dotdigital_for_woocommerce_settings_enable_site_and_roi_tracking',
-				'default_value' => Dotdigital_WooCommerce_Bootstrapper::DEFAULT_SITE_AND_ROI_TRACKING_ENABLED,
+				'id'            => Dotdigital_WooCommerce_Config::SITE_AND_ROI_TRACKING,
+				'name'          => Dotdigital_WooCommerce_Config::SITE_AND_ROI_TRACKING,
+				'default_value' => Dotdigital_WooCommerce_Config::DEFAULT_SITE_AND_ROI_TRACKING_ENABLED,
 			)
 		);
 
 		register_setting(
 			$this->plugin_name . '-settings',
-			'dotdigital_for_woocommerce_settings_enable_site_and_roi_tracking'
+			Dotdigital_WooCommerce_Config::SITE_AND_ROI_TRACKING
 		);
 
 		/**
@@ -341,7 +341,7 @@ class Dotdigital_WooCommerce_Admin {
 		 */
 		register_setting(
 			$this->plugin_name . '-settings',
-			'dotdigital_for_woocommerce_settings_region'
+			Dotdigital_WooCommerce_Config::REGION
 		);
 
 		add_settings_field(
@@ -351,9 +351,9 @@ class Dotdigital_WooCommerce_Admin {
 			$this->plugin_name . '-settings',
 			'dd_woo_settings_page_tracking_section',
 			array(
-				'id' => 'dotdigital_for_woocommerce_settings_region',
-				'name' => 'dotdigital_for_woocommerce_settings_region',
-				'default_value' => Dotdigital_WooCommerce_Bootstrapper::DEFAULT_REGION,
+				'id' => Dotdigital_WooCommerce_Config::REGION,
+				'name' => Dotdigital_WooCommerce_Config::REGION,
+				'default_value' => Dotdigital_WooCommerce_Config::DEFAULT_REGION,
 				'items' => array(
 					'1' => 'Region 1',
 					'2' => 'Region 2',

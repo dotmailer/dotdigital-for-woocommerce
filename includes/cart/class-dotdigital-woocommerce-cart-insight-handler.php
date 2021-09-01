@@ -11,7 +11,7 @@
 
 namespace Dotdigital_WooCommerce\Includes\Cart;
 
-use Dotdigital_WooCommerce\Dotdigital_WooCommerce_Bootstrapper;
+use Dotdigital_WooCommerce\Includes\Dotdigital_WooCommerce_Config;
 use Dotdigital_WooCommerce\Includes\Customer\Dotdigital_WooCommerce_Customer;
 use Dotdigital_WooCommerce\Includes\Subscriber\Dotdigital_WooCommerce_Subscriber;
 
@@ -27,7 +27,7 @@ class Dotdigital_WooCommerce_Cart_Insight_Handler {
 	 */
 	public function can_send_cart_insight() {
 		$cart = new Dotdigital_WooCommerce_Cart();
-		$abandoned_cart_program_id = get_option( Dotdigital_WooCommerce_Bootstrapper::PROGRAM_ID_PATH, null );
+		$abandoned_cart_program_id = get_option( Dotdigital_WooCommerce_Config::PROGRAM_ID_PATH, null );
 
 		/**
 		 * If we haven't got a cart_id, that means we've no user OR there are no items in the cart.
@@ -45,8 +45,8 @@ class Dotdigital_WooCommerce_Cart_Insight_Handler {
 		}
 
 		if ( get_option(
-			Dotdigital_WooCommerce_Bootstrapper::ALLOW_NON_SUBSCRIBERS_PATH,
-			Dotdigital_WooCommerce_Bootstrapper::DEFAULT_ABANDONED_CART_ALLOW_NON_SUBSCRIBERS
+			Dotdigital_WooCommerce_Config::ALLOW_NON_SUBSCRIBERS_PATH,
+			Dotdigital_WooCommerce_Config::DEFAULT_ABANDONED_CART_ALLOW_NON_SUBSCRIBERS
 		) ) {
 			return true;
 		}

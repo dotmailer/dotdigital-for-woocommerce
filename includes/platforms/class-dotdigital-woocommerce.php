@@ -13,9 +13,9 @@
 namespace Dotdigital_WooCommerce\Includes\Platforms;
 
 use WooCommerce;
-use Dotdigital_WooCommerce\Dotdigital_WooCommerce_Bootstrapper;
 use Dotdigital_WooCommerce\Includes\Cart\Dotdigital_WooCommerce_Cart;
 use Dotdigital_WooCommerce\Includes\Subscriber\Dotdigital_WooCommerce_Subscriber;
+use Dotdigital_WooCommerce\Includes\Dotdigital_WooCommerce_Config;
 
 /**
  * Class Dotdigital_WooCommerce_WooCommerce
@@ -40,8 +40,8 @@ class Dotdigital_WooCommerce {
 	 */
 	public function dotdigital_woocommerce_render_checkout_marketing_checkbox() {
 		if ( ! get_option(
-			'dotdigital_for_woocommerce_settings_show_marketing_checkbox_at_checkout',
-			Dotdigital_WooCommerce_Bootstrapper::DEFAULT_MARKETING_CHECKBOX_DISPLAY_AT_CHECKOUT
+			Dotdigital_WooCommerce_Config::SHOW_MARKETING_CHECKBOX_CHECKOUT,
+			Dotdigital_WooCommerce_Config::DEFAULT_MARKETING_CHECKBOX_DISPLAY_AT_CHECKOUT
 		) ) {
 			return;
 		}
@@ -53,8 +53,8 @@ class Dotdigital_WooCommerce {
 			array(
 				'type'  => 'checkbox',
 				'label' => get_option(
-					'dotdigital_for_woocommerce_settings_marketing_checkbox_text',
-					Dotdigital_WooCommerce_Bootstrapper::DEFAULT_MARKETING_CHECKBOX_TEXT
+					Dotdigital_WooCommerce_Config::MARKETING_CHECKBOX_TEXT,
+					Dotdigital_WooCommerce_Config::DEFAULT_MARKETING_CHECKBOX_TEXT
 				),
 			),
 			$subscriber->is_user_id_subscribed( get_current_user_id() )
@@ -104,8 +104,8 @@ class Dotdigital_WooCommerce {
 	public function dotdigital_woocommerce_render_register_marketing_checkbox() {
 
 		if ( ! get_option(
-			'dotdigital_for_woocommerce_settings_show_marketing_checkbox_at_register',
-			Dotdigital_WooCommerce_Bootstrapper::DEFAULT_MARKETING_CHECKBOX_DISPLAY_AT_CHECKOUT
+			Dotdigital_WooCommerce_Config::SHOW_MARKETING_CHECKBOX_REGISTER,
+			Dotdigital_WooCommerce_Config::DEFAULT_MARKETING_CHECKBOX_DISPLAY_AT_REGISTER
 		) ) {
 			return;
 		}
@@ -115,8 +115,8 @@ class Dotdigital_WooCommerce {
 			array(
 				'type'  => 'checkbox',
 				'label' => get_option(
-					'dotdigital_for_woocommerce_settings_marketing_checkbox_text',
-					Dotdigital_WooCommerce_Bootstrapper::DEFAULT_MARKETING_CHECKBOX_TEXT
+					Dotdigital_WooCommerce_Config::MARKETING_CHECKBOX_TEXT,
+					Dotdigital_WooCommerce_Config::DEFAULT_MARKETING_CHECKBOX_TEXT
 				),
 			)
 		);

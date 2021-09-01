@@ -6,7 +6,7 @@ use Brain\Monkey;
 use Brain\Monkey\Functions;
 use Dotdigital_WooCommerce\Tests\Unit\Inc\PluginTestCase;
 use Dotdigital_WooCommerce\Includes\Subscriber\Dotdigital_WooCommerce_Subscriber;
-use Dotdigital_WooCommerce\Dotdigital_WooCommerce_Bootstrapper;
+use Dotdigital_WooCommerce\Includes\Dotdigital_WooCommerce_Config;
 
 class Dotdigital_WooCommerce_Subscriber_Test extends PluginTestCase {
 
@@ -22,7 +22,7 @@ class Dotdigital_WooCommerce_Subscriber_Test extends PluginTestCase {
 		$subscriber_class = new Dotdigital_WooCommerce_Subscriber();
 
 		$email        = 'chaz@emailsim.io';
-		$table        = Dotdigital_WooCommerce_Bootstrapper::SUBSCRIBERS_TABLE_NAME;
+		$table        = Dotdigital_WooCommerce_Config::SUBSCRIBERS_TABLE_NAME;
 		$wpdb         = \Mockery::mock( 'wpdb' );
 		$wpdb->prefix = 'chaz_';
 		$wpdb->shouldReceive( 'update' )

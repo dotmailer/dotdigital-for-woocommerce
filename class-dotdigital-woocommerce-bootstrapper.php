@@ -72,23 +72,6 @@ require_once 'inc/autoloader.php';
  */
 class Dotdigital_WooCommerce_Bootstrapper {
 
-	const EMAIL_MARKETING_TABLE_NAME = 'dotmailer_email_marketing';
-	const SUBSCRIBERS_TABLE_NAME     = 'dd_subscribers';
-
-	const DEFAULT_MARKETING_CHECKBOX_DISPLAY_AT_CHECKOUT = 1;
-	const DEFAULT_MARKETING_CHECKBOX_DISPLAY_AT_REGISTER = 1;
-	const DEFAULT_SITE_AND_ROI_TRACKING_ENABLED = 0;
-	const DEFAULT_MARKETING_CHECKBOX_TEXT = 'Subscribe to our newsletter';
-	const DEFAULT_REGION = 1;
-
-	const DEFAULT_ABANDONED_CART_ALLOW_NON_SUBSCRIBERS = 1;
-
-	const WBT_PROFILE_ID_PATH = 'dotdigital_for_woocommerce_settings_web_behaviour_tracking_profile_id';
-	const WBT_STATUS_PATH = 'dotdigital_for_woocommerce_settings_web_behaviour_tracking_enabled';
-	const PROGRAM_ID_PATH = 'dotdigital_for_woocommerce_cart_insight_program_id';
-	const CART_DELAY_PATH = 'dotdigital_for_woocommerce_cart_insight_cart_delay';
-	const ALLOW_NON_SUBSCRIBERS_PATH = 'dotdigital_for_woocommerce_abandoned_cart_allow_non_subscribers';
-
 	/**
 	 * The unique identifier of this plugin.
 	 *

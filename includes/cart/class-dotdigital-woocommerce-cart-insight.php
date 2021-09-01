@@ -11,8 +11,8 @@
 
 namespace Dotdigital_WooCommerce\Includes\Cart;
 
-use Dotdigital_WooCommerce\Dotdigital_WooCommerce_Bootstrapper;
 use Dotdigital_WooCommerce\Includes\Customer\Dotdigital_WooCommerce_Customer;
+use Dotdigital_WooCommerce\Includes\Dotdigital_WooCommerce_Config;
 
 /**
  * Class Dotdigital_WooCommerce_Cart_Insight
@@ -84,7 +84,7 @@ class Dotdigital_WooCommerce_Cart_Insight {
 	 * @return int
 	 */
 	private function get_program_id() {
-		return (int) get_option( Dotdigital_WooCommerce_Bootstrapper::PROGRAM_ID_PATH, 0 );
+		return (int) get_option( Dotdigital_WooCommerce_Config::PROGRAM_ID_PATH, 0 );
 	}
 
 	/**
@@ -93,7 +93,7 @@ class Dotdigital_WooCommerce_Cart_Insight {
 	 * @return int
 	 */
 	private function get_cart_delay() {
-		return (int) get_option( Dotdigital_WooCommerce_Bootstrapper::CART_DELAY_PATH, 0 );
+		return (int) get_option( Dotdigital_WooCommerce_Config::CART_DELAY_PATH, 0 );
 	}
 
 	/**

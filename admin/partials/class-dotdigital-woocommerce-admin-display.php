@@ -11,6 +11,8 @@
 
 namespace Dotdigital_WooCommerce\Admin\Partials;
 
+use Dotdigital_WooCommerce\Includes\Dotdigital_WooCommerce_Config;
+
 /**
  * Provide an admin area view for the plugin
  *
@@ -76,11 +78,11 @@ class Dotdigital_WooCommerce_Admin_Display {
 			ABSPATH;
 
 		global $wpdb;
-		$table_name = $wpdb->prefix . 'dotmailer_email_marketing';
+		$table_name = $wpdb->prefix . Dotdigital_WooCommerce_Config::EMAIL_MARKETING_TABLE_NAME;
 
 		// @codingStandardsIgnoreStart
 		$plugin_id = $wpdb->get_var( "SELECT PluginID FROM $table_name" );
-		$plugin_version = get_option( 'dotdigital_for_woocommerce_version' );
+		$plugin_version = get_option( Dotdigital_WooCommerce_Config::PLUGIN_VERSION );
 		// @codingStandardsIgnoreEnd
 
 		$connection_query = http_build_query(

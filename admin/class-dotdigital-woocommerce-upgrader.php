@@ -11,10 +11,8 @@
 
 namespace Dotdigital_WooCommerce\Admin;
 
-use Dotdigital_WooCommerce\Dotdigital_WooCommerce_Bootstrapper;
 use Dotdigital_WooCommerce\Includes\Dotdigital_WooCommerce_Rest_Api;
-use Dotdigital_WooCommerce\Admin\Dotdigital_WooCommerce_Migrator;
-
+use Dotdigital_WooCommerce\Includes\Dotdigital_WooCommerce_Config;
 /**
  * Class Dotdigital_WooCommerce_Upgrader
  */
@@ -79,7 +77,7 @@ class Dotdigital_WooCommerce_Upgrader {
 	 * @return bool If we did upgrade, return true.
 	 */
 	public function upgrade_check() {
-		$this->stored_version = get_option( 'dotdigital_for_woocommerce_version' );
+		$this->stored_version = get_option( Dotdigital_WooCommerce_Config::PLUGIN_VERSION );
 		if ( version_compare( $this->stored_version, $this->version, '>=' ) ) {
 			return false;
 		}
@@ -122,7 +120,7 @@ class Dotdigital_WooCommerce_Upgrader {
 	 */
 	private function generate_and_store_plugin_id() {
 		global $wpdb;
-		$table_name = $wpdb->prefix . Dotdigital_WooCommerce_Bootstrapper::EMAIL_MARKETING_TABLE_NAME;
+		$table_name = $wpdb->prefix . Dotdigital_WooCommerce_Config::EMAIL_MARKETING_TABLE_NAME;
 		$plugin_id  = $wpdb->get_var( "SELECT PluginID FROM $table_name" ); // phpcs:ignore WordPress.DB
 
 		if ( null === $plugin_id ) {
@@ -167,7 +165,7 @@ class Dotdigital_WooCommerce_Upgrader {
 	 */
 	public function create_email_marketing_table() {
 		global $wpdb;
-		$table_name = $wpdb->prefix . Dotdigital_WooCommerce_Bootstrapper::EMAIL_MARKETING_TABLE_NAME;
+		$table_name = $wpdb->prefix . Dotdigital_WooCommerce_Config::EMAIL_MARKETING_TABLE_NAME;
 		$charset_collate = $wpdb->get_charset_collate();
 
 		$sql = "CREATE TABLE $table_name (
@@ -183,7 +181,7 @@ class Dotdigital_WooCommerce_Upgrader {
 	 */
 	public function create_subscriber_table() {
 		global $wpdb;
-		$table_name = $wpdb->prefix . Dotdigital_WooCommerce_Bootstrapper::SUBSCRIBERS_TABLE_NAME;
+		$table_name = $wpdb->prefix . Dotdigital_WooCommerce_Config::SUBSCRIBERS_TABLE_NAME;
 		$charset_collate = $wpdb->get_charset_collate();
 
 		$sql = "CREATE TABLE {$table_name} (
@@ -210,7 +208,7 @@ class Dotdigital_WooCommerce_Upgrader {
 	 */
 	private function migrate_users_to_subscriber_table() {
 		global $wpdb;
-		$table_name = $wpdb->prefix . Dotdigital_WooCommerce_Bootstrapper::SUBSCRIBERS_TABLE_NAME;
+		$table_name = $wpdb->prefix . Dotdigital_WooCommerce_Config::SUBSCRIBERS_TABLE_NAME;
 
 		// Do not overwrite existing.
 		$result = $wpdb->get_results( "SELECT id from {$table_name} LIMIT 1" ); // phpcs:ignore WordPress.DB
@@ -233,6 +231,6 @@ class Dotdigital_WooCommerce_Upgrader {
 	 * Set the plugin version after install or upgrade
 	 */
 	private function set_plugin_version() {
-		 update_option( 'dotdigital_for_woocommerce_version', $this->version );
+		 update_option( Dotdigital_WooCommerce_Config::PLUGIN_VERSION, $this->version );
 	}
 }

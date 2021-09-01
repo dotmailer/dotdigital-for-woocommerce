@@ -13,7 +13,7 @@ namespace Dotdigital_WooCommerce\Includes\RestApi;
 
 use WP_REST_Request;
 use Dotdigital_WooCommerce\Includes\Dotdigital_WooCommerce_Rest_Api;
-use Dotdigital_WooCommerce\Dotdigital_WooCommerce_Bootstrapper;
+use Dotdigital_WooCommerce\Includes\Dotdigital_WooCommerce_Config;
 
 /**
  * Class Dotdigital_WooCommerce_Rest_Configurations
@@ -37,27 +37,27 @@ class Dotdigital_WooCommerce_Rest_Configurations extends Dotdigital_WooCommerce_
 	 */
 	public function set_configurations( WP_REST_Request $request ) {
 		update_option(
-			Dotdigital_WooCommerce_Bootstrapper::WBT_STATUS_PATH,
+			Dotdigital_WooCommerce_Config::WBT_STATUS_PATH,
 			$request->get_param( self::WBT_STATUS_PARAM )
 		);
 
 		update_option(
-			Dotdigital_WooCommerce_Bootstrapper::WBT_PROFILE_ID_PATH,
+			Dotdigital_WooCommerce_Config::WBT_PROFILE_ID_PATH,
 			$request->get_param( self::WBT_PROFILE_ID_PARAM )
 		);
 
 		update_option(
-			Dotdigital_WooCommerce_Bootstrapper::PROGRAM_ID_PATH,
+			Dotdigital_WooCommerce_Config::PROGRAM_ID_PATH,
 			$request->get_param( self::PROGRAM_ID_PARAM )
 		);
 
 		update_option(
-			Dotdigital_WooCommerce_Bootstrapper::CART_DELAY_PATH,
+			Dotdigital_WooCommerce_Config::CART_DELAY_PATH,
 			$request->get_param( self::CART_DELAY_PARAM )
 		);
 
 		update_option(
-			Dotdigital_WooCommerce_Bootstrapper::ALLOW_NON_SUBSCRIBERS_PATH,
+			Dotdigital_WooCommerce_Config::ALLOW_NON_SUBSCRIBERS_PATH,
 			$request->get_param( self::ALLOW_NON_SUBSCRIBERS_PARAM )
 		);
 

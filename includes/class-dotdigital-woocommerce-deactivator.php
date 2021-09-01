@@ -11,6 +11,8 @@
 
 namespace Dotdigital_WooCommerce\Includes;
 
+use Dotdigital_WooCommerce\Includes\Dotdigital_WooCommerce_Config;
+
 /**
  * Fired during plugin deactivation.
  *
@@ -69,7 +71,7 @@ class Dotdigital_WooCommerce_Deactivator {
 	 */
 	public function deactivate() {
 		global $wpdb;
-		$dotdigital_table_name = $wpdb->prefix . 'dotmailer_email_marketing';
+		$dotdigital_table_name = $wpdb->prefix . Dotdigital_WooCommerce_Config::EMAIL_MARKETING_TABLE_NAME;
 
 		// @codingStandardsIgnoreStart
 		$plugin_id = $wpdb->get_var( "SELECT PluginID FROM $dotdigital_table_name" );

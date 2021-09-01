@@ -11,7 +11,7 @@
 
 namespace Dotdigital_WooCommerce\Includes\Subscriber;
 
-use Dotdigital_WooCommerce\Dotdigital_WooCommerce_Bootstrapper;
+use Dotdigital_WooCommerce\Includes\Dotdigital_WooCommerce_Config;
 
 /**
  * Class Dotdigital_WooCommerce_Subscriber
@@ -36,7 +36,7 @@ class Dotdigital_WooCommerce_Subscriber {
 	 */
 	public function __construct() {
 		global $wpdb;
-		$this->table_name = $wpdb->prefix . Dotdigital_WooCommerce_Bootstrapper::SUBSCRIBERS_TABLE_NAME;
+		$this->table_name = $wpdb->prefix . Dotdigital_WooCommerce_Config::SUBSCRIBERS_TABLE_NAME;
 	}
 
 	/**

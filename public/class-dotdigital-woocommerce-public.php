@@ -16,6 +16,7 @@ use Dotdigital_WooCommerce\Includes\Cart\Dotdigital_WooCommerce_Cart_Insight_Han
 use Dotdigital_WooCommerce\Includes\Widgets\Dotdigital_WooCommerce_Widget;
 use Dotdigital_WooCommerce\Includes\Tracking\Dotdigital_WooCommerce_Roi;
 use Dotdigital_WooCommerce\Dotdigital_WooCommerce_Bootstrapper;
+use Dotdigital_WooCommerce\Includes\Dotdigital_WooCommerce_Config;
 
 /**
  * The public-facing functionality of the plugin.
@@ -162,15 +163,15 @@ class Dotdigital_WooCommerce_Public {
 	 */
 	private function add_tracking_and_roi_script() {
 		if ( ! get_option(
-			'dotdigital_for_woocommerce_settings_enable_site_and_roi_tracking',
-			Dotdigital_WooCommerce_Bootstrapper::DEFAULT_SITE_AND_ROI_TRACKING_ENABLED
+			Dotdigital_WooCommerce_Config::SITE_AND_ROI_TRACKING,
+			Dotdigital_WooCommerce_Config::DEFAULT_SITE_AND_ROI_TRACKING_ENABLED
 		) ) {
 			return;
 		}
 
 		$region = get_option(
 			'dotdigital_for_woocommerce_settings_region',
-			Dotdigital_WooCommerce_Bootstrapper::DEFAULT_REGION
+			Dotdigital_WooCommerce_Config::DEFAULT_REGION
 		);
 
 		$src = sprintf( '//r%s-t.trackedlink.net/_dmpt.js', $region );
@@ -205,7 +206,7 @@ class Dotdigital_WooCommerce_Public {
 	private function setup_scripts_for_cart_insight() {
 
 		$wbt_profile_id = get_option(
-			Dotdigital_WooCommerce_Bootstrapper::WBT_PROFILE_ID_PATH
+			Dotdigital_WooCommerce_Config::WBT_PROFILE_ID_PATH
 		);
 
 		if ( ! $wbt_profile_id ) {

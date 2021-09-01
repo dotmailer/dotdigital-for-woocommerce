@@ -4,6 +4,7 @@ namespace Dotdigital_WooCommerce\Tests\Unit\Pub;
 
 use Brain\Monkey\Functions;
 use Dotdigital_WooCommerce\Dotdigital_WooCommerce_Bootstrapper;
+use Dotdigital_WooCommerce\Includes\Dotdigital_WooCommerce_Config;
 use Dotdigital_WooCommerce\Tests\Unit\Inc\PluginTestCase;
 use Dotdigital_WooCommerce\Pub\Dotdigital_WooCommerce_Public;
 
@@ -21,12 +22,12 @@ class Dotdigital_WooCommerce_Public_Test extends PluginTestCase
 
     public function setUp()
     {
-        $src = sprintf( '//r%s-t.trackedlink.net/_dmpt.js', Dotdigital_WooCommerce_Bootstrapper::DEFAULT_REGION );
+        $src = sprintf( '//r%s-t.trackedlink.net/_dmpt.js', Dotdigital_WooCommerce_Config::DEFAULT_REGION );
 
         Functions\expect( 'get_option' )
             ->once()
-            ->with( 'dotdigital_for_woocommerce_settings_region', Dotdigital_WooCommerce_Bootstrapper::DEFAULT_REGION  )
-            ->andReturn( Dotdigital_WooCommerce_Bootstrapper::DEFAULT_REGION );
+            ->with( 'dotdigital_for_woocommerce_settings_region', Dotdigital_WooCommerce_Config::DEFAULT_REGION  )
+            ->andReturn( Dotdigital_WooCommerce_Config::DEFAULT_REGION );
 
         Functions\expect( 'plugin_dir_url' )
             ->with( '__FILE__'  )
@@ -50,7 +51,7 @@ class Dotdigital_WooCommerce_Public_Test extends PluginTestCase
 
         Functions\expect( 'get_option' )
             ->once()
-            ->with( 'dotdigital_for_woocommerce_settings_enable_site_and_roi_tracking', Dotdigital_WooCommerce_Bootstrapper::DEFAULT_SITE_AND_ROI_TRACKING_ENABLED  )
+            ->with( 'dotdigital_for_woocommerce_settings_enable_site_and_roi_tracking', Dotdigital_WooCommerce_Config::DEFAULT_SITE_AND_ROI_TRACKING_ENABLED  )
             ->andReturn( true );
 
 	    $props = array(
