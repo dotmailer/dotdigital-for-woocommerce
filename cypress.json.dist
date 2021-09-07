@@ -1,0 +1,10 @@
+{
+    "wp": {
+        "version": ["5.5"],
+        "plugins": [
+            "<path-to-dotdigital>",
+            "<path-to-woocommerce>"
+        ],
+        "port": 3000
+    }
+}
