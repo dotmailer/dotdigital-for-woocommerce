@@ -95,6 +95,7 @@ class Dotdigital_WooCommerce_Upgrader {
 	private function upgrade() {
 		if ( current_user_can( 'update_plugins' ) ) {
 			$this->upgrade_one_zero_zero();
+			$this->upgrade_one_one_zero();
 			$this->upgrade_one_two_zero();
 		}
 	}
@@ -148,6 +149,16 @@ class Dotdigital_WooCommerce_Upgrader {
 			$this->create_email_marketing_table();
 		}
 	}
+
+	/**
+	 * Upgrade 1.1.0
+	 */
+	private function upgrade_one_one_zero() {
+		if ( version_compare( $this->stored_version, '1.1.0', '<' ) ) {
+			$this->enable_abandoned_cart();
+		}
+	}
+
 	/**
 	 * Upgrade 1.2.0.
 	 */
@@ -217,7 +228,7 @@ class Dotdigital_WooCommerce_Upgrader {
 		}
 
 		$sql = "SELECT ID, user_email FROM {$wpdb->prefix}users
-            	INNER JOIN {$wpdb->prefix}usermeta ON {$wpdb->prefix}usermeta.user_id = {$wpdb->prefix}users.ID 
+            	INNER JOIN {$wpdb->prefix}usermeta ON {$wpdb->prefix}usermeta.user_id = {$wpdb->prefix}users.ID
             	WHERE {$wpdb->prefix}usermeta.meta_key = '_wc_subscribed_to_newsletter'
             	AND {$wpdb->prefix}usermeta.meta_value = 1
         ";
@@ -232,5 +243,15 @@ class Dotdigital_WooCommerce_Upgrader {
 	 */
 	private function set_plugin_version() {
 		 update_option( Dotdigital_WooCommerce_Config::PLUGIN_VERSION, $this->version );
+	}
+
+	/**
+	 * Set the options so Api2Cart can know that modified and created date queries are supported
+	 *
+	 * @since    1.1.0
+	 */
+	private function enable_abandoned_cart() {
+		update_option( 'webhook_helper_version', '1.1.0', false );
+		update_option( 'webhook_helper_active', true, false );
 	}
 }

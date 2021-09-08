@@ -262,11 +262,6 @@ class Dotdigital_WooCommerce {
 		$this->loader->add_action( 'woocommerce_after_checkout_billing_form', $plugin_woocommerce, 'Dotdigital_WooCommerce_render_checkout_marketing_checkbox', 5 );
 		$this->loader->add_action( 'woocommerce_checkout_order_processed', $plugin_woocommerce, 'Dotdigital_WooCommerce_handle_checkout_subscription', 5 );
 
-		$this->loader->add_action( 'woocommerce_update_cart_action_cart_updated', $plugin_woocommerce, 'cart_updated', 5 );
-		$this->loader->add_action( 'woocommerce_add_to_cart', $plugin_woocommerce, 'cart_updated', 5 );
-		$this->loader->add_action( 'woocommerce_cart_item_removed', $plugin_woocommerce, 'cart_updated', 5 );
-		$this->loader->add_action( 'woocommerce_cart_item_restored', $plugin_woocommerce, 'cart_updated', 5 );
-
 		$this->loader->add_action( 'woocommerce_set_cart_cookies', $plugin_woocommerce, 'dd_cart_init', 5 );
 	}
 

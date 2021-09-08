@@ -125,16 +125,5 @@ class Dotdigital_WooCommerce_Loader {
 			add_action( $hook['hook'], array( $hook['component'], $hook['callback'] ), $hook['priority'], $hook['accepted_args'] );
 		}
 
-		$this->enable_abandoned_cart();
-	}
-
-	/**
-	 * Set the options so Api2Cart can know that modified and created date queries are supported
-	 *
-	 * @since    1.1.0
-	 */
-	private function enable_abandoned_cart() {
-			update_option( 'webhook_helper_version', '1.1.0', false );
-			update_option( 'webhook_helper_active', true, false );
 	}
 }

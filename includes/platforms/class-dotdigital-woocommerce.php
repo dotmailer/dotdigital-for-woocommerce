@@ -151,32 +151,6 @@ class Dotdigital_WooCommerce {
 	}
 
 	/**
-	 * Updates the modified cart date.
-	 *
-	 * @since    1.1.0
-	 */
-	public function cart_updated() {
-		$woocommerce = WooCommerce::instance();
-		$user_id     = get_current_user_id() ? get_current_user_id() : $woocommerce->session->get_customer_id();
-		$blog_id     = get_current_blog_id();
-		$items_count = count( $woocommerce->cart->get_cart_contents() );
-
-		if ( preg_match( '/^[a-f0-9]{32}$/', $user_id ) !== 1 ) {
-			$update_time = time();
-			$updated_key = '_a2c_wh_cart_' . $blog_id . '_updated_gmt';
-			$created_key = '_a2c_wh_cart_' . $blog_id . '_created_gmt';
-
-			update_user_meta( $user_id, $updated_key, $update_time );
-
-			if ( get_user_meta( $user_id, $created_key, true ) === '' ) {
-				update_user_meta( $user_id, $created_key, $update_time );
-			} elseif ( 0 === $items_count ) {
-				delete_user_meta( $user_id, $created_key );
-			}
-		}
-	}
-
-	/**
 	 * Set the cart id.
 	 */
 	public function dd_cart_init() {
