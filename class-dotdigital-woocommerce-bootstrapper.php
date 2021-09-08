@@ -13,7 +13,7 @@
  *
  * @wordpress-plugin
  * Plugin Name:       dotdigital for WooCommerce
- * Description:       dotdigital Integration for WooCommerce ecommerce platform.
+ * Description:       Connect your WooCommerce store to dotdigital and put customer, subscriber, product and order data at your fingertips.
  * Version:           1.2.0
  * Author:            dotdigital
  * Author URI:        https://www.dotdigital.com/
