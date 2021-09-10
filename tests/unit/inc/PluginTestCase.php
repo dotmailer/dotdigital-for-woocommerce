@@ -45,6 +45,8 @@ class PluginTestCase extends TestCase {
 			->justReturn( array() );
 		Monkey\Functions\when( 'is_multisite' )
 			->justReturn( 1 );
+        Monkey\Functions\when( 'is_admin' )
+            ->justReturn( 0 );
     }
 
 	/**

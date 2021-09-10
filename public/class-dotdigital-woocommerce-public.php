@@ -91,17 +91,9 @@ class Dotdigital_WooCommerce_Public {
 	 */
 	public function enqueue_scripts() {
 
-		/**
-		 * This function is provided for demonstration purposes only.
-		 *
-		 * An instance of this class should be passed to the run() function
-		 * defined in Dotdigital_WooCommerce_Loader as all of the hooks are defined
-		 * in that particular class.
-		 *
-		 * The Dotdigital_WooCommerce_Loader will then create the relationship
-		 * between the defined hooks and the functions defined in this
-		 * class.
-		 */
+		if ( is_admin() ) {
+			return;
+		}
 
 		/**
 		 * Main storefront JS
