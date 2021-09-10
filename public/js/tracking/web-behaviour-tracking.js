@@ -2,4 +2,9 @@
 })( window, document, '//static.trackedweb.net/js/_dmptv4.js', 'script', 'dmPt' );
 
 window.dmPt( 'create', wbt_data.profile_id );
-window.dmPt( 'track' );
+
+if (typeof product_data !== 'undefined') {
+  window.dmPt('track', product_data.data || {});
+} else {
+  window.dmPt('track');
+}

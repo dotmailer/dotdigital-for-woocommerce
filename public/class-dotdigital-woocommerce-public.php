@@ -15,7 +15,6 @@ use Dotdigital_WooCommerce\Includes\Cart\Dotdigital_WooCommerce_Cart;
 use Dotdigital_WooCommerce\Includes\Cart\Dotdigital_WooCommerce_Cart_Insight_Handler;
 use Dotdigital_WooCommerce\Includes\Widgets\Dotdigital_WooCommerce_Widget;
 use Dotdigital_WooCommerce\Includes\Tracking\Dotdigital_WooCommerce_Roi;
-use Dotdigital_WooCommerce\Dotdigital_WooCommerce_Bootstrapper;
 use Dotdigital_WooCommerce\Includes\Dotdigital_WooCommerce_Config;
 
 /**

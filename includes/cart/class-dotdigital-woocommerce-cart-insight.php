@@ -13,6 +13,7 @@ namespace Dotdigital_WooCommerce\Includes\Cart;
 
 use Dotdigital_WooCommerce\Includes\Customer\Dotdigital_WooCommerce_Customer;
 use Dotdigital_WooCommerce\Includes\Dotdigital_WooCommerce_Config;
+use Dotdigital_WooCommerce\Includes\Category\Dotdigital_WooCommerce_Category;
 
 /**
  * Class Dotdigital_WooCommerce_Cart_Insight
@@ -49,6 +50,8 @@ class Dotdigital_WooCommerce_Cart_Insight {
 		);
 
 		$line_items = array();
+		$dotdigital_woocommerce_category_helper = new Dotdigital_WooCommerce_Category();
+
 		foreach ( $this->get_line_items() as $cart_item_key => $cart_item ) {
 			$product = wc_get_product( $cart_item['product_id'] );
 
@@ -56,7 +59,7 @@ class Dotdigital_WooCommerce_Cart_Insight {
 				'sku'         => $product->get_sku(),
 				'name'        => $product->get_name(),
 				'description' => $product->get_short_description(),
-				'category'    => $this->get_category_string( $product->get_category_ids() ),
+				'category'    => $dotdigital_woocommerce_category_helper->get_product_categories( $product->get_id() ),
 				'quantity'    => $cart_item['quantity'],
 				'total_price' => round( $cart_item['line_total'], 2 ),
 				'image_url'   => $this->get_product_image_url( $product ),
@@ -157,23 +160,6 @@ class Dotdigital_WooCommerce_Cart_Insight {
 	 */
 	protected function get_line_items() {
 		return WC()->cart->get_cart_contents();
-	}
-
-	/**
-	 * Assemble a comma-separated string of category values.
-	 *
-	 * @param array $category_ids Array of ids.
-	 * @return string
-	 */
-	private function get_category_string( array $category_ids ) {
-		$category_names = array();
-		foreach ( $category_ids as $category_id ) {
-			$term = get_term_by( 'id', $category_id, 'product_cat' );
-			if ( $term ) {
-				$category_names[] = $term->name;
-			}
-		}
-		return implode( ', ', $category_names );
 	}
 
 	/**

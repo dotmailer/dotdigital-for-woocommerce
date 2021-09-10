@@ -5,7 +5,7 @@ vendor/
 .buildpath
 .project
 web.config
-DS_Store
+.DS_Store
 node_modules
 cypress/videos/*
 cypress.json

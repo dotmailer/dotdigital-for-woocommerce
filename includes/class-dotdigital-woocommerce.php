@@ -22,8 +22,7 @@ use Dotdigital_WooCommerce\Includes\Platforms\Dotdigital_WooCommerce as Dotdigit
 use Dotdigital_WooCommerce\Includes\Session\Dotdigital_WooCommerce_Session_Updater;
 use Dotdigital_WooCommerce\Includes\Subscriber\Dotdigital_WooCommerce_Form_Handler;
 use Dotdigital_WooCommerce\Pub\Dotdigital_WooCommerce_Public;
-use Dotdigital_WooCommerce\Includes\Dotdigital_WooCommerce_Rest_Api;
-use Dotdigital_WooCommerce\Includes\Widgets\Dotdigital_WooCommerce_Widget;
+
 
 /**
  * Class Dotdigital_WooCommerce
@@ -263,6 +262,8 @@ class Dotdigital_WooCommerce {
 		$this->loader->add_action( 'woocommerce_checkout_order_processed', $plugin_woocommerce, 'Dotdigital_WooCommerce_handle_checkout_subscription', 5 );
 
 		$this->loader->add_action( 'woocommerce_set_cart_cookies', $plugin_woocommerce, 'dd_cart_init', 5 );
+
+		$this->loader->add_action( 'woocommerce_before_single_product_summary', $plugin_woocommerce, 'last_browsed_products' );
 	}
 
 	/**

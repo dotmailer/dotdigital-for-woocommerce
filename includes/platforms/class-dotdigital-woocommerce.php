@@ -12,6 +12,7 @@
 
 namespace Dotdigital_WooCommerce\Includes\Platforms;
 
+use Dotdigital_WooCommerce\Includes\Tracking\Dotdigital_WooCommerce_Last_Browsed_Products;
 use WooCommerce;
 use Dotdigital_WooCommerce\Includes\Cart\Dotdigital_WooCommerce_Cart;
 use Dotdigital_WooCommerce\Includes\Subscriber\Dotdigital_WooCommerce_Subscriber;
@@ -159,5 +160,26 @@ class Dotdigital_WooCommerce {
 		if ( ! $cart->get_cart_id() ) {
 			$cart->set_cart_id();
 		}
+	}
+
+	/**
+	 * Initializes wbt script with last browsed product data.
+	 */
+	public function last_browsed_products() {
+		global $product;
+
+		if ( ! $product->get_id() ) {
+			return;
+		}
+
+		$last_browsed_products_handler = new Dotdigital_WooCommerce_Last_Browsed_Products();
+
+		wp_localize_script(
+			'wbt',
+			'product_data',
+			array(
+				'data' => $last_browsed_products_handler->get_last_product( $product->get_id() ),
+			)
+		);
 	}
 }
