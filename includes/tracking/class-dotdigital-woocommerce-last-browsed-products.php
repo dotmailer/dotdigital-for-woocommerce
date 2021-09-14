@@ -12,6 +12,7 @@
 namespace Dotdigital_WooCommerce\Includes\Tracking;
 
 use Dotdigital_WooCommerce\Includes\Category\Dotdigital_WooCommerce_Category;
+use Dotdigital_WooCommerce\Includes\Image\Dotdigital_WooCommerce_Image;
 
 /**
  * Class Dotdigital_WooCommerce_Last_Browsed_Products
@@ -27,6 +28,7 @@ class Dotdigital_WooCommerce_Last_Browsed_Products {
 	public function get_last_product( $product_id ) {
 		$product = wc_get_product( $product_id );
 		$dotdigital_woocommerce_category_helper = new Dotdigital_WooCommerce_Category();
+		$image_finder = new Dotdigital_WooCommerce_Image();
 
 		try {
 			return array(
@@ -34,7 +36,7 @@ class Dotdigital_WooCommerce_Last_Browsed_Products {
 				'product_sku' => $product->get_sku(),
 				'product_price' => round( $product->get_regular_price(), 2 ),
 				'product_url' => get_permalink( $product->get_id() ),
-				'product_image_path' => wp_get_attachment_image_url( $product->get_image_id() ),
+				'product_image_path' => $image_finder->get_product_image_url( $product ),
 				'product_status' => $product->get_stock_status(),
 				'product_categories' => $dotdigital_woocommerce_category_helper->get_product_categories( $product_id ),
 				'product_description' => $product->get_description(),

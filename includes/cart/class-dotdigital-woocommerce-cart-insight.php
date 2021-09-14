@@ -14,6 +14,7 @@ namespace Dotdigital_WooCommerce\Includes\Cart;
 use Dotdigital_WooCommerce\Includes\Customer\Dotdigital_WooCommerce_Customer;
 use Dotdigital_WooCommerce\Includes\Dotdigital_WooCommerce_Config;
 use Dotdigital_WooCommerce\Includes\Category\Dotdigital_WooCommerce_Category;
+use Dotdigital_WooCommerce\Includes\Image\Dotdigital_WooCommerce_Image;
 
 /**
  * Class Dotdigital_WooCommerce_Cart_Insight
@@ -33,6 +34,8 @@ class Dotdigital_WooCommerce_Cart_Insight {
 
 		$dd_cart = new Dotdigital_WooCommerce_Cart();
 		$customer = new Dotdigital_WooCommerce_Customer();
+		$dotdigital_woocommerce_category_helper = new Dotdigital_WooCommerce_Category();
+		$image_finder = new Dotdigital_WooCommerce_Image();
 
 		$data = array(
 			'customer_email'  => $customer->get_customer_email(),
@@ -50,7 +53,6 @@ class Dotdigital_WooCommerce_Cart_Insight {
 		);
 
 		$line_items = array();
-		$dotdigital_woocommerce_category_helper = new Dotdigital_WooCommerce_Category();
 
 		foreach ( $this->get_line_items() as $cart_item_key => $cart_item ) {
 			$product = wc_get_product( $cart_item['product_id'] );
@@ -62,7 +64,7 @@ class Dotdigital_WooCommerce_Cart_Insight {
 				'category'    => $dotdigital_woocommerce_category_helper->get_product_categories( $product->get_id() ),
 				'quantity'    => $cart_item['quantity'],
 				'total_price' => round( $cart_item['line_total'], 2 ),
-				'image_url'   => $this->get_product_image_url( $product ),
+				'image_url'   => $image_finder->get_product_image_url( $product ),
 				'product_url' => get_permalink( $product->get_id() ),
 			);
 
@@ -160,16 +162,5 @@ class Dotdigital_WooCommerce_Cart_Insight {
 	 */
 	protected function get_line_items() {
 		return WC()->cart->get_cart_contents();
-	}
-
-	/**
-	 * Fetch a url for the product's image attachment, falling back to the Woo placeholder.
-	 *
-	 * @param WC_Product $product The product object.
-	 * @return string
-	 */
-	private function get_product_image_url( $product ) {
-		$attachment_url = wp_get_attachment_url( $product->get_image_id() );
-		return $attachment_url ? $attachment_url : wc_placeholder_img_src();
 	}
 }
