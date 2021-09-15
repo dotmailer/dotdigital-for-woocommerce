@@ -1,10 +1,11 @@
 === dotdigital for WooCommerce ===
-Contributors: dotdigital
+Contributors: dotMailer, amucklow, fstrezos
 Requires at least: 4.7
 Tested up to: 5.8
 Requires PHP: 7.0
 WC requires at least: 3.3
 WC tested up to: 5.6
+Stable tag: 1.2.0
 License: MIT
 License URI: https://opensource.org/licenses/MIT
 
@@ -72,6 +73,7 @@ For more detailed information on installation, please see our <a href="https://s
 = 1.2.0 =
 
 **What’s new**
+
 * We now support guest subscriptions. All subscribers are stored in their own database table, with rows created and updated via the checkboxes at user registration and checkout.
 * We’ve added a script to migrate existing customer subscribers (identified by a key in `wp_usermeta`) into the new table.
 * The plugin now ships with a configurable newsletter signup widget (note this is a ‘Legacy widget’ as of WordPress 5.8).
@@ -80,6 +82,7 @@ For more detailed information on installation, please see our <a href="https://s
 * The plugin name has been changed in line with company branding.
 
 **Improvements**
+
 * The marketing checkbox displayed at checkout has been moved to after the WooCommerce billing form, for a cleaner two-column layout.
 * The plugin code now adheres to WordPress coding standards.
 * The plugin now stores a version in the options table at install and upgrade.
