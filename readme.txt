@@ -51,14 +51,13 @@ The software made available to you is provided "as is" without warranty of any k
 
 Follow these steps:
 
-1. Download the latest master branch plugin code from <a href="https://github.com/dotmailer/dotdigital-for-woocommerce">Github</a>.
-2. Copy and unzip the downloaded plugin file into your WordPress plugin folder. IMPORTANT: the folder must be named ‘dotdigital-for-woocommerce’.
-3. Log into your WordPress admin console.
-4. In the left-hand menu, go to Plugins > Installed Plugins.
-5. Find 'dotdigital for WooCommerce'.
-6. Click on Activate Plugin.
-7. In the left-hand menu, click on dotdigital for WooCommerce.
-8. Log into dotdigital.
+1. Log into your WordPress admin console.
+2. In the left-hand menu, go to Plugins.
+3. Select 'Add New'.
+4. Find 'dotdigital for WooCommerce'.
+5. Click on 'Install Now' then 'Activate'.
+6. In the left-hand menu, click on dotdigital for WooCommerce.
+7. Log into dotdigital.
   * You'll see the 'Almost there!' message, outlining the three final steps to complete:
   * Download the bridge zip file (Disclaimer above also applies)
   * Copy and unzip the bridge file into your WordPress root folder
