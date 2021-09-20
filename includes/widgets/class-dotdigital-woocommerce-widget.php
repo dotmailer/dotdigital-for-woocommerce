@@ -45,35 +45,34 @@ class Dotdigital_WooCommerce_Widget extends WP_Widget {
 			'success_text'     => 'Success',
 			'placeholder_text' => 'Enter your email',
 		);
-        // @codingStandardsIgnoreStart
-        extract( wp_parse_args( (array) $instance, $defaults ) ); ?>
+
+		$instance = wp_parse_args( (array) $instance, $defaults ); ?>
 
 		<?php // Form Title. ?>
 		<p>
-			<label for="<?php echo esc_attr( $this->get_field_id( 'form_title' ) ); ?>"><?php _e( 'Form Title', 'text_domain' ); ?></label>
-			<input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'form_title' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'form_title' ) ); ?>" type="text" value="<?php echo esc_attr( $form_title ); ?>" />
+			<label for="<?php echo esc_attr( $this->get_field_id( 'form_title' ) ); ?>"><?php esc_html_e( 'Form Title', 'dotdigital-for-woocommerce' ); ?></label>
+			<input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'form_title' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'form_title' ) ); ?>" type="text" value="<?php echo esc_attr( $instance['form_title'] ); ?>" />
 		</p>
 
 		<?php // Button Text. ?>
 		<p>
-			<label for="<?php echo esc_attr( $this->get_field_id( 'button_text' ) ); ?>"><?php _e( 'Button Text', 'text_domain' ); ?></label>
-			<input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'button_text' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'button_text' ) ); ?>" type="text" value="<?php echo esc_attr( $button_text ); ?>" />
+			<label for="<?php echo esc_attr( $this->get_field_id( 'button_text' ) ); ?>"><?php esc_html_e( 'Button Text', 'dotdigital-for-woocommerce' ); ?></label>
+			<input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'button_text' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'button_text' ) ); ?>" type="text" value="<?php echo esc_attr( $instance['button_text'] ); ?>" />
 		</p>
 
 		<?php // Success Text. ?>
 		<p>
-			<label for="<?php echo esc_attr( $this->get_field_id( 'success_text' ) ); ?>"><?php _e( 'Success Text:', 'text_domain' ); ?></label>
-			<input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'success_text' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'success_text' ) ); ?>" type="text" value="<?php echo esc_attr( $success_text ); ?>" />
+			<label for="<?php echo esc_attr( $this->get_field_id( 'success_text' ) ); ?>"><?php esc_html_e( 'Success Text', 'dotdigital-for-woocommerce' ); ?></label>
+			<input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'success_text' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'success_text' ) ); ?>" type="text" value="<?php echo esc_attr( $instance['success_text'] ); ?>" />
 		</p>
 
 		<?php // Placeholder Text. ?>
-        <p>
-            <label for="<?php echo esc_attr( $this->get_field_id( 'placeholder_text' ) ); ?>"><?php _e( 'Placeholder Text', 'text_domain' ); ?></label>
-            <input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'placeholder_text' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'placeholder_text' ) ); ?>" type="text" value="<?php echo esc_attr( $placeholder_text ); ?>" />
-        </p>
+		<p>
+			<label for="<?php echo esc_attr( $this->get_field_id( 'placeholder_text' ) ); ?>"><?php esc_html_e( 'Placeholder Text', 'dotdigital-for-woocommerce' ); ?></label>
+			<input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'placeholder_text' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'placeholder_text' ) ); ?>" type="text" value="<?php echo esc_attr( $instance['placeholder_text'] ); ?>" />
+		</p>
 
 		<?php
-        // @codingStandardsIgnoreEnd
 	}
 
 	/**
@@ -101,18 +100,18 @@ class Dotdigital_WooCommerce_Widget extends WP_Widget {
 	 */
 	public function widget( $args, $instance ) {
 
-        // @codingStandardsIgnoreStart
-        extract( $args );
-
-		// Check the widget options.
 		$form_title   = isset( $instance['form_title'] ) ? apply_filters( 'widget_title', $instance['form_title'] ) : '';
 		$button_text  = isset( $instance['button_text'] ) ? $instance['button_text'] : '';
 		$success_text = isset( $instance['success_text'] ) ? $instance['success_text'] : '';
 		$placeholder_text = isset( $instance['placeholder_text'] ) ? $instance['placeholder_text'] : '';
-		echo $before_widget;
 
-		// Display the widget title.
-			echo $before_title . $form_title . $after_title;
+		echo $args['before_widget']; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+
+		if ( $form_title ) {
+			echo $args['before_title'];  // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			echo esc_html( $form_title );
+			echo $args['after_title'];  // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		}
 		?>
 
 		<div class="dd-sign-up-form">
@@ -120,16 +119,15 @@ class Dotdigital_WooCommerce_Widget extends WP_Widget {
 				  enctype="multipart/form-data">
 
 				<div class="dd-form-content">
-					<input type="email" placeholder="<?php echo $placeholder_text; ?>" name="email" id="dd-email" class="dd-email" required>
-					<input type="submit" id="dd-submit" class="dd-submit-btn" value="<?php echo $button_text; ?>">
+					<input type="email" placeholder="<?php echo esc_attr( $placeholder_text ); ?>" name="email" id="dd-email" class="dd-email" required>
+					<input type="submit" id="dd-submit" class="dd-submit-btn" value="<?php echo esc_attr( $button_text ); ?>">
 				</div>
 
-				<div class="dd-success-msg" style="display: none"><?php echo $success_text; ?> </div>
+				<div class="dd-success-msg" style="display: none"><?php echo esc_html( $success_text ); ?> </div>
 				<div class="dd-error-msg" style="display: none">There was an error during subscription.</div>
 			</form>
 		</div>
 		<?php
-		echo $after_widget;
-        // @codingStandardsIgnoreEnd
+		echo $args['after_widget'];  // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 	}
 }
