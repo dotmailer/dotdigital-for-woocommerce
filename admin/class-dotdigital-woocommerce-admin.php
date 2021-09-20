@@ -188,7 +188,7 @@ class Dotdigital_WooCommerce_Admin {
 	 */
 	public function settings_page_render_checkbox( $args ) {
 		$value = get_option( $args['id'], $args['default_value'] );
-		echo '<input type="checkbox" id="' . $args['id'] . '" name="' . $args['name'] . '" value="1"' . checked( 1, $value, false ) . '/>'; // phpcs:ignore WordPress.Security
+		echo '<input type="checkbox" id="' . esc_attr( $args['id'] ) . '" name="' . esc_attr( $args['name'] ) . '" value="1"' . checked( 1, $value, false ) . '/>';
 	}
 
 	/**
@@ -198,7 +198,7 @@ class Dotdigital_WooCommerce_Admin {
 	 */
 	public function settings_page_render_text_input( $args ) {
 		$value = get_option( $args['id'], $args['default_value'] );
-		echo '<input type="text" id="' . $args['id'] . '" name="' . $args['name'] . '" value="' . esc_attr( $value ) . '" size="40" />'; // phpcs:ignore WordPress.Security
+		echo '<input type="text" id="' . esc_attr( $args['id'] ) . '" name="' . esc_attr( $args['name'] ) . '" value="' . esc_attr( $value ) . '" size="40" />';
 	}
 
 	/**
