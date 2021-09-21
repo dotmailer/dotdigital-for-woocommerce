@@ -5,7 +5,7 @@ Tested up to: 5.8
 Requires PHP: 7.0
 WC requires at least: 3.3
 WC tested up to: 5.6
-Stable tag: 1.2.0
+Stable tag: 1.2.1
 License: MIT
 License URI: https://opensource.org/licenses/MIT
 
@@ -69,6 +69,10 @@ For more detailed information on installation, please see our <a href="https://s
 
 == Changelog ==
 
+= 1.2.1 =
+
+* Escape variables to improve security in admin and widget classes.
+
 = 1.2.0 =
 
 **What’s new**
@@ -87,10 +91,10 @@ For more detailed information on installation, please see our <a href="https://s
 * The plugin now stores a version in the options table at install and upgrade.
 
 = 1.1.1 =
- * Fix for store names containing special characters
+* Fix for store names containing special characters
 
 = 1.1.0 =
- * Abandoned cart support
+* Abandoned cart support
 
 = 1.0.0 =
 * First release
