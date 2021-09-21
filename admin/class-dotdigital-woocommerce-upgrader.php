@@ -11,7 +11,6 @@
 
 namespace Dotdigital_WooCommerce\Admin;
 
-use Dotdigital_WooCommerce\Includes\Dotdigital_WooCommerce_Rest_Api;
 use Dotdigital_WooCommerce\Includes\Dotdigital_WooCommerce_Config;
 /**
  * Class Dotdigital_WooCommerce_Upgrader
@@ -104,10 +103,8 @@ class Dotdigital_WooCommerce_Upgrader {
 	 * Notify dotdigital of the upgrade.
 	 */
 	public function notify() {
-		$service      = new Dotdigital_WooCommerce_Rest_Api( $this->plugin_name );
 
 		$data = array(
-			'callback_url' => $service->get_rest_callback_url(),
 			'pluginid'     => $this->generate_and_store_plugin_id(),
 			'version' => $this->version,
 		);

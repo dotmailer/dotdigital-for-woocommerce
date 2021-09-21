@@ -114,7 +114,6 @@ class Dotdigital_WooCommerce {
 		$this->define_public_hooks();
 		$this->define_validation_hooks();
 		$this->define_woocommerce_hooks();
-		$this->initialise_rest_api();
 	}
 
 	/**
@@ -264,14 +263,6 @@ class Dotdigital_WooCommerce {
 		$this->loader->add_action( 'woocommerce_set_cart_cookies', $plugin_woocommerce, 'dd_cart_init', 5 );
 
 		$this->loader->add_action( 'woocommerce_before_single_product_summary', $plugin_woocommerce, 'last_browsed_products' );
-	}
-
-	/**
-	 * Add custom API endpoints
-	 */
-	private function initialise_rest_api() {
-		$service = new Dotdigital_WooCommerce_Rest_Api( $this->plugin_name );
-		$this->loader->add_action( 'rest_api_init', $service, 'register_routes' );
 	}
 
 	/**
