@@ -27,13 +27,16 @@ class Dotdigital_WooCommerce_Cart_Insight_Handler {
 	 */
 	public function can_send_cart_insight() {
 		$cart = new Dotdigital_WooCommerce_Cart();
-		$abandoned_cart_program_id = get_option( Dotdigital_WooCommerce_Config::PROGRAM_ID_PATH, null );
+
+		$ac_enabled = get_option(
+			Dotdigital_WooCommerce_Config::AC_STATUS_PATH
+		);
 
 		/**
 		 * If we haven't got a cart_id, that means we've no user OR there are no items in the cart.
 		 * If we haven't got an abandoned cart program_id specified, that means we don't need to track abandoned cart.
 		 */
-		if ( empty( $cart->get_cart_id() || ! $abandoned_cart_program_id ) ) {
+		if ( empty( $cart->get_cart_id() ) || ! $ac_enabled ) {
 			return false;
 		}
 

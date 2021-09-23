@@ -36,7 +36,7 @@ function dd_woocommerce_uninstall() {
 	delete_option( Dotdigital_WooCommerce_Config::SITE_AND_ROI_TRACKING );
 	delete_option( Dotdigital_WooCommerce_Config::REGION );
 	delete_option( Dotdigital_WooCommerce_Config::WBT_PROFILE_ID_PATH );
-	delete_option( Dotdigital_WooCommerce_Config::WBT_STATUS_PATH );
+	delete_option( Dotdigital_WooCommerce_Config::AC_STATUS_PATH );
 	delete_option( Dotdigital_WooCommerce_Config::PROGRAM_ID_PATH );
 	delete_option( Dotdigital_WooCommerce_Config::CART_DELAY_PATH );
 	delete_option( Dotdigital_WooCommerce_Config::ALLOW_NON_SUBSCRIBERS_PATH );
