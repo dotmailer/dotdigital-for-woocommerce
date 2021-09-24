@@ -37,7 +37,7 @@ class Dotdigital_WooCommerce_Last_Browsed_Products {
 				'product_price' => round( $product->get_regular_price(), 2 ),
 				'product_url' => get_permalink( $product->get_id() ),
 				'product_image_path' => $image_finder->get_product_image_url( $product ),
-				'product_status' => $product->get_stock_status(),
+				'product_status' => $this->get_product_stock_status_from_key( $product->get_stock_status() ),
 				'product_categories' => $dotdigital_woocommerce_category_helper->get_product_categories( $product_id ),
 				'product_description' => $product->get_description(),
 				'product_currency' => get_woocommerce_currency(),
@@ -56,5 +56,16 @@ class Dotdigital_WooCommerce_Last_Browsed_Products {
 	 */
 	private function get_special_price( $product ) {
 		return ( $product->get_regular_price() === $product->get_sale_price() ) ? 0 : round( $product->get_sale_price(), 2 );
+	}
+
+	/**
+	 * Returns localized product stock status.
+	 *
+	 * @param string $key stock status key.
+	 * @return string
+	 */
+	private function get_product_stock_status_from_key( $key ) {
+		$options = wc_get_product_stock_status_options();
+		return ( $options[ $key ] ?? $key );
 	}
 }
