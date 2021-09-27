@@ -57,7 +57,7 @@ if ( ! defined( 'WPINC' ) ) {
 }
 
 define( 'DOTDIGITAL_FOR_WOOCOMMERCE_PLUGIN_VERSION', '1.2.1' );
-define( 'PLUGIN_DIR_PATH', __DIR__ );
+define( 'DOTDIGITAL_FOR_WOOCOMMERCE_PLUGIN_DIR_PATH', __DIR__ );
 
 require_once 'inc/autoloader.php';
 
