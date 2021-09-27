@@ -18,8 +18,8 @@ require_once __DIR__ . '/../vendor/autoload.php';
 spl_autoload_register(
 	function( $class ) {
 		if ( false !== strpos( $class, 'Dotdigital_WooCommerce' ) ) {
-			if ( defined( 'PLUGIN_DIR_PATH' ) ) {
-				$root = PLUGIN_DIR_PATH . '/'; // parent directory.
+			if ( defined( 'DOTDIGITAL_FOR_WOOCOMMERCE_PLUGIN_DIR_PATH' ) ) {
+				$root = DOTDIGITAL_FOR_WOOCOMMERCE_PLUGIN_DIR_PATH . '/'; // parent directory.
 			} else {
 				$root = __DIR__ . '/../';
 			}
