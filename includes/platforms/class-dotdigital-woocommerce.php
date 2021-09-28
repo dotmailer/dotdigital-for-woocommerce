@@ -136,7 +136,7 @@ class Dotdigital_WooCommerce {
 		if ( isset( $nonce_value, $_POST['email'] ) && wp_verify_nonce( $nonce_value, 'woocommerce-register' ) ) {
 			if ( isset( $_POST[ $this->checkbox_name ] ) ) {
 				$email = isset( $_POST['email'] ) ?
-					sanitize_text_field( wp_unslash( $_POST['email'] ) ) :
+					sanitize_email( wp_unslash( $_POST['email'] ) ) :
 					'';
 
 				$data = array(
