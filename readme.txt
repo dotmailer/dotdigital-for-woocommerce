@@ -72,6 +72,8 @@ For more detailed information on installation, please see our <a href="https://s
 = 1.2.1 =
 
 * Escape variables to improve security in admin and widget classes.
+* Rename PLUGIN_DIR_PATH.
+* Use sanitize_email in place of sanitize_text_field for email input.
 
 = 1.2.0 =
 
