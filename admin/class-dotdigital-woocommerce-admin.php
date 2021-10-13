@@ -138,8 +138,8 @@ class Dotdigital_WooCommerce_Admin {
 		$icon_svg      = 'PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+PHBhdGggZD0iTTE2LDIuNzhBMTMuMjIsMTMuMjIsMCwxLDEsMi43OCwxNiwxMy4yMywxMy4yMywwLDAsMSwxNiwyLjc4TTE2LDBBMTYsMTYsMCwxLDAsMzIsMTYsMTYsMTYsMCwwLDAsMTYsMFoiIGZpbGw9IiNmZmYiLz48cGF0aCBkPSJNMTYsOC4yOUE3Ljc0LDcuNzQsMCwxLDEsOC4yNiwxNiw3Ljc1LDcuNzUsMCwwLDEsMTYsOC4yOW0wLTIuNzhBMTAuNTIsMTAuNTIsMCwxLDAsMjYuNTIsMTYsMTAuNTIsMTAuNTIsMCwwLDAsMTYsNS41MVoiIGZpbGw9IiNmZmYiLz48cGF0aCBkPSJNMTYsMTMuNzdBMi4yNiwyLjI2LDAsMSwxLDEzLjc1LDE2LDIuMjYsMi4yNiwwLDAsMSwxNiwxMy43N00xNiwxMWE1LDUsMCwxLDAsNSw1LDUsNSwwLDAsMC01LTVaIiBmaWxsPSIjZmZmIi8+PC9zdmc+';
 
 		add_menu_page(
-			'dotdigital for WooCommerce settings',
-			'dotdigital for WooCommerce',
+			'Dotdigital for WooCommerce settings',
+			'Dotdigital for WooCommerce',
 			'manage_options',
 			$this->plugin_name,
 			array( $admin_display, 'display_plugin_setup_page' ),
@@ -157,7 +157,7 @@ class Dotdigital_WooCommerce_Admin {
 
 		add_submenu_page(
 			$this->plugin_name,
-			'dotdigital for WooCommerce Settings',
+			'Dotdigital for WooCommerce Settings',
 			'Settings',
 			'manage_options',
 			$this->plugin_name . '-settings',
@@ -352,7 +352,7 @@ class Dotdigital_WooCommerce_Admin {
 		 */
 		add_settings_field(
 			'selected_region',
-			'Select Region',
+			'Select region',
 			array( $this, 'settings_page_render_dropdown' ),
 			$this->plugin_name . '-settings',
 			self::TRACKING_SECTION,
@@ -373,7 +373,7 @@ class Dotdigital_WooCommerce_Admin {
 		 */
 		add_settings_field(
 			Dotdigital_WooCommerce_Config::WBT_PROFILE_ID_PATH,
-			'Web behavior tracking profile id',
+			'Web behavior tracking profile ID',
 			array( $this, 'settings_page_render_text_input' ),
 			$this->plugin_name . '-settings',
 			self::TRACKING_SECTION,
@@ -411,10 +411,10 @@ class Dotdigital_WooCommerce_Admin {
 		  */
 		add_settings_section(
 			self::ABANDONED_CART_SECTION,
-			'Abandoned Carts',
+			'Abandoned carts',
 			function () {
 				echo '<p>' .
-				esc_html__( 'A web behaviour tracking profile id is required to modify these settings.', 'dotdigital-woocommerce' ) .
+				esc_html__( 'A web behaviour tracking profile ID is required to modify these settings.', 'dotdigital-woocommerce' ) .
 				'</p>';
 			},
 			$this->plugin_name . '-settings'
@@ -442,7 +442,7 @@ class Dotdigital_WooCommerce_Admin {
 		 */
 		add_settings_field(
 			Dotdigital_WooCommerce_Config::PROGRAM_ID_PATH,
-			'Abandoned cart Program ID',
+			'Abandoned cart program ID',
 			array( $this, 'settings_page_render_text_input' ),
 			$this->plugin_name . '-settings',
 			self::ABANDONED_CART_SECTION,

@@ -1,5 +1,5 @@
 describe('Validate ddg fields', () => {
-  beforeEach('Activate dotdigital for woocommerce plugin', () => {
+  beforeEach('Activate Dotdigital for woocommerce plugin', () => {
     cy.activatePlugin('dotdigital-for-woocommerce')
     cy.visit('/wp-admin/admin.php?page=dotdigital-for-woocommerce-settings')
   })
@@ -8,10 +8,10 @@ describe('Validate ddg fields', () => {
     cy.contains('Show marketing checkbox at user registration')
     cy.contains('Marketing checkbox text')
     cy.contains('Enable site and ROI tracking')
-    cy.contains('Select Region')
-    cy.contains('Web behavior tracking profile id')
+    cy.contains('Select region')
+    cy.contains('Web behavior tracking profile ID')
     cy.contains('Enable abandoned cart')
-    cy.contains('Abandoned cart Program ID')
+    cy.contains('Abandoned cart program ID')
     cy.contains('Allow abandoned cart delay (minutes)')
     cy.contains('Allow abandoned cart for non-subscribed contacts')
   })

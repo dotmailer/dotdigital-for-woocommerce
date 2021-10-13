@@ -1,4 +1,4 @@
-=== dotdigital for WooCommerce ===
+=== Dotdigital for WooCommerce ===
 Contributors: dotMailer, amucklow, fstrezos
 Requires at least: 4.7
 Tested up to: 5.8
@@ -24,7 +24,7 @@ If you're not a dotdigital user already you can find out more about us at <a hre
 
 Once you've set up your integration, you can build automated journeys with data-driven marketing programs. Boost your ROI with abandoned cart, AI-powered product recommendations, advanced personalization, social re-targeting, and cross-channel marketing automation programs.
 
-dotdigital for WooCommerce will help you:
+Dotdigital for WooCommerce will help you:
 * Inspire customer engagement with beautifully designed email campaigns
 * Identify valuable customers with multiple segment templates and a fully flexible segment builder
 * Reach niche audiences with hyper-targeted landing pages, surveys, and forms
@@ -54,9 +54,9 @@ Follow these steps:
 1. Log into your WordPress admin console.
 2. In the left-hand menu, go to Plugins.
 3. Select 'Add New'.
-4. Find 'dotdigital for WooCommerce'.
+4. Find 'Dotdigital for WooCommerce'.
 5. Click on 'Install Now' then 'Activate'.
-6. In the left-hand menu, click on dotdigital for WooCommerce.
+6. In the left-hand menu, click on Dotdigital for WooCommerce.
 7. Log into dotdigital.
   * You'll see the 'Almost there!' message, outlining the three final steps to complete:
   * Download the bridge zip file (Disclaimer above also applies)

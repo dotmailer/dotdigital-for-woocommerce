@@ -24,7 +24,7 @@ class Dotdigital_WooCommerce_Widget extends WP_Widget {
 	public function __construct() {
 		parent::__construct(
 			'dd_signup',
-			'dotdigital for WooCommerce Signup Form',
+			'Dotdigital for WooCommerce Signup Form',
 			array(
 				'customize_selective_refresh' => true,
 			)

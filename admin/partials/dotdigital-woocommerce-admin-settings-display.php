@@ -12,7 +12,7 @@
 ?>
 <div class="wrap">
 	<div id="icon-dotdigital" class="icon32"></div>
-	<h2>dotdigital for WooCommerce Settings</h2>
+	<h2>Dotdigital for WooCommerce Settings</h2>
 	<?php settings_errors(); ?>
 	<form method="POST" action="options.php">
 		<?php
