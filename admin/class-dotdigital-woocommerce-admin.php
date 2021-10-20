@@ -28,6 +28,10 @@ use Dotdigital_WooCommerce\Includes\Dotdigital_WooCommerce_Config;
  */
 class Dotdigital_WooCommerce_Admin {
 
+	const GENERAL_SECTION = 'dd_woo_settings_page_general_section';
+	const TRACKING_SECTION = 'dd_woo_settings_page_tracking_section';
+	const ABANDONED_CART_SECTION = 'dd_woo_settings_abandoned_cart_section';
+
 	/**
 	 * The unique identifier of this plugin.
 	 *
@@ -114,7 +118,6 @@ class Dotdigital_WooCommerce_Admin {
 		 */
 
 		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/dotdigital-woocommerce-admin.js', array( 'jquery' ), $this->version, false );
-
 	}
 
 	/**
@@ -135,8 +138,8 @@ class Dotdigital_WooCommerce_Admin {
 		$icon_svg      = 'PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+PHBhdGggZD0iTTE2LDIuNzhBMTMuMjIsMTMuMjIsMCwxLDEsMi43OCwxNiwxMy4yMywxMy4yMywwLDAsMSwxNiwyLjc4TTE2LDBBMTYsMTYsMCwxLDAsMzIsMTYsMTYsMTYsMCwwLDAsMTYsMFoiIGZpbGw9IiNmZmYiLz48cGF0aCBkPSJNMTYsOC4yOUE3Ljc0LDcuNzQsMCwxLDEsOC4yNiwxNiw3Ljc1LDcuNzUsMCwwLDEsMTYsOC4yOW0wLTIuNzhBMTAuNTIsMTAuNTIsMCwxLDAsMjYuNTIsMTYsMTAuNTIsMTAuNTIsMCwwLDAsMTYsNS41MVoiIGZpbGw9IiNmZmYiLz48cGF0aCBkPSJNMTYsMTMuNzdBMi4yNiwyLjI2LDAsMSwxLDEzLjc1LDE2LDIuMjYsMi4yNiwwLDAsMSwxNiwxMy43N00xNiwxMWE1LDUsMCwxLDAsNSw1LDUsNSwwLDAsMC01LTVaIiBmaWxsPSIjZmZmIi8+PC9zdmc+';
 
 		add_menu_page(
-			'dotdigital for WooCommerce settings',
-			'dotdigital for WooCommerce',
+			'Dotdigital for WooCommerce settings',
+			'Dotdigital for WooCommerce',
 			'manage_options',
 			$this->plugin_name,
 			array( $admin_display, 'display_plugin_setup_page' ),
@@ -154,7 +157,7 @@ class Dotdigital_WooCommerce_Admin {
 
 		add_submenu_page(
 			$this->plugin_name,
-			'dotdigital for WooCommerce Settings',
+			'Dotdigital for WooCommerce Settings',
 			'Settings',
 			'manage_options',
 			$this->plugin_name . '-settings',
@@ -179,6 +182,7 @@ class Dotdigital_WooCommerce_Admin {
 	public function register_settings() {
 		$this->register_settings_for_marketing_subscription();
 		$this->register_settings_for_tracking();
+		$this->register_abandoned_cart_settings();
 	}
 
 	/**
@@ -188,7 +192,7 @@ class Dotdigital_WooCommerce_Admin {
 	 */
 	public function settings_page_render_checkbox( $args ) {
 		$value = get_option( $args['id'], $args['default_value'] );
-		echo '<input type="checkbox" id="' . esc_attr( $args['id'] ) . '" name="' . esc_attr( $args['name'] ) . '" value="1"' . checked( 1, $value, false ) . '/>';
+		echo '<input type="checkbox" id="' . esc_attr( $args['id'] ) . '" name="' . esc_attr( $args['name'] ) . '" value="1"' . checked( 1, $value, false ) . ( isset( $args['disabled'] ) && $args['disabled'] ? 'disabled' : '' ) . '/>';
 	}
 
 	/**
@@ -198,7 +202,17 @@ class Dotdigital_WooCommerce_Admin {
 	 */
 	public function settings_page_render_text_input( $args ) {
 		$value = get_option( $args['id'], $args['default_value'] );
-		echo '<input type="text" id="' . esc_attr( $args['id'] ) . '" name="' . esc_attr( $args['name'] ) . '" value="' . esc_attr( $value ) . '" size="40" />';
+		echo '<input type="text" id="' . esc_attr( $args['id'] ) . '" name="' . esc_attr( $args['name'] ) . '" value="' . esc_attr( $value ) . '" size="40"' . ( isset( $args['disabled'] ) && $args['disabled'] ? 'disabled' : '' ) . '/>';
+	}
+
+	/**
+	 * A template for a numeric input field.
+	 *
+	 * @param array $args An array of arguments.
+	 */
+	public function settings_page_render_numeric_input( $args ) {
+		$value = get_option( $args['id'], $args['default_value'] );
+		echo '<input type="number" id="' . esc_attr( $args['id'] ) . '" name="' . esc_attr( $args['name'] ) . '" value="' . esc_attr( $value ) . '" min="0"' . ( isset( $args['disabled'] ) && $args['disabled'] ? 'disabled' : '' ) . '/>';
 	}
 
 	/**
@@ -209,7 +223,8 @@ class Dotdigital_WooCommerce_Admin {
 	public function settings_page_render_dropdown( $args ) {
 		$selected_region = get_option( $args['name'], $args['default_value'] );
 		?>
-			<select id='<?php echo sanitize_key( $args['id'] ); ?>' name='<?php echo sanitize_key( $args['name'] ); ?>'>
+			<select id='<?php echo sanitize_key( $args['id'] ); ?>' name='<?php echo sanitize_key( $args['name'] ); ?>'
+					<?php echo ( isset( $args['disabled'] ) && $args['disabled'] ? 'disabled' : '' ); ?>>
 		<?php
 		foreach ( $args['items'] as $value => $label ) {
 			?>
@@ -229,7 +244,7 @@ class Dotdigital_WooCommerce_Admin {
 		 * Add settings section for marketing subscription.
 		 */
 		add_settings_section(
-			'dd_woo_settings_page_general_section',
+			self::GENERAL_SECTION,
 			'Marketing subscription',
 			null,
 			$this->plugin_name . '-settings'
@@ -243,7 +258,7 @@ class Dotdigital_WooCommerce_Admin {
 			'Show marketing checkbox at checkout',
 			array( $this, 'settings_page_render_checkbox' ),
 			$this->plugin_name . '-settings',
-			'dd_woo_settings_page_general_section',
+			self::GENERAL_SECTION,
 			array(
 				'id'            => Dotdigital_WooCommerce_Config::SHOW_MARKETING_CHECKBOX_CHECKOUT,
 				'name'          => Dotdigital_WooCommerce_Config::SHOW_MARKETING_CHECKBOX_CHECKOUT,
@@ -259,11 +274,27 @@ class Dotdigital_WooCommerce_Admin {
 			'Show marketing checkbox at user registration',
 			array( $this, 'settings_page_render_checkbox' ),
 			$this->plugin_name . '-settings',
-			'dd_woo_settings_page_general_section',
+			self::GENERAL_SECTION,
 			array(
 				'id'            => Dotdigital_WooCommerce_Config::SHOW_MARKETING_CHECKBOX_REGISTER,
 				'name'          => Dotdigital_WooCommerce_Config::SHOW_MARKETING_CHECKBOX_REGISTER,
 				'default_value' => Dotdigital_WooCommerce_Config::DEFAULT_MARKETING_CHECKBOX_DISPLAY_AT_REGISTER,
+			)
+		);
+
+		/**
+		 * Add settings field [checkbox text].
+		 */
+		add_settings_field(
+			Dotdigital_WooCommerce_Config::MARKETING_CHECKBOX_TEXT,
+			'Marketing checkbox text',
+			array( $this, 'settings_page_render_text_input' ),
+			$this->plugin_name . '-settings',
+			self::GENERAL_SECTION,
+			array(
+				'id'            => Dotdigital_WooCommerce_Config::MARKETING_CHECKBOX_TEXT,
+				'name'          => Dotdigital_WooCommerce_Config::MARKETING_CHECKBOX_TEXT,
+				'default_value' => Dotdigital_WooCommerce_Config::DEFAULT_MARKETING_CHECKBOX_TEXT,
 			)
 		);
 
@@ -275,22 +306,6 @@ class Dotdigital_WooCommerce_Admin {
 		register_setting(
 			$this->plugin_name . '-settings',
 			Dotdigital_WooCommerce_Config::SHOW_MARKETING_CHECKBOX_REGISTER
-		);
-
-		/**
-		 * Add settings field [checkbox text].
-		 */
-		add_settings_field(
-			Dotdigital_WooCommerce_Config::MARKETING_CHECKBOX_TEXT,
-			'Marketing checkbox text',
-			array( $this, 'settings_page_render_text_input' ),
-			$this->plugin_name . '-settings',
-			'dd_woo_settings_page_general_section',
-			array(
-				'id'            => Dotdigital_WooCommerce_Config::MARKETING_CHECKBOX_TEXT,
-				'name'          => Dotdigital_WooCommerce_Config::MARKETING_CHECKBOX_TEXT,
-				'default_value' => Dotdigital_WooCommerce_Config::DEFAULT_MARKETING_CHECKBOX_TEXT,
-			)
 		);
 
 		register_setting(
@@ -305,11 +320,12 @@ class Dotdigital_WooCommerce_Admin {
 	 * @since 1.2.0
 	 */
 	private function register_settings_for_tracking() {
+
 		/**
 		 * Add settings section for tracking.
 		 */
 		add_settings_section(
-			'dd_woo_settings_page_tracking_section',
+			self::TRACKING_SECTION,
 			'Tracking',
 			null,
 			$this->plugin_name . '-settings'
@@ -323,7 +339,7 @@ class Dotdigital_WooCommerce_Admin {
 			'Enable site and ROI tracking',
 			array( $this, 'settings_page_render_checkbox' ),
 			$this->plugin_name . '-settings',
-			'dd_woo_settings_page_tracking_section',
+			self::TRACKING_SECTION,
 			array(
 				'id'            => Dotdigital_WooCommerce_Config::SITE_AND_ROI_TRACKING,
 				'name'          => Dotdigital_WooCommerce_Config::SITE_AND_ROI_TRACKING,
@@ -331,25 +347,15 @@ class Dotdigital_WooCommerce_Admin {
 			)
 		);
 
-		register_setting(
-			$this->plugin_name . '-settings',
-			Dotdigital_WooCommerce_Config::SITE_AND_ROI_TRACKING
-		);
-
 		/**
-		 * Add register and settings field for region dropdown.
+		 * Add settings field [Select Region].
 		 */
-		register_setting(
-			$this->plugin_name . '-settings',
-			Dotdigital_WooCommerce_Config::REGION
-		);
-
 		add_settings_field(
 			'selected_region',
-			'Select Region',
+			'Select region',
 			array( $this, 'settings_page_render_dropdown' ),
 			$this->plugin_name . '-settings',
-			'dd_woo_settings_page_tracking_section',
+			self::TRACKING_SECTION,
 			array(
 				'id' => Dotdigital_WooCommerce_Config::REGION,
 				'name' => Dotdigital_WooCommerce_Config::REGION,
@@ -361,5 +367,155 @@ class Dotdigital_WooCommerce_Admin {
 				),
 			)
 		);
+
+		/**
+		 * Add settings field [Profile Id].
+		 */
+		add_settings_field(
+			Dotdigital_WooCommerce_Config::WBT_PROFILE_ID_PATH,
+			'Web behavior tracking profile ID',
+			array( $this, 'settings_page_render_text_input' ),
+			$this->plugin_name . '-settings',
+			self::TRACKING_SECTION,
+			array(
+				'id'            => Dotdigital_WooCommerce_Config::WBT_PROFILE_ID_PATH,
+				'name'          => Dotdigital_WooCommerce_Config::WBT_PROFILE_ID_PATH,
+				'default_value' => '',
+			)
+		);
+
+		register_setting(
+			$this->plugin_name . '-settings',
+			Dotdigital_WooCommerce_Config::REGION
+		);
+
+		register_setting(
+			$this->plugin_name . '-settings',
+			Dotdigital_WooCommerce_Config::SITE_AND_ROI_TRACKING
+		);
+
+		register_setting(
+			$this->plugin_name . '-settings',
+			Dotdigital_WooCommerce_Config::WBT_PROFILE_ID_PATH
+		);
+	}
+
+	/**
+	 * Register settings for abandoned carts configurations section.
+	 *
+	 * @since 1.3.0
+	 */
+	private function register_abandoned_cart_settings() {
+		/**
+		  * Add settings section for abandoned cart configurations.
+		  */
+		add_settings_section(
+			self::ABANDONED_CART_SECTION,
+			'Abandoned carts',
+			function () {
+				echo '<p>' .
+				esc_html__( 'A web behaviour tracking profile ID is required to modify these settings.', 'dotdigital-woocommerce' ) .
+				'</p>';
+			},
+			$this->plugin_name . '-settings'
+		);
+
+		/**
+		 * Add settings field [enable abandoned cart].
+		 */
+		add_settings_field(
+			Dotdigital_WooCommerce_Config::AC_STATUS_PATH,
+			'Enable abandoned cart',
+			array( $this, 'settings_page_render_checkbox' ),
+			$this->plugin_name . '-settings',
+			self::ABANDONED_CART_SECTION,
+			array(
+				'id'            => Dotdigital_WooCommerce_Config::AC_STATUS_PATH,
+				'name'          => Dotdigital_WooCommerce_Config::AC_STATUS_PATH,
+				'default_value' => '',
+				'disabled' => $this->is_disabled_field(),
+			)
+		);
+
+		/**
+		 * Add settings field [AC program Id].
+		 */
+		add_settings_field(
+			Dotdigital_WooCommerce_Config::PROGRAM_ID_PATH,
+			'Abandoned cart program ID',
+			array( $this, 'settings_page_render_text_input' ),
+			$this->plugin_name . '-settings',
+			self::ABANDONED_CART_SECTION,
+			array(
+				'id'            => Dotdigital_WooCommerce_Config::PROGRAM_ID_PATH,
+				'name'          => Dotdigital_WooCommerce_Config::PROGRAM_ID_PATH,
+				'default_value' => '',
+				'disabled' => $this->is_disabled_field(),
+			)
+		);
+
+		/**
+		 * Add settings field [Cart delay].
+		 */
+		add_settings_field(
+			Dotdigital_WooCommerce_Config::CART_DELAY_PATH,
+			'Allow abandoned cart delay (minutes)',
+			array( $this, 'settings_page_render_numeric_input' ),
+			$this->plugin_name . '-settings',
+			self::ABANDONED_CART_SECTION,
+			array(
+				'id'            => Dotdigital_WooCommerce_Config::CART_DELAY_PATH,
+				'name'          => Dotdigital_WooCommerce_Config::CART_DELAY_PATH,
+				'default_value' => '',
+				'disabled' => $this->is_disabled_field(),
+			)
+		);
+
+		/**
+		 * Add settings field [Allow AC for non subscribers].
+		 */
+		add_settings_field(
+			Dotdigital_WooCommerce_Config::ALLOW_NON_SUBSCRIBERS_PATH,
+			'Allow abandoned cart for non-subscribed contacts',
+			array( $this, 'settings_page_render_checkbox' ),
+			$this->plugin_name . '-settings',
+			self::ABANDONED_CART_SECTION,
+			array(
+				'id'            => Dotdigital_WooCommerce_Config::ALLOW_NON_SUBSCRIBERS_PATH,
+				'name'          => Dotdigital_WooCommerce_Config::ALLOW_NON_SUBSCRIBERS_PATH,
+				'default_value' => '',
+				'disabled' => $this->is_disabled_field(),
+			)
+		);
+
+		register_setting(
+			$this->plugin_name . '-settings',
+			Dotdigital_WooCommerce_Config::PROGRAM_ID_PATH
+		);
+
+		register_setting(
+			$this->plugin_name . '-settings',
+			Dotdigital_WooCommerce_Config::CART_DELAY_PATH
+		);
+
+		register_setting(
+			$this->plugin_name . '-settings',
+			Dotdigital_WooCommerce_Config::AC_STATUS_PATH
+		);
+
+		register_setting(
+			$this->plugin_name . '-settings',
+			Dotdigital_WooCommerce_Config::ALLOW_NON_SUBSCRIBERS_PATH
+		);
+	}
+
+	/**
+	 * Checks if field has disabled status.
+	 *
+	 * @since 1.3.0
+	 * @return bool
+	 */
+	private function is_disabled_field() {
+		return ! get_option( Dotdigital_WooCommerce_Config::WBT_PROFILE_ID_PATH );
 	}
 }

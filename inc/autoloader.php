@@ -31,8 +31,6 @@ spl_autoload_register(
 					if ( false === strpos( $item, 'Dotdigital_WooCommerce' ) ) {
 						if ( 'Pub' === $item ) {
 							$split[ $key ] = 'public';
-						} elseif ( 'RestApi' === $item ) {
-							$split[ $key ] = 'rest-api';
 						} else {
 							$split[ $key ] = strtolower( $item );
 						}

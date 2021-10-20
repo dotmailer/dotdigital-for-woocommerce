@@ -12,6 +12,7 @@
 
 namespace Dotdigital_WooCommerce\Includes\Platforms;
 
+use Dotdigital_WooCommerce\Includes\Tracking\Dotdigital_WooCommerce_Last_Browsed_Products;
 use WooCommerce;
 use Dotdigital_WooCommerce\Includes\Cart\Dotdigital_WooCommerce_Cart;
 use Dotdigital_WooCommerce\Includes\Subscriber\Dotdigital_WooCommerce_Subscriber;
@@ -151,32 +152,6 @@ class Dotdigital_WooCommerce {
 	}
 
 	/**
-	 * Updates the modified cart date.
-	 *
-	 * @since    1.1.0
-	 */
-	public function cart_updated() {
-		$woocommerce = WooCommerce::instance();
-		$user_id     = get_current_user_id() ? get_current_user_id() : $woocommerce->session->get_customer_id();
-		$blog_id     = get_current_blog_id();
-		$items_count = count( $woocommerce->cart->get_cart_contents() );
-
-		if ( preg_match( '/^[a-f0-9]{32}$/', $user_id ) !== 1 ) {
-			$update_time = time();
-			$updated_key = '_a2c_wh_cart_' . $blog_id . '_updated_gmt';
-			$created_key = '_a2c_wh_cart_' . $blog_id . '_created_gmt';
-
-			update_user_meta( $user_id, $updated_key, $update_time );
-
-			if ( get_user_meta( $user_id, $created_key, true ) === '' ) {
-				update_user_meta( $user_id, $created_key, $update_time );
-			} elseif ( 0 === $items_count ) {
-				delete_user_meta( $user_id, $created_key );
-			}
-		}
-	}
-
-	/**
 	 * Set the cart id.
 	 */
 	public function dd_cart_init() {
@@ -185,5 +160,26 @@ class Dotdigital_WooCommerce {
 		if ( ! $cart->get_cart_id() ) {
 			$cart->set_cart_id();
 		}
+	}
+
+	/**
+	 * Initializes wbt script with last browsed product data.
+	 */
+	public function last_browsed_products() {
+		global $product;
+
+		if ( ! $product->get_id() ) {
+			return;
+		}
+
+		$last_browsed_products_handler = new Dotdigital_WooCommerce_Last_Browsed_Products();
+
+		wp_localize_script(
+			'wbt',
+			'product_data',
+			array(
+				'data' => $last_browsed_products_handler->get_last_product( $product->get_id() ),
+			)
+		);
 	}
 }

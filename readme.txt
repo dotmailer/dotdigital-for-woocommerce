@@ -1,4 +1,4 @@
-=== dotdigital for WooCommerce ===
+=== Dotdigital for WooCommerce ===
 Contributors: dotMailer, amucklow, fstrezos
 Requires at least: 4.7
 Tested up to: 5.8
@@ -9,22 +9,22 @@ Stable tag: 1.2.1
 License: MIT
 License URI: https://opensource.org/licenses/MIT
 
-Connect your WooCommerce store to dotdigital and put customer, subscriber, product and order data at your fingertips.
+Connect your WooCommerce store to Dotdigital and put customer, subscriber, product and order data at your fingertips.
 
 
 == Description ==
 
-dotdigital is a marketing automation platform that provides brands globally with the tools they need to acquire, convert, and retain customers. Our plug and play connector lets you sync your data from your store to your dotdigital account to empower your marketing. dotdigital gives you all the tools you need to send on-brand emails, automate campaigns, and manage mailing lists to engage with your audience.
+Dotdigital is a marketing automation platform that provides brands globally with the tools they need to acquire, convert, and retain customers. Our plug and play connector lets you sync your data from your store to your Dotdigital account to empower your marketing. Dotdigital gives you all the tools you need to send on-brand emails, automate campaigns, and manage mailing lists to engage with your audience.
 
 * Sync all your contacts to dotdigital, and segment them for your cross-channel campaigns.
 * Use your customers' order history and browsing behavior to better target your audience.
 * Build and automate lifecycle programs to engage your customers and drive revenue.
 
-If you're not a dotdigital user already you can find out more about us at <a href="https://www.dotdigital.com">dotdigital.com</a>.
+If you're not a Dotdigital user already you can find out more about us at <a href="https://www.dotdigital.com">dotdigital.com</a>.
 
 Once you've set up your integration, you can build automated journeys with data-driven marketing programs. Boost your ROI with abandoned cart, AI-powered product recommendations, advanced personalization, social re-targeting, and cross-channel marketing automation programs.
 
-dotdigital for WooCommerce will help you:
+Dotdigital for WooCommerce will help you:
 * Inspire customer engagement with beautifully designed email campaigns
 * Identify valuable customers with multiple segment templates and a fully flexible segment builder
 * Reach niche audiences with hyper-targeted landing pages, surveys, and forms
@@ -39,9 +39,9 @@ dotdigital for WooCommerce will help you:
 
 ### How the plugin works
 
-* When you activate, deactivate or uninstall the plugin, we send a plugin id (a random string that we create) to dotdigital. This allows dotdigital to identify your website.
+* When you activate, deactivate or uninstall the plugin, we send a plugin id (a random string that we create) to dotdigital. This allows Dotdigital to identify your website.
 * To connect to dotdigital, you install some additional files (see below) to create a 'bridge' with some middleware called <a href="https://api2cart.com/">API2Cart</a>.
-* Once connected, dotdigital syncs data from your website to the platform via API2Cart, using your plugin id to confirm it's you.
+* Once connected, Dotdigital syncs data from your website to the platform via API2Cart, using your plugin id to confirm it's you.
 
 ### Disclaimer
 
@@ -54,16 +54,16 @@ Follow these steps:
 1. Log into your WordPress admin console.
 2. In the left-hand menu, go to Plugins.
 3. Select 'Add New'.
-4. Find 'dotdigital for WooCommerce'.
+4. Find 'Dotdigital for WooCommerce'.
 5. Click on 'Install Now' then 'Activate'.
-6. In the left-hand menu, click on dotdigital for WooCommerce.
+6. In the left-hand menu, click on Dotdigital for WooCommerce.
 7. Log into dotdigital.
   * You'll see the 'Almost there!' message, outlining the three final steps to complete:
   * Download the bridge zip file (Disclaimer above also applies)
   * Copy and unzip the bridge file into your WordPress root folder
   * Click on 'Test connection' to check all's well
 
-The store should now be connected and dotdigital will start syncing customer data automatically.
+The store should now be connected and Dotdigital will start syncing customer data automatically.
 
 For more detailed information on installation, please see our <a href="https://support.dotdigital.com/hc/en-gb/categories/201643998-Integrations">support documentation</a>.
 

@@ -22,8 +22,7 @@ use Dotdigital_WooCommerce\Includes\Platforms\Dotdigital_WooCommerce as Dotdigit
 use Dotdigital_WooCommerce\Includes\Session\Dotdigital_WooCommerce_Session_Updater;
 use Dotdigital_WooCommerce\Includes\Subscriber\Dotdigital_WooCommerce_Form_Handler;
 use Dotdigital_WooCommerce\Pub\Dotdigital_WooCommerce_Public;
-use Dotdigital_WooCommerce\Includes\Dotdigital_WooCommerce_Rest_Api;
-use Dotdigital_WooCommerce\Includes\Widgets\Dotdigital_WooCommerce_Widget;
+
 
 /**
  * Class Dotdigital_WooCommerce
@@ -115,7 +114,6 @@ class Dotdigital_WooCommerce {
 		$this->define_public_hooks();
 		$this->define_validation_hooks();
 		$this->define_woocommerce_hooks();
-		$this->initialise_rest_api();
 	}
 
 	/**
@@ -262,20 +260,9 @@ class Dotdigital_WooCommerce {
 		$this->loader->add_action( 'woocommerce_after_checkout_billing_form', $plugin_woocommerce, 'Dotdigital_WooCommerce_render_checkout_marketing_checkbox', 5 );
 		$this->loader->add_action( 'woocommerce_checkout_order_processed', $plugin_woocommerce, 'Dotdigital_WooCommerce_handle_checkout_subscription', 5 );
 
-		$this->loader->add_action( 'woocommerce_update_cart_action_cart_updated', $plugin_woocommerce, 'cart_updated', 5 );
-		$this->loader->add_action( 'woocommerce_add_to_cart', $plugin_woocommerce, 'cart_updated', 5 );
-		$this->loader->add_action( 'woocommerce_cart_item_removed', $plugin_woocommerce, 'cart_updated', 5 );
-		$this->loader->add_action( 'woocommerce_cart_item_restored', $plugin_woocommerce, 'cart_updated', 5 );
-
 		$this->loader->add_action( 'woocommerce_set_cart_cookies', $plugin_woocommerce, 'dd_cart_init', 5 );
-	}
 
-	/**
-	 * Add custom API endpoints
-	 */
-	private function initialise_rest_api() {
-		$service = new Dotdigital_WooCommerce_Rest_Api( $this->plugin_name );
-		$this->loader->add_action( 'rest_api_init', $service, 'register_routes' );
+		$this->loader->add_action( 'woocommerce_before_single_product_summary', $plugin_woocommerce, 'last_browsed_products' );
 	}
 
 	/**

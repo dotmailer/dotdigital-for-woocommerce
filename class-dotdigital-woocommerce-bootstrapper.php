@@ -12,7 +12,7 @@
  * @package    Dotdigital_WooCommerce
  *
  * @wordpress-plugin
- * Plugin Name:       dotdigital for WooCommerce
+ * Plugin Name:       Dotdigital for WooCommerce
  * Description:       Connect your WooCommerce store to dotdigital and put customer, subscriber, product and order data at your fingertips.
  * Version:           1.2.1
  * Author:            dotdigital
