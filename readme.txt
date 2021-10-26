@@ -5,7 +5,7 @@ Tested up to: 5.8
 Requires PHP: 7.0
 WC requires at least: 3.3
 WC tested up to: 5.6
-Stable tag: 1.2.1
+Stable tag: 1.3.0
 License: MIT
 License URI: https://opensource.org/licenses/MIT
 
@@ -69,6 +69,16 @@ For more detailed information on installation, please see our <a href="https://s
 
 == Changelog ==
 
+= 1.3.0 =
+
+**What's new**
+- The connector now supports abandoned cart program enrolment for customers and guests. For this update, abandoned cart configuration is managed via **Dotdigital for Woocommerce > Settings**.
+- We have integrated web behavior tracking into the plugin. Abandoned browse is also now supported.
+
+**Improvements**
+- We've added Cypress test coverage for our plugin configuration.
+- We've updated the naming of Dotdigital throughout the connector.
+
 = 1.2.1 =
 
 * Escape variables to improve security in admin and widget classes.
@@ -77,7 +87,7 @@ For more detailed information on installation, please see our <a href="https://s
 
 = 1.2.0 =
 
-**What’s new**
+**What's new**
 
 * We now support guest subscriptions. All subscribers are stored in their own database table, with rows created and updated via the checkboxes at user registration and checkout.
 * We’ve added a script to migrate existing customer subscribers (identified by a key in `wp_usermeta`) into the new table.
