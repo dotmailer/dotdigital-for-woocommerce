@@ -19,12 +19,18 @@ class Dotdigital_WooCommerce_Cart {
 	/**
 	 * Getter.
 	 *
-	 * @return string
+	 * @return string|null
 	 */
 	public function get_cart_id() {
-		return get_current_user_id() ?
-			get_user_meta( get_current_user_id(), '_dd_persistent_cart_id_' . get_current_blog_id(), true ) :
-			WC()->session->get( 'cart_id' );
+		if ( get_current_user_id() ) {
+			return get_user_meta( get_current_user_id(), '_dd_persistent_cart_id_' . get_current_blog_id(), true );
+		}
+
+		if ( WC()->session ) {
+			return WC()->session->get( 'cart_id', null );
+		}
+
+		return null;
 	}
 
 	/**
