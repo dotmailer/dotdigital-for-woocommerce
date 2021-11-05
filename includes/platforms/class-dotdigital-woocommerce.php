@@ -155,6 +155,10 @@ class Dotdigital_WooCommerce {
 	 * Set the cart id.
 	 */
 	public function dd_cart_init() {
+		if ( is_admin() ) {
+			return;
+		}
+
 		$cart = new Dotdigital_WooCommerce_Cart();
 
 		if ( ! $cart->get_cart_id() ) {

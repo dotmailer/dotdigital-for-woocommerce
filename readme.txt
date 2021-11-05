@@ -5,7 +5,7 @@ Tested up to: 5.8
 Requires PHP: 7.0
 WC requires at least: 3.3
 WC tested up to: 5.6
-Stable tag: 1.3.0
+Stable tag: 1.3.1
 License: MIT
 License URI: https://opensource.org/licenses/MIT
 
@@ -68,6 +68,12 @@ The store should now be connected and Dotdigital will start syncing customer dat
 For more detailed information on installation, please see our <a href="https://support.dotdigital.com/hc/en-gb/categories/201643998-Integrations">support documentation</a>.
 
 == Changelog ==
+
+= 1.3.1 =
+
+**Bug fixes**
+- We fixed a compatibility issue with the WooCommerce GlobalE PRO Integration plugin.
+- Cypress upgrade to fix vulnerability.
 
 = 1.3.0 =
 
