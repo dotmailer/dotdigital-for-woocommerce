@@ -1,6 +1,6 @@
 {
   "devDependencies": {
-    "@bigbite/wp-cypress": "^0.9.2",
-    "cypress": "^8.7.0"
+    "@bigbite/wp-cypress": "^0.9.5",
+    "cypress": "^9.5.0"
   }
 }
