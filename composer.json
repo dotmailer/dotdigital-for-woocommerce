@@ -7,6 +7,12 @@
 		"squizlabs/php_codesniffer": "*",
 		"wp-coding-standards/wpcs": "*",
 		"phpunit/phpunit": "~7",
-		"brain/monkey": "^2.6"
+		"brain/monkey": "^2.6",
+		"yoast/phpunit-polyfills": "^1.0"
+	},
+	"config": {
+		"allow-plugins": {
+			"dealerdirect/phpcodesniffer-composer-installer": true
+		}
 	}
 }
