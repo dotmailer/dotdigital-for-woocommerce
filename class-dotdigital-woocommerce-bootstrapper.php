@@ -21,6 +21,8 @@
  * License URI:       https://opensource.org/licenses/MIT
  * Text Domain:       dotdigital-woocommerce
  * Domain Path:       /languages
+ * WC requires at least: 3.3.0
+ * WC tested up to: 6.5.1
  *
  * MIT License
  *

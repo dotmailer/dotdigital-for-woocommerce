@@ -1,10 +1,8 @@
 === Dotdigital for WooCommerce ===
 Contributors: dotMailer, amucklow, fstrezos
-Requires at least: 4.7
-Tested up to: 5.8
+Requires at least: 5.7
+Tested up to: 6.0
 Requires PHP: 7.0
-WC requires at least: 3.3
-WC tested up to: 5.6
 Stable tag: 1.3.1
 License: MIT
 License URI: https://opensource.org/licenses/MIT
