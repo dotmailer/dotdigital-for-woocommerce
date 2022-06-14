@@ -1,11 +1,9 @@
 === Dotdigital for WooCommerce ===
 Contributors: dotMailer, amucklow, fstrezos
-Requires at least: 4.7
-Tested up to: 5.8
+Requires at least: 5.7
+Tested up to: 6.0
 Requires PHP: 7.0
-WC requires at least: 3.3
-WC tested up to: 5.6
-Stable tag: 1.3.1
+Stable tag: 1.3.2
 License: MIT
 License URI: https://opensource.org/licenses/MIT
 
@@ -68,6 +66,14 @@ The store should now be connected and Dotdigital will start syncing customer dat
 For more detailed information on installation, please see our <a href="https://support.dotdigital.com/hc/en-gb/categories/201643998-Integrations">support documentation</a>.
 
 == Changelog ==
+
+= 1.3.2 =
+
+**What's new**
+- We now support worpdress up to v6.0 and woocommerce up to v6.5.1.
+
+**Bug fixes**
+-  salePrice property in cartInsight data now fetches sale's regular price if there is no discount on sale item.
 
 = 1.3.1 =
 

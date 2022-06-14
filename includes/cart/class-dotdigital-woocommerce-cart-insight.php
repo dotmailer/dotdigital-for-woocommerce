@@ -72,8 +72,8 @@ class Dotdigital_WooCommerce_Cart_Insight {
 				$product = wc_get_product( $cart_item['variation_id'] );
 			}
 
-			$line_item_data['unit_price'] = round( $product->get_regular_price(), 2 );
-			$line_item_data['sale_price'] = round( $product->get_sale_price(), 2 );
+			$line_item_data['unit_price'] = round( (float) $product->get_regular_price(), 2 );
+			$line_item_data['sale_price'] = round( $this->get_product_sale_price( $product ), 2 );
 
 			$line_items[] = $line_item_data;
 		}
@@ -162,5 +162,16 @@ class Dotdigital_WooCommerce_Cart_Insight {
 	 */
 	protected function get_line_items() {
 		return WC()->cart->get_cart_contents();
+	}
+
+	/**
+	 * Get product sale price.
+	 *
+	 * @param \WC_Product $product The product object.
+	 *
+	 * @return float
+	 */
+	private function get_product_sale_price( $product ) {
+		return (float) ( $product->get_sale_price() ? $product->get_sale_price() : $product->get_regular_price() );
 	}
 }
