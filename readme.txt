@@ -70,10 +70,10 @@ For more detailed information on installation, please see our <a href="https://s
 = 1.3.2 =
 
 **What's new**
-- We now support worpdress up to v6.0 and woocommerce up to v6.5.1.
+- We now support WordPress up to v6.0 and Woocommerce up to v6.5.1.
 
 **Bug fixes**
--  salePrice property in cartInsight data now fetches sale's regular price if there is no discount on sale item.
+- The salePrice property in cartInsight line items now shows the regular price if there is no discount.
 
 = 1.3.1 =
 
