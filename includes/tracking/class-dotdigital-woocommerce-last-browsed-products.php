@@ -34,7 +34,7 @@ class Dotdigital_WooCommerce_Last_Browsed_Products {
 			return array(
 				'product_name' => $product->get_name(),
 				'product_sku' => $product->get_sku(),
-				'product_price' => round( $product->get_regular_price(), 2 ),
+				'product_price' => round( (float) $product->get_regular_price(), 2 ),
 				'product_url' => get_permalink( $product->get_id() ),
 				'product_image_path' => $image_finder->get_product_image_url( $product ),
 				'product_status' => $this->get_product_stock_status_from_key( $product->get_stock_status() ),
@@ -55,7 +55,9 @@ class Dotdigital_WooCommerce_Last_Browsed_Products {
 	 * @return float
 	 */
 	private function get_special_price( $product ) {
-		return ( $product->get_regular_price() === $product->get_sale_price() ) ? 0 : round( $product->get_sale_price(), 2 );
+		return ( $product->get_regular_price() === $product->get_sale_price() ) ?
+			0 :
+			round( (float) $product->get_sale_price(), 2 );
 	}
 
 	/**
