@@ -3,7 +3,7 @@ Contributors: dotMailer, amucklow, fstrezos
 Requires at least: 5.7
 Tested up to: 6.0
 Requires PHP: 7.0
-Stable tag: 1.3.2
+Stable tag: 1.3.3
 License: MIT
 License URI: https://opensource.org/licenses/MIT
 
@@ -66,6 +66,13 @@ The store should now be connected and Dotdigital will start syncing customer dat
 For more detailed information on installation, please see our <a href="https://support.dotdigital.com/hc/en-gb/categories/201643998-Integrations">support documentation</a>.
 
 == Changelog ==
+
+= 1.3.3 =
+
+**Bug fixes**
+- We fixed an error on product pages caused by passing `null` to `round()` in PHP 8.1.
+- Cypress was upgraded to fix a dependency alert.
+
 
 = 1.3.2 =
 
