@@ -73,7 +73,6 @@ For more detailed information on installation, please see our <a href="https://s
 - We fixed an error on product pages caused by passing `null` to `round()` in PHP 8.1.
 - Cypress was upgraded to fix a dependency alert.
 
-
 = 1.3.2 =
 
 **What's new**
