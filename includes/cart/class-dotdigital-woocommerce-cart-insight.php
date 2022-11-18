@@ -25,6 +25,7 @@ class Dotdigital_WooCommerce_Cart_Insight {
 	 * Return an array of data to be consumed by cart-insight.js
 	 *
 	 * @return array
+	 * @throws \Exception If any line item cannot be matched to a product.
 	 */
 	public function get_payload() {
 
@@ -54,8 +55,12 @@ class Dotdigital_WooCommerce_Cart_Insight {
 
 		$line_items = array();
 
-		foreach ( $this->get_line_items() as $cart_item_key => $cart_item ) {
+		foreach ( $this->get_line_items() as $cart_item ) {
 			$product = wc_get_product( $cart_item['product_id'] );
+			if ( ! $product ) {
+				/* translators: placeholder = the product id */
+				throw new \Exception( sprintf( __( 'Product id %s not found, invalid payload for cart insight.', 'dotdigital-woocommerce' ), $cart_item['product_id'] ) );
+			}
 
 			$line_item_data = array(
 				'sku'         => $product->get_sku(),
@@ -70,6 +75,10 @@ class Dotdigital_WooCommerce_Cart_Insight {
 
 			if ( 'variable' === $product->get_type() ) {
 				$product = wc_get_product( $cart_item['variation_id'] );
+				if ( ! $product ) {
+					/* translators: placeholder = the product variation id */
+					throw new \Exception( sprintf( __( 'Product id %s not found for variation, invalid payload for cart insight.', 'dotdigital-woocommerce' ), $cart_item['variation_id'] ) );
+				}
 			}
 
 			$line_item_data['unit_price'] = round( (float) $product->get_regular_price(), 2 );
