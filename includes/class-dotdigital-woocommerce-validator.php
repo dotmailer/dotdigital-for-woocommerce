@@ -90,4 +90,15 @@ class Dotdigital_WooCommerce_Validator {
 		</div>
 		<?php
 	}
+
+	/**
+	 * Adds compatibility indicator for Woocommerce HPOS.
+	 *
+	 * See: https://github.com/woocommerce/woocommerce/wiki/High-Performance-Order-Storage-Upgrade-Recipe-Book
+	 */
+	public function declare_woo_hpos_compatibility() {
+		if ( class_exists( '\Automattic\WooCommerce\Utilities\FeaturesUtil' ) ) {
+			\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', $this->plugin_path, true );
+		}
+	}
 }

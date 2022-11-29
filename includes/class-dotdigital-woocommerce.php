@@ -191,6 +191,10 @@ class Dotdigital_WooCommerce {
 	 */
 	private function define_validation_hooks() {
 
+		$plugin_validator = new Dotdigital_WooCommerce_Validator( $this->plugin_name, $this->plugin_path );
+
+		$this->loader->add_action( 'before_woocommerce_init', $plugin_validator, 'declare_woo_hpos_compatibility' );
+
 		if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ), true ) ) {
 			return;
 		}
@@ -205,12 +209,9 @@ class Dotdigital_WooCommerce {
 			}
 		}
 
-		$plugin_validator = new Dotdigital_WooCommerce_Validator( $this->plugin_name, $this->plugin_path );
-
 		$this->loader->add_action( 'admin_init', $plugin_validator, 'self_deactivate' );
 		$this->loader->add_action( 'admin_menu', $plugin_validator, 'remove_admin_menu_page' );
 		$this->loader->add_action( 'admin_notices', $plugin_validator, 'plugin_activation_failure_message' );
-
 	}
 
 	/**
