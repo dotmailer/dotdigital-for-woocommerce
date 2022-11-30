@@ -61,14 +61,16 @@ class Dotdigital_WooCommerce_Cart_Insight_Handler {
 	 *
 	 * @return array
 	 */
-	public function get_data() {
-		$cart_insight_data = array();
-
+	public function get_data(): array {
 		if ( $this->can_send_cart_insight() ) {
-			$cart_insight_data = $this->get_data_provider()->get_payload();
+			try {
+				return $this->get_data_provider()->get_payload();
+			} catch ( \Exception $e ) {
+				return array();
+			}
 		}
 
-		return $cart_insight_data;
+		return array();
 	}
 
 	/**

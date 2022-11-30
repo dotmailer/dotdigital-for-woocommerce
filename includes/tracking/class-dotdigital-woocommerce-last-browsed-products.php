@@ -25,8 +25,12 @@ class Dotdigital_WooCommerce_Last_Browsed_Products {
 	 * @param int $product_id The current product id.
 	 * @return array
 	 */
-	public function get_last_product( $product_id ) {
+	public function get_last_product( $product_id ): array {
 		$product = wc_get_product( $product_id );
+		if ( ! $product ) {
+			return array();
+		}
+
 		$dotdigital_woocommerce_category_helper = new Dotdigital_WooCommerce_Category();
 		$image_finder = new Dotdigital_WooCommerce_Image();
 
@@ -43,7 +47,7 @@ class Dotdigital_WooCommerce_Last_Browsed_Products {
 				'product_currency' => get_woocommerce_currency(),
 				'product_specialPrice' => $this->get_special_price( $product ),
 			);
-		} catch ( \Exception $e ) {
+		} catch ( \Throwable $e ) {
 			return array();
 		}
 	}
