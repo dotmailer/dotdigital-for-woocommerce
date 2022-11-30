@@ -1,6 +1,6 @@
 {
 	"name" : "dotdigital/dotdigital-for-woocommerce",
-	"version" : "1.3.3",
+	"version" : "1.3.4",
 	"require-dev" : {
 		"dealerdirect/phpcodesniffer-composer-installer": "*",
 		"phpcompatibility/phpcompatibility-wp": "*",

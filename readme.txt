@@ -3,7 +3,7 @@ Contributors: dotMailer, amucklow, fstrezos
 Requires at least: 5.7
 Tested up to: 6.1
 Requires PHP: 7.0
-Stable tag: 1.3.3
+Stable tag: 1.3.4
 License: MIT
 License URI: https://opensource.org/licenses/MIT
 
@@ -67,12 +67,19 @@ For more detailed information on installation, please see our <a href="https://s
 
 == Changelog ==
 
+= 1.3.4 =
+
+**Improvements**
+- We added compatibility with WooCommerce’s new HPOS order storage feature.
+
+**Bug fixes**
+- We fixed an error related to products not being found for items in the cart.
+
 = 1.3.3 =
 
 **Bug fixes**
 - We fixed an error on product pages caused by passing `null` to `round()` in PHP 8.1.
 - Cypress was upgraded to fix a dependency alert.
-
 
 = 1.3.2 =
 
