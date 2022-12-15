@@ -67,6 +67,9 @@ For more detailed information on installation, please see our <a href="https://s
 
 == Changelog ==
 
+= Unreleased = 
+- Send cartInsight on when cart totals is updated via ajax
+
 = 1.3.4 =
 
 **Improvements**
