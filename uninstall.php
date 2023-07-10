@@ -30,9 +30,10 @@ function dd_woocommerce_uninstall() {
 	wp_remote_post( Dotdigital_WooCommerce_Config::TRACKING_URL . "/e/woocommerce/uninstall?pluginid=$plugin_id" );
 
 	delete_option( Dotdigital_WooCommerce_Config::PLUGIN_VERSION );
+	delete_option( Dotdigital_WooCommerce_Config::MARKETING_CHECKBOX_TEXT );
+	delete_option( Dotdigital_WooCommerce_Config::MARKETING_CHECKBOX_SMS_TEXT );
 	delete_option( Dotdigital_WooCommerce_Config::SHOW_MARKETING_CHECKBOX_CHECKOUT );
 	delete_option( Dotdigital_WooCommerce_Config::SHOW_MARKETING_CHECKBOX_REGISTER );
-	delete_option( Dotdigital_WooCommerce_Config::MARKETING_CHECKBOX_TEXT );
 	delete_option( Dotdigital_WooCommerce_Config::SITE_AND_ROI_TRACKING );
 	delete_option( Dotdigital_WooCommerce_Config::REGION );
 	delete_option( Dotdigital_WooCommerce_Config::WBT_PROFILE_ID_PATH );
@@ -40,6 +41,7 @@ function dd_woocommerce_uninstall() {
 	delete_option( Dotdigital_WooCommerce_Config::PROGRAM_ID_PATH );
 	delete_option( Dotdigital_WooCommerce_Config::CART_DELAY_PATH );
 	delete_option( Dotdigital_WooCommerce_Config::ALLOW_NON_SUBSCRIBERS_PATH );
+	delete_option( Dotdigital_WooCommerce_Config::API_CREDENTIALS_PATH );
 }
 
 if ( ! is_multisite() ) {

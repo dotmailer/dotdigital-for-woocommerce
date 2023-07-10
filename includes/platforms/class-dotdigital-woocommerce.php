@@ -40,10 +40,14 @@ class Dotdigital_WooCommerce {
 	 * @since    1.0.0
 	 */
 	public function dotdigital_woocommerce_render_checkout_marketing_checkbox() {
-		if ( ! get_option(
+		$show_checkbox = get_option(
 			Dotdigital_WooCommerce_Config::SHOW_MARKETING_CHECKBOX_CHECKOUT,
 			Dotdigital_WooCommerce_Config::DEFAULT_MARKETING_CHECKBOX_DISPLAY_AT_CHECKOUT
-		) ) {
+		);
+
+		$show_checkbox = Dotdigital_WooCommerce_Config::get_email_from_checkbox( $show_checkbox );
+
+		if ( ! $show_checkbox ) {
 			return;
 		}
 
@@ -104,10 +108,14 @@ class Dotdigital_WooCommerce {
 	 */
 	public function dotdigital_woocommerce_render_register_marketing_checkbox() {
 
-		if ( ! get_option(
+		$show_checkbox = get_option(
 			Dotdigital_WooCommerce_Config::SHOW_MARKETING_CHECKBOX_REGISTER,
 			Dotdigital_WooCommerce_Config::DEFAULT_MARKETING_CHECKBOX_DISPLAY_AT_REGISTER
-		) ) {
+		);
+
+		$show_checkbox = Dotdigital_WooCommerce_Config::get_email_from_checkbox( $show_checkbox );
+
+		if ( ! $show_checkbox ) {
 			return;
 		}
 

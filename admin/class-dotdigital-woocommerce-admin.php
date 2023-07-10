@@ -13,6 +13,7 @@ namespace Dotdigital_WooCommerce\Admin;
 
 use Dotdigital_WooCommerce\Admin\Partials\Dotdigital_WooCommerce_Admin_Display;
 use Dotdigital_WooCommerce\Includes\Dotdigital_WooCommerce_Config;
+use Dotdigital_WooCommerce\Includes\Dotdigital_WooCommerce_Encryptor;
 
 /**
  * The admin-specific functionality of the plugin.
@@ -28,9 +29,12 @@ use Dotdigital_WooCommerce\Includes\Dotdigital_WooCommerce_Config;
  */
 class Dotdigital_WooCommerce_Admin {
 
+	const API_CREDS_SECTION = 'dd_woo_settings_page_api_credentials_section';
 	const GENERAL_SECTION = 'dd_woo_settings_page_general_section';
 	const TRACKING_SECTION = 'dd_woo_settings_page_tracking_section';
 	const ABANDONED_CART_SECTION = 'dd_woo_settings_abandoned_cart_section';
+	const API_USERNAME_FIELD = 'dotdigital_for_woocommerce_settings_dotdigital_api_username_field';
+	const API_PASSWORD_FIELD = 'dotdigital_for_woocommerce_settings_dotdigital_api_password_field';
 
 	/**
 	 * The unique identifier of this plugin.
@@ -58,6 +62,15 @@ class Dotdigital_WooCommerce_Admin {
 	 * @var      string    $webapp_url    dotdigital URL.
 	 */
 	private $webapp_url;
+
+	/**
+	 * Checks if password parsed already.
+	 *
+	 * @since 1.4.0
+	 * @access private
+	 * @var bool $password_parsed password parsed.
+	 */
+	private $password_parsed;
 
 	/**
 	 * Initialize the class and set its properties.
@@ -180,6 +193,7 @@ class Dotdigital_WooCommerce_Admin {
 	 * @since    1.2.0
 	 */
 	public function register_settings() {
+		$this->register_settings_for_dotdigital_api_creds();
 		$this->register_settings_for_marketing_subscription();
 		$this->register_settings_for_tracking();
 		$this->register_abandoned_cart_settings();
@@ -196,6 +210,25 @@ class Dotdigital_WooCommerce_Admin {
 	}
 
 	/**
+	 * A template for a consent checkbox field (dual).
+	 *
+	 * @param array $args An array of arguments.
+	 */
+	public function settings_page_render_consent_checkbox( $args ) {
+		$value = get_option( $args['id'], $args['default_value'] );
+		$email_value = Dotdigital_WooCommerce_Config::get_email_from_checkbox( $value );
+		echo '<div class="consent_checkbox">';
+			echo '<label >Email</label>';
+			echo '<input type="checkbox" id="' . esc_attr( $args['id'] ) . '" name="' . esc_attr( $args['name'] ) . '[email]" value="1"' . checked( 1, $email_value, false ) . ( isset( $args['disabled'] ) && $args['disabled'] ? 'disabled' : '' ) . '/>';
+		echo '</div>';
+
+		echo '<div class="consent_checkbox">';
+			echo '<label>Sms</label>';
+			echo '<input type="checkbox" id="' . esc_attr( $args['id'] ) . '" name="' . esc_attr( $args['name'] ) . '[sms]" value="1"' . checked( 1, isset( $value['sms'] ) ?? false, false ) . ( isset( $args['disabled'] ) && $args['disabled'] ? 'disabled' : '' ) . '/>';
+		echo '</div>';
+	}
+
+	/**
 	 * A template for a text input field.
 	 *
 	 * @param array $args An array of arguments.
@@ -203,6 +236,26 @@ class Dotdigital_WooCommerce_Admin {
 	public function settings_page_render_text_input( $args ) {
 		$value = get_option( $args['id'], $args['default_value'] );
 		echo '<input type="text" id="' . esc_attr( $args['id'] ) . '" name="' . esc_attr( $args['name'] ) . '" value="' . esc_attr( $value ) . '" size="40"' . ( isset( $args['disabled'] ) && $args['disabled'] ? 'disabled' : '' ) . '/>';
+	}
+
+		/**
+		 * A template for a text input field.
+		 *
+		 * @param array $args An array of arguments.
+		 */
+	public function settings_page_render_username_input( $args ) {
+		$value = get_option( Dotdigital_WooCommerce_Config::API_CREDENTIALS_PATH, $args['default_value'] );
+		echo '<input type="text" id="' . esc_attr( $args['id'] ) . '" name="' . esc_attr( Dotdigital_WooCommerce_Config::API_CREDENTIALS_PATH ) . '[username] " value="' . esc_attr( $value['username'] ?? null ) . '" size="40"' . ( isset( $args['disabled'] ) && $args['disabled'] ? 'disabled' : '' ) . '/>';
+	}
+
+	/**
+	 * A template for a text input field.
+	 *
+	 * @param array $args An array of arguments.
+	 */
+	public function settings_page_render_password_input( $args ) {
+		$value = get_option( Dotdigital_WooCommerce_Config::API_CREDENTIALS_PATH, $args['default_value'] );
+		echo '<input type="password" id="' . esc_attr( $args['id'] ) . '" name="' . esc_attr( Dotdigital_WooCommerce_Config::API_CREDENTIALS_PATH ) . '[password] " value="' . esc_attr( $value['password'] ?? null ) . '" size="40"' . ( isset( $args['disabled'] ) && $args['disabled'] ? 'disabled' : '' ) . '/>';
 	}
 
 	/**
@@ -235,11 +288,67 @@ class Dotdigital_WooCommerce_Admin {
 	}
 
 	/**
+	 * Register settings for dotdigital api creds.
+	 *
+	 * @since 1.4.0
+	 */
+	private function register_settings_for_dotdigital_api_creds() {
+		/**
+		 * Add settings section for dotdigital api creds.
+		 */
+		add_settings_section(
+			self::API_CREDS_SECTION,
+			'API credentials',
+			null,
+			$this->plugin_name . '-settings'
+		);
+
+		/**
+		 * Add settings field [username].
+		 */
+		add_settings_field(
+			self::API_USERNAME_FIELD,
+			'Username:',
+			array( $this, 'settings_page_render_username_input' ),
+			$this->plugin_name . '-settings',
+			self::API_CREDS_SECTION,
+			array(
+				'id'            => self::API_USERNAME_FIELD,
+				'name'          => self::API_USERNAME_FIELD,
+				'default_value' => '',
+			)
+		);
+
+		/**
+		 * Add settings field [password].
+		 */
+		add_settings_field(
+			self::API_PASSWORD_FIELD,
+			'Password:',
+			array( $this, 'settings_page_render_password_input' ),
+			$this->plugin_name . '-settings',
+			self::API_CREDS_SECTION,
+			array(
+				'id'            => self::API_PASSWORD_FIELD,
+				'name'          => self::API_PASSWORD_FIELD,
+				'default_value' => '',
+			)
+		);
+
+		register_setting(
+			$this->plugin_name . '-settings',
+			Dotdigital_WooCommerce_Config::API_CREDENTIALS_PATH,
+			array( $this, 'api_creds_handle' )
+		);
+	}
+
+	/**
 	 * Register settings for marketing subscription.
 	 *
 	 * @since 1.2.0
 	 */
 	private function register_settings_for_marketing_subscription() {
+
 		/**
 		 * Add settings section for marketing subscription.
 		 */
@@ -256,46 +365,72 @@ class Dotdigital_WooCommerce_Admin {
 		add_settings_field(
 			Dotdigital_WooCommerce_Config::SHOW_MARKETING_CHECKBOX_CHECKOUT,
 			'Show marketing checkbox at checkout',
-			array( $this, 'settings_page_render_checkbox' ),
+			array( $this, 'settings_page_render_consent_checkbox' ),
 			$this->plugin_name . '-settings',
 			self::GENERAL_SECTION,
 			array(
 				'id'            => Dotdigital_WooCommerce_Config::SHOW_MARKETING_CHECKBOX_CHECKOUT,
 				'name'          => Dotdigital_WooCommerce_Config::SHOW_MARKETING_CHECKBOX_CHECKOUT,
-				'default_value' => Dotdigital_WooCommerce_Config::DEFAULT_MARKETING_CHECKBOX_DISPLAY_AT_CHECKOUT,
+				'default_value' => '',
 			)
 		);
 
 		/**
-		 * Add settings field [show checkbox at register].
+		 * Add settings field [show checkbox at user registration].
 		 */
 		add_settings_field(
 			Dotdigital_WooCommerce_Config::SHOW_MARKETING_CHECKBOX_REGISTER,
 			'Show marketing checkbox at user registration',
-			array( $this, 'settings_page_render_checkbox' ),
+			array( $this, 'settings_page_render_consent_checkbox' ),
 			$this->plugin_name . '-settings',
 			self::GENERAL_SECTION,
 			array(
 				'id'            => Dotdigital_WooCommerce_Config::SHOW_MARKETING_CHECKBOX_REGISTER,
 				'name'          => Dotdigital_WooCommerce_Config::SHOW_MARKETING_CHECKBOX_REGISTER,
-				'default_value' => Dotdigital_WooCommerce_Config::DEFAULT_MARKETING_CHECKBOX_DISPLAY_AT_REGISTER,
+				'default_value' => '',
 			)
 		);
 
 		/**
-		 * Add settings field [checkbox text].
+		 * Add settings field [email checkbox text].
 		 */
 		add_settings_field(
 			Dotdigital_WooCommerce_Config::MARKETING_CHECKBOX_TEXT,
-			'Marketing checkbox text',
+			'Email Marketing checkbox text',
 			array( $this, 'settings_page_render_text_input' ),
 			$this->plugin_name . '-settings',
 			self::GENERAL_SECTION,
 			array(
 				'id'            => Dotdigital_WooCommerce_Config::MARKETING_CHECKBOX_TEXT,
 				'name'          => Dotdigital_WooCommerce_Config::MARKETING_CHECKBOX_TEXT,
-				'default_value' => Dotdigital_WooCommerce_Config::DEFAULT_MARKETING_CHECKBOX_TEXT,
+				'default_value' => '',
 			)
+		);
+
+		/**
+		 * Add settings field [sms checkbox text].
+		 */
+		add_settings_field(
+			Dotdigital_WooCommerce_Config::MARKETING_CHECKBOX_SMS_TEXT,
+			'SMS Marketing checkbox text',
+			array( $this, 'settings_page_render_text_input' ),
+			$this->plugin_name . '-settings',
+			self::GENERAL_SECTION,
+			array(
+				'id'            => Dotdigital_WooCommerce_Config::MARKETING_CHECKBOX_SMS_TEXT,
+				'name'          => Dotdigital_WooCommerce_Config::MARKETING_CHECKBOX_SMS_TEXT,
+				'default_value' => '',
+			)
+		);
+
+		register_setting(
+			$this->plugin_name . '-settings',
+			Dotdigital_WooCommerce_Config::MARKETING_CHECKBOX_TEXT
+		);
+
+		register_setting(
+			$this->plugin_name . '-settings',
+			Dotdigital_WooCommerce_Config::MARKETING_CHECKBOX_SMS_TEXT
 		);
 
 		register_setting(
@@ -306,11 +441,6 @@ class Dotdigital_WooCommerce_Admin {
 		register_setting(
 			$this->plugin_name . '-settings',
 			Dotdigital_WooCommerce_Config::SHOW_MARKETING_CHECKBOX_REGISTER
-		);
-
-		register_setting(
-			$this->plugin_name . '-settings',
-			Dotdigital_WooCommerce_Config::MARKETING_CHECKBOX_TEXT
 		);
 	}
 
@@ -517,5 +647,33 @@ class Dotdigital_WooCommerce_Admin {
 	 */
 	private function is_disabled_field() {
 		return ! get_option( Dotdigital_WooCommerce_Config::WBT_PROFILE_ID_PATH );
+	}
+
+	/**
+	 * Stores password securely.
+	 *
+	 * @param array $value password.
+	 *
+	 * @return array
+	 * @since 1.4.0
+	 */
+	public function api_creds_handle( $value ) {
+		$encryptor = new Dotdigital_WooCommerce_Encryptor();
+		$old_value = get_option( Dotdigital_WooCommerce_Config::API_CREDENTIALS_PATH );
+
+		if ( $this->password_parsed ) {
+			return $value;
+		}
+
+		if ( isset( $old_value['password'] ) && $old_value['password'] === $value['password'] ) {
+			return $value;
+		}
+
+		$this->password_parsed = true;
+
+		return array(
+			'username' => $value['username'],
+			'password' => $value['password'] ? $encryptor->encrypt( $value['password'] ) : null,
+		);
 	}
 }
