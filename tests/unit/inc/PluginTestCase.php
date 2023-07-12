@@ -17,7 +17,7 @@ class PluginTestCase extends TestCase {
 	 *
 	 * @return void
 	 */
-	public function setUp() {
+	public function setUp(): void {
 		parent::setUp();
 		$_POST = array();
 		$_GET = array();
@@ -54,7 +54,7 @@ class PluginTestCase extends TestCase {
 	 *
 	 * @return void
 	 */
-	public function tearDown() {
+	public function tearDown(): void {
 		Monkey\tearDown();
 		parent::tearDown();
 	}

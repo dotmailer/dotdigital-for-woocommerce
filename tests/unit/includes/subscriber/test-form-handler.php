@@ -23,7 +23,7 @@ class TestDotdigitalFormHandler extends PluginTestCase
      */
     private $dd_subscriber_mock;
 
-    public function setUp() {
+    public function setUp(): void {
         parent::setUp();
 
         $this->dd_subscriber_mock = \Mockery::mock(

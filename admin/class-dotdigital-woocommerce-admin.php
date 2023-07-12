@@ -12,8 +12,8 @@
 namespace Dotdigital_WooCommerce\Admin;
 
 use Dotdigital_WooCommerce\Admin\Partials\Dotdigital_WooCommerce_Admin_Display;
+use Dotdigital_WooCommerce\Admin\Settings\Dotdigital_WooCommerce_Api_Credentials_Handler;
 use Dotdigital_WooCommerce\Includes\Dotdigital_WooCommerce_Config;
-use Dotdigital_WooCommerce\Includes\Dotdigital_WooCommerce_Encryptor;
 
 /**
  * The admin-specific functionality of the plugin.
@@ -64,13 +64,13 @@ class Dotdigital_WooCommerce_Admin {
 	private $webapp_url;
 
 	/**
-	 * Checks if password parsed already.
+	 * Settings handler.
 	 *
-	 * @since 1.4.0
-	 * @access private
-	 * @var bool $password_parsed password parsed.
+	 * @since    1.4.0
+	 * @access   private
+	 * @var Dotdigital_WooCommerce_Api_Credentials_Handler
 	 */
-	private $password_parsed;
+	public $handler;
 
 	/**
 	 * Initialize the class and set its properties.
@@ -85,6 +85,7 @@ class Dotdigital_WooCommerce_Admin {
 		$this->plugin_name = $plugin_name;
 		$this->version     = $version;
 		$this->webapp_url  = $webapp_url;
+		$this->handler     = new Dotdigital_WooCommerce_Api_Credentials_Handler( $this->plugin_name );
 
 	}
 
@@ -338,7 +339,7 @@ class Dotdigital_WooCommerce_Admin {
 		register_setting(
 			$this->plugin_name . '-settings',
 			Dotdigital_WooCommerce_Config::API_CREDENTIALS_PATH,
-			array( $this, 'api_creds_handle' )
+			array( $this->handler, 'sanitize_api_credentials' )
 		);
 	}
 
@@ -647,33 +648,5 @@ class Dotdigital_WooCommerce_Admin {
 	 */
 	private function is_disabled_field() {
 		return ! get_option( Dotdigital_WooCommerce_Config::WBT_PROFILE_ID_PATH );
-	}
-
-	/**
-	 * Stores password securely.
-	 *
-	 * @param array $value password.
-	 *
-	 * @return array
-	 * @since 1.4.0
-	 */
-	public function api_creds_handle( $value ) {
-		$encryptor = new Dotdigital_WooCommerce_Encryptor();
-		$old_value = get_option( Dotdigital_WooCommerce_Config::API_CREDENTIALS_PATH );
-
-		if ( $this->password_parsed ) {
-			return $value;
-		}
-
-		if ( isset( $old_value['password'] ) && $old_value['password'] === $value['password'] ) {
-			return $value;
-		}
-
-		$this->password_parsed = true;
-
-		return array(
-			'username' => $value['username'],
-			'password' => $value['password'] ? $encryptor->encrypt( $value['password'] ) : null,
-		);
 	}
 }

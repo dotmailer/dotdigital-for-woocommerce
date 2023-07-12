@@ -10,7 +10,7 @@ use Dotdigital_WooCommerce\Includes\Dotdigital_WooCommerce_Config;
 
 class Dotdigital_WooCommerce_Subscriber_Test extends PluginTestCase {
 
-    public function setUp() {
+    public function setUp(): void {
         parent::setUp();
 
         Monkey\Functions\when( 'get_option' )

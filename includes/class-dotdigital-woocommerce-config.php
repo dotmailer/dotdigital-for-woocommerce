@@ -19,6 +19,8 @@ class Dotdigital_WooCommerce_Config {
 
 	const TRACKING_URL = 'https://t.trackedlink.net';
 
+	const API_ENDPOINT = 'https://r1-api.dotdigital.com';
+
 	/**
 	 * Table names
 	 */
