@@ -24,9 +24,11 @@ class Dotdigital_WooCommerce_Customer {
 	 * @return string
 	 */
 	public function get_customer_email() {
-		$email = ( get_current_user_id() ) ?
-			WC()->customer->get_email() :
-			WC()->session->get( 'guest_email' );
+		if ( get_current_user_id() && WC()->customer ) {
+			$email = WC()->customer->get_email();
+		} elseif ( WC()->session ) {
+			$email = WC()->session->get( 'guest_email' );
+		}
 
 		return (string) $email;
 	}

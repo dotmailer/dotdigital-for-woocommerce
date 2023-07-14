@@ -20,7 +20,7 @@ class Dotdigital_WooCommerce_Public_Test extends PluginTestCase
      */
     private $public_class;
 
-    public function setUp()
+    public function setUp(): void
     {
         $src = sprintf( '//r%s-t.trackedlink.net/_dmpt.js', Dotdigital_WooCommerce_Config::DEFAULT_REGION );
 

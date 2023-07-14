@@ -1,5 +1,5 @@
 .vscode/
-vendor/
+vendor
 /vendor/**/.git
 .settings/org.eclipse.wst.validation.prefs
 .buildpath
@@ -11,3 +11,4 @@ cypress/videos/*
 cypress.json
 cypress/fixtures*
 cypress/seeds/*
+tests/unit/.phpunit.result.cache

@@ -19,6 +19,8 @@ class Dotdigital_WooCommerce_Config {
 
 	const TRACKING_URL = 'https://t.trackedlink.net';
 
+	const API_ENDPOINT = 'https://r1-api.dotdigital.com';
+
 	/**
 	 * Table names
 	 */
@@ -40,9 +42,10 @@ class Dotdigital_WooCommerce_Config {
 	 * Admin settings - paths
 	 */
 	const PLUGIN_VERSION = 'dotdigital_for_woocommerce_version';
+	const MARKETING_CHECKBOX_TEXT = 'dotdigital_for_woocommerce_settings_marketing_checkbox_text';
+	const MARKETING_CHECKBOX_SMS_TEXT = 'dotdigital_for_woocommerce_settings_marketing_sms_checkbox_text';
 	const SHOW_MARKETING_CHECKBOX_CHECKOUT = 'dotdigital_for_woocommerce_settings_show_marketing_checkbox_at_checkout';
 	const SHOW_MARKETING_CHECKBOX_REGISTER = 'dotdigital_for_woocommerce_settings_show_marketing_checkbox_at_register';
-	const MARKETING_CHECKBOX_TEXT = 'dotdigital_for_woocommerce_settings_marketing_checkbox_text';
 	const SITE_AND_ROI_TRACKING = 'dotdigital_for_woocommerce_settings_enable_site_and_roi_tracking';
 	const REGION = 'dotdigital_for_woocommerce_settings_region';
 	const WBT_PROFILE_ID_PATH = 'dotdigital_for_woocommerce_settings_web_behaviour_tracking_profile_id';
@@ -50,4 +53,21 @@ class Dotdigital_WooCommerce_Config {
 	const PROGRAM_ID_PATH = 'dotdigital_for_woocommerce_cart_insight_program_id';
 	const CART_DELAY_PATH = 'dotdigital_for_woocommerce_cart_insight_cart_delay';
 	const ALLOW_NON_SUBSCRIBERS_PATH = 'dotdigital_for_woocommerce_abandoned_cart_allow_non_subscribers';
+	const API_CREDENTIALS_PATH = 'dotdigital_for_woocommerce_settings_api_credentials';
+
+	/**
+	 * Get email value from serialised checkbox.
+	 *
+	 * @since 1.4.0.
+	 *
+	 * @param mixed $value  Serialized value.
+	 * @return false|mixed
+	 */
+	public static function get_email_from_checkbox( $value ) {
+		if ( is_array( $value ) ) {
+			return $value['email'] ?? false;
+		}
+
+		return $value;
+	}
 }
