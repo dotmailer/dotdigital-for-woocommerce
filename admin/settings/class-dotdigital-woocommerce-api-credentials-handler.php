@@ -12,28 +12,17 @@
 namespace Dotdigital_WooCommerce\Admin\Settings;
 
 use Dotdigital\Exception\ResponseValidationException;
-use Dotdigital_WooCommerce\Includes\client\Dotdigital_WooCommerce_Account_Info;
+use Dotdigital_WooCommerce\Includes\Client\Dotdigital_WooCommerce_Account_Info;
 use Dotdigital_WooCommerce\Includes\Dotdigital_WooCommerce_Config;
 use Dotdigital_WooCommerce\Includes\Dotdigital_WooCommerce_Encryptor;
 use Dotdigital_WooCommerce\Includes\Exceptions\Dotdigital_WooCommerce_Password_Validation_Exception;
 use Dotdigital_WooCommerce\Includes\Exceptions\Dotdigital_WooCommerce_Username_Validation_Exception;
 use Dotdigital_WooCommerce\Includes\Exceptions\Dotdigital_WooCommerce_Validation_Exception;
-use Dotdigital_WooCommerce\Includes\Exceptions\Password_Validation_Exception;
-use Dotdigital_WooCommerce\Includes\Exceptions\Username_Validation_Exception;
-use Http\Client\Exception;
 
 /**
  * Class Dotdigital_WooCommerce_Admin_Settings_Handler
  */
 class Dotdigital_WooCommerce_Api_Credentials_Handler {
-
-	/**
-	 * The plugin name.
-	 *
-	 * @var     string  $plugin_name
-	 * @access  private
-	 */
-	private $plugin_name;
 
 	/**
 	 * The encryptor.
@@ -61,13 +50,10 @@ class Dotdigital_WooCommerce_Api_Credentials_Handler {
 
 	/**
 	 * Dotdigital_WooCommerce_Admin_Settings_Handler constructor.
-	 *
-	 * @param   string $plugin_name The plugin name.
 	 */
-	public function __construct( string $plugin_name ) {
-		$this->plugin_name = $plugin_name;
+	public function __construct() {
 		$this->encryptor = new Dotdigital_WooCommerce_Encryptor();
-		$this->account_info = new Dotdigital_WooCommerce_Account_Info( $this->plugin_name );
+		$this->account_info = new Dotdigital_WooCommerce_Account_Info();
 	}
 
 	/**
@@ -109,6 +95,7 @@ class Dotdigital_WooCommerce_Api_Credentials_Handler {
 		} catch ( Dotdigital_WooCommerce_Validation_Exception $e ) {
 			$encrypted_credentials = array();
 		} finally {
+			delete_transient( 'dotdigital_woocommerce_api_lists' );
 			$this->has_sanitized = true;
 		}
 		return $encrypted_credentials;

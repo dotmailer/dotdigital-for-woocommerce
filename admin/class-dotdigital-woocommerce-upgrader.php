@@ -96,7 +96,6 @@ class Dotdigital_WooCommerce_Upgrader {
 			$this->upgrade_one_zero_zero();
 			$this->upgrade_one_one_zero();
 			$this->upgrade_one_two_zero();
-			$this->upgrade_one_four_zero();
 		}
 	}
 
@@ -169,34 +168,6 @@ class Dotdigital_WooCommerce_Upgrader {
 		}
 	}
 
-	/**
-	 * Upgrade 1.4.0.
-	 */
-	private function upgrade_one_four_zero() {
-		if ( version_compare( $this->stored_version, '1.4.0', '<' ) ) {
-			$user_registration_marketing_checkbox_enabled = get_option(
-				Dotdigital_WooCommerce_Config::SHOW_MARKETING_CHECKBOX_REGISTER
-			);
-
-			if ( $user_registration_marketing_checkbox_enabled ) {
-				add_option(
-					Dotdigital_WooCommerce_Config::SHOW_MARKETING_CHECKBOX_REGISTER,
-					serialize( array( 'email' => 1 ) )
-				);
-			}
-
-			$checkout_marketing_checkbox_enabled = get_option(
-				Dotdigital_WooCommerce_Config::SHOW_MARKETING_CHECKBOX_CHECKOUT
-			);
-
-			if ( $checkout_marketing_checkbox_enabled ) {
-				add_option(
-					Dotdigital_WooCommerce_Config::SHOW_MARKETING_CHECKBOX_CHECKOUT,
-					serialize( array( 'email' => 1 ) )
-				);
-			}
-		}
-	}
 	/**
 	 * Creates the dotmailer_email_marketing table.
 	 */

@@ -45,8 +45,6 @@ class Dotdigital_WooCommerce {
 			Dotdigital_WooCommerce_Config::DEFAULT_MARKETING_CHECKBOX_DISPLAY_AT_CHECKOUT
 		);
 
-		$show_checkbox = Dotdigital_WooCommerce_Config::get_email_from_checkbox( $show_checkbox );
-
 		if ( ! $show_checkbox ) {
 			return;
 		}
@@ -112,8 +110,6 @@ class Dotdigital_WooCommerce {
 			Dotdigital_WooCommerce_Config::SHOW_MARKETING_CHECKBOX_REGISTER,
 			Dotdigital_WooCommerce_Config::DEFAULT_MARKETING_CHECKBOX_DISPLAY_AT_REGISTER
 		);
-
-		$show_checkbox = Dotdigital_WooCommerce_Config::get_email_from_checkbox( $show_checkbox );
 
 		if ( ! $show_checkbox ) {
 			return;

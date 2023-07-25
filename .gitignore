@@ -8,6 +8,7 @@ web.config
 .DS_Store
 node_modules
 cypress/videos/*
+cypress/screenshots/*
 cypress.json
 cypress/fixtures*
 cypress/seeds/*

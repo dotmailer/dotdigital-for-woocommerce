@@ -42,6 +42,11 @@ function dd_woocommerce_uninstall() {
 	delete_option( Dotdigital_WooCommerce_Config::CART_DELAY_PATH );
 	delete_option( Dotdigital_WooCommerce_Config::ALLOW_NON_SUBSCRIBERS_PATH );
 	delete_option( Dotdigital_WooCommerce_Config::API_CREDENTIALS_PATH );
+	delete_option( Dotdigital_WooCommerce_Config::SHOW_SMS_MARKETING_CHECKBOX_CHECKOUT );
+	delete_option( Dotdigital_WooCommerce_Config::SHOW_SMS_MARKETING_CHECKBOX_USER_REGISTRATION );
+	delete_option( Dotdigital_WooCommerce_Config::MARKETING_CHECKBOX_SMS_TEXT );
+	delete_option( Dotdigital_WooCommerce_Config::MARKETING_CONSENT_SMS_TEXT );
+	delete_option( Dotdigital_WooCommerce_Config::MARKETING_SMS_LISTS );
 }
 
 if ( ! is_multisite() ) {
