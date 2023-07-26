@@ -147,7 +147,7 @@ class Dotdigital_WooCommerce {
 	 */
 	private function set_locale() {
 
-		$plugin_i18n = new Dotdigital_WooCommerce_i18n();
+		$plugin_i18n = new Dotdigital_WooCommerce_I18n();
 
 		$this->loader->add_action( 'plugins_loaded', $plugin_i18n, 'load_plugin_textdomain' );
 	}

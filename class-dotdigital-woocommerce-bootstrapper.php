@@ -61,7 +61,7 @@ if ( ! defined( 'WPINC' ) ) {
 define( 'DOTDIGITAL_FOR_WOOCOMMERCE_PLUGIN_VERSION', '1.4.0' );
 define( 'DOTDIGITAL_FOR_WOOCOMMERCE_PLUGIN_DIR_PATH', __DIR__ );
 
-require_once 'inc/autoloader.php';
+require_once 'vendor/autoload.php';
 
 /**
  * Used to bootstrap the dotdigital plugin.

@@ -1,27 +1,56 @@
 {
-	"name" : "dotdigital/dotdigital-for-woocommerce",
-	"version" : "1.3.4",
-	"php": "^7.4 || ^8.0",
-	"require-dev" : {
-		"dealerdirect/phpcodesniffer-composer-installer": "*",
-		"phpcompatibility/phpcompatibility-wp": "*",
-		"squizlabs/php_codesniffer": "*",
-		"wp-coding-standards/wpcs": "*",
-		"phpunit/phpunit": "^9.5",
-		"brain/monkey": "^2.6",
-		"yoast/phpunit-polyfills": "^1.0"
-	},
-	"config": {
-		"allow-plugins": {
-			"dealerdirect/phpcodesniffer-composer-installer": true,
-			"php-http/discovery": true
-		}
-	},
-	"require": {
-		"dotdigital/dotdigital-php": "dev-develop",
-		"guzzlehttp/psr7": "^2.5",
-		"php-http/curl-client": "^2.3",
-		"guzzlehttp/guzzle": "^7.7",
-		"php-http/message": "^1.16"
-	}
+    "name": "dotdigital/dotdigital-for-woocommerce",
+    "version": "1.3.4",
+    "php": "^7.4 || ^8.0",
+    "require": {
+        "dotdigital/dotdigital-php": "dev-develop",
+        "guzzlehttp/psr7": "^2.5",
+        "php-http/curl-client": "^2.3",
+        "guzzlehttp/guzzle": "^7.7",
+        "php-http/message": "^1.16"
+    },
+    "require-dev": {
+        "dealerdirect/phpcodesniffer-composer-installer": "*",
+        "phpcompatibility/phpcompatibility-wp": "*",
+        "squizlabs/php_codesniffer": "*",
+        "wp-coding-standards/wpcs": "*",
+        "phpunit/phpunit": "^9.5",
+        "brain/monkey": "^2.6",
+        "yoast/phpunit-polyfills": "^1.0"
+    },
+    "autoload": {
+        "classmap": [
+            "admin/",
+            "includes/",
+            "public/",
+            "class-dotdigital-woocommerce-bootstrapper.php",
+            "vendor/dotdigital",
+            "vendor/php-http",
+            "vendor/guzzlehttp",
+            "vendor/psr",
+            "vendor/symfony",
+            "vendor/clue",
+            "vendor/nesbot",
+            "vendor/ralouphie"
+        ]
+    },
+    "autoload-dev": {
+        "classmap": [
+            "tests/"
+        ]
+    },
+    "config": {
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true,
+            "php-http/discovery": true
+        }
+    },
+    "scripts": {
+        "prefix-dependencies": [
+            "rm -rf build_prefixed",
+            "@php php-scoper.phar add-prefix --prefix=Dotdigital_Woo_Vendor --output-dir=./build_prefixed --force",
+            "composer du --working-dir build_prefixed --classmap-authoritative",
+            "rm -rf build_prefixed/composer.json"
+        ]
+    }
 }
