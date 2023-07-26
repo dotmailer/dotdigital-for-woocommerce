@@ -1,6 +1,8 @@
 {
   "devDependencies": {
     "@bigbite/wp-cypress": "^0.9.5",
-    "cypress": "^9.5.0"
+    "@wordpress/eslint-plugin": "^14.0",
+    "cypress": "^9.5.0",
+    "eslint": "^8.10.0"
   }
 }

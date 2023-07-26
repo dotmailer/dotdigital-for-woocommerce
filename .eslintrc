@@ -1,0 +1,10 @@
+{
+  "extends": [ "plugin:@wordpress/eslint-plugin/recommended-with-formatting" ],
+  "env": {
+    "browser": true
+  },
+  "rules": {
+    "linebreak-style": 0,
+    "camelcase": "off"
+  }
+}
