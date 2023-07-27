@@ -20,3 +20,9 @@
 .dd-error-msg {
 	color: #9e1313;
 }
+
+.dd-phone-input-description
+{
+	display: block;
+	margin-top: 1rem;
+}

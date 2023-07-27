@@ -54,9 +54,21 @@ class Dotdigital_WooCommerce_Config {
 	const CART_DELAY_PATH = 'dotdigital_for_woocommerce_cart_insight_cart_delay';
 	const ALLOW_NON_SUBSCRIBERS_PATH = 'dotdigital_for_woocommerce_abandoned_cart_allow_non_subscribers';
 	const API_CREDENTIALS_PATH = 'dotdigital_for_woocommerce_settings_api_credentials';
+
+	/**
+	 * Form Field constants
+	 */
+	const FORM_FIELD_MARKETING_CHECKBOX_NAME = 'dotdigital_woocommerce_marketing_checkbox';
+	const FORM_FIELD_MARKETING_CHECKBOX_SMS_NAME = 'dotdigital_woocommerce_marketing_checkbox_sms';
+	const FORM_FIELD_MARKETING_INPUT_PHONE_NAME = 'dotdigital_woocommerce_marketing_phone_sms';
+
+	/**
+	 * Sms option marketing constants
+	 */
 	const SHOW_SMS_MARKETING_CHECKBOX_CHECKOUT = 'dotdigital_for_woocommerce_settings_show_sms_marketing_checkbox_at_checkout';
 	const SHOW_SMS_MARKETING_CHECKBOX_USER_REGISTRATION = 'dotdigital_for_woocommerce_settings_show_sms_marketing_checkbox_at_user_registration';
 	const MARKETING_CHECKBOX_SMS_TEXT = 'dotdigital_for_woocommerce_settings_marketing_sms_checkbox_text';
 	const MARKETING_CONSENT_SMS_TEXT = 'dotdigital_for_woocommerce_settings_marketing_sms_consent_text';
 	const MARKETING_SMS_LISTS = 'dotdigital_for_woocommerce_settings_marketing_sms_lists';
+
 }

@@ -6,5 +6,16 @@
   "rules": {
     "linebreak-style": 0,
     "camelcase": "off"
-  }
+  },
+  "ignorePatterns": [
+    "*.min.js"
+  ],
+    "globals": {
+      "wp": true,
+      "jQuery": true,
+      "tinymce": true,
+      "tinyMCE": true,
+      "tinyMCEPreInit": true,
+      "wpApiSettings": true
+    }
 }

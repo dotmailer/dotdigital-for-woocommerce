@@ -72,7 +72,7 @@ class Dotdigital_WooCommerce_Account_Info {
 	 * @throws Dotdigital_WooCommerce_Password_Validation_Exception Password validation exception.
 	 * @throws Dotdigital_WooCommerce_Username_Validation_Exception Username validation exception.
 	 * @throws Dotdigital_WooCommerce_Validation_Exception Validation exception.
-	 * @throws ResponseValidationException|\Http\Client\Exception Response validation exception.
+	 * @throws ResponseValidationException Response validation exception.
 	 */
 	public function validate_credentials( $credentials = null ) {
 
@@ -105,9 +105,9 @@ class Dotdigital_WooCommerce_Account_Info {
 				),
 				'success'
 			);
-		} catch ( \Exception $exception ) {
+		} catch ( ResponseValidationException $exception ) {
 			$this->dotdigital_client->store_api_endpoint( null );
-			throw new \Exception( $exception->getMessage(), 422 );
+			throw $exception;
 		}
 	}
 }

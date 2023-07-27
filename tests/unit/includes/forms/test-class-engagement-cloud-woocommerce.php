@@ -1,11 +1,11 @@
 <?php
 
-namespace Dotdigital_WooCommerce\Tests\Unit\Admin\Platforms;
+namespace Dotdigital_WooCommerce\Tests\Unit\Includes\Forms;
 
 use Brain\Monkey;
 use Brain\Monkey\Functions;
+use Dotdigital_WooCommerce\Includes\Forms\Checkout\Dotdigital_WooCommerce_Checkout_Marketing_Checkbox;
 use Dotdigital_WooCommerce\Tests\Unit\Inc\PluginTestCase;
-use Dotdigital_WooCommerce\Includes\Platforms\Dotdigital_WooCommerce;
 
 class Dotdigital_WooCommerce_Test extends PluginTestCase {
 
@@ -17,7 +17,7 @@ class Dotdigital_WooCommerce_Test extends PluginTestCase {
     }
 
 	public function test_dotdigital_handle_checkout_subscription_that_updates_the_record_if_subscriber_match() {
-		$dd_woocommerce_class = new Dotdigital_WooCommerce();
+		$dd_woocommerce_class = new Dotdigital_WooCommerce_Checkout_Marketing_Checkbox();
 
 		global $wpdb;
 		$wpdb         = \Mockery::mock( 'wpdb' );
@@ -52,11 +52,11 @@ class Dotdigital_WooCommerce_Test extends PluginTestCase {
 		$wpdb->shouldReceive( 'update' )->once();
 		$wpdb->shouldNotReceive( 'insert' );
 
-		$dd_woocommerce_class->dotdigital_woocommerce_handle_checkout_subscription( $order_id );
+		$dd_woocommerce_class->handle_submit( $order_id );
 	}
 
 	public function test_dotdigital_handle_checkout_subscription_that_inserts_new_record_if_subscriber_not_match() {
-		$dd_woocommerce_class = new Dotdigital_WooCommerce();
+		$dd_woocommerce_class = new Dotdigital_WooCommerce_Checkout_Marketing_Checkbox();
 
 		global $wpdb;
 		$wpdb         = \Mockery::mock( 'wpdb' );
@@ -91,6 +91,6 @@ class Dotdigital_WooCommerce_Test extends PluginTestCase {
 		$wpdb->shouldNotReceive( 'update' );
 		$wpdb->shouldReceive( 'insert' )->once();
 
-		$dd_woocommerce_class->dotdigital_woocommerce_handle_checkout_subscription( $order_id );
+		$dd_woocommerce_class->handle_submit( $order_id );
 	}
 }

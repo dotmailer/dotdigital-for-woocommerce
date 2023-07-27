@@ -58,10 +58,14 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
+define( 'DOTDIGITAL_FOR_WOOCOMMERCE_PLUGIN_NAME', 'dotdigital-for-woocommerce' );
 define( 'DOTDIGITAL_FOR_WOOCOMMERCE_PLUGIN_VERSION', '1.4.0' );
 define( 'DOTDIGITAL_FOR_WOOCOMMERCE_PLUGIN_DIR_PATH', __DIR__ );
+define( 'DOTDIGITAL_FOR_WOOCOMMERCE_PUBLIC_MEDIA_PATH', plugin_dir_url( __FILE__ ) . 'public/image/' );
 
 require_once 'vendor/autoload.php';
+
+
 
 /**
  * Used to bootstrap the dotdigital plugin.
@@ -81,7 +85,7 @@ class Dotdigital_WooCommerce_Bootstrapper {
 	 * @access   private
 	 * @var      string    $plugin_name    The string used to uniquely identify this plugin.
 	 */
-	public static $plugin_name = 'dotdigital-for-woocommerce';
+	public static $plugin_name = DOTDIGITAL_FOR_WOOCOMMERCE_PLUGIN_NAME;
 
 	/**
 	 * Account login URL.

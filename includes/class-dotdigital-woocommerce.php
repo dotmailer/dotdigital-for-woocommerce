@@ -18,7 +18,12 @@ namespace Dotdigital_WooCommerce\Includes;
 
 use Dotdigital_WooCommerce\Admin\Dotdigital_WooCommerce_Admin;
 use Dotdigital_WooCommerce\Admin\Dotdigital_WooCommerce_Upgrader;
-use Dotdigital_WooCommerce\Includes\Platforms\Dotdigital_WooCommerce as Dotdigital_Platform;
+use Dotdigital_WooCommerce\Includes\Forms\Checkout\Dotdigital_WooCommerce_Checkout_Marketing_Checkbox;
+use Dotdigital_WooCommerce\Includes\Forms\Checkout\Dotdigital_WooCommerce_Checkout_Sms_Marketing_Checkbox;
+use Dotdigital_WooCommerce\Includes\Forms\Checkout\Dotdigital_WooCommerce_Checkout_Sms_Marketing_Phone;
+use Dotdigital_WooCommerce\Includes\Forms\Register\Dotdigital_WooCommerce_Register_Sms_Marketing_Checkbox;
+use Dotdigital_WooCommerce\Includes\Forms\Register\Dotdigital_WooCommerce_Register_Sms_Marketing_Phone;
+use Dotdigital_WooCommerce\Includes\Forms\Register\Dotdigital_WooCommerce_Register_Marketing_Checkbox;
 use Dotdigital_WooCommerce\Includes\Session\Dotdigital_WooCommerce_Session_Updater;
 use Dotdigital_WooCommerce\Includes\Subscriber\Dotdigital_WooCommerce_Form_Handler;
 use Dotdigital_WooCommerce\Pub\Dotdigital_WooCommerce_Public;
@@ -113,7 +118,7 @@ class Dotdigital_WooCommerce {
 		$this->define_admin_hooks();
 		$this->define_public_hooks();
 		$this->define_validation_hooks();
-		$this->define_woocommerce_hooks();
+		$this->define_form_field_hooks();
 	}
 
 	/**
@@ -234,6 +239,8 @@ class Dotdigital_WooCommerce {
 
 		$this->loader->add_action( 'wp_footer', $plugin_public, 'clean_cart_id' );
 
+		$this->loader->add_action( 'woocommerce_set_cart_cookies', $plugin_public, 'dd_cart_init', 5 );
+
 		$subscribe_form_handler = new Dotdigital_WooCommerce_Form_Handler();
 
 		$this->loader->add_action( 'wp_ajax_subscribe_to_newsletter', $subscribe_form_handler, 'execute' );
@@ -246,24 +253,42 @@ class Dotdigital_WooCommerce {
 	}
 
 	/**
-	 * Register all of the hooks related to the WooCommerce plugin.
+	 * Register  hooks related to the Form fields.
 	 *
-	 * @since    1.0.0
 	 * @access   private
 	 */
-	private function define_woocommerce_hooks() {
+	private function define_form_field_hooks() {
 
-		$plugin_woocommerce = new Dotdigital_Platform();
+		$woocommerce_form_checkout_marketing_checkbox = new Dotdigital_WooCommerce_Checkout_Marketing_Checkbox();
 
-		$this->loader->add_action( 'woocommerce_register_form', $plugin_woocommerce, 'Dotdigital_WooCommerce_render_register_marketing_checkbox', 5 );
-		$this->loader->add_action( 'user_register', $plugin_woocommerce, 'Dotdigital_WooCommerce_handle_register_marketing_checkbox', 5 );
+		$this->loader->add_action( 'woocommerce_after_checkout_billing_form', $woocommerce_form_checkout_marketing_checkbox, 'render', 5 );
+		$this->loader->add_action( 'woocommerce_checkout_order_processed', $woocommerce_form_checkout_marketing_checkbox, 'handle_submit', 5 );
 
-		$this->loader->add_action( 'woocommerce_after_checkout_billing_form', $plugin_woocommerce, 'Dotdigital_WooCommerce_render_checkout_marketing_checkbox', 5 );
-		$this->loader->add_action( 'woocommerce_checkout_order_processed', $plugin_woocommerce, 'Dotdigital_WooCommerce_handle_checkout_subscription', 5 );
+		$woocommerce_form_register_checkbox = new Dotdigital_WooCommerce_Register_Marketing_Checkbox();
 
-		$this->loader->add_action( 'woocommerce_set_cart_cookies', $plugin_woocommerce, 'dd_cart_init', 5 );
+		$this->loader->add_action( 'woocommerce_register_form', $woocommerce_form_register_checkbox, 'render', 5 );
+		$this->loader->add_action( 'user_register', $woocommerce_form_register_checkbox, 'handle_submit', 5 );
 
-		$this->loader->add_action( 'woocommerce_before_single_product_summary', $plugin_woocommerce, 'last_browsed_products' );
+		$woocommerce_form_register_sms_marketing_checkbox = new Dotdigital_WooCommerce_Register_Sms_Marketing_Checkbox();
+
+		$this->loader->add_action( 'woocommerce_register_form', $woocommerce_form_register_sms_marketing_checkbox, 'render', 5 );
+
+		$woocommerce_form_register_sms_marketing_phone = new Dotdigital_WooCommerce_Register_Sms_Marketing_Phone();
+
+		$this->loader->add_action( 'woocommerce_register_form', $woocommerce_form_register_sms_marketing_phone, 'render', 5 );
+		$this->loader->add_action( 'woocommerce_register_post', $woocommerce_form_register_sms_marketing_phone, 'validate', 5, 3 );
+		$this->loader->add_action( 'user_register', $woocommerce_form_register_sms_marketing_phone, 'handle_submit', 5 );
+
+		$woocommerce_form_checkout_sms_marketing_checkbox = new Dotdigital_WooCommerce_Checkout_Sms_Marketing_Checkbox();
+
+		$this->loader->add_action( 'woocommerce_after_checkout_billing_form', $woocommerce_form_checkout_sms_marketing_checkbox, 'render', 5 );
+
+		$woocommerce_form_checkout_sms_marketing_phone = new Dotdigital_WooCommerce_Checkout_Sms_Marketing_Phone();
+
+		$this->loader->add_action( 'woocommerce_form_field_tel', $woocommerce_form_checkout_sms_marketing_phone, 'modify_input_content', 10, 4 );
+		$this->loader->add_action( 'woocommerce_after_checkout_billing_form', $woocommerce_form_checkout_sms_marketing_phone, 'render', 5 );
+		$this->loader->add_action( 'woocommerce_checkout_order_processed', $woocommerce_form_checkout_sms_marketing_phone, 'handle_submit', 5 );
+		$this->loader->add_action( 'woocommerce_after_checkout_validation', $woocommerce_form_checkout_sms_marketing_phone, 'validate', 5, 2 );
 	}
 
 	/**

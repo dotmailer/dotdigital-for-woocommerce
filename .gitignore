@@ -14,3 +14,5 @@ cypress/seeds/*
 tests/unit/.phpunit.result.cache
 build_prefixed
 *.phar
+.
+yarn-error.log

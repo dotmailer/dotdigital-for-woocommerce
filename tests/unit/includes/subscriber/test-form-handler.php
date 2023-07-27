@@ -52,26 +52,30 @@ class TestDotdigitalFormHandler extends PluginTestCase
             ->with( $_POST['email'] )
             ->andReturn( $_POST['email'] );
 
-        $subscriber_data = array(
-            'email'      => $_POST['email'],
-            'status'     => 1,
-        );
+	    $subscriber_data = array(
+		    'email'      => $_POST['email'],
+		    'status'     => 1,
+	    );
 
-        $this->dd_subscriber_mock
-            ->shouldReceive('create_or_update')
-            ->with($subscriber_data)
-            ->andReturn(1);
+	    $this->dd_subscriber_mock
+		    ->shouldReceive('create_or_update')
+		    ->with($subscriber_data)
+		    ->andReturn(1);
 
-        Functions\expect( 'wp_send_json' )
+	    Functions\expect( 'wp_send_json' )
             ->with( array( 'success' => 1 ) )
             ->andReturn($this->returnCallback(function () {
                 exit;
             }));
 
         $this->dd_form_handler->execute();
+	    /**
+	     * Dummy assertion. For some reason without this PHPUnit thinks this test is risky.
+	     */
+	    $this->assertTrue(true);
     }
 
-    public function test_if_nonce_value_is_invalid_user_not_subscibes()
+    public function test_if_nonce_value_is_invalid_user_not_subscribes()
     {
         $_POST = array('nonce' => 'invalid_value', 'email' => 'chaz@emailsim.io');
 
@@ -93,6 +97,10 @@ class TestDotdigitalFormHandler extends PluginTestCase
             }));
 
         $this->dd_form_handler->execute();
+	    /**
+	     * Dummy assertion. For some reason without this PHPUnit thinks this test is risky.
+	     */
+	    $this->assertTrue(true);
     }
 
     public function test_if_email_is_invalid_user_not_subscribes()
