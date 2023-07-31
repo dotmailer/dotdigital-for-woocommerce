@@ -152,11 +152,6 @@ class Dotdigital_WooCommerce_Checkout_Sms_Marketing_Phone {
 					'email' => $order->get_billing_email(),
 					'mobileNumber' => $phone,
 				),
-				'channelProperties' => array(
-					'email' => array(
-						'emailType' => 'Html',
-					),
-				),
 				'dataFields' => array(
 					'firstName' => $order->get_billing_first_name(),
 					'lastName' => $order->get_billing_last_name(),
@@ -168,11 +163,13 @@ class Dotdigital_WooCommerce_Checkout_Sms_Marketing_Phone {
 		if ( ! empty( $consent_text ) ) {
 			$contact->setConsentRecords(
 				array(
-					'text' => $consent_text,
-					'dateTimeConsented' => gmdate( 'Y-m-d\TH:i:s\Z', time() ),
-					'url' => $_SERVER['HTTP_REFERER'] ?? '', // phpcs:ignore WordPress.Security
-				'ipAddress' => $_SERVER['REMOTE_ADDR'] ?? '', // phpcs:ignore WordPress.Security
-				'userAgent' => $_SERVER['HTTP_USER_AGENT'] ?? '', // phpcs:ignore WordPress.Security
+					array(
+						'text' => $consent_text,
+						'dateTimeConsented' => gmdate( 'Y-m-d\TH:i:s\Z', time() ),
+						'url' => $_SERVER['HTTP_REFERER'] ?? '', // phpcs:ignore WordPress.Security
+						'ipAddress' => $_SERVER['REMOTE_ADDR'] ?? '', // phpcs:ignore WordPress.Security
+						'userAgent' => $_SERVER['HTTP_USER_AGENT'] ?? '', // phpcs:ignore WordPress.Security
+					),
 				)
 			);
 		}

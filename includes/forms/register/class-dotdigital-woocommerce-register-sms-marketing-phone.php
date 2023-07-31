@@ -10,12 +10,29 @@
 
 namespace Dotdigital_WooCommerce\Includes\Forms\Register;
 
+use Dotdigital\V3\Models\Contact;
 use Dotdigital_WooCommerce\Includes\Dotdigital_WooCommerce_Config;
+use Dotdigital_WooCommerce\Includes\Client\Dotdigital_WooCommerce_Contact;
 
 /**
  * Class Dotdigital_WooCommerce_Checkout_Marketing_Checkbox
  */
 class Dotdigital_WooCommerce_Register_Sms_Marketing_Phone {
+
+	/**
+	 * The contact client.
+	 *
+	 * @var Dotdigital_WooCommerce_Contact $contact_client
+	 * @access private
+	 */
+	private $contact_client;
+
+	/**
+	 * Dotdigital_WooCommerce_Checkout_Sms_Marketing_Phone constructor.
+	 */
+	public function __construct() {
+		$this->contact_client = new Dotdigital_WooCommerce_Contact();
+	}
 
 	/**
 	 * Renders the  collapsible input for the sms consent capture
@@ -89,9 +106,48 @@ class Dotdigital_WooCommerce_Register_Sms_Marketing_Phone {
 	}
 
 	/**
-	 * Handles a subscription created via the WooCommerce checkout.
+	 * Handles a subscription created via the WooCommerce registration.
 	 *
-	 * @todo Implement this.
+	 * @param string $user_id User id.
+	 * @return void
 	 */
-	public function handle_submit() {}
+	public function handle_submit( $user_id ) {
+		if ( empty( $_POST[ Dotdigital_WooCommerce_Config::FORM_FIELD_MARKETING_INPUT_PHONE_NAME ] ) ) { // phpcs:ignore WordPress.Security
+			return;
+		}
+
+		$phone = $_POST[ Dotdigital_WooCommerce_Config::FORM_FIELD_MARKETING_INPUT_PHONE_NAME ] ?? ''; // phpcs:ignore WordPress.Security
+
+		$contact = new Contact(
+			array(
+				'matchIdentifier' => 'email',
+				'identifiers' => array(
+					'email' => sanitize_text_field( wp_unslash( $_POST['email'] ?? '' ) ), // phpcs:ignore WordPress.Security
+					'mobileNumber' => $phone,
+				),
+			)
+		);
+
+		$consent_text = get_option( Dotdigital_WooCommerce_Config::MARKETING_CONSENT_SMS_TEXT, '' );
+		if ( ! empty( $consent_text ) ) {
+			$contact->setConsentRecords(
+				array(
+					array(
+						'text' => $consent_text,
+						'dateTimeConsented' => gmdate( 'Y-m-d\TH:i:s\Z', time() ),
+						'url' => $_SERVER['HTTP_REFERER'] ?? '', // phpcs:ignore WordPress.Security
+						'ipAddress' => $_SERVER['REMOTE_ADDR'] ?? '', // phpcs:ignore WordPress.Security
+						'userAgent' => $_SERVER['HTTP_USER_AGENT'] ?? '', // phpcs:ignore WordPress.Security
+					),
+				)
+			);
+		}
+
+		$list = get_option( Dotdigital_WooCommerce_Config::MARKETING_SMS_LISTS, '' );
+		if ( ! empty( $list ) ) {
+			$contact->setLists( array( $list ) );
+		}
+
+		$this->contact_client->create_or_update( $contact );
+	}
 }
