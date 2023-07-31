@@ -287,7 +287,7 @@ class Dotdigital_WooCommerce {
 
 		$this->loader->add_action( 'woocommerce_form_field_tel', $woocommerce_form_checkout_sms_marketing_phone, 'modify_input_content', 10, 4 );
 		$this->loader->add_action( 'woocommerce_after_checkout_billing_form', $woocommerce_form_checkout_sms_marketing_phone, 'render', 5 );
-		$this->loader->add_action( 'woocommerce_checkout_order_processed', $woocommerce_form_checkout_sms_marketing_phone, 'handle_submit', 5 );
+		$this->loader->add_action( 'woocommerce_checkout_order_processed', $woocommerce_form_checkout_sms_marketing_phone, 'handle_submit', 5, 3 );
 		$this->loader->add_action( 'woocommerce_after_checkout_validation', $woocommerce_form_checkout_sms_marketing_phone, 'validate', 5, 2 );
 	}
 

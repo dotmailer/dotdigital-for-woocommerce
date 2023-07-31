@@ -11,6 +11,7 @@
 
 namespace Dotdigital_WooCommerce\Includes\Client;
 
+use Dotdigital\AbstractClient;
 use Dotdigital\V2\Client;
 use Dotdigital_WooCommerce\Dotdigital_WooCommerce_Bootstrapper;
 use Dotdigital_WooCommerce\Includes\Dotdigital_WooCommerce_Config;
@@ -55,11 +56,13 @@ class Dotdigital_WooCommerce_Client {
 
 	/**
 	 * Construct.
+	 *
+	 * @param string $client The client.
 	 */
-	public function __construct() {
+	public function __construct( string $client = Client::class ) {
 		$this->plugin_name = Dotdigital_WooCommerce_Bootstrapper::$plugin_name;
 		$this->encryptor = new Dotdigital_WooCommerce_Encryptor();
-		$this->client = new Client();
+		$this->client = new $client();
 		$this->credentials = get_option( Dotdigital_WooCommerce_Config::API_CREDENTIALS_PATH ) ?? array();
 		$this->setup_client();
 	}
@@ -69,7 +72,7 @@ class Dotdigital_WooCommerce_Client {
 	 *
 	 * @return Client
 	 */
-	public function get_client(): Client {
+	public function get_client(): AbstractClient {
 		return $this->client;
 	}
 
