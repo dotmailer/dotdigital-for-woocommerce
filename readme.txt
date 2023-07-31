@@ -67,8 +67,9 @@ For more detailed information on installation, please see our <a href="https://s
 
 == Changelog ==
 
-= Unreleased = 
+= Unreleased =
 - Send cartInsight on when cart totals is updated via ajax
+- Add filter for modifying the cart item data before sending the insight. This solves a problem with the Name your price plugin, which returns the wrong price.
 
 = 1.3.4 =
 

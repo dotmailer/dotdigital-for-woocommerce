@@ -84,7 +84,7 @@ class Dotdigital_WooCommerce_Cart_Insight {
 			$line_item_data['unit_price'] = round( (float) $product->get_regular_price(), 2 );
 			$line_item_data['sale_price'] = round( $this->get_product_sale_price( $product ), 2 );
 
-			$line_items[] = $line_item_data;
+			$line_items[] = apply_filters( 'dotdigital_modify_line_item_data', $line_item_data, $cart_item );
 		}
 
 		$data['line_items'] = $line_items;
