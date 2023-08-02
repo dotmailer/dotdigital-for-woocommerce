@@ -112,20 +112,32 @@ class Dotdigital_WooCommerce_Checkout_Sms_Marketing_Phone {
 	 * @return void
 	 */
 	public function validate( $fields, $errors ) {
-		if ( ! empty( wp_strip_all_tags( $_POST[ Dotdigital_WooCommerce_Config::FORM_FIELD_MARKETING_INPUT_PHONE_NAME ] ) ) // phpcs:ignore WordPress.Security
-			&& ! empty( wp_strip_all_tags( $_POST[ Dotdigital_WooCommerce_Config::FORM_FIELD_MARKETING_INPUT_PHONE_NAME . '_hidden' ] ) ) ) {  // phpcs:ignore WordPress.Security
+		$has_consented = isset( $_POST[ Dotdigital_WooCommerce_Config::FORM_FIELD_MARKETING_CHECKBOX_SMS_NAME ] ); // phpcs:ignore WordPress.Security.NonceVerification.Missing
+
+		if ( ! $has_consented ) {
+			return;
+		}
+
+		$has_telephone = ! empty( wp_strip_all_tags( $_POST[ Dotdigital_WooCommerce_Config::FORM_FIELD_MARKETING_INPUT_PHONE_NAME ] ) ); // phpcs:ignore WordPress.Security
+		$has_telephone_validation_message = ! empty( wp_strip_all_tags( $_POST[ Dotdigital_WooCommerce_Config::FORM_FIELD_MARKETING_INPUT_PHONE_NAME . '_hidden' ] ) ); // phpcs:ignore WordPress.Security
+
+		if ( ! $has_telephone ) {
+			$is_valid = false;
+		}
+
+		if ( $has_telephone && $has_telephone_validation_message ) {
 			$is_valid = filter_var(
 				wp_strip_all_tags( $_POST[ Dotdigital_WooCommerce_Config::FORM_FIELD_MARKETING_INPUT_PHONE_NAME . '_hidden' ] ), // phpcs:ignore WordPress.Security
 				FILTER_VALIDATE_BOOLEAN
 			);
+		}
 
-			if ( ! $is_valid ) {
-				$validation_message = sprintf(
-					'<strong>Marketing Consent</strong> %s',
-					wp_strip_all_tags( $_POST[ Dotdigital_WooCommerce_Config::FORM_FIELD_MARKETING_INPUT_PHONE_NAME . '_hidden' ] )// phpcs:ignore WordPress.Security
-				);
-				$errors->add( 'validation', $validation_message );
-			}
+		if ( ! $is_valid ) {
+			$validation_message = sprintf(
+				'<strong>Marketing Consent</strong> %s',
+				wp_strip_all_tags( $_POST[ Dotdigital_WooCommerce_Config::FORM_FIELD_MARKETING_INPUT_PHONE_NAME . '_hidden' ] )// phpcs:ignore WordPress.Security
+			);
+			$errors->add( 'validation', $validation_message );
 		}
 	}
 

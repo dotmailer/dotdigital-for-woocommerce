@@ -52,20 +52,17 @@ const validate_phone_input = ( event, element ) => {
 	const phone_valid_input = jQuery( `.${ dotdigital_intl.plugin_name }-phone-input-hidden` ).find( 'input' );
 
 	if ( valid ) {
-		row.removeClass( 'woocommerce-invalid woocommerce-invalid-required-field' );
+		row.removeClass( 'woocommerce-invalid' );
+		row.removeClass( 'woocommerce-invalid-phone' );
 		row.addClass( 'woocommerce-validated' );
-		row.find( '.woocommerce-input-wrapper' ).removeClass( 'woocommerce-invalid' );
-		row.find( '.woocommerce-input-wrapper' ).addClass( 'woocommerce-validated' );
 		input.val( input.intlTelInput( 'getNumber' ) );
 		phone_valid_input.val( true );
 	} else {
 		setTimeout( () => {
-			row.removeClass( 'woocommerce-validated' );
-			row.addClass( 'woocommerce-invalid woocommerce-invalid-required-field' );
-			row.find( '.woocommerce-input-wrapper' ).removeClass( 'woocommerce-validated' );
-			row.find( '.woocommerce-input-wrapper' ).addClass( 'woocommerce-invalid' );
+			row.addClass( 'woocommerce-invalid' );
+			row.addClass( 'woocommerce-invalid-phone' );
 			phone_valid_input.val( get_error_messages( input.intlTelInput( 'getValidationError' ) ) );
-		}, 0 );
+		}, 10 );
 	}
 };
 
@@ -164,6 +161,9 @@ const marketing_consent_visibility = ( event, element ) => {
 			.find( 'input' )
 			.on( 'load', ( event ) => marketing_consent_visibility( event ) )
 			.on( 'change', ( event ) => marketing_consent_visibility( event ) );
+
+		$( 'form[name="checkout"]' )
+			.on( 'validate', ( event ) => validate_phone_input( event, itl_input ) );
 
 		marketing_consent_visibility( null, marketing_consent_checkbox );
 		validate_phone_input( null, itl_input );
