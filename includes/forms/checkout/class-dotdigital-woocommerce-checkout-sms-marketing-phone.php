@@ -138,7 +138,7 @@ class Dotdigital_WooCommerce_Checkout_Sms_Marketing_Phone {
 	 *
 	 * @return void
 	 */
-	public function handle_submit( int $order_id, array $posted_data, \WC_Order $order ) {
+	public function handle_submit( int $order_id, array $posted_data, $order ) {
 		if ( empty( $_POST[ Dotdigital_WooCommerce_Config::FORM_FIELD_MARKETING_INPUT_PHONE_NAME ] ) ) { // phpcs:ignore WordPress.Security
 			return;
 		}
