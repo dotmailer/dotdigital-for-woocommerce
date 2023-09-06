@@ -60,7 +60,6 @@ class Dotdigital_WooCommerce_Admin_Display {
 
 		$this->plugin_name = $plugin_name;
 		$this->webapp_url  = $webapp_url;
-
 	}
 
 	/**

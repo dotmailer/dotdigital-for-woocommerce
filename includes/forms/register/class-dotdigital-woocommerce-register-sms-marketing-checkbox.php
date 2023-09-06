@@ -45,5 +45,4 @@ class Dotdigital_WooCommerce_Register_Sms_Marketing_Checkbox {
 			$_POST[ Dotdigital_WooCommerce_Config::FORM_FIELD_MARKETING_CHECKBOX_SMS_NAME ] ?? false // phpcs:ignore WordPress.Security
 		);
 	}
-
 }

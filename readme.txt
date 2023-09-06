@@ -1,9 +1,9 @@
 === Dotdigital for WooCommerce ===
-Contributors: dotMailer, amucklow, fstrezos
+Contributors: dotMailer, amucklow, fstrezos, pvpcookie
 Requires at least: 5.7
-Tested up to: 6.1
+Tested up to: 6.3
 Requires PHP: 7.0
-Stable tag: 1.3.4
+Stable tag: 1.4.0
 License: MIT
 License URI: https://opensource.org/licenses/MIT
 
@@ -70,6 +70,21 @@ For more detailed information on installation, please see our <a href="https://s
 = Unreleased =
 - Send cartInsight on when cart totals is updated via ajax
 - Add filter for modifying the cart item data before sending the insight. This solves a problem with the Name your price plugin, which returns the wrong price.
+
+= 1.4.0 =
+
+**What's new**
+- Customers and guests can now sign up for SMS marketing, with consent, at registration and checkout.
+- SMS subscribers are pushed to a specific list in Dotdigital via the new V3 API.
+- Mobile numbers are validated client-side before submit.
+- The plugin’s vendor namespaces are now prefixed before SVN submission, to prevent namespace clashes.
+
+**Improvements**
+- We added a filter to enable modification of the cart item data before sending to Dotdigital. <a href="https://github.com/dotmailer/dotdigital-for-woocommerce/pull/26">External contribution</a>
+- We now update cart insight when modifying item quantities in the basket. <a href="https://github.com/dotmailer/dotdigital-for-woocommerce/pull/25">External contribution</a>
+
+**Bug fixes**
+- We added some extra checks for `WC()→customer` and `WC()→session` before calling functions on those objects.
 
 = 1.3.4 =
 

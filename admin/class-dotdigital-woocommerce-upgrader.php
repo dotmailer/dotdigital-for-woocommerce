@@ -67,7 +67,6 @@ class Dotdigital_WooCommerce_Upgrader {
 		$this->plugin_name  = $plugin_name;
 		$this->version      = $version;
 		$this->tracking_url = $tracking_url;
-
 	}
 
 	/**

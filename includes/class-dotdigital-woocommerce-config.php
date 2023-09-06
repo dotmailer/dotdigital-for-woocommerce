@@ -70,5 +70,4 @@ class Dotdigital_WooCommerce_Config {
 	const MARKETING_CHECKBOX_SMS_TEXT = 'dotdigital_for_woocommerce_settings_marketing_sms_checkbox_text';
 	const MARKETING_CONSENT_SMS_TEXT = 'dotdigital_for_woocommerce_settings_marketing_sms_consent_text';
 	const MARKETING_SMS_LISTS = 'dotdigital_for_woocommerce_settings_marketing_sms_lists';
-
 }

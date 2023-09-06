@@ -78,7 +78,6 @@ class Dotdigital_WooCommerce_Checkout_Sms_Marketing_Phone {
 				),
 			)
 		);
-
 	}
 
 	/**

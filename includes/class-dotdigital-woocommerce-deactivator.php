@@ -58,7 +58,6 @@ class Dotdigital_WooCommerce_Deactivator {
 
 		$this->plugin_name  = $plugin_name;
 		$this->tracking_url = $tracking_url;
-
 	}
 
 	/**

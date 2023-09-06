@@ -6,10 +6,10 @@
     "eslint": "^8.10.0"
   },
   "scripts": {
-    "eslint:public" : "eslint --config .eslintrc public/js/ ",
-    "eslint:public:fix" : "eslint --config .eslintrc public/js/ --fix",
-    "eslint:admin" : "eslint --config .eslintrc admin/js/ ",
-    "eslint:admin:fix" : "eslint --config .eslintrc admin/js/ --fix ",
+    "eslint:public": "eslint --config .eslintrc public/js/ ",
+    "eslint:public:fix": "eslint --config .eslintrc public/js/ --fix",
+    "eslint:admin": "eslint --config .eslintrc admin/js/ ",
+    "eslint:admin:fix": "eslint --config .eslintrc admin/js/ --fix ",
     "eslint": "npm run eslint:public && npm run eslint:admin",
     "eslint:fix": "npm run eslint:public:fix && npm run eslint:admin:fix"
   }

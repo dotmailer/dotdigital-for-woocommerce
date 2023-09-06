@@ -109,7 +109,7 @@ class Dotdigital_WooCommerce_Api_Credentials_Handler {
 	 * @param   string     $key     The key.
 	 * @return  bool
 	 */
-	private function diff_option( $old_value, $value, string $key ):bool {
+	private function diff_option( $old_value, $value, string $key ): bool {
 
 		if ( ! is_array( $old_value ) || ! is_array( $value ) ) {
 			return true;
@@ -129,5 +129,4 @@ class Dotdigital_WooCommerce_Api_Credentials_Handler {
 
 		return false;
 	}
-
 }
