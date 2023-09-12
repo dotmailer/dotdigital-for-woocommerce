@@ -19,6 +19,8 @@ class Dotdigital_WooCommerce_Config {
 
 	const TRACKING_URL = 'https://t.trackedlink.net';
 
+	const API_ENDPOINT = 'https://r1-api.dotdigital.com';
+
 	/**
 	 * Table names
 	 */
@@ -40,9 +42,10 @@ class Dotdigital_WooCommerce_Config {
 	 * Admin settings - paths
 	 */
 	const PLUGIN_VERSION = 'dotdigital_for_woocommerce_version';
+	const MARKETING_CHECKBOX_TEXT = 'dotdigital_for_woocommerce_settings_marketing_checkbox_text';
 	const SHOW_MARKETING_CHECKBOX_CHECKOUT = 'dotdigital_for_woocommerce_settings_show_marketing_checkbox_at_checkout';
 	const SHOW_MARKETING_CHECKBOX_REGISTER = 'dotdigital_for_woocommerce_settings_show_marketing_checkbox_at_register';
-	const MARKETING_CHECKBOX_TEXT = 'dotdigital_for_woocommerce_settings_marketing_checkbox_text';
+	const MARKETING_EMAIL_LISTS = 'dotdigital_for_woocommerce_settings_marketing_email_lists';
 	const SITE_AND_ROI_TRACKING = 'dotdigital_for_woocommerce_settings_enable_site_and_roi_tracking';
 	const REGION = 'dotdigital_for_woocommerce_settings_region';
 	const WBT_PROFILE_ID_PATH = 'dotdigital_for_woocommerce_settings_web_behaviour_tracking_profile_id';
@@ -50,4 +53,21 @@ class Dotdigital_WooCommerce_Config {
 	const PROGRAM_ID_PATH = 'dotdigital_for_woocommerce_cart_insight_program_id';
 	const CART_DELAY_PATH = 'dotdigital_for_woocommerce_cart_insight_cart_delay';
 	const ALLOW_NON_SUBSCRIBERS_PATH = 'dotdigital_for_woocommerce_abandoned_cart_allow_non_subscribers';
+	const API_CREDENTIALS_PATH = 'dotdigital_for_woocommerce_settings_api_credentials';
+
+	/**
+	 * Form Field constants
+	 */
+	const FORM_FIELD_MARKETING_CHECKBOX_NAME = 'dotdigital_woocommerce_marketing_checkbox';
+	const FORM_FIELD_MARKETING_CHECKBOX_SMS_NAME = 'dotdigital_woocommerce_marketing_checkbox_sms';
+	const FORM_FIELD_MARKETING_INPUT_PHONE_NAME = 'dotdigital_woocommerce_marketing_phone_sms';
+
+	/**
+	 * Sms option marketing constants
+	 */
+	const SHOW_SMS_MARKETING_CHECKBOX_CHECKOUT = 'dotdigital_for_woocommerce_settings_show_sms_marketing_checkbox_at_checkout';
+	const SHOW_SMS_MARKETING_CHECKBOX_USER_REGISTRATION = 'dotdigital_for_woocommerce_settings_show_sms_marketing_checkbox_at_user_registration';
+	const MARKETING_CHECKBOX_SMS_TEXT = 'dotdigital_for_woocommerce_settings_marketing_sms_checkbox_text';
+	const MARKETING_CONSENT_SMS_TEXT = 'dotdigital_for_woocommerce_settings_marketing_sms_consent_text';
+	const MARKETING_SMS_LISTS = 'dotdigital_for_woocommerce_settings_marketing_sms_lists';
 }

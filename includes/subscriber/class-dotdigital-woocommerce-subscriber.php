@@ -195,5 +195,4 @@ class Dotdigital_WooCommerce_Subscriber {
 			)
 		); // db call ok.
 	}
-
 }

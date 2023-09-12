@@ -77,7 +77,7 @@
 
 	$(function() {
 		$( document.body ).on(
-			'added_to_cart removed_from_cart',
+			'added_to_cart removed_from_cart updated_cart_totals',
 			function() {
 				ajaxRefreshCartInsight({
 					action: 'update_cart'

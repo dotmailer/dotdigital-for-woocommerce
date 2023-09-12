@@ -11,7 +11,9 @@
 
 namespace Dotdigital_WooCommerce\Admin;
 
+use Dotdigital_WooCommerce\Includes\Client\Dotdigital_WooCommerce_Lists;
 use Dotdigital_WooCommerce\Admin\Partials\Dotdigital_WooCommerce_Admin_Display;
+use Dotdigital_WooCommerce\Admin\Settings\Dotdigital_WooCommerce_Api_Credentials_Handler;
 use Dotdigital_WooCommerce\Includes\Dotdigital_WooCommerce_Config;
 
 /**
@@ -29,8 +31,11 @@ use Dotdigital_WooCommerce\Includes\Dotdigital_WooCommerce_Config;
 class Dotdigital_WooCommerce_Admin {
 
 	const GENERAL_SECTION = 'dd_woo_settings_page_general_section';
+	const SMS_MARKETING_SECTION = 'dd_woo_settings_page_sms_marketing_section';
 	const TRACKING_SECTION = 'dd_woo_settings_page_tracking_section';
 	const ABANDONED_CART_SECTION = 'dd_woo_settings_abandoned_cart_section';
+	const API_USERNAME_FIELD = 'dotdigital_for_woocommerce_settings_dotdigital_api_username_field';
+	const API_PASSWORD_FIELD = 'dotdigital_for_woocommerce_settings_dotdigital_api_password_field';
 
 	/**
 	 * The unique identifier of this plugin.
@@ -60,6 +65,24 @@ class Dotdigital_WooCommerce_Admin {
 	private $webapp_url;
 
 	/**
+	 * Lists handler.
+	 *
+	 * @since    1.4.0
+	 * @access   private
+	 * @var Dotdigital_WooCommerce_Lists
+	 */
+	private $lists;
+
+	/**
+	 * Settings handler.
+	 *
+	 * @since    1.4.0
+	 * @access   private
+	 * @var Dotdigital_WooCommerce_Api_Credentials_Handler
+	 */
+	public $handler;
+
+	/**
 	 * Initialize the class and set its properties.
 	 *
 	 * @since    1.0.0
@@ -72,7 +95,8 @@ class Dotdigital_WooCommerce_Admin {
 		$this->plugin_name = $plugin_name;
 		$this->version     = $version;
 		$this->webapp_url  = $webapp_url;
-
+		$this->handler     = new Dotdigital_WooCommerce_Api_Credentials_Handler();
+		$this->lists       = new Dotdigital_WooCommerce_Lists();
 	}
 
 	/**
@@ -95,7 +119,6 @@ class Dotdigital_WooCommerce_Admin {
 		 */
 
 		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/dotdigital-woocommerce-admin.css', array(), $this->version, 'all' );
-
 	}
 
 	/**
@@ -157,8 +180,8 @@ class Dotdigital_WooCommerce_Admin {
 
 		add_submenu_page(
 			$this->plugin_name,
-			'Dotdigital for WooCommerce Settings',
-			'Settings',
+			__( 'Dotdigital for WooCommerce Settings' ),
+			__( 'Settings' ),
 			'manage_options',
 			$this->plugin_name . '-settings',
 			array( $this, 'display_plugin_settings_page' )
@@ -181,6 +204,7 @@ class Dotdigital_WooCommerce_Admin {
 	 */
 	public function register_settings() {
 		$this->register_settings_for_marketing_subscription();
+		$this->register_settings_for_sms_marketing_subscription();
 		$this->register_settings_for_tracking();
 		$this->register_abandoned_cart_settings();
 	}
@@ -203,6 +227,36 @@ class Dotdigital_WooCommerce_Admin {
 	public function settings_page_render_text_input( $args ) {
 		$value = get_option( $args['id'], $args['default_value'] );
 		echo '<input type="text" id="' . esc_attr( $args['id'] ) . '" name="' . esc_attr( $args['name'] ) . '" value="' . esc_attr( $value ) . '" size="40"' . ( isset( $args['disabled'] ) && $args['disabled'] ? 'disabled' : '' ) . '/>';
+	}
+
+	/**
+	 * A template for a textarea input field.
+	 *
+	 * @param array $args An array of arguments.
+	 */
+	public function settings_page_render_textarea_input( $args ) {
+		$value = get_option( $args['id'], $args['default_value'] );
+		echo '<textarea id="' . esc_attr( $args['id'] ) . '" name="' . esc_attr( $args['name'] ) . '" rows="4" cols="40">' . esc_attr( $value ) . '</textarea>';
+	}
+
+	/**
+	 * A template for a text input field.
+	 *
+	 * @param array $args An array of arguments.
+	 */
+	public function settings_page_render_username_input( $args ) {
+		$value = get_option( Dotdigital_WooCommerce_Config::API_CREDENTIALS_PATH, $args['default_value'] );
+		echo '<input type="text" id="' . esc_attr( $args['id'] ) . '" name="' . esc_attr( Dotdigital_WooCommerce_Config::API_CREDENTIALS_PATH ) . '[username] " value="' . esc_attr( $value['username'] ?? null ) . '" size="40"' . ( isset( $args['disabled'] ) && $args['disabled'] ? 'disabled' : '' ) . '/>';
+	}
+
+	/**
+	 * A template for a text input field.
+	 *
+	 * @param array $args An array of arguments.
+	 */
+	public function settings_page_render_password_input( $args ) {
+		$value = get_option( Dotdigital_WooCommerce_Config::API_CREDENTIALS_PATH, $args['default_value'] );
+		echo '<input type="password" id="' . esc_attr( $args['id'] ) . '" name="' . esc_attr( Dotdigital_WooCommerce_Config::API_CREDENTIALS_PATH ) . '[password] " value="' . esc_attr( $value['password'] ?? null ) . '" size="40"' . ( isset( $args['disabled'] ) && $args['disabled'] ? 'disabled' : '' ) . '/>';
 	}
 
 	/**
@@ -235,18 +289,51 @@ class Dotdigital_WooCommerce_Admin {
 	}
 
 	/**
+	 * Email section subtitle.
+	 *
+	 * @param array $arg arguments.
+	 * @return void
+	 */
+	public function email_section_subtitle( $arg ) {
+		echo '<p>' . esc_html( __( 'Choose how you gather consent for your email marketing subscribers.' ) ) . '</p>';
+	}
+
+	/**
+	 * SMS section subtitle.
+	 *
+	 * @param array $arg arguments.
+	 * @return void
+	 */
+	public function sms_section_subtitle( $arg ) {
+		echo '<p>' . esc_html( __( 'Choose how you gather consent for your SMS marketing subscribers.' ) ) . '</p>';
+		echo '<h2>' . esc_html( __( 'Dotdigital API' ) ) . '</h2>';
+		echo '<p>' . esc_html( __( 'SMS marketing for WooCommerce uses the Dotdigital API.' ) ) . '</p>';
+	}
+
+	/**
+	 * Email marketing lists custom field.
+	 *
+	 * @param array $arg arguments.
+	 * @return void
+	 */
+	public function email_marketing_lists( $arg ) {
+		echo '<p>' . esc_html( __( 'In Dotdigital, go to Connect > WooCommerce ' ) ) . '<a href="https://support.dotdigital.com/hc/en-gb/articles/6575059852818" target="_blank">' . esc_html( __( 'Learn more' ) ) . '</a></p>';
+	}
+
+	/**
 	 * Register settings for marketing subscription.
 	 *
 	 * @since 1.2.0
 	 */
 	private function register_settings_for_marketing_subscription() {
+
 		/**
 		 * Add settings section for marketing subscription.
 		 */
 		add_settings_section(
 			self::GENERAL_SECTION,
-			'Marketing subscription',
-			null,
+			__( 'Email marketing consent' ),
+			array( $this, 'email_section_subtitle' ),
 			$this->plugin_name . '-settings'
 		);
 
@@ -255,47 +342,68 @@ class Dotdigital_WooCommerce_Admin {
 		 */
 		add_settings_field(
 			Dotdigital_WooCommerce_Config::SHOW_MARKETING_CHECKBOX_CHECKOUT,
-			'Show marketing checkbox at checkout',
+			__( 'Show checkbox at checkout' ),
 			array( $this, 'settings_page_render_checkbox' ),
 			$this->plugin_name . '-settings',
 			self::GENERAL_SECTION,
 			array(
 				'id'            => Dotdigital_WooCommerce_Config::SHOW_MARKETING_CHECKBOX_CHECKOUT,
 				'name'          => Dotdigital_WooCommerce_Config::SHOW_MARKETING_CHECKBOX_CHECKOUT,
-				'default_value' => Dotdigital_WooCommerce_Config::DEFAULT_MARKETING_CHECKBOX_DISPLAY_AT_CHECKOUT,
+				'default_value' => '',
 			)
 		);
 
 		/**
-		 * Add settings field [show checkbox at register].
+		 * Add settings field [show checkbox at user registration].
 		 */
 		add_settings_field(
 			Dotdigital_WooCommerce_Config::SHOW_MARKETING_CHECKBOX_REGISTER,
-			'Show marketing checkbox at user registration',
+			__( 'Show checkbox at user registration' ),
 			array( $this, 'settings_page_render_checkbox' ),
 			$this->plugin_name . '-settings',
 			self::GENERAL_SECTION,
 			array(
 				'id'            => Dotdigital_WooCommerce_Config::SHOW_MARKETING_CHECKBOX_REGISTER,
 				'name'          => Dotdigital_WooCommerce_Config::SHOW_MARKETING_CHECKBOX_REGISTER,
-				'default_value' => Dotdigital_WooCommerce_Config::DEFAULT_MARKETING_CHECKBOX_DISPLAY_AT_REGISTER,
+				'default_value' => '',
 			)
 		);
 
 		/**
-		 * Add settings field [checkbox text].
+		 * Add settings field [email checkbox text].
 		 */
 		add_settings_field(
 			Dotdigital_WooCommerce_Config::MARKETING_CHECKBOX_TEXT,
-			'Marketing checkbox text',
+			__( 'Checkbox text' ),
 			array( $this, 'settings_page_render_text_input' ),
 			$this->plugin_name . '-settings',
 			self::GENERAL_SECTION,
 			array(
 				'id'            => Dotdigital_WooCommerce_Config::MARKETING_CHECKBOX_TEXT,
 				'name'          => Dotdigital_WooCommerce_Config::MARKETING_CHECKBOX_TEXT,
-				'default_value' => Dotdigital_WooCommerce_Config::DEFAULT_MARKETING_CHECKBOX_TEXT,
+				'default_value' => '',
 			)
+		);
+
+		/**
+		 * Add settings field [email checkbox text].
+		 */
+		add_settings_field(
+			Dotdigital_WooCommerce_Config::MARKETING_EMAIL_LISTS,
+			__( 'Add email subscribers to' ),
+			array( $this, 'email_marketing_lists' ),
+			$this->plugin_name . '-settings',
+			self::GENERAL_SECTION,
+			array(
+				'id'            => Dotdigital_WooCommerce_Config::MARKETING_EMAIL_LISTS,
+				'name'          => Dotdigital_WooCommerce_Config::MARKETING_EMAIL_LISTS,
+				'default_value' => '',
+			)
+		);
+
+		register_setting(
+			$this->plugin_name . '-settings',
+			Dotdigital_WooCommerce_Config::MARKETING_CHECKBOX_TEXT
 		);
 
 		register_setting(
@@ -307,10 +415,167 @@ class Dotdigital_WooCommerce_Admin {
 			$this->plugin_name . '-settings',
 			Dotdigital_WooCommerce_Config::SHOW_MARKETING_CHECKBOX_REGISTER
 		);
+	}
+
+	/**
+	 * Register settings for sms marketing subscription.
+	 *
+	 * @return void
+	 * @throws \Http\Client\Exception If request fails.
+	 */
+	private function register_settings_for_sms_marketing_subscription() {
+		/**
+		 * Add settings section for sms marketing subscription.
+		 */
+		add_settings_section(
+			self::SMS_MARKETING_SECTION,
+			__( 'SMS Marketing subscription' ),
+			array( $this, 'sms_section_subtitle' ),
+			$this->plugin_name . '-settings'
+		);
+
+		/**
+		 * Add settings field [username].
+		 */
+		add_settings_field(
+			self::API_USERNAME_FIELD,
+			__( 'Username' ),
+			array( $this, 'settings_page_render_username_input' ),
+			$this->plugin_name . '-settings',
+			self::SMS_MARKETING_SECTION,
+			array(
+				'id'            => self::API_USERNAME_FIELD,
+				'name'          => self::API_USERNAME_FIELD,
+				'default_value' => '',
+			)
+		);
+
+		/**
+		 * Add settings field [password].
+		 */
+		add_settings_field(
+			self::API_PASSWORD_FIELD,
+			__( 'Password' ),
+			array( $this, 'settings_page_render_password_input' ),
+			$this->plugin_name . '-settings',
+			self::SMS_MARKETING_SECTION,
+			array(
+				'id'            => self::API_PASSWORD_FIELD,
+				'name'          => self::API_PASSWORD_FIELD,
+				'default_value' => '',
+			)
+		);
+
+		/**
+		 * Add settings field [show sms marketing checkbox at checkout].
+		 */
+		add_settings_field(
+			Dotdigital_WooCommerce_Config::SHOW_SMS_MARKETING_CHECKBOX_CHECKOUT,
+			__( 'Show checkbox at checkout' ),
+			array( $this, 'settings_page_render_checkbox' ),
+			$this->plugin_name . '-settings',
+			self::SMS_MARKETING_SECTION,
+			array(
+				'id'            => Dotdigital_WooCommerce_Config::SHOW_SMS_MARKETING_CHECKBOX_CHECKOUT,
+				'name'          => Dotdigital_WooCommerce_Config::SHOW_SMS_MARKETING_CHECKBOX_CHECKOUT,
+				'default_value' => 0,
+			)
+		);
+
+		/**
+		 * Add settings field [show sms marketing checkbox at user registration].
+		 */
+		add_settings_field(
+			Dotdigital_WooCommerce_Config::SHOW_SMS_MARKETING_CHECKBOX_USER_REGISTRATION,
+			__( 'Show checkbox at user registration' ),
+			array( $this, 'settings_page_render_checkbox' ),
+			$this->plugin_name . '-settings',
+			self::SMS_MARKETING_SECTION,
+			array(
+				'id'            => Dotdigital_WooCommerce_Config::SHOW_SMS_MARKETING_CHECKBOX_USER_REGISTRATION,
+				'name'          => Dotdigital_WooCommerce_Config::SHOW_SMS_MARKETING_CHECKBOX_USER_REGISTRATION,
+				'default_value' => 0,
+			)
+		);
+
+		/**
+		 * Add settings field [SMS checkbox text].
+		 */
+		add_settings_field(
+			Dotdigital_WooCommerce_Config::MARKETING_CHECKBOX_SMS_TEXT,
+			__( 'Checkbox text' ),
+			array( $this, 'settings_page_render_text_input' ),
+			$this->plugin_name . '-settings',
+			self::SMS_MARKETING_SECTION,
+			array(
+				'id'            => Dotdigital_WooCommerce_Config::MARKETING_CHECKBOX_SMS_TEXT,
+				'name'          => Dotdigital_WooCommerce_Config::MARKETING_CHECKBOX_SMS_TEXT,
+				'default_value' => '',
+			)
+		);
+
+		/**
+		 * Add settings field [SMS consent text].
+		 */
+		add_settings_field(
+			Dotdigital_WooCommerce_Config::MARKETING_CONSENT_SMS_TEXT,
+			__( 'Consent text' ),
+			array( $this, 'settings_page_render_textarea_input' ),
+			$this->plugin_name . '-settings',
+			self::SMS_MARKETING_SECTION,
+			array(
+				'id'            => Dotdigital_WooCommerce_Config::MARKETING_CONSENT_SMS_TEXT,
+				'name'          => Dotdigital_WooCommerce_Config::MARKETING_CONSENT_SMS_TEXT,
+				'default_value' => '',
+			)
+		);
+
+		/**
+		 * Add settings field [Select Region].
+		 */
+		add_settings_field(
+			Dotdigital_WooCommerce_Config::MARKETING_SMS_LISTS,
+			__( 'Add SMS subscribers to' ),
+			array( $this, 'settings_page_render_dropdown' ),
+			$this->plugin_name . '-settings',
+			self::SMS_MARKETING_SECTION,
+			array(
+				'id' => Dotdigital_WooCommerce_Config::MARKETING_SMS_LISTS,
+				'name' => Dotdigital_WooCommerce_Config::MARKETING_SMS_LISTS,
+				'default_value' => 0,
+				'items' => $this->lists->get(),
+			)
+		);
 
 		register_setting(
 			$this->plugin_name . '-settings',
-			Dotdigital_WooCommerce_Config::MARKETING_CHECKBOX_TEXT
+			Dotdigital_WooCommerce_Config::API_CREDENTIALS_PATH,
+			array( $this->handler, 'sanitize_api_credentials' )
+		);
+
+		register_setting(
+			$this->plugin_name . '-settings',
+			Dotdigital_WooCommerce_Config::SHOW_SMS_MARKETING_CHECKBOX_CHECKOUT
+		);
+
+		register_setting(
+			$this->plugin_name . '-settings',
+			Dotdigital_WooCommerce_Config::SHOW_SMS_MARKETING_CHECKBOX_USER_REGISTRATION
+		);
+
+		register_setting(
+			$this->plugin_name . '-settings',
+			Dotdigital_WooCommerce_Config::MARKETING_CHECKBOX_SMS_TEXT
+		);
+
+		register_setting(
+			$this->plugin_name . '-settings',
+			Dotdigital_WooCommerce_Config::MARKETING_CONSENT_SMS_TEXT
+		);
+
+		register_setting(
+			$this->plugin_name . '-settings',
+			Dotdigital_WooCommerce_Config::MARKETING_SMS_LISTS
 		);
 	}
 
@@ -326,7 +591,7 @@ class Dotdigital_WooCommerce_Admin {
 		 */
 		add_settings_section(
 			self::TRACKING_SECTION,
-			'Tracking',
+			__( 'Tracking' ),
 			null,
 			$this->plugin_name . '-settings'
 		);
@@ -336,7 +601,7 @@ class Dotdigital_WooCommerce_Admin {
 		 */
 		add_settings_field(
 			Dotdigital_WooCommerce_Config::SITE_AND_ROI_TRACKING,
-			'Enable site and ROI tracking',
+			__( 'Enable site and ROI tracking' ),
 			array( $this, 'settings_page_render_checkbox' ),
 			$this->plugin_name . '-settings',
 			self::TRACKING_SECTION,
@@ -352,7 +617,7 @@ class Dotdigital_WooCommerce_Admin {
 		 */
 		add_settings_field(
 			'selected_region',
-			'Select region',
+			__( 'Select region' ),
 			array( $this, 'settings_page_render_dropdown' ),
 			$this->plugin_name . '-settings',
 			self::TRACKING_SECTION,
@@ -373,7 +638,7 @@ class Dotdigital_WooCommerce_Admin {
 		 */
 		add_settings_field(
 			Dotdigital_WooCommerce_Config::WBT_PROFILE_ID_PATH,
-			'Web behavior tracking profile ID',
+			__( 'Web behavior tracking profile ID' ),
 			array( $this, 'settings_page_render_text_input' ),
 			$this->plugin_name . '-settings',
 			self::TRACKING_SECTION,
@@ -411,7 +676,7 @@ class Dotdigital_WooCommerce_Admin {
 		  */
 		add_settings_section(
 			self::ABANDONED_CART_SECTION,
-			'Abandoned carts',
+			__( 'Abandoned carts' ),
 			function () {
 				echo '<p>' .
 				esc_html__( 'A web behaviour tracking profile ID is required to modify these settings.', 'dotdigital-woocommerce' ) .
@@ -425,7 +690,7 @@ class Dotdigital_WooCommerce_Admin {
 		 */
 		add_settings_field(
 			Dotdigital_WooCommerce_Config::AC_STATUS_PATH,
-			'Enable abandoned cart',
+			__( 'Enable abandoned cart' ),
 			array( $this, 'settings_page_render_checkbox' ),
 			$this->plugin_name . '-settings',
 			self::ABANDONED_CART_SECTION,
@@ -442,7 +707,7 @@ class Dotdigital_WooCommerce_Admin {
 		 */
 		add_settings_field(
 			Dotdigital_WooCommerce_Config::PROGRAM_ID_PATH,
-			'Abandoned cart program ID',
+			__( 'Abandoned cart program ID' ),
 			array( $this, 'settings_page_render_text_input' ),
 			$this->plugin_name . '-settings',
 			self::ABANDONED_CART_SECTION,
@@ -459,7 +724,7 @@ class Dotdigital_WooCommerce_Admin {
 		 */
 		add_settings_field(
 			Dotdigital_WooCommerce_Config::CART_DELAY_PATH,
-			'Allow abandoned cart delay (minutes)',
+			__( 'Allow abandoned cart delay (minutes)' ),
 			array( $this, 'settings_page_render_numeric_input' ),
 			$this->plugin_name . '-settings',
 			self::ABANDONED_CART_SECTION,
@@ -476,7 +741,7 @@ class Dotdigital_WooCommerce_Admin {
 		 */
 		add_settings_field(
 			Dotdigital_WooCommerce_Config::ALLOW_NON_SUBSCRIBERS_PATH,
-			'Allow abandoned cart for non-subscribed contacts',
+			__( 'Allow abandoned cart for non-subscribed contacts' ),
 			array( $this, 'settings_page_render_checkbox' ),
 			$this->plugin_name . '-settings',
 			self::ABANDONED_CART_SECTION,

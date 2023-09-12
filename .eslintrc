@@ -1,0 +1,21 @@
+{
+  "extends": [ "plugin:@wordpress/eslint-plugin/recommended-with-formatting" ],
+  "env": {
+    "browser": true
+  },
+  "rules": {
+    "linebreak-style": 0,
+    "camelcase": "off"
+  },
+  "ignorePatterns": [
+    "*.min.js"
+  ],
+    "globals": {
+      "wp": true,
+      "jQuery": true,
+      "tinymce": true,
+      "tinyMCE": true,
+      "tinyMCEPreInit": true,
+      "wpApiSettings": true
+    }
+}

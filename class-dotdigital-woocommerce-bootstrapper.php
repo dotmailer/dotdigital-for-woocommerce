@@ -14,15 +14,15 @@
  * @wordpress-plugin
  * Plugin Name:       Dotdigital for WooCommerce
  * Description:       Connect your WooCommerce store to dotdigital and put customer, subscriber, product and order data at your fingertips.
- * Version:           1.3.4
+ * Version:           1.4.0
  * Author:            dotdigital
  * Author URI:        https://www.dotdigital.com/
  * License:           MIT
  * License URI:       https://opensource.org/licenses/MIT
  * Text Domain:       dotdigital-woocommerce
  * Domain Path:       /languages
- * WC requires at least: 3.3.0
- * WC tested up to: 7.1.0
+ * WC requires at least: 6.0.0
+ * WC tested up to: 7.9.0
  *
  * MIT License
  *
@@ -58,10 +58,14 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
-define( 'DOTDIGITAL_FOR_WOOCOMMERCE_PLUGIN_VERSION', '1.3.4' );
+define( 'DOTDIGITAL_FOR_WOOCOMMERCE_PLUGIN_NAME', 'dotdigital-for-woocommerce' );
+define( 'DOTDIGITAL_FOR_WOOCOMMERCE_PLUGIN_VERSION', '1.4.0' );
 define( 'DOTDIGITAL_FOR_WOOCOMMERCE_PLUGIN_DIR_PATH', __DIR__ );
+define( 'DOTDIGITAL_FOR_WOOCOMMERCE_PUBLIC_MEDIA_PATH', plugin_dir_url( __FILE__ ) . 'public/image/' );
 
-require_once 'inc/autoloader.php';
+require_once 'vendor/autoload.php';
+
+
 
 /**
  * Used to bootstrap the dotdigital plugin.
@@ -81,7 +85,7 @@ class Dotdigital_WooCommerce_Bootstrapper {
 	 * @access   private
 	 * @var      string    $plugin_name    The string used to uniquely identify this plugin.
 	 */
-	public static $plugin_name = 'dotdigital-for-woocommerce';
+	public static $plugin_name = DOTDIGITAL_FOR_WOOCOMMERCE_PLUGIN_NAME;
 
 	/**
 	 * Account login URL.

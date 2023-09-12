@@ -59,4 +59,3 @@ class Dotdigital_WooCommerce_Form_Handler {
 		);
 	}
 }
-

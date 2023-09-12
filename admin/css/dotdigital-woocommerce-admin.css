@@ -15,3 +15,13 @@ iframe#dotdigital-for-woocommerce-settings {
 	background: url('../../assets/dotdigital-applogo-32x32.png') no-repeat 0 6px;
 	margin-right: 6px;
 }
+
+.consent_checkbox {
+	display: table;
+	float: left;
+	margin-right: 5%;
+}
+
+.consent_checkbox > label {
+	display: table-row;
+}

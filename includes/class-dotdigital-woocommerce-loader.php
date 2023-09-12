@@ -51,7 +51,6 @@ class Dotdigital_WooCommerce_Loader {
 
 		$this->actions = array();
 		$this->filters = array();
-
 	}
 
 	/**
@@ -107,7 +106,6 @@ class Dotdigital_WooCommerce_Loader {
 		);
 
 		return $hooks;
-
 	}
 
 	/**
@@ -124,6 +122,5 @@ class Dotdigital_WooCommerce_Loader {
 		foreach ( $this->actions as $hook ) {
 			add_action( $hook['hook'], array( $hook['component'], $hook['callback'] ), $hook['priority'], $hook['accepted_args'] );
 		}
-
 	}
 }

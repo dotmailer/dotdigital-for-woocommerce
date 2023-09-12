@@ -1,6 +1,5 @@
 .vscode/
-vendor/
-/vendor/**/.git
+vendor
 .settings/org.eclipse.wst.validation.prefs
 .buildpath
 .project
@@ -8,6 +7,12 @@ web.config
 .DS_Store
 node_modules
 cypress/videos/*
+cypress/screenshots/*
 cypress.json
 cypress/fixtures*
 cypress/seeds/*
+tests/unit/.phpunit.result.cache
+build_prefixed
+*.phar
+.
+yarn-error.log

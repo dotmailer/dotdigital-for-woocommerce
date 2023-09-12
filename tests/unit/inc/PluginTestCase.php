@@ -17,12 +17,28 @@ class PluginTestCase extends TestCase {
 	 *
 	 * @return void
 	 */
-	public function setUp() {
+	public function setUp(): void {
 		parent::setUp();
 		$_POST = array();
 		$_GET = array();
 		Monkey\setUp();
 
+		$mock_woocommerce_class = \Mockery::mock( 'overload:WooCommerce' );
+		$mock_woocommerce_class_countries = $this->getMockBuilder( \stdclass::class )
+			->disableOriginalConstructor()
+			->addMethods( array( 'get_base_country', 'get_allowed_countries' ) )
+			->getMock();
+
+		$mock_woocommerce_class_countries->method( 'get_base_country' )
+			->willReturn( 'US' );
+
+		$mock_woocommerce_class_countries->method( 'get_allowed_countries' )
+			->willReturn( array( 'US' ) );
+
+		$mock_woocommerce_class->countries = $mock_woocommerce_class_countries;
+
+		Monkey\Functions\when( 'WC')
+			->justReturn( $mock_woocommerce_class );
 		Monkey\Functions\when( '__' )
 			->returnArg( 1 );
 		Monkey\Functions\when( '_e' )
@@ -54,7 +70,7 @@ class PluginTestCase extends TestCase {
 	 *
 	 * @return void
 	 */
-	public function tearDown() {
+	public function tearDown(): void {
 		Monkey\tearDown();
 		parent::tearDown();
 	}
