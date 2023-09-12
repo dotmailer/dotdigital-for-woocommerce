@@ -3,7 +3,7 @@
     "version": "1.4.0",
     "php": "^7.4 || ^8.0",
     "require": {
-        "dotdigital/dotdigital-php": "~2.0.0",
+        "dotdigital/dotdigital-php": "2.1.0",
         "guzzlehttp/psr7": "^2.5",
         "php-http/curl-client": "^2.3",
         "guzzlehttp/guzzle": "^7.7",

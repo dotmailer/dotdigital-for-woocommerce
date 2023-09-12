@@ -17,6 +17,7 @@ Dotdigital is a marketing automation platform that provides brands globally with
 * Sync all your contacts to dotdigital, and segment them for your cross-channel campaigns.
 * Use your customers' order history and browsing behavior to better target your audience.
 * Build and automate lifecycle programs to engage your customers and drive revenue.
+* Subscribe customer and guest mobile numbers to SMS marketing, with consent data.
 
 If you're not a Dotdigital user already you can find out more about us at <a href="https://www.dotdigital.com">dotdigital.com</a>.
 
@@ -66,10 +67,6 @@ The store should now be connected and Dotdigital will start syncing customer dat
 For more detailed information on installation, please see our <a href="https://support.dotdigital.com/hc/en-gb/categories/201643998-Integrations">support documentation</a>.
 
 == Changelog ==
-
-= Unreleased =
-- Send cartInsight on when cart totals is updated via ajax
-- Add filter for modifying the cart item data before sending the insight. This solves a problem with the Name your price plugin, which returns the wrong price.
 
 = 1.4.0 =
 

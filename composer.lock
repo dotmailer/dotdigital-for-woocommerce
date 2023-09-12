@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2d34c71ca385a9f69bbd7bd4aed0e3db",
+    "content-hash": "89738b08319da160a056e6596a6a38e0",
     "packages": [
         {
             "name": "clue/stream-filter",
@@ -74,16 +74,16 @@
         },
         {
             "name": "dotdigital/dotdigital-php",
-            "version": "2.0.0",
+            "version": "2.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/dotmailer/dotdigital-php.git",
-                "reference": "2828c7c2f11623dfb4ee7ec3e7c62ecaa470370a"
+                "reference": "2caa7ec0f982ab7ab299a62910cdd6542322accb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dotmailer/dotdigital-php/zipball/2828c7c2f11623dfb4ee7ec3e7c62ecaa470370a",
-                "reference": "2828c7c2f11623dfb4ee7ec3e7c62ecaa470370a",
+                "url": "https://api.github.com/repos/dotmailer/dotdigital-php/zipball/2caa7ec0f982ab7ab299a62910cdd6542322accb",
+                "reference": "2caa7ec0f982ab7ab299a62910cdd6542322accb",
                 "shasum": ""
             },
             "require": {
@@ -117,9 +117,9 @@
             "description": "Dotdigital PHP Library",
             "support": {
                 "issues": "https://github.com/dotmailer/dotdigital-php/issues",
-                "source": "https://github.com/dotmailer/dotdigital-php/tree/v2.0.0"
+                "source": "https://github.com/dotmailer/dotdigital-php/tree/v2.1.0"
             },
-            "time": "2023-07-12T11:23:10+00:00"
+            "time": "2023-09-11T09:36:33+00:00"
         },
         {
             "name": "guzzlehttp/guzzle",
@@ -448,16 +448,16 @@
         },
         {
             "name": "nesbot/carbon",
-            "version": "2.69.0",
+            "version": "2.70.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/briannesbitt/Carbon.git",
-                "reference": "4308217830e4ca445583a37d1bf4aff4153fa81c"
+                "reference": "d3298b38ea8612e5f77d38d1a99438e42f70341d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/4308217830e4ca445583a37d1bf4aff4153fa81c",
-                "reference": "4308217830e4ca445583a37d1bf4aff4153fa81c",
+                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/d3298b38ea8612e5f77d38d1a99438e42f70341d",
+                "reference": "d3298b38ea8612e5f77d38d1a99438e42f70341d",
                 "shasum": ""
             },
             "require": {
@@ -550,7 +550,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-08-03T09:00:52+00:00"
+            "time": "2023-09-07T16:43:50+00:00"
         },
         {
             "name": "php-http/client-common",
@@ -4315,5 +4315,5 @@
     "prefer-lowest": false,
     "platform": [],
     "platform-dev": [],
-    "plugin-api-version": "2.3.0"
+    "plugin-api-version": "2.6.0"
 }
