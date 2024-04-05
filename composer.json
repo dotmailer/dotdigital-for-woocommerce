@@ -50,7 +50,7 @@
             "rm -rf build_prefixed",
             "@php php-scoper.phar add-prefix --prefix=Dotdigital_Woo_Vendor --output-dir=./build_prefixed --force",
             "composer du --working-dir build_prefixed --classmap-authoritative",
-            "rm -rf build_prefixed/composer.json"
+            "rm build_prefixed/composer.json"
         ]
     }
 }
