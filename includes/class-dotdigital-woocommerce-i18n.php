@@ -33,10 +33,8 @@ class Dotdigital_WooCommerce_I18n {
 	 * @since    1.0.0
 	 */
 	public function load_plugin_textdomain() {
-		global $dotdigital_woocommerce_plugin_name;
-
 		load_plugin_textdomain(
-			$dotdigital_woocommerce_plugin_name,
+			DOTDIGITAL_FOR_WOOCOMMERCE_PLUGIN_NAME,
 			false,
 			dirname( dirname( plugin_basename( __FILE__ ) ) ) . '/languages/'
 		);
