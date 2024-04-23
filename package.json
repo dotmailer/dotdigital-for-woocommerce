@@ -1,16 +1,17 @@
 {
   "devDependencies": {
-    "@bigbite/wp-cypress": "^0.9.5",
-    "@wordpress/eslint-plugin": "^14.0",
+    "@babel/traverse": "^7.24.1",
+    "@bigbite/wp-cypress": "^0.13",
+    "@wordpress/eslint-plugin": "^17.0",
     "cypress": "^9.5.0",
-    "eslint": "^8.10.0"
+    "eslint": "^9.0.0"
   },
   "scripts": {
     "eslint:public": "eslint --config .eslintrc public/js/ ",
     "eslint:public:fix": "eslint --config .eslintrc public/js/ --fix",
     "eslint:admin": "eslint --config .eslintrc admin/js/ ",
     "eslint:admin:fix": "eslint --config .eslintrc admin/js/ --fix ",
-    "eslint": "npm run eslint:public && npm run eslint:admin",
-    "eslint:fix": "npm run eslint:public:fix && npm run eslint:admin:fix"
+    "eslint": "yarn run eslint:public && yarn run eslint:admin",
+    "eslint:fix": "yarn run eslint:public:fix && yarn run eslint:admin:fix"
   }
 }
