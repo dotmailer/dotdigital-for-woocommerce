@@ -3,7 +3,7 @@ Contributors: dotMailer, amucklow, fstrezos, pvpcookie
 Requires at least: 5.7
 Tested up to: 6.5
 Requires PHP: 7.0
-Stable tag: 1.4.1
+Stable tag: 1.4.2
 License: MIT
 License URI: https://opensource.org/licenses/MIT
 
@@ -67,6 +67,11 @@ The store should now be connected and Dotdigital will start syncing customer dat
 For more detailed information on installation, please see our <a href="https://support.dotdigital.com/hc/en-gb/categories/201643998-Integrations">support documentation</a>.
 
 == Changelog ==
+
+= 1.4.2 =
+
+**Bug fixes**
+- We fixed a problem with WP CLI breaking in a composer-based WordPress.
 
 = 1.4.1 =
 

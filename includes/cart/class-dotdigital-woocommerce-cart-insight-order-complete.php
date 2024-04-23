@@ -11,7 +11,6 @@
 
 namespace Dotdigital_WooCommerce\Includes\Cart;
 
-use Dotdigital_WooCommerce\Dotdigital_WooCommerce_Bootstrapper;
 use Dotdigital_WooCommerce\Includes\Cart\Dotdigital_WooCommerce_Cart;
 use Dotdigital_WooCommerce\Includes\Subscriber\Dotdigital_WooCommerce_Subscriber;
 

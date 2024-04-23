@@ -14,7 +14,7 @@
  * @wordpress-plugin
  * Plugin Name:       Dotdigital for WooCommerce
  * Description:       Connect your WooCommerce store to dotdigital and put customer, subscriber, product and order data at your fingertips.
- * Version:           1.4.1
+ * Version:           1.4.2
  * Author:            dotdigital
  * Author URI:        https://www.dotdigital.com/
  * License:           MIT
@@ -49,23 +49,21 @@
 
 namespace Dotdigital_WooCommerce;
 
-use Dotdigital_WooCommerce\Includes\Dotdigital_WooCommerce;
-use Dotdigital_WooCommerce\Includes\Dotdigital_WooCommerce_Deactivator;
-use Dotdigital_WooCommerce\Includes\Dotdigital_WooCommerce_Activator;
-
 // If this file is called directly, abort.
 if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
+require_once __DIR__ . '/vendor/autoload.php';
+
+use Dotdigital_WooCommerce\Includes\Dotdigital_WooCommerce;
+use Dotdigital_WooCommerce\Includes\Dotdigital_WooCommerce_Deactivator;
+use Dotdigital_WooCommerce\Includes\Dotdigital_WooCommerce_Activator;
+
 define( 'DOTDIGITAL_FOR_WOOCOMMERCE_PLUGIN_NAME', 'dotdigital-for-woocommerce' );
-define( 'DOTDIGITAL_FOR_WOOCOMMERCE_PLUGIN_VERSION', '1.4.1' );
+define( 'DOTDIGITAL_FOR_WOOCOMMERCE_PLUGIN_VERSION', '1.4.2' );
 define( 'DOTDIGITAL_FOR_WOOCOMMERCE_PLUGIN_DIR_PATH', __DIR__ );
 define( 'DOTDIGITAL_FOR_WOOCOMMERCE_PUBLIC_MEDIA_PATH', plugin_dir_url( __FILE__ ) . 'public/image/' );
-
-require_once 'vendor/autoload.php';
-
-
 
 /**
  * Used to bootstrap the dotdigital plugin.
