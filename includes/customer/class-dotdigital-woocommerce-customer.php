@@ -11,8 +11,6 @@
 
 namespace Dotdigital_WooCommerce\Includes\Customer;
 
-use Dotdigital_WooCommerce\Dotdigital_WooCommerce_Bootstrapper;
-
 /**
  * Class Dotdigital_WooCommerce_Customer
  */
