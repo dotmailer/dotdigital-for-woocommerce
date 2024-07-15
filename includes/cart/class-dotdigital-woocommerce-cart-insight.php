@@ -69,6 +69,7 @@ class Dotdigital_WooCommerce_Cart_Insight {
 				'category'    => $dotdigital_woocommerce_category_helper->get_product_categories( $product->get_id() ),
 				'quantity'    => $cart_item['quantity'],
 				'total_price' => round( $cart_item['line_total'], 2 ),
+				'total_price_incl_tax' => round( $cart_item['line_total'] + $cart_item['line_tax'], 2 ),
 				'image_url'   => $image_finder->get_product_image_url( $product ),
 				'product_url' => get_permalink( $product->get_id() ),
 			);
