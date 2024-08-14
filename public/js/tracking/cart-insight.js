@@ -2,7 +2,7 @@
 	'use strict';
 
 	var data = cart_insight.data;
-	
+
 	if (data.customer_email) {
 		window.dmPt( "identify", data.customer_email );
 	}
@@ -43,6 +43,7 @@
 			salePrice: item.sale_price,
 			quantity: item.quantity,
 			totalPrice: item.total_price,
+			totalPrice_incl_tax: item.total_price_incl_tax,
 			imageUrl: item.image_url,
 			productUrl: item.product_url
 		};

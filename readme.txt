@@ -1,9 +1,9 @@
 === Dotdigital for WooCommerce ===
 Contributors: dotMailer, amucklow, fstrezos, pvpcookie
 Requires at least: 5.7
-Tested up to: 6.5
+Tested up to: 6.6
 Requires PHP: 7.0
-Stable tag: 1.4.2
+Stable tag: 1.4.3
 License: MIT
 License URI: https://opensource.org/licenses/MIT
 
@@ -67,6 +67,11 @@ The store should now be connected and Dotdigital will start syncing customer dat
 For more detailed information on installation, please see our <a href="https://support.dotdigital.com/hc/en-gb/categories/201643998-Integrations">support documentation</a>.
 
 == Changelog ==
+
+= 1.4.3 =
+
+**Improvements**
+- We added `totalprice_incl_tax` to cart insight line items.
 
 = 1.4.2 =
 
