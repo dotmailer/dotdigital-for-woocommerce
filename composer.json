@@ -1,9 +1,9 @@
 {
     "name": "dotdigital/dotdigital-for-woocommerce",
-    "version": "1.4.3",
+    "version": "1.4.4",
     "php": "^7.4 || ^8.0",
     "require": {
-        "dotdigital/dotdigital-php": "2.1.0",
+        "dotdigital/dotdigital-php": "^2.6",
         "guzzlehttp/psr7": "^2.5",
         "php-http/curl-client": "^2.3",
         "guzzlehttp/guzzle": "^7.7",
@@ -30,7 +30,6 @@
             "vendor/psr",
             "vendor/symfony",
             "vendor/clue",
-            "vendor/nesbot",
             "vendor/ralouphie"
         ]
     },

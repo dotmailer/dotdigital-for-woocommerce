@@ -117,12 +117,13 @@ class Dotdigital_WooCommerce_Register_Sms_Marketing_Phone {
 		}
 
 		$phone = $_POST[ Dotdigital_WooCommerce_Config::FORM_FIELD_MARKETING_INPUT_PHONE_NAME ] ?? ''; // phpcs:ignore WordPress.Security
+		$email = sanitize_text_field( wp_unslash( $_POST['email'] ?? '' ) ); // phpcs:ignore WordPress.Security
 
 		$contact = new Contact(
 			array(
 				'matchIdentifier' => 'email',
 				'identifiers' => array(
-					'email' => sanitize_text_field( wp_unslash( $_POST['email'] ?? '' ) ), // phpcs:ignore WordPress.Security
+					'email' => $email,
 					'mobileNumber' => $phone,
 				),
 			)
@@ -143,11 +144,11 @@ class Dotdigital_WooCommerce_Register_Sms_Marketing_Phone {
 			);
 		}
 
-		$list = get_option( Dotdigital_WooCommerce_Config::MARKETING_SMS_LISTS, '' );
+		$list = (int) get_option( Dotdigital_WooCommerce_Config::MARKETING_SMS_LISTS, '' );
 		if ( ! empty( $list ) ) {
 			$contact->setLists( array( $list ) );
 		}
 
-		$this->contact_client->create_or_update( $contact );
+		$this->contact_client->create_or_update( $email, $contact );
 	}
 }
