@@ -1,6 +1,6 @@
 {
     "name": "dotdigital/dotdigital-for-woocommerce",
-    "version": "1.4.3",
+    "version": "1.4.4",
     "php": "^7.4 || ^8.0",
     "require": {
         "dotdigital/dotdigital-php": "2.1.0",

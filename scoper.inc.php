@@ -30,7 +30,8 @@ return [
 	'patchers' => [],
 
 	'exclude-namespaces' => [
-		'Dotdigital_WooCommerce'
+		'Dotdigital_WooCommerce',
+		'Automattic'
 	],
 	'exclude-classes'    => [
 		'WP_Widget'
