@@ -38,23 +38,28 @@ class Dotdigital_WooCommerce_Contact {
 	/**
 	 * Create or update the contact in Dotdigital
 	 *
-	 * We use the import method to create or update the contact in Dotdigital as
+	 * We use the patch method to create or update the contact in Dotdigital as
 	 * the create method will throw an error if the contact already exists.
 	 *
+	 * @param string  $email The email address of the contact.
 	 * @param Contact $contact The contact to create or update.
 	 * @return void
 	 * @throws \Http\Client\Exception If the API call fails.
 	 */
-	public function create_or_update( Contact $contact ) {
+	public function create_or_update( string $email, Contact $contact ) {
 		try {
-			$collection = new ContactCollection();
-			$collection->add( $contact );
 			$this->dotdigital_client
 				->get_client()
 				->contacts
-				->import( $collection );
+				->patchByIdentifier( $email, $contact );
 		} catch ( ResponseValidationException $exception ) {
-			error_log( $exception->getMessage() );
+			error_log(
+				sprintf(
+					'Dotdigital for WooCommerce API error - could not create or update contact: %s',
+					$exception->getMessage()
+				)
+			);
+			error_log( json_encode( $exception->getDetails() ) );
 		}
 	}
 }

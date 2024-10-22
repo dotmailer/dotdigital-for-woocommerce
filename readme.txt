@@ -72,6 +72,7 @@ For more detailed information on installation, please see our <a href="https://s
 
 **Bug fixes**
 - The plugin no longer (incorrectly) shows as incompatible with WooCommerce HPOS.
+- List ids are now sent as integers in the V3 API request.
 
 = 1.4.3 =
 
