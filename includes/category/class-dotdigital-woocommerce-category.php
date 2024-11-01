@@ -26,6 +26,10 @@ class Dotdigital_WooCommerce_Category {
 		$categories = array();
 		$wc_terms  = get_the_terms( $product_id, 'product_cat' );
 
+		if ( ! $wc_terms ) {
+			return '';
+		}
+
 		foreach ( $wc_terms as $wc_term ) {
 			$categories[] = $wc_term->name;
 		}

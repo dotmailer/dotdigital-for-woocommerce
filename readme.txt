@@ -3,7 +3,7 @@ Contributors: dotMailer, amucklow, fstrezos, pvpcookie
 Requires at least: 5.7
 Tested up to: 6.6
 Requires PHP: 7.4
-Stable tag: 1.4.4
+Stable tag: 1.4.5
 License: MIT
 License URI: https://opensource.org/licenses/MIT
 
@@ -67,6 +67,11 @@ The store should now be connected and Dotdigital will start syncing customer dat
 For more detailed information on installation, please see our <a href="https://support.dotdigital.com/hc/en-gb/categories/201643998-Integrations">support documentation</a>.
 
 == Changelog ==
+
+= 1.4.5 =
+
+**Bug fixes**
+- We fixed a PHP warning that appears if a product in the cart has no 'product_cat' terms.
 
 = 1.4.4 =
 
