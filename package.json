@@ -1,6 +1,6 @@
 {
   "devDependencies": {
-    "@babel/traverse": "^7.24.1",
+    "@babel/traverse": "^7.24.5",
     "@bigbite/wp-cypress": "^0.13",
     "@wordpress/eslint-plugin": "^17.0",
     "cypress": "^9.5.0",
