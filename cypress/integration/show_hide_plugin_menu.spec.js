@@ -1,4 +1,5 @@
 describe('Show/hide plugin menu', () => {
+
   beforeEach('Activate Dotdigital for woocommerce plugin', () => {
     cy.activatePlugin('dotdigital-for-woocommerce')
     cy.visitAdmin()
