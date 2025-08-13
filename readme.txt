@@ -1,9 +1,7 @@
 === Dotdigital for WooCommerce ===
 Contributors: dotMailer, amucklow, fstrezos, pvpcookie
-Requires at least: 5.7
-Tested up to: 6.6
-Requires PHP: 7.4
-Stable tag: 1.4.5
+Tested up to: 6.8
+Stable tag: 1.4.6
 License: MIT
 License URI: https://opensource.org/licenses/MIT
 
@@ -67,6 +65,11 @@ The store should now be connected and Dotdigital will start syncing customer dat
 For more detailed information on installation, please see our <a href="https://support.dotdigital.com/hc/en-gb/categories/201643998-Integrations">support documentation</a>.
 
 == Changelog ==
+
+= 1.4.6 =
+
+**Improvements**
+- It is now possible to override the webapp and tracking URLs to enable testing in internal Dotdigital environments.
 
 = 1.4.5 =
 

@@ -16,3 +16,4 @@ build_prefixed
 *.phar
 .
 yarn-error.log
+.idea

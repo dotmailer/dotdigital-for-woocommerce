@@ -12,17 +12,19 @@
  * @package    Dotdigital_WooCommerce
  *
  * @wordpress-plugin
- * Plugin Name:       Dotdigital for WooCommerce
- * Description:       Connect your WooCommerce store to dotdigital and put customer, subscriber, product and order data at your fingertips.
- * Version:           1.4.5
- * Author:            dotdigital
- * Author URI:        https://www.dotdigital.com/
- * License:           MIT
- * License URI:       https://opensource.org/licenses/MIT
- * Text Domain:       dotdigital-woocommerce
- * Domain Path:       /languages
+ * Plugin Name:          Dotdigital for WooCommerce
+ * Description:          Connect your WooCommerce store to dotdigital and put customer, subscriber, product and order data at your fingertips.
+ * Version:              1.4.6
+ * Requires PHP:         7.4
+ * Requires at least:    5.7
+ * Author:               dotdigital
+ * Author URI:           https://www.dotdigital.com/
+ * License:              MIT
+ * License URI:          https://opensource.org/licenses/MIT
+ * Text Domain:          dotdigital-woocommerce
+ * Domain Path:          /languages
  * WC requires at least: 6.0.0
- * WC tested up to: 9.3.3
+ * WC tested up to:      10.0.0
  *
  * MIT License
  *
@@ -59,9 +61,10 @@ require_once __DIR__ . '/vendor/autoload.php';
 use Dotdigital_WooCommerce\Includes\Dotdigital_WooCommerce;
 use Dotdigital_WooCommerce\Includes\Dotdigital_WooCommerce_Deactivator;
 use Dotdigital_WooCommerce\Includes\Dotdigital_WooCommerce_Activator;
+use Dotdigital_WooCommerce\Includes\Dotdigital_WooCommerce_Config;
 
 define( 'DOTDIGITAL_FOR_WOOCOMMERCE_PLUGIN_NAME', 'dotdigital-for-woocommerce' );
-define( 'DOTDIGITAL_FOR_WOOCOMMERCE_PLUGIN_VERSION', '1.4.5' );
+define( 'DOTDIGITAL_FOR_WOOCOMMERCE_PLUGIN_VERSION', '1.4.6' );
 define( 'DOTDIGITAL_FOR_WOOCOMMERCE_PLUGIN_DIR_PATH', __DIR__ );
 define( 'DOTDIGITAL_FOR_WOOCOMMERCE_PUBLIC_MEDIA_PATH', plugin_dir_url( __FILE__ ) . 'public/image/' );
 
@@ -91,6 +94,8 @@ class Dotdigital_WooCommerce_Bootstrapper {
 	 * @since    1.0.0
 	 * @access   public
 	 * @var      string    $webapp_url    dotdigital URL.
+	 * @deprecated Use the constant WEBAPP_URL instead.
+	 * @see Dotdigital_WooCommerce_Config::WEBAPP_URL
 	 */
 	public static $webapp_url = 'https://login.dotdigital.com';
 
@@ -100,6 +105,8 @@ class Dotdigital_WooCommerce_Bootstrapper {
 	 * @since    1.0.0
 	 * @access   public
 	 * @var      string    $tracking_url    dotdigital tracking URL.
+	 * @deprecated Use the constant TRACKING_URL instead.
+	 * @see Dotdigital_WooCommerce_Config::TRACKING_URL
 	 */
 	public static $tracking_url = 'https://t.trackedlink.net';
 
@@ -108,7 +115,7 @@ class Dotdigital_WooCommerce_Bootstrapper {
 	 * This action is documented in includes/class-dotdigital-woocommerce-activator.php
 	 */
 	public static function activate_dotdigital_woocommerce() {
-		( new Dotdigital_WooCommerce_Activator( self::$plugin_name, self::$tracking_url, self::get_version() ) )->activate();
+		( new Dotdigital_WooCommerce_Activator( self::$plugin_name, self::get_tracking_url(), self::get_version() ) )->activate();
 	}
 
 	/**
@@ -116,7 +123,7 @@ class Dotdigital_WooCommerce_Bootstrapper {
 	 * This action is documented in includes/class-dotdigital-woocommerce-deactivator.php
 	 */
 	public static function deactivate_dotdigital_woocommerce() {
-		( new Dotdigital_WooCommerce_Deactivator( self::$plugin_name, self::$tracking_url ) )->deactivate();
+		( new Dotdigital_WooCommerce_Deactivator( self::$plugin_name, self::get_tracking_url() ) )->deactivate();
 	}
 
 	/**
@@ -133,7 +140,7 @@ class Dotdigital_WooCommerce_Bootstrapper {
 		 * The core plugin class that is used to define internationalization,
 		 * admin-specific hooks, and public-facing site hooks.
 		 */
-		( new Dotdigital_WooCommerce( self::$plugin_name, plugin_basename( __FILE__ ), self::$webapp_url, self::get_version(), self::$tracking_url ) )->run();
+		( new Dotdigital_WooCommerce( self::$plugin_name, plugin_basename( __FILE__ ), self::get_webapp_url(), self::get_version(), self::get_tracking_url() ) )->run();
 	}
 
 	/**
@@ -147,6 +154,34 @@ class Dotdigital_WooCommerce_Bootstrapper {
 		} else {
 			return '1.0.0';
 		}
+	}
+
+	/**
+	 * Get the webapp URL.
+	 *
+	 * Webapp URL can be overridden by setting DOTDIGITAL_WEBAPP_URL in wp-config.php.
+	 *
+	 * @return string
+	 */
+	private static function get_webapp_url() {
+		if ( defined( 'DOTDIGITAL_WEBAPP_URL' ) ) {
+			return constant( 'DOTDIGITAL_WEBAPP_URL' );
+		}
+		return Dotdigital_WooCommerce_Config::WEBAPP_URL;
+	}
+
+	/**
+	 * Get the tracking URL.
+	 *
+	 * Tracking URL can be overridden by setting DOTDIGITAL_TRACKING_URL in wp-config.php.
+	 *
+	 * @return string
+	 */
+	private static function get_tracking_url() {
+		if ( defined( 'DOTDIGITAL_TRACKING_URL' ) ) {
+			return constant( 'DOTDIGITAL_TRACKING_URL' );
+		}
+		return Dotdigital_WooCommerce_Config::TRACKING_URL;
 	}
 }
 
