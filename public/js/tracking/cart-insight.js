@@ -4,37 +4,44 @@
 	var data = cart_insight.data;
 
 	if (data.customer_email) {
-		window.dmPt( "identify", data.customer_email );
+		window.ddg.identify({ email: data.customer_email });
 	}
 
-	cartInsight(data);
+	cartInsight (data);
 
 	function cartInsight(data) {
 		if (!data.cart_id) {
 			return;
 		}
 
-		window.dmPt(
-			"cartInsight",
-			{
-				"programID": data.program_id,
-				"cartDelay": data.cart_delay,
-				"cartID": data.cart_id,
-				"cartPhase": data.cart_phase,
-				"currency": data.currency,
-				"subtotal": data.subtotal,
-				"shipping": data.shipping,
-				"discountAmount": data.discount_amount,
-				"taxAmount": data.tax_amount,
-				"grandTotal": data.grand_total,
-				"cartUrl": data.cart_url,
-				"lineItems": mapLineItems( data.line_items )
-			}
-		);
+		const cartData = {
+			"cartId": data.cart_id,
+			"currency": data.currency,
+			"subtotal": data.subtotal,
+			"shipping": data.shipping,
+			"discountAmount": data.discount_amount,
+			"taxAmount": data.tax_amount,
+			"grandTotal": data.grand_total,
+			"cartUrl": data.cart_url,
+			"products": mapLineItems( data.line_items )
+		}
+
+		if(data.order_id){
+			cartData.orderId = data.order_id;
+		}
+
+		if (data.cart_phase === 'ORDER_COMPLETE') {
+			window.ddg.purchaseComplete(cartData);
+		} else if (data.cart_phase === 'ORDER_CHECKOUT') {
+			window.ddg.checkout(cartData);
+		} else {
+			window.ddg.cartUpdate(cartData);
+		}
 	}
 
 	function mapBaseItem(item) {
 		return {
+			productId: item.id,
 			sku: item.sku,
 			name: item.name,
 			description: item.description,
@@ -66,7 +73,7 @@
 			success: function (response) {
 				if (response.data) {
 					if (args.email && typeof window.dmPt !== 'undefined') {
-						window.dmPt('identify', args.email);
+						window.ddg.identify({ email: args.email });
 					}
 					if (response.data.cart_id) {
 						cartInsight(response.data);

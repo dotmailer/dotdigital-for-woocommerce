@@ -27,33 +27,15 @@ class Dotdigital_WooCommerce_Cart_Insight_Handler {
 	 */
 	public function can_send_cart_insight() {
 		$cart = new Dotdigital_WooCommerce_Cart();
-		$ac_enabled = get_option( Dotdigital_WooCommerce_Config::AC_STATUS_PATH );
-		$abandoned_cart_program_id = get_option( Dotdigital_WooCommerce_Config::PROGRAM_ID_PATH, null );
 
 		/**
 		 * If we haven't got a cart_id, that means we've no user OR there are no items in the cart.
-		 * If AC is not enabled, we exit.
-		 * If we haven't got an AC program_id specified, that means we don't need to track abandoned carts.
 		 */
-		if ( empty( $cart->get_cart_id() ) || ! $ac_enabled || ! $abandoned_cart_program_id ) {
+		if ( empty( $cart->get_cart_id() ) ) {
 			return false;
 		}
 
-		$subscriber = new Dotdigital_WooCommerce_Subscriber();
-		$customer = new Dotdigital_WooCommerce_Customer();
-
-		if ( empty( $customer->get_customer_email() ) ) {
-			return true;
-		}
-
-		if ( get_option(
-			Dotdigital_WooCommerce_Config::ALLOW_NON_SUBSCRIBERS_PATH,
-			Dotdigital_WooCommerce_Config::DEFAULT_ABANDONED_CART_ALLOW_NON_SUBSCRIBERS
-		) ) {
-			return true;
-		}
-
-		return $subscriber->is_subscribed( $customer->get_customer_email() );
+		return true;
 	}
 
 	/**
@@ -84,6 +66,12 @@ class Dotdigital_WooCommerce_Cart_Insight_Handler {
 			return new Dotdigital_WooCommerce_Cart_Insight_Order_Complete( $order_id );
 		}
 
-		return new Dotdigital_WooCommerce_Cart_Insight();
+		$cart_insight = new Dotdigital_WooCommerce_Cart_Insight();
+
+		if ( is_checkout() ) {
+			$cart_insight->set_cart_phase( 'ORDER_CHECKOUT' );
+		}
+
+		return $cart_insight;
 	}
 }

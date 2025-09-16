@@ -30,12 +30,12 @@ use Dotdigital_WooCommerce\Includes\Dotdigital_WooCommerce_Config;
  */
 class Dotdigital_WooCommerce_Admin {
 
-	const GENERAL_SECTION = 'dd_woo_settings_page_general_section';
-	const SMS_MARKETING_SECTION = 'dd_woo_settings_page_sms_marketing_section';
-	const TRACKING_SECTION = 'dd_woo_settings_page_tracking_section';
+	const GENERAL_SECTION        = 'dd_woo_settings_page_general_section';
+	const SMS_MARKETING_SECTION  = 'dd_woo_settings_page_sms_marketing_section';
+	const TRACKING_SECTION       = 'dd_woo_settings_page_tracking_section';
 	const ABANDONED_CART_SECTION = 'dd_woo_settings_abandoned_cart_section';
-	const API_USERNAME_FIELD = 'dotdigital_for_woocommerce_settings_dotdigital_api_username_field';
-	const API_PASSWORD_FIELD = 'dotdigital_for_woocommerce_settings_dotdigital_api_password_field';
+	const API_USERNAME_FIELD     = 'dotdigital_for_woocommerce_settings_dotdigital_api_username_field';
+	const API_PASSWORD_FIELD     = 'dotdigital_for_woocommerce_settings_dotdigital_api_password_field';
 
 	/**
 	 * The unique identifier of this plugin.
@@ -306,7 +306,7 @@ class Dotdigital_WooCommerce_Admin {
 	 */
 	public function sms_section_subtitle( $arg ) {
 		echo '<p>' . esc_html( __( 'Choose how you gather consent for your SMS marketing subscribers.' ) ) . '</p>';
-		echo '<h2>' . esc_html( __( 'Dotdigital API' ) ) . '</h2>';
+		echo '<h3>' . esc_html( __( 'Dotdigital API' ) ) . '</h3>';
 		echo '<p>' . esc_html( __( 'SMS marketing for WooCommerce uses the Dotdigital API.' ) ) . '</p>';
 	}
 
@@ -540,10 +540,10 @@ class Dotdigital_WooCommerce_Admin {
 			$this->plugin_name . '-settings',
 			self::SMS_MARKETING_SECTION,
 			array(
-				'id' => Dotdigital_WooCommerce_Config::MARKETING_SMS_LISTS,
-				'name' => Dotdigital_WooCommerce_Config::MARKETING_SMS_LISTS,
+				'id'            => Dotdigital_WooCommerce_Config::MARKETING_SMS_LISTS,
+				'name'          => Dotdigital_WooCommerce_Config::MARKETING_SMS_LISTS,
 				'default_value' => 0,
-				'items' => $this->lists->get(),
+				'items'         => $this->lists->get(),
 			)
 		);
 
@@ -597,22 +597,6 @@ class Dotdigital_WooCommerce_Admin {
 		);
 
 		/**
-		 * Add settings field [enable site and roi tracking].
-		 */
-		add_settings_field(
-			Dotdigital_WooCommerce_Config::SITE_AND_ROI_TRACKING,
-			__( 'Enable site and ROI tracking' ),
-			array( $this, 'settings_page_render_checkbox' ),
-			$this->plugin_name . '-settings',
-			self::TRACKING_SECTION,
-			array(
-				'id'            => Dotdigital_WooCommerce_Config::SITE_AND_ROI_TRACKING,
-				'name'          => Dotdigital_WooCommerce_Config::SITE_AND_ROI_TRACKING,
-				'default_value' => Dotdigital_WooCommerce_Config::DEFAULT_SITE_AND_ROI_TRACKING_ENABLED,
-			)
-		);
-
-		/**
 		 * Add settings field [Select Region].
 		 */
 		add_settings_field(
@@ -622,10 +606,10 @@ class Dotdigital_WooCommerce_Admin {
 			$this->plugin_name . '-settings',
 			self::TRACKING_SECTION,
 			array(
-				'id' => Dotdigital_WooCommerce_Config::REGION,
-				'name' => Dotdigital_WooCommerce_Config::REGION,
+				'id'            => Dotdigital_WooCommerce_Config::REGION,
+				'name'          => Dotdigital_WooCommerce_Config::REGION,
 				'default_value' => Dotdigital_WooCommerce_Config::DEFAULT_REGION,
-				'items' => array(
+				'items'         => array(
 					'1' => 'Region 1',
 					'2' => 'Region 2',
 					'3' => 'Region 3',
@@ -634,11 +618,11 @@ class Dotdigital_WooCommerce_Admin {
 		);
 
 		/**
-		 * Add settings field [Profile Id].
+		 * Add settings field [Dotdigital Tag ID].
 		 */
 		add_settings_field(
 			Dotdigital_WooCommerce_Config::WBT_PROFILE_ID_PATH,
-			__( 'Web behavior tracking profile ID' ),
+			__( 'Dotdigital Tag ID' ),
 			array( $this, 'settings_page_render_text_input' ),
 			$this->plugin_name . '-settings',
 			self::TRACKING_SECTION,
@@ -646,6 +630,22 @@ class Dotdigital_WooCommerce_Admin {
 				'id'            => Dotdigital_WooCommerce_Config::WBT_PROFILE_ID_PATH,
 				'name'          => Dotdigital_WooCommerce_Config::WBT_PROFILE_ID_PATH,
 				'default_value' => '',
+			)
+		);
+
+		/**
+		 * Add settings field [enable roi tracking].
+		 */
+		add_settings_field(
+			Dotdigital_WooCommerce_Config::SITE_AND_ROI_TRACKING,
+			__( 'Enable ROI tracking' ),
+			array( $this, 'settings_page_render_checkbox' ),
+			$this->plugin_name . '-settings',
+			self::TRACKING_SECTION,
+			array(
+				'id'            => Dotdigital_WooCommerce_Config::SITE_AND_ROI_TRACKING,
+				'name'          => Dotdigital_WooCommerce_Config::SITE_AND_ROI_TRACKING,
+				'default_value' => Dotdigital_WooCommerce_Config::DEFAULT_SITE_AND_ROI_TRACKING_ENABLED,
 			)
 		);
 
@@ -672,14 +672,14 @@ class Dotdigital_WooCommerce_Admin {
 	 */
 	private function register_abandoned_cart_settings() {
 		/**
-		  * Add settings section for abandoned cart configurations.
-		  */
+		 * Add settings section for abandoned cart configurations.
+		 */
 		add_settings_section(
 			self::ABANDONED_CART_SECTION,
-			__( 'Abandoned carts' ),
+			__( 'Abandoned carts (deprecated, see Help Text)' ),
 			function () {
 				echo '<p>' .
-				esc_html__( 'A web behaviour tracking profile ID is required to modify these settings.', 'dotdigital-woocommerce' ) .
+				esc_html__( 'These settings have moved. Abandoned cart program selection, enrolment delay and enabling guest carts, must now be configured in your Dotdigital account. Please visit Connect > Connect website and edit the Abandoned cart settings.', 'dotdigital-woocommerce' ) .
 				'</p>';
 			},
 			$this->plugin_name . '-settings'
@@ -698,7 +698,7 @@ class Dotdigital_WooCommerce_Admin {
 				'id'            => Dotdigital_WooCommerce_Config::AC_STATUS_PATH,
 				'name'          => Dotdigital_WooCommerce_Config::AC_STATUS_PATH,
 				'default_value' => '',
-				'disabled' => $this->is_disabled_field(),
+				'disabled'      => true,
 			)
 		);
 
@@ -715,7 +715,7 @@ class Dotdigital_WooCommerce_Admin {
 				'id'            => Dotdigital_WooCommerce_Config::PROGRAM_ID_PATH,
 				'name'          => Dotdigital_WooCommerce_Config::PROGRAM_ID_PATH,
 				'default_value' => '',
-				'disabled' => $this->is_disabled_field(),
+				'disabled'      => true,
 			)
 		);
 
@@ -732,7 +732,7 @@ class Dotdigital_WooCommerce_Admin {
 				'id'            => Dotdigital_WooCommerce_Config::CART_DELAY_PATH,
 				'name'          => Dotdigital_WooCommerce_Config::CART_DELAY_PATH,
 				'default_value' => '',
-				'disabled' => $this->is_disabled_field(),
+				'disabled'      => true,
 			)
 		);
 
@@ -749,7 +749,7 @@ class Dotdigital_WooCommerce_Admin {
 				'id'            => Dotdigital_WooCommerce_Config::ALLOW_NON_SUBSCRIBERS_PATH,
 				'name'          => Dotdigital_WooCommerce_Config::ALLOW_NON_SUBSCRIBERS_PATH,
 				'default_value' => '',
-				'disabled' => $this->is_disabled_field(),
+				'disabled'      => true,
 			)
 		);
 

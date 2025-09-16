@@ -218,15 +218,21 @@ class Dotdigital_WooCommerce_Public {
 			Dotdigital_WooCommerce_Config::WBT_PROFILE_ID_PATH
 		);
 
-		if ( ! $wbt_profile_id ) {
+		$region = get_option(
+			Dotdigital_WooCommerce_Config::REGION
+		);
+
+		if ( ! $wbt_profile_id || ! $region ) {
 			return;
 		}
 
+		wp_enqueue_script( 'wbt-dd-tag', plugin_dir_url( __FILE__ ) . 'js/tracking/dd-tag.js', array(), $this->version, true );
 		wp_enqueue_script( 'wbt', plugin_dir_url( __FILE__ ) . 'js/tracking/web-behaviour-tracking.js', array(), $this->version, true );
 		wp_localize_script(
 			'wbt',
 			'wbt_data',
 			array(
+				'region'     => $region,
 				'profile_id' => $wbt_profile_id,
 			)
 		);
@@ -261,17 +267,17 @@ class Dotdigital_WooCommerce_Public {
 			'dotdigital_woocommerce_public_js',
 			'dotdigital_intl',
 			array(
-				'plugin_name' => $this->plugin_name,
+				'plugin_name'       => $this->plugin_name,
 				'allowed_countries' => WC()->countries->get_allowed_countries(),
-				'default_country' => WC()->countries->get_base_country(),
-				'utils_script' => plugin_dir_url( __FILE__ ) . 'js/dotdigital-woocommerce-public-intl-utils.min.js',
-				'error_messages' => apply_filters(
+				'default_country'   => WC()->countries->get_base_country(),
+				'utils_script'      => plugin_dir_url( __FILE__ ) . 'js/dotdigital-woocommerce-public-intl-utils.min.js',
+				'error_messages'    => apply_filters(
 					'dotdigital_woocommerce_intl_error_map',
 					array(
-						'invalid_phone' => __( 'Invalid phone number', 'dotdigital-for-woocommerce' ),
+						'invalid_phone'        => __( 'Invalid phone number', 'dotdigital-for-woocommerce' ),
 						'invalid_country_code' => __( 'Invalid country code', 'dotdigital-for-woocommerce' ),
-						'invalid_to_short' => __( 'Invalid phone number, too short', 'dotdigital-for-woocommerce' ),
-						'invalid_too_long' => __( 'Invalid phone number, too long', 'dotdigital-for-woocommerce' ),
+						'invalid_to_short'     => __( 'Invalid phone number, too short', 'dotdigital-for-woocommerce' ),
+						'invalid_too_long'     => __( 'Invalid phone number, too long', 'dotdigital-for-woocommerce' ),
 					)
 				),
 			)
