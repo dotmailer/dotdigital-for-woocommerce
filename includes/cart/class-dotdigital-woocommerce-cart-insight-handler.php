@@ -68,10 +68,37 @@ class Dotdigital_WooCommerce_Cart_Insight_Handler {
 
 		$cart_insight = new Dotdigital_WooCommerce_Cart_Insight();
 
-		if ( is_checkout() ) {
+		if ( is_checkout() || $this->is_ajax_from_checkout() ) {
 			$cart_insight->set_cart_phase( 'ORDER_CHECKOUT' );
 		}
 
 		return $cart_insight;
+	}
+
+	/**
+	 * Check if current AJAX request originated from checkout page.
+	 *
+	 * @return bool
+	 */
+	private function is_ajax_from_checkout() {
+		if ( ! wp_doing_ajax() ) {
+			return false;
+		}
+
+		$referer = isset( $_SERVER['HTTP_REFERER'] ) ? esc_url_raw( wp_unslash( $_SERVER['HTTP_REFERER'] ) ) : '';
+
+		if ( empty( $referer ) ) {
+			return false;
+		}
+
+		$checkout_url       = wc_get_checkout_url();
+		$checkout_url_parts = parse_url( $checkout_url );
+		$referer_parts      = parse_url( $referer );
+
+		if ( isset( $checkout_url_parts['path'] ) && isset( $referer_parts['path'] ) ) {
+			return strpos( $referer_parts['path'], $checkout_url_parts['path'] ) !== false;
+		}
+
+		return false;
 	}
 }

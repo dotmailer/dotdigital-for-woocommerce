@@ -16,6 +16,7 @@
 
 		const cartData = {
 			"cartId": data.cart_id,
+			"cartPhase": data.cart_phase,
 			"currency": data.currency,
 			"subtotal": data.subtotal,
 			"shipping": data.shipping,
@@ -85,7 +86,7 @@
 
 	$(function() {
 		$( document.body ).on(
-			'added_to_cart removed_from_cart updated_cart_totals',
+			'added_to_cart removed_from_cart updated_cart_totals wc-blocks_added_to_cart wc-blocks_removed_from_cart',
 			function() {
 				ajaxRefreshCartInsight({
 					action: 'update_cart'
@@ -95,7 +96,7 @@
 
 		$( document.body ).on(
 			'blur',
-			'input#dd-email, input#billing_email',
+			'input#dd-email, input#billing_email, .wc-block-components-address-form input#email',
 			function() {
 				ajaxRefreshCartInsight({
 					action: 'update_session',
