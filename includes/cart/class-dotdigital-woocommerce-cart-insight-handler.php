@@ -85,20 +85,10 @@ class Dotdigital_WooCommerce_Cart_Insight_Handler {
 			return false;
 		}
 
-		$referer = isset( $_SERVER['HTTP_REFERER'] ) ? esc_url_raw( wp_unslash( $_SERVER['HTTP_REFERER'] ) ) : '';
+		// WordPress.Security.NonceVerification.Missing is acceptable for AJAX action checking.
+        // phpcs:ignore WordPress.Security.NonceVerification.Missing
+		$action = isset( $_POST['action'] ) ? sanitize_text_field( wp_unslash( $_POST['action'] ) ) : '';
 
-		if ( empty( $referer ) ) {
-			return false;
-		}
-
-		$checkout_url       = wc_get_checkout_url();
-		$checkout_url_parts = parse_url( $checkout_url );
-		$referer_parts      = parse_url( $referer );
-
-		if ( isset( $checkout_url_parts['path'] ) && isset( $referer_parts['path'] ) ) {
-			return strpos( $referer_parts['path'], $checkout_url_parts['path'] ) !== false;
-		}
-
-		return false;
+		return 'update_session' === $action;
 	}
 }
