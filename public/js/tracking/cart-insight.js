@@ -85,14 +85,35 @@
 	}
 
 	$(function() {
+
 		$( document.body ).on(
-			'added_to_cart removed_from_cart updated_cart_totals wc-blocks_added_to_cart wc-blocks_removed_from_cart',
-			function() {
+			'added_to_cart removed_from_cart updated_checkout updated_cart_totals wc_cart_emptied cart_page_refreshed cart_totals_refreshed',
+			function(e) {
 				ajaxRefreshCartInsight({
 					action: 'update_cart'
 				});
 			}
 		);
+
+		$( document.body ).on(
+			'wc-blocks_added_to_cart wc-blocks_removed_from_cart',
+			function(e) {
+				ajaxRefreshCartInsight({
+					action: 'update_cart'
+				});
+			}
+		);
+
+		// WooCommerce Blocks - Cart page events
+		if (typeof wp !== 'undefined' && wp.hooks) {
+			wp.hooks.addAction('experimental__woocommerce_blocks-cart-set-item-quantity', 'cart-insight', function() {
+				ajaxRefreshCartInsight({ action: 'update_cart' });
+			});
+
+			wp.hooks.addAction('experimental__woocommerce_blocks-cart-remove-item', 'cart-insight', function() {
+				ajaxRefreshCartInsight({ action: 'update_cart' });
+			});
+		}
 
 		$( document.body ).on(
 			'blur',
