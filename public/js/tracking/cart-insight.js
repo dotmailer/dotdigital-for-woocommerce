@@ -87,7 +87,7 @@
 	$(function() {
 
 		$( document.body ).on(
-			'added_to_cart removed_from_cart updated_checkout updated_cart_totals wc_cart_emptied cart_page_refreshed cart_totals_refreshed',
+			'added_to_cart removed_from_cart updated_cart_totals wc_cart_emptied cart_page_refreshed cart_totals_refreshed',
 			function(e) {
 				ajaxRefreshCartInsight({
 					action: 'update_cart'
