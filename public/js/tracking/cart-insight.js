@@ -51,7 +51,7 @@
 			salePrice: item.sale_price,
 			quantity: item.quantity,
 			totalPrice: item.total_price,
-			totalPrice_incl_tax: item.total_price_incl_tax,
+			totalPriceInclTax: item.total_price_incl_tax,
 			imageUrl: item.image_url,
 			productUrl: item.product_url
 		};
