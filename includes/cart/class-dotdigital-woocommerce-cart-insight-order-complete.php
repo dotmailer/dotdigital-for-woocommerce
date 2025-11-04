@@ -33,15 +33,7 @@ class Dotdigital_WooCommerce_Cart_Insight_Order_Complete extends Dotdigital_WooC
 	 */
 	public function __construct( int $order_id ) {
 		$this->order = wc_get_order( $order_id );
-	}
-
-	/**
-	 * Set the cart_phase.
-	 *
-	 * @return string
-	 */
-	protected function get_cart_phase() {
-		return 'ORDER_COMPLETE';
+		$this->set_cart_phase( 'ORDER_COMPLETE' );
 	}
 
 	/**
@@ -96,5 +88,17 @@ class Dotdigital_WooCommerce_Cart_Insight_Order_Complete extends Dotdigital_WooC
 	 */
 	protected function get_line_items() {
 		return $this->order->get_data()['line_items'];
+	}
+
+	/**
+	 * Modify payload data.
+	 *
+	 * @param array $data The payload data.
+	 *
+	 * @return array
+	 */
+	protected function modify_payload( $data ) {
+		$data['order_id'] = (string) $this->order->get_id();
+		return $data;
 	}
 }

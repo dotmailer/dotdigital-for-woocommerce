@@ -22,6 +22,13 @@ use Dotdigital_WooCommerce\Includes\Image\Dotdigital_WooCommerce_Image;
 class Dotdigital_WooCommerce_Cart_Insight {
 
 	/**
+	 * Cart phase.
+	 *
+	 * @var string
+	 */
+	private $cart_phase = 'CUSTOMER_LOGIN';
+
+	/**
 	 * Return an array of data to be consumed by cart-insight.js
 	 *
 	 * @return array
@@ -33,15 +40,13 @@ class Dotdigital_WooCommerce_Cart_Insight {
 			return array();
 		}
 
-		$dd_cart = new Dotdigital_WooCommerce_Cart();
-		$customer = new Dotdigital_WooCommerce_Customer();
+		$dd_cart                                = new Dotdigital_WooCommerce_Cart();
+		$customer                               = new Dotdigital_WooCommerce_Customer();
 		$dotdigital_woocommerce_category_helper = new Dotdigital_WooCommerce_Category();
-		$image_finder = new Dotdigital_WooCommerce_Image();
+		$image_finder                           = new Dotdigital_WooCommerce_Image();
 
 		$data = array(
 			'customer_email'  => $customer->get_customer_email(),
-			'program_id'      => $this->get_program_id(),
-			'cart_delay'      => $this->get_cart_delay(),
 			'cart_id'         => $dd_cart->get_cart_id(),
 			'cart_phase'      => $this->get_cart_phase(),
 			'currency'        => get_woocommerce_currency(),
@@ -53,6 +58,8 @@ class Dotdigital_WooCommerce_Cart_Insight {
 			'cart_url'        => wc_get_cart_url(),
 		);
 
+		$data = $this->modify_payload( $data );
+
 		$line_items = array();
 
 		foreach ( $this->get_line_items() as $cart_item ) {
@@ -63,15 +70,16 @@ class Dotdigital_WooCommerce_Cart_Insight {
 			}
 
 			$line_item_data = array(
-				'sku'         => $product->get_sku(),
-				'name'        => $product->get_name(),
-				'description' => $product->get_short_description(),
-				'category'    => $dotdigital_woocommerce_category_helper->get_product_categories( $product->get_id() ),
-				'quantity'    => $cart_item['quantity'],
-				'total_price' => round( $cart_item['line_total'], 2 ),
+				'id'                   => (string) $product->get_id(),
+				'sku'                  => $product->get_sku(),
+				'name'                 => $product->get_name(),
+				'description'          => $product->get_short_description(),
+				'categories'           => $dotdigital_woocommerce_category_helper->get_product_categories( $product->get_id() ),
+				'quantity'             => $cart_item['quantity'],
+				'total_price'          => round( $cart_item['line_total'], 2 ),
 				'total_price_incl_tax' => round( $cart_item['line_total'] + $cart_item['line_tax'], 2 ),
-				'image_url'   => $image_finder->get_product_image_url( $product ),
-				'product_url' => get_permalink( $product->get_id() ),
+				'image_url'            => $image_finder->get_product_image_url( $product ),
+				'product_url'          => get_permalink( $product->get_id() ),
 			);
 
 			if ( 'variable' === $product->get_type() ) {
@@ -94,30 +102,34 @@ class Dotdigital_WooCommerce_Cart_Insight {
 	}
 
 	/**
-	 * Get the stored program_id option.
+	 * Modify payload data.
+	 * Override in subclasses to add additional data to the payload.
 	 *
-	 * @return int
+	 * @param array $data The base payload data.
+	 * @return array The extended payload data.
 	 */
-	private function get_program_id() {
-		return (int) get_option( Dotdigital_WooCommerce_Config::PROGRAM_ID_PATH, 0 );
-	}
-
-	/**
-	 * Get the stored cart_delay option.
-	 *
-	 * @return int
-	 */
-	private function get_cart_delay() {
-		return (int) get_option( Dotdigital_WooCommerce_Config::CART_DELAY_PATH, 0 );
+	protected function modify_payload( $data ) {
+		return $data;
 	}
 
 	/**
 	 * Set the cart_phase.
 	 *
+	 * @param string $cart_phase The cart phase.
+	 *
+	 * @return void
+	 */
+	public function set_cart_phase( $cart_phase ) {
+		$this->cart_phase = $cart_phase;
+	}
+
+	/**
+	 * Get the cart_phase.
+	 *
 	 * @return string
 	 */
 	protected function get_cart_phase() {
-		return 'CUSTOMER_LOGIN';
+		return $this->cart_phase;
 	}
 
 	/**

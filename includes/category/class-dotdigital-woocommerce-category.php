@@ -20,20 +20,20 @@ class Dotdigital_WooCommerce_Category {
 	 * Returns the product categories.
 	 *
 	 * @param int $product_id The current product id.
-	 * @return string
+	 * @return array
 	 */
 	public function get_product_categories( $product_id ) {
 		$categories = array();
 		$wc_terms  = get_the_terms( $product_id, 'product_cat' );
 
 		if ( ! $wc_terms ) {
-			return '';
+			return $categories;
 		}
 
 		foreach ( $wc_terms as $wc_term ) {
 			$categories[] = $wc_term->name;
 		}
 
-		return implode( ',', $categories );
+		return $categories;
 	}
 }

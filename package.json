@@ -1,9 +1,9 @@
 {
   "devDependencies": {
-    "@babel/traverse": "^7.24.1",
+    "@babel/traverse": "^7.24.5",
     "@bigbite/wp-cypress": "^0.13",
     "@wordpress/eslint-plugin": "^17.0",
-    "cypress": "^9.5.0",
+    "cypress": "^13.0.0",
     "eslint": "^9.0.0"
   },
   "scripts": {
@@ -13,5 +13,31 @@
     "eslint:admin:fix": "eslint --config .eslintrc admin/js/ --fix ",
     "eslint": "yarn run eslint:public && yarn run eslint:admin",
     "eslint:fix": "yarn run eslint:public:fix && yarn run eslint:admin:fix"
+  },
+  "dependencies": {
+    "@babel/helpers": "^7.26.10",
+    "@babel/runtime": "^7.26.10",
+    "@cypress/request": "^3.0.8",
+    "brace-expansion": "^2.0.2",
+    "braces": "^3.0.3",
+    "cross-spawn": "^7.0.5",
+    "ejs": "^3.1.10",
+    "form-data": "^2.5.4",
+    "micromatch": "^4.0.8"
+  },
+  "resolutions": {
+    "form-data": "^2.5.4"
+  },
+  "overrides": {
+    "@cypress/request": "^3.0.8",
+    "@bigbite/wp-cypress": {
+      "@babel/runtime": "^7.26.10",
+      "brace-expansion": "^2.0.2",
+      "braces": "^3.0.3",
+      "cross-spawn": "^7.0.5",
+      "ejs": "^3.1.10",
+      "form-data": "^2.5.4",
+      "micromatch": "^4.0.8"
+    }
   }
 }

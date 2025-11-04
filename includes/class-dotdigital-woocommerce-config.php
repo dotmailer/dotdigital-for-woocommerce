@@ -18,7 +18,7 @@ namespace Dotdigital_WooCommerce\Includes;
 class Dotdigital_WooCommerce_Config {
 
 	const TRACKING_URL = 'https://t.trackedlink.net';
-
+	const WEBAPP_URL = 'https://login.dotdigital.com';
 	const API_ENDPOINT = 'https://r1-api.dotdigital.com';
 
 	/**
