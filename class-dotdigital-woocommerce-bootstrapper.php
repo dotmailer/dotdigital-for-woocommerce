@@ -14,7 +14,7 @@
  * @wordpress-plugin
  * Plugin Name:          Dotdigital for WooCommerce
  * Description:          Connect your WooCommerce store to dotdigital and put customer, subscriber, product and order data at your fingertips.
- * Version:              1.4.6
+ * Version:              2.0.0
  * Requires PHP:         7.4
  * Requires at least:    5.7
  * Author:               dotdigital
@@ -64,7 +64,7 @@ use Dotdigital_WooCommerce\Includes\Dotdigital_WooCommerce_Activator;
 use Dotdigital_WooCommerce\Includes\Dotdigital_WooCommerce_Config;
 
 define( 'DOTDIGITAL_FOR_WOOCOMMERCE_PLUGIN_NAME', 'dotdigital-for-woocommerce' );
-define( 'DOTDIGITAL_FOR_WOOCOMMERCE_PLUGIN_VERSION', '1.4.6' );
+define( 'DOTDIGITAL_FOR_WOOCOMMERCE_PLUGIN_VERSION', '2.0.0' );
 define( 'DOTDIGITAL_FOR_WOOCOMMERCE_PLUGIN_DIR_PATH', __DIR__ );
 define( 'DOTDIGITAL_FOR_WOOCOMMERCE_PUBLIC_MEDIA_PATH', plugin_dir_url( __FILE__ ) . 'public/image/' );
 

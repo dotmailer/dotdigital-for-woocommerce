@@ -1,7 +1,7 @@
 === Dotdigital for WooCommerce ===
 Contributors: dotMailer, amucklow, fstrezos, pvpcookie
 Tested up to: 6.8
-Stable tag: 1.4.6
+Stable tag: 2.0.0
 License: MIT
 License URI: https://opensource.org/licenses/MIT
 
@@ -65,6 +65,17 @@ The store should now be connected and Dotdigital will start syncing customer dat
 For more detailed information on installation, please see our <a href="https://support.dotdigital.com/hc/en-gb/categories/201643998-Integrations">support documentation</a>.
 
 == Changelog ==
+
+= 2.0.0 =
+
+**What’s new**
+- We have implemented the Dotdigital Tag for unified page tracking, web behavior tracking, abandoned carts and abandoned browse.
+
+**Improvements**
+- We updated the plugin’s JS dependencies.
+
+**Notes**
+- Merchants must re-configure abandoned cart behaviour in Dotdigital with this release.
 
 = 1.4.6 =
 
