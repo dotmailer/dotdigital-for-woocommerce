@@ -55,9 +55,9 @@ class Dotdigital_WooCommerce_Checkout_Marketing_Checkbox {
 	 * @param int $order_id The processed order ID.
 	 */
 	public function handle_submit( $order_id ) {
-		$accepts_marketing = 0;
-		if ( isset( $_POST[ Dotdigital_WooCommerce_Config::FORM_FIELD_MARKETING_CHECKBOX_NAME ] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Missing
-			$accepts_marketing = 1;
+
+		if ( ! isset( $_POST[ Dotdigital_WooCommerce_Config::FORM_FIELD_MARKETING_CHECKBOX_NAME ] ) ) { //phpcs:ignore WordPress.Security.NonceVerification.Missing
+			return;
 		}
 
 		$order = wc_get_order( $order_id );
@@ -65,17 +65,12 @@ class Dotdigital_WooCommerce_Checkout_Marketing_Checkbox {
 			return;
 		}
 
-		// For guest orders with no subscription, we can exit here.
-		if ( ! $accepts_marketing && ! $order->get_customer_id() ) {
-			return;
-		}
-
 		$data = array(
 			'user_id'    => $order->get_customer_id(),
 			'email'      => $order->get_billing_email(),
-			'status'     => $accepts_marketing,
 			'first_name' => $order->get_billing_first_name(),
 			'last_name'  => $order->get_billing_last_name(),
+			'status'     => 1,
 		);
 
 		$subscriber = new Dotdigital_WooCommerce_Subscriber();
