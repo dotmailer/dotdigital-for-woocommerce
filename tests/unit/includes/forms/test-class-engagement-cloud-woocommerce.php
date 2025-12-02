@@ -24,7 +24,7 @@ class Dotdigital_WooCommerce_Test extends PluginTestCase {
 		$wpdb->prefix = 'chaz_';
 
 		$order_id = 1;
-		$_POST    = array( 'dotdigital_woocommerce_checkbox' => true );
+		$_POST    = array( 'dotdigital_woocommerce_marketing_checkbox' => true );
 
 		$wc_order_mock = \Mockery::mock( 'WC_Order' );
 
@@ -63,7 +63,7 @@ class Dotdigital_WooCommerce_Test extends PluginTestCase {
 		$wpdb->prefix = 'chaz_';
 
 		$order_id = 1;
-		$_POST    = array( 'dotdigital_woocommerce_checkbox' => true );
+		$_POST    = array( 'dotdigital_woocommerce_marketing_checkbox' => true );
 
 		$wc_order_mock = \Mockery::mock( 'WC_Order' );
 
