@@ -1,7 +1,7 @@
 === Dotdigital for WooCommerce ===
 Contributors: dotMailer, amucklow, fstrezos, pvpcookie
 Tested up to: 6.8
-Stable tag: 2.0.0
+Stable tag: 2.1.0
 License: MIT
 License URI: https://opensource.org/licenses/MIT
 
@@ -65,6 +65,11 @@ The store should now be connected and Dotdigital will start syncing customer dat
 For more detailed information on installation, please see our <a href="https://support.dotdigital.com/hc/en-gb/categories/201643998-Integrations">support documentation</a>.
 
 == Changelog ==
+
+= 2.1.0 =
+
+**Improvements**
+- Customers who do not opt in to marketing emails at checkout will now not be unsubscribed from a list.
 
 = 2.0.0 =
 
