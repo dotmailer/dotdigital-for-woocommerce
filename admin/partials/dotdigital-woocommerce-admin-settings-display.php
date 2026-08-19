@@ -9,6 +9,10 @@
  * @subpackage Dotdigital_WooCommerce/admin/partials
  */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 ?>
 <div class="wrap">
 	<div id="icon-dotdigital" class="icon32"></div>

@@ -14,14 +14,14 @@
  * @wordpress-plugin
  * Plugin Name:          Dotdigital for WooCommerce
  * Description:          Connect your WooCommerce store to dotdigital and put customer, subscriber, product and order data at your fingertips.
- * Version:              2.1.0
+ * Version:              2.2.0
  * Requires PHP:         7.4
  * Requires at least:    5.7
  * Author:               dotdigital
  * Author URI:           https://www.dotdigital.com/
  * License:              MIT
  * License URI:          https://opensource.org/licenses/MIT
- * Text Domain:          dotdigital-woocommerce
+ * Text Domain:          dotdigital-for-woocommerce
  * Domain Path:          /languages
  * WC requires at least: 6.0.0
  * WC tested up to:      10.0.0
@@ -51,6 +51,10 @@
 
 namespace Dotdigital_WooCommerce;
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 // If this file is called directly, abort.
 if ( ! defined( 'WPINC' ) ) {
 	die;
@@ -64,9 +68,10 @@ use Dotdigital_WooCommerce\Includes\Dotdigital_WooCommerce_Activator;
 use Dotdigital_WooCommerce\Includes\Dotdigital_WooCommerce_Config;
 
 define( 'DOTDIGITAL_FOR_WOOCOMMERCE_PLUGIN_NAME', 'dotdigital-for-woocommerce' );
-define( 'DOTDIGITAL_FOR_WOOCOMMERCE_PLUGIN_VERSION', '2.1.0' );
+define( 'DOTDIGITAL_FOR_WOOCOMMERCE_PLUGIN_VERSION', '2.2.0' );
 define( 'DOTDIGITAL_FOR_WOOCOMMERCE_PLUGIN_DIR_PATH', __DIR__ );
 define( 'DOTDIGITAL_FOR_WOOCOMMERCE_PUBLIC_MEDIA_PATH', plugin_dir_url( __FILE__ ) . 'public/image/' );
+define( 'DOTDIGITAL_FOR_WOOCOMMERCE_PLUGIN_ICON', 'PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyBpZD0iQ2FwYV8xIiBkYXRhLW5hbWU9IkNhcGEgMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2aWV3Qm94PSIwIDAgNjgyIDY4MiI+CiAgPGRlZnM+CiAgICA8c3R5bGU+CiAgICAgIC5jbHMtMSB7CiAgICAgICAgZmlsbDogI2ZmZjsKICAgICAgfQogICAgPC9zdHlsZT4KICA8L2RlZnM+CiAgPHBhdGggY2xhc3M9ImNscy0xIiBkPSJNMjAwLjk0LDI2NS43OWMzNS44MiwwLDY0Ljg2LTI5LjA0LDY0Ljg2LTY0Ljg2cy0yOS4wNC02NC44Ni02NC44Ni02NC44NiwyOS4wNC02NC44Niw2NC44NiwyOS4wNCw2NC44Niw2NC44Niw2NC44NloiLz4KICA8cGF0aCBjbGFzcz0iY2xzLTEiIGQ9Ik01MzUuOTIsMjY2LjE5Yy0xMC44NywwLTI3Ljc4LDE2Ljg4LTQzLjI2LDQxLjQ0LTEuMTcsMS44NS0zLjIyLDMuMDMtNS40MywzLjAzLTQuMzksMC03LjQ4LTQuMzYtNi4wMi04LjUyLDIxLjkyLTYxLjk3LDIzLjI5LTEwNy41LjgxLTEwNy41LTE4LjgsMC00OS4zOCwzMS45NC03OC4zMyw3OC43NS0xLjMsMi4xMS0zLjYxLDMuNDItNi4wOCwzLjQyLTQuODUsMC04LjI5LTQuNzUtNi44LTkuMzQsMjQuODItNzYuODMsMjUuNDctMTMxLjM4LTIuMjQtMTMxLjM4LTM1Ljk0LDAtMTA1LjkxLDkxLjc2LTE1Ni4zLDIwNC45Mi01MC4zOSwxMTMuMTYtNjIuMTMsMjA0LjkzLTI2LjE4LDIwNC45MywyOS40LDAsODEuNTgtNjEuNDQsMTI3LjE4LTE0NS43OSwxLjA3LTEuOTgsMy4xMi0zLjIyLDUuNC0zLjIyLDQuMDcsMCw2Ljk5LDMuOSw1Ljg5LDcuODEtMTMuODksNDguODktMTIuMiw4Mi42NSw3LjEyLDgyLjY1LDIyLjAyLDAsNjAuMTEtNDMuNzgsOTIuOTYtMTAzLjg5LDEuNDMtMi42Myw0LjIzLTQuMzMsNy4yMi00LjMzLDUuMDQsMCw4Ljg1LDQuNDksOC4xMyw5LjQ2LTIuMzEsMTYuNTkuNjUsMjcuMTksOS4yNywyNy4xOSwxNS4yOSwwLDQyLjYxLTMzLjUsNjEuMDItNzQuODEsMTguNDEtNDEuMzEsMjAuOTEtNzQuODEsNS41OS03NC44MWguMDNaIi8+Cjwvc3ZnPgo=' );
 
 /**
  * Used to bootstrap the dotdigital plugin.

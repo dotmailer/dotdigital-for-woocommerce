@@ -66,7 +66,7 @@ class Dotdigital_WooCommerce_Cart_Insight {
 			$product = wc_get_product( $cart_item['product_id'] );
 			if ( ! $product ) {
 				/* translators: placeholder = the product id */
-				throw new \Exception( sprintf( __( 'Product id %s not found, invalid payload for cart insight.', 'dotdigital-woocommerce' ), $cart_item['product_id'] ) ); // phpcs:ignore WordPress.Security.EscapeOutput
+				throw new \Exception( sprintf( __( 'Product id %s not found, invalid payload for cart insight.', 'dotdigital-for-woocommerce' ), $cart_item['product_id'] ) ); // phpcs:ignore WordPress.Security.EscapeOutput
 			}
 
 			$line_item_data = array(
@@ -86,7 +86,7 @@ class Dotdigital_WooCommerce_Cart_Insight {
 				$product = wc_get_product( $cart_item['variation_id'] );
 				if ( ! $product ) {
 					/* translators: placeholder = the product variation id */
-					throw new \Exception( sprintf( __( 'Product id %s not found for variation, invalid payload for cart insight.', 'dotdigital-woocommerce' ), $cart_item['variation_id'] ) ); // phpcs:ignore WordPress.Security.EscapeOutput
+					throw new \Exception( sprintf( __( 'Product id %s not found for variation, invalid payload for cart insight.', 'dotdigital-for-woocommerce' ), $cart_item['variation_id'] ) ); // phpcs:ignore WordPress.Security.EscapeOutput
 				}
 			}
 

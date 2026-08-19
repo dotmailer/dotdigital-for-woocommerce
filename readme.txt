@@ -1,7 +1,7 @@
 === Dotdigital for WooCommerce ===
 Contributors: dotMailer, amucklow, fstrezos, pvpcookie
-Tested up to: 6.8
-Stable tag: 2.1.0
+Tested up to: 7.0
+Stable tag: 2.2.0
 License: MIT
 License URI: https://opensource.org/licenses/MIT
 
@@ -65,6 +65,12 @@ The store should now be connected and Dotdigital will start syncing customer dat
 For more detailed information on installation, please see our <a href="https://support.dotdigital.com/hc/en-gb/categories/201643998-Integrations">support documentation</a>.
 
 == Changelog ==
+
+= 2.2.0 =
+
+**What's new**
+- We updated various assets in line with Dotdigital's recent rebrand.
+- We audited the plugin using WordPress' Plugin Check (PCP) tool.
 
 = 2.1.0 =
 
