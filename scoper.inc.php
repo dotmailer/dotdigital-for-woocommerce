@@ -13,7 +13,7 @@ return [
 		Finder::create()
 			->files()
 			->ignoreVCS( true )
-			->notName( '/.*\\.md|.*\\.dist|.*\\.json|.*\\.lock|scoper\\.inc\\.php|.*\\.phar/' )
+			->notName( '/.*\\.md|.*\\.dist|.*\\.json|.*\\.lock|scoper\\.inc\\.php|.*\\.phar|.*cypress\\.config\\.js/' )
 			->exclude( [
 				'bin',
 				'docs',
